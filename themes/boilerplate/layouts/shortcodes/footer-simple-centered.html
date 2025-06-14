@@ -1,0 +1,50 @@
+{{- /*
+  Usage in markdown:
+  {{< footer-simple-centered 
+    bgColor="bg-white" 
+    linkColor="text-gray-600" 
+    linkHoverColor="text-gray-900" 
+    socialLinkColor="text-gray-500" 
+    socialLinkHoverColor="text-gray-700" 
+    copyrightText="&copy; 2025 Your Company, Inc. All rights reserved." 
+    copyrightColor="text-gray-500" 
+    showSocial="true" 
+  >}}
+  
+  Parameters:
+  1. bgColor: Background color class for the footer
+  2. linkColor: Text color class for navigation links
+  3. linkHoverColor: Text color class for navigation links on hover
+  4. socialLinkColor: Text color class for social media links
+  5. socialLinkHoverColor: Text color class for social media links on hover
+  6. copyrightText: Copyright text (HTML is supported)
+  7. copyrightColor: Text color class for copyright text
+  8. showSocial: Whether to show social media links (true/false)
+*/ -}}
+
+{{/* Simple Centered Footer Shortcode */}}
+{{ $bgColor := .Get "bgColor" | default "bg-white" }}
+{{ $linkColor := .Get "linkColor" | default "text-gray-600" }}
+{{ $linkHoverColor := .Get "linkHoverColor" | default "text-gray-900" }}
+{{ $socialLinkColor := .Get "socialLinkColor" | default "text-gray-500" }}
+{{ $socialLinkHoverColor := .Get "socialLinkHoverColor" | default "text-gray-700" }}
+{{ $copyrightText := .Get "copyrightText" | default "&copy; 2025 Your Company, Inc. All rights reserved." }}
+{{ $copyrightColor := .Get "copyrightColor" | default "text-gray-500" }}
+{{ $showSocial := .Get "showSocial" | default "true" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default navigation and social links from the partial.
+  In a real-world implementation, you might want to allow passing in custom links
+  through a structured data file.
+*/}}
+
+{{ partial "footers/simple_centered.html" (dict 
+  "bgColor" $bgColor
+  "linkColor" $linkColor
+  "linkHoverColor" $linkHoverColor
+  "socialLinkColor" $socialLinkColor
+  "socialLinkHoverColor" $socialLinkHoverColor
+  "copyrightText" $copyrightText
+  "copyrightColor" $copyrightColor
+  "showSocial" (eq $showSocial "true")
+) }}

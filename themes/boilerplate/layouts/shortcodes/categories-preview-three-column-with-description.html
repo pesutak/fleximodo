@@ -1,0 +1,80 @@
+{{/* 
+  Categories shortcode with preview three-column with description
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Shop by Collection")
+  - description: Description text below the main heading (default: "Each season, we collaborate with world-class designers to create a collection inspired by the natural world.")
+  
+  Inner Content (optional JSON array):
+  - Array of category objects with the following structure:
+    - title: Category title
+    - description: Category description
+    - url: URL for the category link
+    - imageUrl: URL to category image
+    - imageAlt: Alt text for category image
+  
+  Example usage with custom categories:
+  {{< categories-preview-three-column-with-description heading="Our Collections" >}}
+    [
+      {
+        "title": "Summer Collection",
+        "description": "Light and breathable styles for warm days.",
+        "url": "/collections/summer",
+        "imageUrl": "/images/collections/summer.jpg",
+        "imageAlt": "Model wearing light summer clothing"
+      },
+      {
+        "title": "Winter Essentials",
+        "description": "Stay warm with our premium cold weather gear.",
+        "url": "/collections/winter",
+        "imageUrl": "/images/collections/winter.jpg",
+        "imageAlt": "Winter collection featuring woolen accessories"
+      }
+    ]
+  {{< /categories-preview-three-column-with-description >}}
+  
+  If no inner content is provided, default categories will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Shop by Collection" }}
+{{ $description := .Get "description" | default "Each season, we collaborate with world-class designers to create a collection inspired by the natural world." }}
+
+{{ $defaultCategories := slice 
+  (dict 
+    "title" "Handcrafted Collection"
+    "description" "Keep your phone, keys, and wallet together, so you can lose everything at once."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-01.jpg"
+    "imageAlt" "Brown leather key ring with brass metal loops and rivets on wood table."
+  )
+  (dict 
+    "title" "Organized Desk Collection"
+    "description" "The rest of the house will still be a mess, but your desk will look great."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-02.jpg"
+    "imageAlt" "Natural leather mouse pad on white desk next to porcelain mug and keyboard."
+  )
+  (dict 
+    "title" "Focus Collection"
+    "description" "Be more productive than enterprise project managers with a single piece of paper."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-03.jpg"
+    "imageAlt" "Person placing task list card into walnut card holder next to felt carrying case on leather desk pad."
+  )
+}}
+
+{{ $categories := $defaultCategories }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $categories = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "categories/preview_three_column_with_description.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "categories" $categories
+) }}

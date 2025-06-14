@@ -1,0 +1,51 @@
+{{/*
+@shortcode: lazyvideo
+@description: Shortcode for displaying videos with lazy loading. Automatically detects YouTube URLs and uses appropriate rendering.
+@params:
+  - src: Video URL (required, can be first positional parameter)
+  - title: Video title for accessibility (optional)
+  - alt: Alternative text for accessibility (optional)
+  - class: Additional CSS classes (optional)
+  - width: Video width (optional)
+  - height: Video height (optional)
+  - id: Optional ID attribute (optional)
+  - autoplay: Enable autoplay (optional, "true" or "false")
+  - loop: Enable loop (optional, "true" or "false")
+  - muted: Enable muted (optional, "true" or "false")
+  - controls: Show video controls (optional, "true" or "false", default: "true")
+  - poster: Poster image URL for HTML5 video (optional)
+@examples:
+  {{< lazyvideo "https://www.youtube.com/watch?v=dQw4w9WgXcQ" >}}
+  {{< lazyvideo src="https://example.com/video.mp4" title="Demo Video" autoplay="true" loop="true" muted="true" >}}
+  {{< lazyvideo "https://www.flowhunt.io/video.mp4" class="rounded-lg shadow-md" poster="/images/poster.jpg" >}}
+*/}}
+
+{{ $src := .Get 0 | default (.Get "src") }}
+{{ $title := .Get "title" | default "Video" }}
+{{ $alt := .Get "alt" | default $title }}
+{{ $class := .Get "class" | default "" }}
+{{ $width := .Get "width" }}
+{{ $height := .Get "height" }}
+{{ $id := .Get "id" }}
+{{ $autoplay := eq (.Get "autoplay") "true" }}
+{{ $loop := eq (.Get "loop") "true" }}
+{{ $muted := eq (.Get "muted") "true" }}
+{{ $controls := ne (.Get "controls") "false" }}
+{{ $poster := .Get "poster" }}
+
+{{ if $src }}
+  {{ partial "components/media/lazyvideo.html" (dict 
+      "src" $src
+      "title" $title
+      "alt" $alt
+      "class" $class
+      "width" $width
+      "height" $height
+      "id" $id
+      "autoplay" $autoplay
+      "loop" $loop
+      "muted" $muted
+      "controls" $controls
+      "poster" $poster
+  ) }}
+{{ end }}

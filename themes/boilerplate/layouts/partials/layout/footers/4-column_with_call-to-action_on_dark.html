@@ -1,0 +1,196 @@
+{{/*
+@component: 4-Column Footer with CTA on Dark Background
+@description: A comprehensive footer with a call-to-action section, 4-column navigation links, social media icons, and copyright information on a dark background.
+@params:
+  - bgColor: Background color (optional, default: "bg-gray-900")
+  - borderColor: Border color (optional, default: "border-white/10")
+  - ctaTagline: Call to action tagline text (optional, default: "Get started")
+  - ctaTaglineColor: CTA tagline color (optional, default: "text-indigo-400")
+  - ctaHeading: CTA heading text (optional, default: "Boost your productivity. Start using our app today.")
+  - ctaHeadingColor: CTA heading color (optional, default: "text-white")
+  - ctaDescription: CTA description text (optional, default: provided default text)
+  - ctaDescriptionColor: CTA description color (optional, default: "text-gray-400")
+  - ctaButtonText: CTA button text (optional, default: "Get started")
+  - ctaButtonUrl: CTA button URL (optional, default: "#")
+  - ctaButtonBgColor: CTA button background color (optional, default: "bg-indigo-500")
+  - ctaButtonHoverBgColor: CTA button hover background color (optional, default: "bg-indigo-400")
+  - ctaButtonTextColor: CTA button text color (optional, default: "text-white")
+  - logoUrl: URL to logo image (optional, default: Tailwind CSS logo)
+  - logoHeight: Logo height (optional, default: "h-9")
+  - logoAlt: Logo alt text (optional, default: "Company name")
+  - column1Title through column4Title: Column heading texts (optional, defaults provided)
+  - column1Links through column4Links: Arrays of link objects for each column (optional, defaults provided)
+  - headingColor: Column heading color (optional, default: "text-white")
+  - linkColor: Link text color (optional, default: "text-gray-400")
+  - linkHoverColor: Link hover color (optional, default: "text-white")
+  - socialLinks: Array of social media link objects (optional, defaults provided)
+  - socialLinkColor: Social link color (optional, default: "text-gray-400")
+  - socialLinkHoverColor: Social link hover color (optional, default: "text-gray-300")
+  - copyrightText: Copyright text (optional, default: "&copy; 2024 Your Company, Inc. All rights reserved.")
+  - copyrightColor: Copyright text color (optional, default: "text-gray-400")
+  - showLanguageSelector: Whether to show language selector (optional, default: true)
+  - languageSelectorTitle: Language selector title (optional, default: from i18n)
+  - currentPage: Current page context for language selector (optional, default: context)
+@example:
+  {{ partial "layout/footers/4-column_with_call-to-action_on_dark.html" (dict 
+      "logoUrl" "/images/logo-white.svg"
+      "logoAlt" "Acme Corp"
+      "ctaHeading" "Ready to transform your business?"
+      "ctaButtonText" "Start Your Free Trial"
+      "ctaButtonUrl" "/signup"
+      "copyrightText" (printf "&copy; %d Acme Corporation" now.Year)
+  ) }}
+@note: This component provides a comprehensive footer with highly customizable styling options and defaults that work well out of the box.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $borderColor := .borderColor | default "border-white/10" }}
+
+{{ $hasMultipleLanguages := gt (len site.Home.AllTranslations) 1 }}
+{{ $currentPage := .currentPage | default . }}
+
+{{/* CTA Section */}}
+{{ $ctaTagline := .ctaTagline | default "Get started" }}
+{{ $ctaTaglineColor := .ctaTaglineColor | default "text-indigo-400" }}
+{{ $ctaHeading := .ctaHeading | default "Boost your productivity. Start using our app today." }}
+{{ $ctaHeadingColor := .ctaHeadingColor | default "text-white" }}
+{{ $ctaDescription := .ctaDescription | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident commodo do ea." }}
+{{ $ctaDescriptionColor := .ctaDescriptionColor | default "text-gray-400" }}
+{{ $ctaButtonText := .ctaButtonText | default "Get started" }}
+{{ $ctaButtonUrl := .ctaButtonUrl | default "#" }}
+{{ $ctaButtonBgColor := .ctaButtonBgColor | default "bg-indigo-500" }}
+{{ $ctaButtonHoverBgColor := .ctaButtonHoverBgColor | default "bg-indigo-400" }}
+{{ $ctaButtonTextColor := .ctaButtonTextColor | default "text-white" }}
+
+{{/* Logo */}}
+{{ $logoUrl := .logoUrl | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" }}
+{{ $logoHeight := .logoHeight | default "h-9" }}
+{{ $logoAlt := .logoAlt | default "Company name" }}
+
+{{/* Navigation columns */}}
+{{ $column1Title := .column1Title }}
+{{ $column1Links := .column1Links }}
+
+{{ $column2Title := .column2Title }}
+{{ $column2Links := .column2Links }}
+
+{{ $column3Title := .column3Title }}
+{{ $column3Links := .column3Links }}
+
+{{ $column4Title := .column4Title }}
+{{ $column4Links := .column4Links }}
+
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $linkColor := .linkColor | default "text-gray-400" }}
+{{ $linkHoverColor := .linkHoverColor | default "text-white" }}
+
+{{/* Social links */}}
+{{ $socialLinks := .socialLinks | default (slice 
+  (dict "name" "Facebook" "url" "#" "icon" "facebook")
+  (dict "name" "Instagram" "url" "#" "icon" "instagram")
+  (dict "name" "X" "url" "#" "icon" "x")
+  (dict "name" "GitHub" "url" "#" "icon" "github")
+  (dict "name" "LinkedIn" "url" "#" "icon" "linkedin")
+  (dict "name" "YouTube" "url" "#" "icon" "youtube")
+) }}
+{{ $socialLinkColor := .socialLinkColor | default "text-gray-400" }}
+{{ $socialLinkHoverColor := .socialLinkHoverColor | default "text-gray-300" }}
+
+{{/* Copyright */}}
+{{ $copyrightText := .copyrightText | default "&copy; 2024 Your Company, Inc. All rights reserved." }}
+{{ $copyrightColor := .copyrightColor | default "text-gray-400" }}
+
+{{ $showLanguageSelector := .showLanguageSelector | default true }}
+{{ $languageSelectorTitle := .languageSelectorTitle | default (i18n "language_selector_title") }}
+
+<footer class="{{ $bgColor }}">
+  <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-base/7 font-semibold {{ $ctaTaglineColor }}">{{ $ctaTagline }}</h2>
+      <p class="mt-2 text-4xl font-semibold tracking-tight text-balance {{ $ctaHeadingColor }} sm:text-5xl">{{ $ctaHeading }}</p>
+      <p class="mx-auto mt-6 max-w-xl text-lg/8 text-pretty {{ $ctaDescriptionColor }}">{{ $ctaDescription }}</p>
+      <div class="mt-8 flex justify-center">
+        <a href="{{ $ctaButtonUrl }}" class="rounded-md {{ $ctaButtonBgColor }} px-3.5 py-2.5 text-sm font-semibold {{ $ctaButtonTextColor }} shadow-xs hover:{{ $ctaButtonHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">{{ $ctaButtonText }}</a>
+      </div>
+    </div>
+    <div class="mt-24 border-t {{ $borderColor }} pt-12 xl:grid xl:grid-cols-3 xl:gap-8">
+      {{ partial "components/media/lazyimg.html" (dict 
+        "src" $logoUrl 
+        "alt" $logoAlt
+        "class" $logoHeight
+        "maxWidth" 200
+      ) }}
+      <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          {{ if $column1Title }}
+          <div>
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column1Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column1Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
+          {{ if $column2Title }}
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column2Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column2Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
+        </div>
+        
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          {{ if $column3Title }}
+          <div>
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column3Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column3Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
+          {{ if $column4Title }}
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column4Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column4Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    <div class="language-selector mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
+      <p class="text-sm/6 font-semibold {{ $headingColor }} mb-4">{{ $languageSelectorTitle }}</p>
+      {{ partial "components/navigation/language-selector.html" $currentPage }}
+    </div>
+    <div class="mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
+      <div class="flex gap-x-6 md:order-2">
+        {{ range $socialLinks }}
+        <a href="{{ .url }}" class="{{ $socialLinkColor }} hover:{{ $socialLinkHoverColor }}">
+          <span class="sr-only">{{ .name }}</span>
+          {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+        </a>
+        {{ end }}
+      </div>
+      <p class="mt-8 text-sm/6 {{ $copyrightColor }} md:order-1 md:mt-0">{{ $copyrightText | safeHTML }}</p>
+    </div>
+  </div>
+</footer>

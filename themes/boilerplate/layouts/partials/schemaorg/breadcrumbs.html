@@ -1,0 +1,21 @@
+{{if .items }}
+{{ $items := .items }}
+<!-- Schema.org BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{- range $index, $item := $items -}}
+    {{- if $index -}},{{- end -}}
+    {
+      "@type": "ListItem",
+      "position": {{ add $index 1 }},
+      "name": "{{ $item.title }}",
+      "item": "{{ $item.url | absURL }}"
+    }
+    {{- end -}}
+  ]
+}
+</script>
+{{ end}}

@@ -1,0 +1,58 @@
+{{/* Simple 3x2 Grid Feature Section on Dark Background */}}
+{{ $tagline := .tagline | default "Everything you need" }}
+{{ $heading := .heading | default "No server? No problem." }}
+{{ $description := .description | default "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis." }}
+{{ $features := .features | default (slice
+  (dict 
+    "icon" "download"
+    "title" "Push to deploy."
+    "description" "Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna."
+  )
+  (dict 
+    "icon" "link"
+    "title" "SSL certificates."
+    "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
+  )
+  (dict 
+    "icon" "map"
+    "title" "Simple queues."
+    "description" "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus voluptas blanditiis et."
+  )
+  (dict 
+    "title" "Advanced security."
+    "description" "Iure sed ab. Aperiam optio placeat dolor facere. Officiis pariatur eveniet atque et dolor."
+  )
+  (dict 
+    "title" "Powerful API."
+    "description" "Laudantium tempora sint ut consectetur ratione. Ut illum ut rem numquam fuga delectus."
+  )
+  (dict 
+    "title" "Database backups."
+    "description" "Culpa dolorem voluptatem velit autem rerum qui et corrupti. Quibusdam quo placeat."
+  )
+) }}
+{{ $iconColor := .iconColor | default "indigo-500" }}
+{{ $taglineColor := .taglineColor | default "indigo-400" }}
+{{ $bgColor := .bgColor | default "gray-900" }}
+{{ $page := .page }}
+
+<div class="bg-{{ $bgColor }} py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+      <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">{{ $heading }}</p>
+      <p class="mt-6 text-lg/8 text-gray-300">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
+    </div>
+    <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 text-base/7 text-gray-300 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-16">
+      {{ range $features }}
+      <div class="relative pl-9">
+        <dt class="inline font-semibold text-white">
+          {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+          {{ .title }}
+        </dt>
+        <dd class="inline">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</div>

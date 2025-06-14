@@ -1,0 +1,203 @@
+{{/*
+@section: Testimonials Grid on Dark Background
+@description: A sophisticated testimonial grid displayed on a dark background with a featured testimonial and atmospheric gradient effects, creating a premium and modern appearance.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the section (optional, default: "pt-24 pb-32 sm:pt-32")
+  - cardBgColor: Background color class for testimonial cards (optional, default: "bg-gray-800")
+  - cardRingColor: Border color class for testimonial cards (optional, default: "ring-gray-700")
+  - cardShadow: Shadow class for testimonial cards (optional, default: "shadow-lg")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - headingTag: Small heading text above the main heading (optional, default: "Testimonials")
+  - headingTagColor: Color class for the heading tag (optional, default: "text-indigo-400")
+  - heading: Main heading text (optional, default: "We have worked with thousands of amazing people")
+  - headingColor: Color class for the main heading (optional, default: "text-white")
+  - gradientFrom: Starting color for the background gradient (optional, default: "#4f46e5")
+  - gradientTo: Ending color for the background gradient (optional, default: "#9089fc")
+  - testimonials: Array of testimonial objects (optional, includes defaults)
+    - quote: The testimonial text
+    - personImage: URL for the person's avatar image
+    - personName: Name of the person
+    - personHandle: Social media handle or position of the person
+    - companyLogo: URL for the company logo (optional)
+    - companyLogoAlt: Alt text for the company logo (optional)
+    - featured: Boolean to indicate if this is a featured testimonial (optional)
+@example:
+  {{ partial "sections/testimonials/grid_on_dark.html" (dict 
+      "heading" "What people are saying"
+      "headingTag" "Customer Testimonials"
+      "gradientFrom" "#3b82f6"
+      "gradientTo" "#10b981"
+      "testimonials" (slice
+          (dict
+              "quote" "This platform has revolutionized our workflow. The AI-powered features saved us countless hours on routine tasks, allowing our team to focus on strategic initiatives."
+              "personImage" "/images/testimonials/robert-smith.jpg"
+              "personName" "Robert Smith"
+              "personHandle" "CTO, Enterprise Solutions"
+              "companyLogo" "/images/logos/enterprise-solutions.svg"
+              "companyLogoAlt" "Enterprise Solutions logo"
+              "featured" true
+          )
+          (dict
+              "quote" "Integration was seamless, and the support team was incredibly responsive whenever we had questions."
+              "personImage" "/images/testimonials/maria-garcia.jpg"
+              "personName" "Maria Garcia"
+              "personHandle" "Product Manager, TechStart"
+          )
+          (dict
+              "quote" "The analytics capabilities alone justify the investment. We've gained insights that were previously impossible to uncover."
+              "personImage" "/images/testimonials/david-wong.jpg"
+              "personName" "David Wong"
+              "personHandle" "Data Scientist, AnalyticsPlus"
+          )
+          (dict
+              "quote" "Intuitive interface, powerful features, and excellent support. Exactly what we needed for our growing business."
+              "personImage" "/images/testimonials/sarah-johnson.jpg"
+              "personName" "Sarah Johnson"
+              "personHandle" "Operations Manager, GrowFast"
+          )
+      )
+  ) }}
+@note: This component features a complex grid layout that highlights a featured testimonial and arranges others around it. The dark theme with gradient effects creates an elegant and premium aesthetic, ideal for showcasing high-profile client testimonials.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "pt-24 pb-32 sm:pt-32" }}
+{{ $cardBgColor := .cardBgColor | default "bg-gray-800" }}
+{{ $cardRingColor := .cardRingColor | default "ring-gray-700" }}
+{{ $cardShadow := .cardShadow | default "shadow-lg" }}
+
+{{/* Heading */}}
+{{ $showHeading := .showHeading | default true }}
+{{ $headingTag := .headingTag | default "Testimonials" }}
+{{ $headingTagColor := .headingTagColor | default "text-indigo-400" }}
+{{ $heading := .heading | default "We have worked with thousands of amazing people" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+
+{{/* Gradient colors */}}
+{{ $gradientFrom := .gradientFrom | default "#4f46e5" }}
+{{ $gradientTo := .gradientTo | default "#9089fc" }}
+
+{{/* Testimonials */}}
+{{ $testimonials := .testimonials | default slice }}
+
+{{/* Default testimonials if none provided */}}
+{{ if eq (len $testimonials) 0 }}
+  {{ $testimonials = slice 
+    (dict 
+      "quote" "Integer id nunc sit semper purus. Bibendum at lacus ut arcu blandit montes vitae auctor libero. Hac condimentum dignissim nibh vulputate ut nunc. Amet nibh orci mi venenatis blandit vel et proin. Non hendrerit in vel ac diam."
+      "personImage" "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=1024&h=1024&q=80"
+      "personName" "Brenna Goyette"
+      "personHandle" "@brennagoyette"
+      "companyLogo" "https://tailwindcss.com/plus-assets/img/logos/savvycal-logo-gray-900.svg"
+      "companyLogoAlt" "SavvyCal"
+      "featured" true
+    )
+    (dict 
+      "quote" "Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut enim doloremque et ipsam."
+      "personImage" "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Leslie Alexander"
+      "personHandle" "@lesliealexander"
+    )
+    (dict 
+      "quote" "Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut officia rem nulla blanditiis."
+      "personImage" "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Lindsay Walton"
+      "personHandle" "@lindsaywalton"
+    )
+    (dict 
+      "quote" "Voluptas quos itaque ipsam in voluptatem est. Iste eos blanditiis repudiandae. Earum deserunt enim molestiae ipsum perferendis recusandae saepe corrupti."
+      "personImage" "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Tom Cook"
+      "personHandle" "@tomcook"
+    )
+    (dict 
+      "quote" "Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt excepturi rerum voluptatem minus harum."
+      "personImage" "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Leonard Krasner"
+      "personHandle" "@leonardkrasner"
+    )
+  }}
+{{ end }}
+
+<div class="relative isolate {{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  
+  <div class="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl" aria-hidden="true">
+    <div class="ml-[max(50%,38rem)] aspect-1313/771 w-[82.0625rem] bg-linear-to-tr from-[{{ $gradientFrom }}] to-[{{ $gradientTo }}]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="absolute inset-x-0 top-0 -z-10 flex transform-gpu overflow-hidden pt-32 opacity-25 blur-3xl sm:pt-40 xl:justify-end" aria-hidden="true">
+    <div class="ml-[-22rem] aspect-1313/771 w-[82.0625rem] flex-none origin-top-right rotate-[30deg] bg-linear-to-tr from-[{{ $gradientFrom }}] to-[{{ $gradientTo }}] xl:mr-[calc(50%-12rem)] xl:ml-0" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    {{ if $showHeading }}
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-base/7 font-semibold {{ $headingTagColor }}">{{ $headingTag }}</h2>
+      <p class="mt-2 text-4xl font-semibold tracking-tight text-balance {{ $headingColor }} sm:text-5xl">{{ $heading }}</p>
+    </div>
+    {{ end }}
+    <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm/6 sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
+      {{ range $index, $testimonial := $testimonials }}
+        {{ if $testimonial.featured }}
+          <figure class="rounded-2xl {{ $cardBgColor }} ring-1 {{ $cardShadow }} {{ $cardRingColor }} sm:col-span-2 xl:col-start-2 xl:row-end-1">
+            <blockquote class="p-6 text-lg font-semibold tracking-tight text-white sm:p-12 sm:text-xl/8">
+              <p>"{{ $testimonial.quote }}"</p>
+            </blockquote>
+            <figcaption class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-700 px-6 py-4 sm:flex-nowrap">
+              {{ if $testimonial.personImage }}
+                {{ partial "components/media/lazyimg.html" (dict "src" $testimonial.personImage "alt" $testimonial.personName "class" "size-10 flex-none rounded-full bg-gray-700") }}
+              {{ end }}
+              <div class="flex-auto">
+                <div class="font-semibold text-white">{{ $testimonial.personName }}</div>
+                <div class="text-gray-400">{{ $testimonial.personHandle }}</div>
+              </div>
+              {{ if $testimonial.companyLogo }}
+                {{ partial "components/media/lazyimg.html" (dict "src" $testimonial.companyLogo "alt" $testimonial.companyLogoAlt "class" "h-10 w-auto flex-none invert") }}
+              {{ end }}
+            </figcaption>
+          </figure>
+        {{ else }}
+          {{ if eq (mod $index 2) 0 }}
+            {{ if eq $index 0 }}
+              <div class="space-y-8 xl:contents xl:space-y-0">
+                <div class="space-y-8 xl:row-span-2">
+            {{ else }}
+              <div class="space-y-8 xl:row-start-1">
+            {{ end }}
+          {{ else }}
+            {{ if eq $index 1 }}
+              <div class="space-y-8 xl:row-start-1">
+            {{ else }}
+              <div class="space-y-8 xl:row-span-2">
+            {{ end }}
+          {{ end }}
+          
+          <figure class="rounded-2xl {{ $cardBgColor }} p-6 ring-1 {{ $cardShadow }} {{ $cardRingColor }}">
+            <blockquote class="text-white">
+              <p>"{{ $testimonial.quote }}"</p>
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-x-4">
+              {{ if $testimonial.personImage }}
+                {{ partial "components/media/lazyimg.html" (dict "src" $testimonial.personImage "alt" $testimonial.personName "class" "size-10 rounded-full bg-gray-700") }}
+              {{ end }}
+              <div>
+                <div class="font-semibold text-white">{{ $testimonial.personName }}</div>
+                <div class="text-gray-400">{{ $testimonial.personHandle }}</div>
+              </div>
+            </figcaption>
+          </figure>
+          
+          {{ if or (eq $index (sub (len $testimonials) 1)) (and (eq (mod $index 2) 0) (eq $index 0)) (and (eq (mod $index 2) 1) (eq $index 1)) }}
+            </div>
+          {{ end }}
+          
+          {{ if and (eq (mod $index 2) 1) (ne $index 1) }}
+            </div>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>

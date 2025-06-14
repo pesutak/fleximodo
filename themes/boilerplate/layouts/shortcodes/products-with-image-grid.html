@@ -1,0 +1,196 @@
+{{/* 
+  Products shortcode with image grid
+  
+  Usage:
+  {{< products-with-image-grid
+      backgroundColor="bg-gray-50"
+      title="Premium Cotton T-Shirt Collection"
+      price="$149.99"
+      rating="5"
+      reviewCount="243"
+      description="Our premium cotton t-shirts are designed for comfort and style."
+      details="Each t-shirt is made from 100% organic cotton and ethically sourced."
+  >}}
+    {
+      "breadcrumbs": [
+        { "name": "Women", "href": "#" },
+        { "name": "Clothing", "href": "#" },
+        { "name": "Premium Cotton T-Shirt Collection", "href": "#", "current": true }
+      ],
+      "highlights": [
+        "Sustainably produced",
+        "Organic cotton",
+        "Available in multiple colors",
+        "Comfortable fit"
+      ],
+      "colors": [
+        { "name": "White", "class": "bg-white", "disabled": false },
+        { "name": "Blue", "class": "bg-blue-500", "disabled": false },
+        { "name": "Green", "class": "bg-green-500", "disabled": false }
+      ],
+      "sizes": [
+        { "name": "XS", "disabled": false },
+        { "name": "S", "disabled": false },
+        { "name": "M", "disabled": false },
+        { "name": "L", "disabled": false },
+        { "name": "XL", "disabled": false }
+      ],
+      "images": [
+        {
+          "url": "/images/product-main.jpg",
+          "alt": "Main product image",
+          "class": "hidden size-full rounded-lg object-cover lg:block"
+        },
+        {
+          "url": "/images/product-detail-1.jpg",
+          "alt": "Product detail view 1",
+          "class": "aspect-3/2 w-full rounded-lg object-cover",
+          "grid": true
+        },
+        {
+          "url": "/images/product-detail-2.jpg",
+          "alt": "Product detail view 2",
+          "class": "aspect-3/2 w-full rounded-lg object-cover",
+          "grid": true
+        },
+        {
+          "url": "/images/product-featured.jpg",
+          "alt": "Featured product image",
+          "class": "aspect-4/5 size-full object-cover sm:rounded-lg lg:aspect-auto"
+        }
+      ]
+    }
+  {{< /products-with-image-grid >}}
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - title: Product title (default: "Basic Tee 6-Pack")
+  - price: Product price (default: "$192")
+  - rating: Product rating out of 5 (default: 4)
+  - reviewCount: Number of reviews (default: 117)
+  - description: Product description (optional)
+  - details: Additional product details (optional)
+  
+  Inner Content (optional JSON object):
+  - breadcrumbs: Array of breadcrumb objects with name, href, and optional current properties
+  - highlights: Array of product highlight strings
+  - colors: Array of color objects with name, class, and disabled properties
+  - sizes: Array of size objects with name and disabled properties
+  - images: Array of image objects with url, alt, class, and optional grid properties
+  
+  If any parameter is not provided, default values will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $title := .Get "title" | default "Basic Tee 6-Pack" }}
+{{ $price := .Get "price" | default "$192" }}
+{{ $rating := .Get "rating" | default 4 }}
+{{ $reviewCount := .Get "reviewCount" | default 117 }}
+{{ $description := .Get "description" | default "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: \"Black\". Need to add an extra pop of color to your outfit? Our white tee has you covered." }}
+{{ $details := .Get "details" | default "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming \"Charcoal Gray\" limited release." }}
+
+{{ $defaultBreadcrumbs := slice 
+  (dict "name" "Men" "href" "#")
+  (dict "name" "Clothing" "href" "#")
+  (dict "name" $title "href" "#" "current" true)
+}}
+
+{{ $defaultHighlights := slice 
+  "Hand cut and sewn locally"
+  "Dyed with our proprietary colors"
+  "Pre-washed & pre-shrunk"
+  "Ultra-soft 100% cotton"
+}}
+
+{{ $defaultColors := slice 
+  (dict "name" "White" "class" "bg-white" "disabled" false)
+  (dict "name" "Gray" "class" "bg-gray-200" "disabled" false)
+  (dict "name" "Black" "class" "bg-gray-900" "disabled" false)
+}}
+
+{{ $defaultSizes := slice 
+  (dict "name" "XXS" "disabled" true)
+  (dict "name" "XS" "disabled" false)
+  (dict "name" "S" "disabled" false)
+  (dict "name" "M" "disabled" false)
+  (dict "name" "L" "disabled" false)
+  (dict "name" "XL" "disabled" false)
+  (dict "name" "2XL" "disabled" false)
+  (dict "name" "3XL" "disabled" false)
+}}
+
+{{ $defaultImages := slice 
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
+    "alt" "Two each of gray, white, and black shirts laying flat."
+    "class" "hidden size-full rounded-lg object-cover lg:block"
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg"
+    "alt" "Model wearing plain black basic tee."
+    "class" "aspect-3/2 w-full rounded-lg object-cover"
+    "grid" true
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"
+    "alt" "Model wearing plain gray basic tee."
+    "class" "aspect-3/2 w-full rounded-lg object-cover"
+    "grid" true
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-02-featured-product-shot.jpg"
+    "alt" "Model wearing plain white basic tee."
+    "class" "aspect-4/5 size-full object-cover sm:rounded-lg lg:aspect-auto"
+  )
+}}
+
+{{ $customData := dict }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $customData = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ $breadcrumbs := $defaultBreadcrumbs }}
+{{ if isset $customData "breadcrumbs" }}
+  {{ $breadcrumbs = index $customData "breadcrumbs" }}
+{{ end }}
+
+{{ $highlights := $defaultHighlights }}
+{{ if isset $customData "highlights" }}
+  {{ $highlights = index $customData "highlights" }}
+{{ end }}
+
+{{ $colors := $defaultColors }}
+{{ if isset $customData "colors" }}
+  {{ $colors = index $customData "colors" }}
+{{ end }}
+
+{{ $sizes := $defaultSizes }}
+{{ if isset $customData "sizes" }}
+  {{ $sizes = index $customData "sizes" }}
+{{ end }}
+
+{{ $images := $defaultImages }}
+{{ if isset $customData "images" }}
+  {{ $images = index $customData "images" }}
+{{ end }}
+
+{{ $product := dict 
+  "title" $title
+  "price" $price
+  "rating" $rating
+  "reviewCount" $reviewCount
+  "description" $description
+  "details" $details
+  "breadcrumbs" $breadcrumbs
+  "highlights" $highlights
+  "colors" $colors
+  "sizes" $sizes
+  "images" $images
+}}
+
+{{ partial "sections/products/with_image_grid.html" (dict 
+  "backgroundColor" $backgroundColor
+  "product" $product
+) }}

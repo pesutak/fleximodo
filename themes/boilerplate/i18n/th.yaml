@@ -1,0 +1,85 @@
+# English translations
+frequently_asked_questions: "คำถามที่พบบ่อย"
+language_selector_title: "ภาษาที่มี"
+glossary_subtitle: "รายการคำศัพท์และคำนิยามที่ครอบคลุม"
+glossary_title: "อภิธานศัพท์"
+home_title: "หน้าหลัก"
+
+# Glossary translations
+glossary_eyebrow: "อภิธานศัพท์"
+
+# Category page translations
+categories_title: "หมวดหมู่"
+categories_browse_all: "เรียกดูเนื้อหาทั้งหมดตามหมวดหมู่"
+category_eyebrow: "หมวดหมู่"
+category_browse_content: "เรียกดูเนื้อหาทั้งหมดในหมวดหมู่ %s"
+category_no_content_found: "ไม่พบเนื้อหาในหมวดหมู่นี้"
+category_try_browsing: "ลองเรียกดูหมวดหมู่อื่นหรือค้นหาเนื้อหา"
+category_other_categories: "หมวดหมู่อื่นๆ"
+
+# CTA translations
+cta_default_heading: "ขยายความรู้ของคุณด้วยทรัพยากรของเรา"
+cta_default_description: "สำรวจคลังบทความ คู่มือ และบทเรียนที่ครอบคลุมของเราเพื่อเพิ่มความเข้าใจในแนวคิดหลักและอัพเดทกับการพัฒนาล่าสุด"
+cta_default_primary_text: "เรียกดูทรัพยากร"
+cta_default_secondary_text: "ติดต่อผู้เชี่ยวชาญของเรา"
+
+# Content type translations
+content_article_singular: "บทความ"
+content_article_plural: "บทความ"
+
+# Tags page translations
+tags_title: "แท็ก"
+tags_browse_all: "เรียกดูเนื้อหาทั้งหมดตามหัวข้อ"
+tag_eyebrow: "แท็ก"
+tag_browse_content: "เรียกดูเนื้อหาทั้งหมดที่แท็กด้วย %s"
+tag_no_content_found: "ไม่พบเนื้อหาที่มีแท็กนี้"
+tag_try_browsing: "ลองเรียกดูแท็กอื่นหรือค้นหาเนื้อหา"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "ก่อนหน้า"
+tag_pagination_next: "ถัดไป"
+tag_other_tags: "แท็กอื่นๆ"
+
+# Cookie consent translations
+cookie_consent_title: "การยินยอมคุกกี้"
+cookie_consent_message: "เราใช้คุกกี้เพื่อเพิ่มประสบการณ์การเรียกดูและวิเคราะห์การจราจรของเรา"
+cookie_consent_accept_all: "ยอมรับทั้งหมด"
+cookie_consent_accept_necessary: "ยอมรับเฉพาะที่จำเป็น"
+cookie_consent_settings: "การตั้งค่าคุกกี้"
+cookie_settings_title: "การตั้งค่าคุกกี้"
+cookie_settings_close: "ปิด"
+cookie_settings_necessary_title: "คุกกี้ที่จำเป็น"
+cookie_settings_necessary_description: "คุกกี้เหล่านี้จำเป็นต่อการทำงานของเว็บไซต์และไม่สามารถปิดใช้งานได้"
+cookie_settings_analytics_title: "คุกกี้สำหรับวิเคราะห์"
+cookie_settings_analytics_description: "คุกกี้เหล่านี้ช่วยให้เราเข้าใจว่าผู้เข้าชมมีปฏิสัมพันธ์กับเว็บไซต์ของเราอย่างไร"
+cookie_settings_cancel: "ยกเลิก"
+cookie_settings_save: "บันทึกการตั้งค่า"
+
+# Pagination translations
+pagination_previous: "ก่อนหน้า"
+pagination_next: "ถัดไป"
+pagination_showing: "แสดง"
+pagination_to: "ถึง"
+pagination_of: "จาก"
+pagination_results: "ผลลัพธ์"
+pagination_browse_all: "เรียกดูเนื้อหาทั้งหมดใน"
+
+# FAQ translations
+faq_heading: "คำถามที่พบบ่อย"
+faq_description: "ค้นหาคำตอบสำหรับคำถามทั่วไปเกี่ยวกับหัวข้อนี้"
+no_terms_available: "ไม่มีคำศัพท์ที่ใช้ได้"
+pricing_monthly_label: "รายเดือน"
+pricing_yearly_label: "รายปี"
+wantMore: "Want more?"
+learnMore: "Learn more"
+pricing_tagline: "Pricing"
+pricing_title: "Pricing that grows with you"
+pricing_description: "เลือกแผนราคาไม่แพงที่เต็มไปด้วยฟีเจอร์ที่ดีที่สุดสำหรับการมีส่วนร่วมของผู้ชม การสร้างความภักดีของลูกค้า และการเพิ่มยอดขาย"
+pricing_comparison_title: "เปรียบเทียบแผน"
+pricing_comparison_description: "ดูการเปรียบเทียบแผนของเราและเลือกแผนที่ดีที่สุดสำหรับคุณ"
+read_more_post: "อ่านเพิ่มเติม"
+no_posts_found: "ไม่พบโพสต์"
+minutes_read: "นาทีอ่าน"
+get_started: "เริ่มต้น"
+courses.session: "เซสชั่น"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

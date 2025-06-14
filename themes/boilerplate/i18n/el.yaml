@@ -1,0 +1,86 @@
+# Μεταφράσεις στα ελληνικά
+frequently_asked_questions: "Συχνές Ερωτήσεις"
+language_selector_title: "Διαθέσιμες Γλώσσες"
+glossary_subtitle: "Μία εκτενής λίστα όρων και ορισμών"
+glossary_title: "Γλωσσάριο"
+home_title: "Αρχική"
+
+# Glossary translations
+glossary_eyebrow: "Γλωσσάριο"
+
+# Category page translations
+categories_title: "Κατηγορίες"
+categories_browse_all: "Περιηγηθείτε σε όλο το περιεχόμενο ανά κατηγορία"
+category_eyebrow: "Κατηγορία"
+category_browse_content: "Περιηγηθείτε σε όλο το περιεχόμενο στην κατηγορία %s"
+category_no_content_found: "Δεν βρέθηκε περιεχόμενο σε αυτή την κατηγορία"
+category_try_browsing: "Δοκιμάστε να περιηγηθείτε σε άλλες κατηγορίες ή να αναζητήσετε περιεχόμενο"
+category_other_categories: "Άλλες Κατηγορίες"
+
+# CTA translations
+cta_default_heading: "Διευρύνετε τις γνώσεις σας με τους πόρους μας"
+cta_default_description: "Εξερευνήστε την εκτενή βιβλιοθήκη μας με άρθρα, οδηγούς και εκπαιδευτικό υλικό για να εμβαθύνετε την κατανόησή σας για βασικές έννοιες και να ενημερώνεστε για τις τελευταίες εξελίξεις."
+cta_default_primary_text: "Περιηγηθείτε στους πόρους"
+cta_default_secondary_text: "Επικοινωνήστε με τους ειδικούς μας"
+
+# Content type translations
+content_article_singular: "άρθρο"
+content_article_plural: "άρθρα"
+
+# Μεταφράσεις σελίδας ετικετών
+tags_title: "Ετικέτες"
+tags_browse_all: "Περιηγηθείτε σε όλο το περιεχόμενο ανά θέμα"
+tag_eyebrow: "Ετικέτα"
+tag_browse_content: "Περιηγηθείτε σε όλο το περιεχόμενο με ετικέτα %s"
+tag_no_content_found: "Δεν βρέθηκε περιεχόμενο με αυτή την ετικέτα"
+tag_try_browsing: "Δοκιμάστε να περιηγηθείτε σε άλλες ετικέτες ή να αναζητήσετε περιεχόμενο"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Προηγούμενη"
+tag_pagination_next: "Επόμενη"
+tag_other_tags: "Άλλες Ετικέτες"
+
+# Μεταφράσεις για τη συγκατάθεση cookies
+cookie_consent_title: "Συγκατάθεση για Cookies"
+cookie_consent_message: "Χρησιμοποιούμε cookies για να βελτιώσουμε την πλοήγησή σας και να αναλύσουμε την επισκεψιμότητά μας."
+cookie_consent_accept_all: "Αποδοχή Όλων"
+cookie_consent_accept_necessary: "Αποδοχή Μόνο Απαραίτητων"
+cookie_consent_settings: "Ρυθμίσεις Cookies"
+cookie_settings_title: "Ρυθμίσεις Cookies"
+cookie_settings_close: "Κλείσιμο"
+cookie_settings_necessary_title: "Απαραίτητα Cookies"
+cookie_settings_necessary_description: "Αυτά τα cookies είναι απαραίτητα για τη λειτουργία της ιστοσελίδας και δεν μπορούν να απενεργοποιηθούν."
+cookie_settings_analytics_title: "Cookies Αναλυτικής"
+cookie_settings_analytics_description: "Αυτά τα cookies μας βοηθούν να κατανοήσουμε πώς οι επισκέπτες αλληλεπιδρούν με την ιστοσελίδα μας."
+cookie_settings_cancel: "Ακύρωση"
+cookie_settings_save: "Αποθήκευση Προτιμήσεων"
+
+# Pagination translations
+pagination_previous: "Προηγούμενη"
+pagination_next: "Επόμενη"
+pagination_showing: "Εμφάνιση"
+pagination_to: "έως"
+pagination_of: "από"
+pagination_results: "αποτελέσματα"
+pagination_browse_all: "Περιηγηθείτε σε όλο το περιεχόμενο σε"
+
+# FAQ translations
+faq_heading: "Συχνές ερωτήσεις"
+faq_description: "Βρείτε απαντήσεις σε συνήθεις ερωτήσεις σχετικά με αυτό το θέμα."
+
+no_terms_available: "Δεν υπάρχουν διαθέσιμοι όροι"
+pricing_monthly_label: "Μηνιαία"
+pricing_yearly_label: "Ετήσια"
+wantMore: "Θέλετε περισσότερα;"
+learnMore: "Μάθετε περισσότερα"
+pricing_tagline: "Τιμολόγηση"
+pricing_title: "Τιμολόγηση που αναπτύσσεται μαζί σας"
+pricing_description: "Επιλέξτε ένα οικονομικό πρόγραμμα γεμάτο με τις καλύτερες λειτουργίες για να προσελκύσετε το κοινό σας, να δημιουργήσετε πιστότητα πελατών και να αυξήσετε τις πωλήσεις."
+pricing_comparison_title: "Σύγκριση προγραμμάτων"
+pricing_comparison_description: "Δείτε τις συγκρίσεις των προγραμμάτων μας και επιλέξτε το καλύτερο για εσάς"
+read_more_post: "Διαβάστε περισσότερα"
+no_posts_found: "Δεν βρέθηκαν δημοσιεύσεις"
+minutes_read: "λεπτά ανάγνωσης"
+get_started: "Ξεκινήστε"
+courses.session: "Συνεδρία"
+courses.you_will_learn: "Θα μάθετε:"
+courses.or: "ή"

@@ -1,0 +1,118 @@
+{{/* 
+  Dynamic Bento Grid Shortcode
+  
+  Usage:
+  {{< bentogrid-two-row 
+      tagline="Build faster" 
+      heading="Everything you need for your project" 
+      backgroundColor="gray-50"
+      taglineColor="primary"
+  >}}
+    [
+      {
+        "title": "Lightning-fast builds",
+        "category": "Performance",
+        "description": "Our platform offers incredibly fast build times to improve your development workflow.",
+        "image": "/images/bento-performance.jpg",
+        "imageAlt": "Performance dashboard showing fast build times",
+        "url": "/features/performance",
+        "cardSize": "large",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
+      },
+      {
+        "title": "Push to deploy",
+        "category": "Releases",
+        "description": "Deploy with a simple git push. Your changes go live instantly with zero downtime.",
+        "image": "/images/bento-releases.jpg",
+        "imageAlt": "Code deployment interface",
+        "cardSize": "large",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
+      },
+      {
+        "title": "Built for power users",
+        "category": "Speed",
+        "description": "Advanced tools and features for developers who need more control and flexibility.",
+        "image": "/images/bento-speed.jpg",
+        "imageAlt": "Speed metrics dashboard",
+        "url": "/features/power-users",
+        "cardSize": "small",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
+      },
+      {
+        "title": "Connect your favorite tools",
+        "category": "Integrations",
+        "description": "Seamlessly integrate with your existing workflow and favorite development tools.",
+        "image": "/images/bento-integrations.jpg",
+        "imageAlt": "Integration options panel",
+        "cardSize": "small",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
+      },
+      {
+        "title": "Globally distributed CDN",
+        "category": "Network",
+        "description": "Ultra-fast content delivery through our worldwide edge network.",
+        "image": "/images/bento-network.jpg",
+        "imageAlt": "Global network distribution map",
+        "cardSize": "small",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
+      }
+    ]
+  {{< /bentogrid-two-row >}}
+  
+  Parameters:
+  - tagline: Small text displayed above the main heading (default: "Deploy faster")
+  - heading: Main heading text (default: "Everything you need to deploy your app")
+  - description: Description text that appears below the heading
+  - backgroundColor: Background color class (default: "white")
+  - taglineColor: Color class for the tagline (default: "primary")
+  - linkText: Text for the optional link below the description (default: "")
+  - linkUrl: URL for the optional link below the description (default: "")
+  
+  Inner Content (optional JSON array):
+  - Array of card objects with the following properties:
+    - title: Card title
+    - category: Category label for the card
+    - description: Card description
+    - image: URL to the image for the card
+    - imageAlt: Alt text for the image
+    - url: URL to link the card to, making the entire card clickable (optional)
+    - cardSize: Card size in the grid ("large" or "small", default: "large")
+      - large: Takes 3 columns (2 large cards per row)
+      - small: Takes 2 columns (3 small cards per row)
+    - categoryColor: Color class for the category label (default: "primary")
+  
+  If inner content is not provided, default cards will be used.
+  Note: This shortcode now uses a dynamic layout that can handle multiple rows and mixed card sizes.
+*/}}
+
+{{ $tagline := .Get "tagline" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
+{{ $backgroundColor := .Get "backgroundColor" | default "white" }}
+{{ $taglineColor := .Get "taglineColor" | default "primary" }}
+{{ $linkText := .Get "linkText" | default "" }}
+{{ $linkUrl := .Get "linkUrl" | default "" }}
+{{ $cardImageClasses := .Get "cardImageClasses" | default "h-80 object-cover object-left" }}
+
+{{ $cards := slice }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $cards = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "sections/bentogrids/two_row_bento_grid.html" (dict 
+  "tagline" $tagline
+  "heading" $heading
+  "description" $description
+  "linkText" $linkText
+  "linkUrl" $linkUrl
+  "backgroundColor" $backgroundColor
+  "taglineColor" $taglineColor
+  "cards" $cards
+) }}

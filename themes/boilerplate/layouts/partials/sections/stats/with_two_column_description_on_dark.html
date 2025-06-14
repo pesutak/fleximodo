@@ -1,0 +1,98 @@
+{{/*
+@section: Stats with Two-Column Description on Dark
+@description: A sophisticated statistics component featuring key metrics alongside a two-column descriptive text area on a dark background. The layout balances visual impact with detailed explanations, making it ideal for in-depth data storytelling.
+@params:
+  bgColor: Background color class (default: "bg-gray-900")
+  padding: Padding classes (default: "py-24 sm:py-32")
+  
+  showHeading: Whether to show the heading section (default: true)
+  headingTag: Small heading above the main heading (default: "Statistics")
+  headingTagColor: Color class for the heading tag (default: "text-indigo-400")
+  heading: Main heading text (default: "Our track record")
+  headingColor: Color class for the main heading (default: "text-white")
+  
+  columns: Array of column objects with "title", "titleColor", "description", and "descriptionColor" (default: predefined columns)
+  
+  stats: Array of statistics objects with "value", "valueColor", "label", and "labelColor" (default: predefined stats)
+  divideColor: Color class for the divider (default: "divide-white/10")
+@example:
+  {{ partial "sections/stats/with_two_column_description_on_dark.html" (dict
+    "headingTag" "Success Metrics"
+    "heading" "Our impact in numbers"
+    "columns" (slice
+      (dict "title" "Trusted by thousands of companies" "description" "We've helped over 10,000 organizations streamline their workflows and boost productivity.")
+      (dict "title" "Industry-leading solutions" "description" "Our AI-powered tools have consistently outperformed industry benchmarks by 27% in head-to-head comparisons.")
+    )
+    "stats" (slice
+      (dict "value" "35%" "label" "Decrease in operational costs")
+      (dict "value" "55%" "label" "Increase in team efficiency")
+      (dict "value" "91%" "label" "Customer satisfaction rate")
+      (dict "value" "4.8/5" "label" "Average rating across platforms")
+    )
+  ) }}
+@note: This component is particularly effective for showcasing achievements with contextual explanations, allowing for both high-level metrics and supporting narrative in a visually cohesive dark-themed design.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading */}}
+{{ $showHeading := .showHeading | default true }}
+{{ $headingTag := .headingTag | default "Statistics" }}
+{{ $headingTagColor := .headingTagColor | default "text-indigo-400" }}
+{{ $heading := .heading | default "Our track record" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+
+{{/* Columns */}}
+{{ $columns := .columns | default slice }}
+{{ if eq (len $columns) 0 }}
+  {{ $columns = slice 
+    (dict "title" "Trusted by thousands of companies" "description" "We've helped over 10,000 organizations streamline their workflows and boost productivity.")
+    (dict "title" "Industry-leading solutions" "description" "Our AI-powered tools have consistently outperformed industry benchmarks by 27% in head-to-head comparisons.")
+  }}
+{{ end }}
+
+{{/* Stats */}}
+{{ $stats := .stats | default slice }}
+{{ if eq (len $stats) 0 }}
+  {{ $stats = slice 
+    (dict "value" "35%" "label" "Decrease in operational costs")
+    (dict "value" "55%" "label" "Increase in team efficiency")
+    (dict "value" "91%" "label" "Customer satisfaction rate")
+    (dict "value" "4.8/5" "label" "Average rating across platforms")
+  }}
+{{ end }}
+
+{{ $divideColor := .divideColor | default "divide-white/10" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[60%] w-[90%] rounded-full bg-indigo-500 opacity-10 blur-[100px]"></div>
+  
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+      {{ if $showHeading }}
+      <p class="text-base/7 font-semibold {{ $headingTagColor }}">{{ $headingTag }}</p>
+      <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h1>
+      {{ end }}
+      <div class="mt-10 grid max-w-xl grid-cols-1 gap-8 text-base/7 {{ $divideColor }} lg:max-w-none lg:grid-cols-2">
+        {{ range $column := $columns }}
+        <div>
+          <h2 class="text-lg font-semibold {{ $column.titleColor | default "text-white" }}">{{ $column.title }}</h2>
+          <p class="mt-4 {{ $column.descriptionColor | default "text-gray-300" }}">{{ $column.description }}</p>
+        </div>
+        {{ end }}
+      </div>
+      <dl class="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 sm:mt-20 sm:grid-cols-2 sm:gap-y-16 lg:mt-28 lg:grid-cols-4">
+        {{ range $stat := $stats }}
+        <div class="flex flex-col-reverse gap-y-3 border-l {{ $divideColor }} pl-6">
+          <dt class="text-base/7 {{ $stat.labelColor | default "text-gray-300" }}">{{ $stat.label }}</dt>
+          <dd class="text-3xl font-semibold tracking-tight {{ $stat.valueColor | default "text-white" }}">{{ $stat.value }}</dd>
+        </div>
+        {{ end }}
+      </dl>
+    </div>
+  </div>
+</div>

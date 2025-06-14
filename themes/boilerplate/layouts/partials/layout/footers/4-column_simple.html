@@ -1,0 +1,140 @@
+{{/*
+@component: 4-Column Simple Footer
+@description: A footer layout with logo and four columns of links, suitable for site navigation and legal links.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - logoUrl: URL to the company/site logo (optional, default: Tailwind's default logo)
+  - logoHeight: Height class for the logo (optional, default: "h-9")
+  - logoAlt: Alt text for the logo (optional, default: "Company name")
+  - headingColor: Text color for column headings (optional, default: "text-gray-900")
+  - linkColor: Text color for links (optional, default: "text-gray-600")
+  - linkHoverColor: Text color for links on hover (optional, default: "text-gray-900")
+  - column1Title: Heading for first column (optional, default: "Solutions")
+  - column1Links: Array of link objects for first column, each with:
+    - text: Link text
+    - url: Link URL
+  - column2Title: Heading for second column (optional, default: "Support")
+  - column2Links: Array of link objects for second column
+  - column3Title: Heading for third column (optional, default: "Company")
+  - column3Links: Array of link objects for third column
+  - column4Title: Heading for fourth column (optional, default: "Legal")
+  - column4Links: Array of link objects for fourth column
+@example:
+  {{ partial "layout/footers/4-column_simple.html" (dict 
+      "logoUrl" "/images/logo.svg"
+      "logoAlt" "FlowHunt"
+      "column1Title" "Product"
+      "column1Links" (slice 
+        (dict "text" "Features" "url" "/features")
+        (dict "text" "Pricing" "url" "/pricing")
+      )
+      "column2Title" "Resources"
+      "column2Links" (slice 
+        (dict "text" "Documentation" "url" "/docs")
+        (dict "text" "Tutorials" "url" "/tutorials")
+      )
+  ) }}
+@note: The footer has a responsive layout that adjusts to different screen sizes, with a 3-column grid on extra-large screens and a 2-column grid on smaller screens.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+
+{{/* Logo */}}
+{{ $logoUrl := .logoUrl | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $logoHeight := .logoHeight | default "h-9" }}
+{{ $logoAlt := .logoAlt | default "Company name" }}
+
+{{/* Navigation columns */}}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $linkColor := .linkColor | default "text-gray-600" }}
+{{ $linkHoverColor := .linkHoverColor | default "text-gray-900" }}
+
+{{ $column1Title := .column1Title | default "Solutions" }}
+{{ $column1Links := .column1Links | default (slice 
+  (dict "text" "Marketing" "url" "#")
+  (dict "text" "Analytics" "url" "#")
+  (dict "text" "Automation" "url" "#")
+  (dict "text" "Commerce" "url" "#")
+  (dict "text" "Insights" "url" "#")
+) }}
+
+{{ $column2Title := .column2Title | default "Support" }}
+{{ $column2Links := .column2Links | default (slice 
+  (dict "text" "Submit ticket" "url" "#")
+  (dict "text" "Documentation" "url" "#")
+  (dict "text" "Guides" "url" "#")
+) }}
+
+{{ $column3Title := .column3Title | default "Company" }}
+{{ $column3Links := .column3Links | default (slice 
+  (dict "text" "About" "url" "#")
+  (dict "text" "Blog" "url" "#")
+  (dict "text" "Jobs" "url" "#")
+  (dict "text" "Press" "url" "#")
+) }}
+
+{{ $column4Title := .column4Title | default "Legal" }}
+{{ $column4Links := .column4Links | default (slice 
+  (dict "text" "Terms of service" "url" "#")
+  (dict "text" "Privacy policy" "url" "#")
+  (dict "text" "License" "url" "#")
+) }}
+
+<footer class="{{ $bgColor }}">
+  <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      {{ partial "components/media/lazyimg.html" (dict 
+        "src" $logoUrl 
+        "alt" $logoAlt
+        "class" $logoHeight
+      ) }}
+      <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column1Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column1Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column2Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column2Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column3Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column3Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column4Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column4Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

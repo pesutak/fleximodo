@@ -1,0 +1,46 @@
+{{ define "main" }}
+
+{{ partial "breadcrumbs_default.html" . }}
+{{ partial "hero_default.html" . }}
+
+<!-- Main Content -->
+<div class="bg-white">
+  <div class="wrapper">
+    <div class="mx-auto max-w-none prose prose-lg prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
+      {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
+    </div>
+  </div>
+</div>
+
+<!-- FAQ Section if available -->
+{{ if .Params.faq }}
+{{ partial "sections/faq/side-by-side" (dict
+"title" (i18n "faq_heading")
+"description" (i18n "faq_description")
+"items" .Params.faq
+) }}
+{{ end }}
+
+
+<!-- Author Section -->
+{{ if .Params.author }}
+  {{ $authors := site.Data.authors }}
+  {{ $authorKey := .Params.author }}
+  {{ if and $authors $authorKey (index $authors $authorKey) }}
+    {{ $author := index $authors $authorKey }}
+    {{ partial "sections/testimonials/with_large_avatar.html" (dict
+    "personName" $author.name
+    "personRole" $author.role
+    "personImage" $author.image
+    "personImageAlt" $author.name
+    "quote" $author.description
+    ) }}
+    {{ partial "schemaorg/author.html" . }}
+  {{ end }}
+{{ end }}
+
+{{ partial "cta.html" . }}
+
+{{ partial "related_content.html" . }}
+
+{{ end }}

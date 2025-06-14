@@ -1,0 +1,87 @@
+{{/* 
+  Three Column Bento Grid Shortcode
+  
+  Usage:
+  {{< bentogrid-three-column 
+      tagline="Build faster" 
+      heading="Everything you need for your next project" 
+      backgroundColor="gray-50"
+      taglineColor="primary"
+  >}}
+    [
+      {
+        "title": "Responsive Design",
+        "description": "Our components are fully responsive and work on all devices, from mobile to desktop.",
+        "image": "/images/responsive-design.webp",
+        "imageAlt": "Responsive design illustration",
+        "imagePosition": "top",
+        "url": "/features/responsive-design",
+        "linkText": "Learn more"
+      },
+      {
+        "title": "Performance",
+        "description": "Optimized for speed and efficiency to ensure your website loads quickly.",
+        "image": "/images/performance-metrics.webp",
+        "imageAlt": "Performance chart",
+        "imagePosition": "bottom",
+        "url": "/features/performance",
+        "linkText": "View metrics"
+      },
+      {
+        "title": "Security",
+        "description": "Built with security in mind to protect your data and your users' information.",
+        "image": "/images/security-shield.webp",
+        "imageAlt": "Security shield icon",
+        "url": "/features/security",
+        "linkText": "Explore security features"
+      },
+      {
+        "title": "Developer API",
+        "description": "Powerful and flexible API to extend functionality and integrate with other systems.",
+        "image": "",
+        "imageAlt": "",
+        "codeExample": true,
+        "url": "/developer/api",
+        "linkText": "Read documentation"
+      }
+    ]
+  {{< /bentogrid-three-column >}}
+  
+  Parameters:
+  - tagline: Small text displayed above the main heading (optional, default: empty)
+  - heading: Main heading text (optional, default: empty)
+  - backgroundColor: Background color class without the "bg-" prefix (default: "gray-50")
+  - taglineColor: Color class for the tagline without the "text-" prefix (default: "primary")
+  
+  Inner Content (optional JSON array):
+  - Array of card objects with the following properties:
+    - title: Card title
+    - description: Card description
+    - image: URL to the image for the card
+    - imageAlt: Alt text for the image
+    - imagePosition: Position of the image, "top" or "bottom" (optional, default: "top")
+    - url: URL the card should link to, making the entire card clickable (optional)
+    - linkText: Text to display as a link at the bottom of the card (optional)
+
+  If inner content is not provided, default cards will be used.
+*/}}
+
+{{ $tagline := .Get "tagline" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $backgroundColor := .Get "backgroundColor" | default "gray-50" }}
+{{ $taglineColor := .Get "taglineColor" | default "primary" }}
+
+{{ $cards := (slice) }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $cards = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "sections/bentogrids/three_column_bento_grid.html" (dict 
+  "tagline" $tagline
+  "heading" $heading
+  "backgroundColor" $backgroundColor
+  "taglineColor" $taglineColor
+  "cards" $cards
+) }}

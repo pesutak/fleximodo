@@ -1,0 +1,67 @@
+{{/* 
+  Features shortcode with header, images, and descriptions
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - heading: Main heading text (default: "The Fine Details")
+  - description: Subheading text below the main heading
+  
+  Inner Content (optional JSON array):
+  - Array of feature objects with the following structure:
+    - imageUrl: URL to feature image
+    - imageAlt: Alt text for feature image
+    - text: Feature description text
+  
+  Example usage with custom features:
+  {{< features-with-header-images-and-descriptions 
+      heading="Key Product Features" 
+      description="Our trail cameras are designed with advanced technology and durable materials to ensure reliable performance in all outdoor conditions."
+  >}}
+    [
+      {
+        "imageUrl": "/images/features/night-vision.jpg",
+        "imageAlt": "Trail camera with infrared LEDs illuminated, capturing nighttime wildlife",
+        "text": "Advanced invisible infrared technology allows for crystal-clear nighttime images without scaring wildlife. Our No-Glow IR technology ensures the camera remains completely undetectable in the field."
+      },
+      {
+        "imageUrl": "/images/features/weather-resistance.jpg",
+        "imageAlt": "Trail camera installed on tree during heavy rainfall",
+        "text": "With an IP66 waterproof rating, our cameras are built to withstand extreme weather conditions from scorching summer heat to freezing winter temperatures, ensuring year-round reliability."
+      }
+    ]
+  {{< /features-with-header-images-and-descriptions >}}
+  
+  If no inner content is provided, default features will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $heading := .Get "heading" | default "The Fine Details" }}
+{{ $description := .Get "description" | default "Our patented padded snack sleeve construction protects your favorite treats from getting smooshed during all-day adventures, long shifts at work, and tough travel schedules." }}
+
+{{ $defaultFeatures := slice 
+  (dict 
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg"
+    "imageAlt" "Drawstring top with elastic loop closure and textured interior padding."
+    "text" "The 20L model has enough space for 370 candy bars, 6 cylinders of chips, 1220 standard gumballs, or any combination of on-the-go treats that your heart desires. Yes, we did the math."
+  )
+  (dict 
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-02.jpg"
+    "imageAlt" "Front zipper pouch with included key ring."
+    "text" "Up your snack organization game with multiple compartment options. The quick-access stash pouch is ready for even the most unexpected snack attacks and sharing needs."
+  )
+}}
+
+{{ $features := $defaultFeatures }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $features = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "sections/features/with_header_images_and_descriptions.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "features" $features
+  "page" $.Page
+) }}

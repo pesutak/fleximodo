@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "שאלות נפוצות"
+language_selector_title: "שפות זמינות"
+glossary_subtitle: "רשימה מקיפה של מונחים והגדרות"
+glossary_title: "מילון מונחים"
+home_title: "בית"
+
+# Glossary translations
+glossary_eyebrow: "מילון מונחים"
+
+# Category page translations
+categories_title: "קטגוריות"
+categories_browse_all: "עיין בכל התוכן לפי קטגוריה"
+category_eyebrow: "קטגוריה"
+category_browse_content: "עיין בכל התוכן בקטגוריה %s"
+category_no_content_found: "לא נמצא תוכן בקטגוריה זו"
+category_try_browsing: "נסה לעיין בקטגוריות אחרות או לחפש תוכן"
+category_other_categories: "קטגוריות אחרות"
+
+# CTA translations
+cta_default_heading: "הרחב את הידע שלך עם המשאבים שלנו"
+cta_default_description: "עיין בספריית המאמרים, המדריכים והטוטוריאלים המקיפה שלנו כדי להעמיק את ההבנה שלך במושגי מפתח ולהישאר מעודכן עם ההתפתחויות האחרונות."
+cta_default_primary_text: "עיין במשאבים"
+cta_default_secondary_text: "צור קשר עם המומחים שלנו"
+
+# Content type translations
+content_article_singular: "מאמר"
+content_article_plural: "מאמרים"
+
+# Tags page translations
+tags_title: "תגיות"
+tags_browse_all: "עיין בכל התוכן לפי נושא"
+tag_eyebrow: "תג"
+tag_browse_content: "עיין בכל התכנים עם התגית %s"
+tag_no_content_found: "לא נמצא תוכן עם התגית הזו"
+tag_try_browsing: "נסה לעיין בתגיות אחרות או לחפש תוכן"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "הקודם"
+tag_pagination_next: "הבא"
+tag_other_tags: "תגיות אחרות"
+
+# Cookie consent translations
+cookie_consent_title: "אישור עוגיות"
+cookie_consent_message: "אנו משתמשים בעוגיות כדי לשפר את חוויית הגלישה שלך ולנתח את התנועה שלנו."
+cookie_consent_accept_all: "קבל הכל"
+cookie_consent_accept_necessary: "קבל רק את הנחוצות"
+cookie_consent_settings: "הגדרות עוגיות"
+cookie_settings_title: "הגדרות עוגיות"
+cookie_settings_close: "סגור"
+cookie_settings_necessary_title: "עוגיות נחוצות"
+cookie_settings_necessary_description: "לעוגיות אלו יש צורך בשביל הפעולה של האתר ולא ניתן לשלול אותן."
+cookie_settings_analytics_title: "עוגיות ניתוח"
+cookie_settings_analytics_description: "עוגיות אלו עוזרות לנו להבין כיצד מבקרים מתקשרים עם האתר שלנו."
+cookie_settings_cancel: "ביטול"
+cookie_settings_save: "שמור העדפות"
+
+# Pagination translations
+pagination_previous: "הקודם"
+pagination_next: "הבא"
+pagination_showing: "מציג"
+pagination_to: "עד"
+pagination_of: "מתוך"
+pagination_results: "תוצאות"
+pagination_browse_all: "עיין בכל התוכן ב"
+
+# FAQ translations
+faq_heading: "שאלות נפוצות"
+faq_description: "מצא תשובות לשאלות נפוצות בנושא זה."
+
+no_terms_available: "No terms available"
+pricing_monthly_label: "Monthly"
+pricing_yearly_label: "Yearly"
+wantMore: "Want more?"
+learnMore: "Learn more"
+pricing_tagline: "Pricing"
+pricing_title: "תמחור שגדל איתך"
+pricing_description: "בחר תכנית זולה הארוזה עם התכונות הטובות ביותר למעורבות הקהל שלך, יצירת נאמנות לקוחות והגברת מכירות."
+pricing_comparison_title: "השווה תכניות"
+pricing_comparison_description: "בדוק את השוואות התכניות שלנו ובחר את הטובה ביותר עבורך"
+read_more_post: "קרא עוד"
+no_posts_found: "לא נמצאו פוסטים"
+minutes_read: "דק' קריאה"
+get_started: "התחל"
+courses.session: "Session"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

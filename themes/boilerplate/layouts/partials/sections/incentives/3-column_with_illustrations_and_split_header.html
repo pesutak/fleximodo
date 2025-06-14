@@ -1,0 +1,109 @@
+{{/*
+@section: Three-Column Incentives with Illustrations and Split Header
+@description: A section featuring a two-column header with text and image, followed by three columns of incentives with illustrations. Perfect for highlighting key benefits with visual explanation.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-gray-50")
+  - title: Main heading text (optional, default: "We built our business on great customer service")
+  - description: Supporting text below the heading (optional, default is a longer paragraph)
+  - imageUrl: URL for the header image (optional, default is a Tailwind image)
+  - imageAlt: Alt text for the header image (optional, default: "")
+  - incentives: Array of incentive objects (optional, includes defaults)
+    - title: Incentive title
+    - description: Incentive description
+    - iconUrl: URL for the incentive icon
+    - iconAlt: Alt text for the incentive icon
+@example:
+  {{ partial "sections/incentives/3-column_with_illustrations_and_split_header.html" (dict 
+      "title" "Why Our Customers Love Us" 
+      "description" "Our customers are at the heart of everything we do. Here's what makes our service stand out."
+      "imageUrl" "/images/customer-service.jpg"
+      "imageAlt" "Customer service representative helping a client"
+      "incentives" (slice
+          (dict 
+              "title" "Fast Delivery" 
+              "description" "We deliver all orders within 24 hours of purchase confirmation."
+              "iconUrl" "/images/icons/delivery.svg"
+              "iconAlt" "Delivery icon"
+          )
+          (dict 
+              "title" "Quality Guarantee" 
+              "description" "All products come with our 10-year quality guarantee for peace of mind."
+              "iconUrl" "/images/icons/guarantee.svg"
+              "iconAlt" "Guarantee icon"
+          )
+          (dict 
+              "title" "Easy Returns" 
+              "description" "Not happy with your purchase? Return it within 30 days for a full refund."
+              "iconUrl" "/images/icons/returns.svg"
+              "iconAlt" "Returns icon"
+          )
+      )
+      "backgroundColor" "bg-white"
+  ) }}
+@note: The component features a responsive layout - on mobile displays the header stacks vertically, and the incentives display horizontally with icons on the left, while on desktop they arrange in a balanced grid format.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-gray-50" }}
+{{ $title := .title | default "We built our business on great customer service" }}
+{{ $description := .description | default "At the beginning at least, but then we realized we could make a lot more money if we kinda stopped caring about that. Our new strategy is to write a bunch of things that look really good in the headlines, then clarify in the small print but hope people don't actually read it." }}
+{{ $imageUrl := .imageUrl | default "https://tailwindcss.com/plus-assets/img/ecommerce-images/incentives-07-hero.jpg" }}
+{{ $imageAlt := .imageAlt | default "" }}
+{{ $incentives := .incentives | default (slice 
+  (dict 
+    "title" "Free shipping" 
+    "description" "It's not actually free we just price it into the products. Someone's paying for it, and it's not us." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-shipping-simple.svg"
+    "iconAlt" "Shipping icon"
+  )
+  (dict 
+    "title" "10-year warranty" 
+    "description" "If it breaks in the first 10 years we'll replace it. After that you're on your own though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-simple.svg"
+    "iconAlt" "Warranty icon"
+  )
+  (dict 
+    "title" "Exchanges" 
+    "description" "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-exchange-simple.svg"
+    "iconAlt" "Exchange icon"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 lg:px-4">
+    <div class="mx-auto max-w-2xl px-4 lg:max-w-none">
+      <div class="grid grid-cols-1 items-center gap-x-16 gap-y-10 lg:grid-cols-2">
+        <div>
+          <h2 class="text-4xl font-bold tracking-tight text-gray-900">{{ $title }}</h2>
+          <p class="mt-4 text-gray-500">{{ $description }}</p>
+        </div>
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" $imageUrl 
+          "alt" $imageAlt 
+          "class" "aspect-3/2 w-full rounded-lg bg-gray-100 object-cover" 
+          "loading" "lazy" 
+          "decoding" "async"
+        ) }}
+      </div>
+      <div class="mt-16 grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3">
+        {{ range $incentives }}
+          <div class="sm:flex lg:block">
+            <div class="sm:shrink-0">
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" .iconUrl 
+                "alt" .iconAlt 
+                "class" "size-16" 
+                "loading" "lazy" 
+                "decoding" "async"
+              ) }}
+            </div>
+            <div class="mt-4 sm:mt-0 sm:ml-6 lg:mt-6 lg:ml-0">
+              <h3 class="text-sm font-medium text-gray-900">{{ .title }}</h3>
+              <p class="mt-2 text-sm text-gray-500">{{ .description }}</p>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{{/*
+@component: magnifying-glass-minus (outline) Icon
+@params:
+  - class: CSS classes to apply to the SVG element (optional, default: "w-6 h-6 text-gray-500")
+@examples:
+  <!-- Basic usage with default classes -->
+  {{ partial "icons/magnifying-glass-minus" . }}
+
+  <!-- With custom size and color classes -->
+  {{ partial "icons/magnifying-glass-minus" "w-8 h-8 text-blue-600" }}
+
+  <!-- With responsive classes -->
+  {{ partial "icons/magnifying-glass-minus" "w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 text-indigo-500" }}
+*/}}
+
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24" 
+    class="{{ if . }}{{ . }}{{ else }}w-6 h-6 text-gray-500{{ end }}"
+    fill="none"
+>
+<path d="M21 21L15.8033 15.8033M15.8033 15.8033C17.1605 14.4461 18 12.5711 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.5711 18 14.4461 17.1605 15.8033 15.8033ZM13.5 10.5H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

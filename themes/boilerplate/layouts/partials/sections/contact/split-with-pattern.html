@@ -1,0 +1,68 @@
+{{/* split-with-pattern.html - Contact section with split layout and pattern background */}}
+{{ $title := .title | default "" }}
+{{ $description := .description | default "" }}
+
+{{ $address := .address | default "" | safeHTML }}
+{{ $phone := .phone | default "" }}
+{{ $phoneLink := .phoneLink | default (printf "tel:%s" (replace $phone " " "")) }}
+{{ $email := .email | default "" }}
+{{ $emailLink := .emailLink | default (printf "mailto:%s" $email) }}
+
+{{ $buttonText := .buttonText | default "" }}
+{{ $buttonColor := .buttonColor | default "indigo" }}
+{{ $formAction := .formAction | default "#" }}
+{{ $markdownContent := .markdownContent | default "" }}
+
+<div class="relative wrapper isolate bg-white rounded-lg border border-gray-200 my-20 overflow-hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-2">
+    <!-- Left side: Contact information -->
+    <div class="relative px-6 pt-24 pb-20 sm:pt-24 lg:static lg:px-8 lg:py-24">
+      <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
+        <div class="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100 ring-1 ring-gray-900/10 lg:w-1/2">
+          <svg class="absolute inset-0 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" aria-hidden="true">
+            <defs>
+              <pattern id="83fd4e5a-9d52-42fc-97b6-718e5d7ee527" width="200" height="200" x="100%" y="-1" patternUnits="userSpaceOnUse">
+                <path d="M130 200V.5M.5 .5H200" fill="none" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" stroke-width="0" fill="white" />
+            <svg x="100%" y="-1" class="overflow-visible fill-gray-50">
+              <path d="M-470.5 0h201v201h-201Z" stroke-width="0" />
+            </svg>
+            <rect width="100%" height="100%" stroke-width="0" fill="url(#83fd4e5a-9d52-42fc-97b6-718e5d7ee527)" />
+          </svg>
+        </div>
+        <h2 class="text-pretty text-4xl font-semibold not-prose tracking-tight text-gray-900 sm:text-5xl">{{ $title }}</h2>
+        <p class="mt-6 text-lg/8 text-gray-600">{{ $description }}</p>
+        <dl class="mt-10 space-y-4 text-base/7 text-gray-600 not-prose">
+          {{ if $address }}
+          <div class="flex gap-x-4">
+            {{ partial "components/media/icon.html" (dict "icon" "map" "class" "h-4 w-4 mt-0.5") }}
+            <dd>{{ $address }}</dd>
+          </div>
+          {{ end }}
+          {{ if $phone }}
+          <div class="flex gap-x-4">
+              {{ partial "components/media/icon.html" (dict "icon" "phone" "class" "h-4 w-4 mt-0.5 ") }}
+            <dd><a class="font-semibold hover:text-gray-900" href="{{ $phoneLink }}">{{ $phone }}</a></dd>
+          </div>
+          {{ end }}
+          {{ if $email }}
+          <div class="flex gap-x-4">
+            {{ partial "components/media/icon.html" (dict "icon" "envelope" "class" "h-4 w-4 mt-0.5") }}
+            <dd><a class="font-semibold hover:text-gray-900" href="{{ $emailLink }}">{{ $email }}</a></dd>
+          </div>
+          {{ end }}
+        </dl>
+      </div>
+    </div>
+    <!-- Markdown content - now placed in right column with consistent padding -->
+    {{ if $markdownContent }}
+    <div class="flex items-center justify-center px-6 pt-24 pb-20 sm:pt-24 sm:px-10 lg:col-span-1 lg:py-24">
+      <div class="prose prose-lg prose-indigo w-full max-w-xl">
+        {{ $markdownContent | markdownify | safeHTML }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>

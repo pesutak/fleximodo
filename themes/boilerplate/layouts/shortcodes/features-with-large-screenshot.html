@@ -1,0 +1,36 @@
+{{/* Features with Large Screenshot Shortcode */}}
+{{ $tagline := .Get "tagline" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
+
+{{ $screenshot := dict }}
+{{ if .Get "screenshot_url" }}
+{{ $screenshot = $screenshot | merge (dict "url" (.Get "screenshot_url" | default "")) }}
+{{ $screenshot = $screenshot | merge (dict "alt" (.Get "screenshot_alt" | default "")) }}
+{{ if .Get "screenshot_width" }}
+{{ $screenshot = $screenshot | merge (dict "width" (.Get "screenshot_width")) }}
+{{ end }}
+{{ if .Get "screenshot_height" }}
+{{ $screenshot = $screenshot | merge (dict "height" (.Get "screenshot_height" )) }}
+{{ end }}
+{{ $screenshot = $screenshot | merge (dict "classes" (.Get "screenshot_classes" | default "mb-[-12%] rounded-xl ring-1 shadow-2xl ring-gray-900/10")) }}
+{{ end }}
+
+{{ $features := slice }}
+{{ if .Inner }}
+  {{ $features = .Inner | unmarshal }}
+{{ else if .Get "features" }}
+  {{ $features = .Get "features" }}
+{{ else }}
+  {{ $features = slice }}
+{{ end }}
+
+{{/* Render the partial with collected data */}}
+{{ partial "sections/features/with_large_screenshot.html" (dict 
+  "tagline" $tagline
+  "heading" $heading
+  "description" $description
+  "screenshot" $screenshot
+  "features" $features
+  "page" .Page
+) }}

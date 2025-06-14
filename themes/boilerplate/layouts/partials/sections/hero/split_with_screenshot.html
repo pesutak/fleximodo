@@ -1,0 +1,84 @@
+{{/*
+@section: Split Hero with Screenshot
+@description: A split hero section with screenshot on light background with text content and CTAs on the left, screenshot on the right.
+@params:
+  - maxSectionHeight: Maximum height for the section (default: "600px")
+  - screenshot: Screenshot object (optional)
+    - url: Screenshot URL (default: project app screenshot)
+    - alt: Alt text for the screenshot (default: "App screenshot")
+    - width: Screenshot width (default: "2432")
+    - height: Screenshot height (default: "1442")
+  - logo: URL to logo image (optional)
+  - announcement: Announcement object (optional)
+    - enabled: Whether to show the announcement (default: false)
+    - text: Announcement text
+    - linkText: Link text for the announcement
+    - linkUrl: URL for the announcement link
+  - heading: Main heading text
+  - description: Description text
+  - cta: Call-to-action buttons (optional)
+    - primary: Primary button (text, url)
+    - secondary: Secondary button (text, url)
+  - typewriter: Object with typewriter effect configuration (optional)
+    - enabled: Boolean to enable/disable the effect (default: false)
+    - words: Number of words to animate (default: 1)
+    - speed: Typing speed in ms (default: 100)
+    - deleteSpeed: Deleting speed in ms (default: 50)
+    - pause: Pause duration in ms (default: 2000)
+    - color: Color class for animated text (default: "text-indigo-600")
+@example:
+  {{ partial "sections/hero/split_with_screenshot.html" (dict 
+      "heading" "Deploy to the cloud with confidence"
+      "description" "Build and deploy applications with confidence using our platform."
+      "cta" (dict 
+          "primary" (dict "text" "Get started" "url" "/signup") 
+          "secondary" (dict "text" "Learn more" "url" "/features")
+      )
+      "screenshot" (dict
+          "url" "/images/app-screenshot.png"
+          "alt" "Application dashboard screenshot"
+      )
+      "typewriter" (dict
+          "enabled" true
+          "words" 2
+          "speed" 120
+          "deleteSpeed" 60
+          "pause" 2500
+          "color" "text-blue-600"
+      )
+  ) }}
+*/}}
+{{/* Split Hero with Screenshot on Light Background */}}
+{{ $maxSectionHeight := .maxSectionHeight | default "600px" }}
+{{ $screenshot := .screenshot | default (dict
+  "url" "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
+  "alt" "App screenshot"
+  "width" "2432"
+  "height" "1442"
+) }}
+
+<div class="relative isolate overflow-hidden bg-white">
+  <svg class="absolute inset-0 -z-10 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" aria-hidden="true">
+    <defs>
+      <pattern id="0787a7c5-978c-4f66-83c7-11c213f99cb7" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+        <path d="M.5 200V.5H200" fill="none" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" stroke-width="0" fill="url(#0787a7c5-978c-4f66-83c7-11c213f99cb7)" />
+  </svg>
+  <div class="mx-auto max-w-7xl px-6 pt-4 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-8" style="max-height: {{ $maxSectionHeight }}">
+    <div class="mx-auto max-w-xl lg:mx-0 lg:shrink-0 lg:pt-8">
+      {{ partial "sections/hero/split_left_side_helper.html" .}}
+    </div>
+    <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:mt-0 lg:mr-0 lg:ml-10 lg:max-w-none lg:py-20">
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" $screenshot.url
+          "alt" (default "App screenshot" $screenshot.alt)
+          "width" (default "2432" $screenshot.width)
+          "height" (default "1442" $screenshot.height)
+          "class" "w-[76rem] rounded-md shadow-2xl ring-1 ring-gray-900/10"
+          "style" (printf "max-height: calc(%s - 32rem); width: auto; object-fit: contain;" $maxSectionHeight)
+        ) }}
+    </div>
+  </div>
+</div>

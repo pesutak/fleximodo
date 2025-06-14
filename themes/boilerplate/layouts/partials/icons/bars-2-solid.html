@@ -1,0 +1,24 @@
+{{/*
+@component: bars-2 (solid) Icon
+@params:
+  - class: CSS classes to apply to the SVG element (optional, default: "w-6 h-6 text-gray-500")
+@examples:
+  <!-- Basic usage with default classes -->
+  {{ partial "icons/bars-2-solid" . }}
+
+  <!-- With custom size and color classes -->
+  {{ partial "icons/bars-2-solid" "w-8 h-8 text-blue-600" }}
+
+  <!-- With responsive classes -->
+  {{ partial "icons/bars-2-solid" "w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 text-indigo-500" }}
+*/}}
+
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24" 
+    class="{{ if . }}{{ . }}{{ else }}w-6 h-6 text-gray-500{{ end }}"
+    fill="currentColor"
+>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M3 9C3 8.58579 3.33579 8.25 3.75 8.25H20.25C20.6642 8.25 21 8.58579 21 9C21 9.41421 20.6642 9.75 20.25 9.75H3.75C3.33579 9.75 3 9.41421 3 9ZM3 15.75C3 15.3358 3.33579 15 3.75 15H20.25C20.6642 15 21 15.3358 21 15.75C21 16.1642 20.6642 16.5 20.25 16.5H3.75C3.33579 16.5 3 16.1642 3 15.75Z" fill="currentColor"/>
+</svg>

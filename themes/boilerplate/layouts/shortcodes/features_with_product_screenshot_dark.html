@@ -1,0 +1,98 @@
+{{/*
+Shortcode: features_with_product_screenshot_dark
+Description: Features section with product screenshot on dark background
+Parameters:
+  - tagline: Small tagline text (optional, default: "Deploy faster")
+  - heading: Main section heading (optional, default: "A better workflow")  
+  - description: Description text (optional, with default lorem ipsum)
+  - features: YAML/JSON array of feature objects with icon, title, description (optional)
+  - screenshot_url: URL of the screenshot image (optional, default: placeholder)
+  - screenshot_alt: Alt text for screenshot (optional, default: "Product screenshot")
+  - screenshot_width: Screenshot width (optional, default: "2432")
+  - screenshot_height: Screenshot height (optional, default: "1442")
+  - cta_text: Call to Action button text (optional)
+  - cta_url: URL for the CTA button (optional)
+  - cta_color: Background color for the CTA button (optional, default: "indigo-600")
+  - cta_hover_color: Hover background color for the CTA button (optional, default: "indigo-500")
+
+Usage:
+{{< features_with_product_screenshot_dark 
+    tagline="Deploy faster"
+    heading="A better workflow"
+    description="Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    features=`[
+      {
+        "icon": "<path d=\"...\"/>",
+        "title": "Push to deploy",
+        "description": "Lorem ipsum description"
+      },
+      {
+        "icon": "<path d=\"...\"/>", 
+        "title": "SSL certificates",
+        "description": "Anim aute id magna aliqua"
+      }
+    ]`
+    screenshot_url="/images/product-screenshot.png"
+    screenshot_alt="Our product interface"
+    screenshot_width="2432"
+    screenshot_height="1442"
+>}}
+
+Or with inline content:
+{{< features_with_product_screenshot_dark tagline="Deploy faster" heading="A better workflow" >}}
+Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+{{< /features_with_product_screenshot_dark >}}
+*/}}
+
+{{/* Get parameters */}}
+{{ $tagline := .Get "tagline" }}
+{{ $heading := .Get "heading" }}
+{{ $description := .Get "description" }}
+{{ $features := .Get "features" }}
+{{ $screenshotUrl := .Get "screenshot_url" }}
+{{ $screenshotAlt := .Get "screenshot_alt" }}
+{{ $screenshotWidth := .Get "screenshot_width" }}
+{{ $screenshotHeight := .Get "screenshot_height" }}
+{{ $ctaText := .Get "cta_text" }}
+{{ $ctaUrl := .Get "cta_url" }}
+{{ $ctaColor := .Get "cta_color" | default "indigo-600" }}
+{{ $ctaHoverColor := .Get "cta_hover_color" | default "indigo-500" }}
+
+{{/* Parse features JSON if provided */}}
+{{ $parsedFeatures := "" }}
+{{ if $features }}
+  {{ $parsedFeatures = $features | unmarshal }}
+{{ end }}
+
+{{/* Build screenshot object */}}
+{{ $screenshot := dict }}
+{{ if $screenshotUrl }}
+  {{ $screenshot = dict 
+    "url" $screenshotUrl
+    "alt" ($screenshotAlt | default "Product screenshot")
+    "width" ($screenshotWidth )
+    "height" ($screenshotHeight )
+  }}
+{{ end }}
+
+{{/* Build context for partial */}}
+{{ $context := dict "page" .Page }}
+{{ if $tagline }}{{ $context = merge $context (dict "tagline" $tagline) }}{{ end }}
+{{ if $heading }}{{ $context = merge $context (dict "heading" $heading) }}{{ end }}
+{{ if $description }}{{ $context = merge $context (dict "description" $description) }}{{ end }}
+{{ if $parsedFeatures }}{{ $context = merge $context (dict "features" $parsedFeatures) }}{{ end }}
+{{ if $screenshot.url }}{{ $context = merge $context (dict "screenshot" $screenshot) }}{{ end }}
+
+{{/* Add CTA to context if provided */}}
+{{ if and $ctaText $ctaUrl }}
+  {{ $cta := dict 
+    "text" $ctaText 
+    "url" $ctaUrl 
+    "bgColor" $ctaColor 
+    "hoverBgColor" $ctaHoverColor 
+  }}
+  {{ $context = merge $context (dict "cta" $cta) }}
+{{ end }}
+
+{{/* Render the partial */}}
+{{ partial "sections/features/with_product_screenshot_dark.html" $context }}

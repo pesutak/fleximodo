@@ -1,0 +1,151 @@
+{{/*
+@section: Courses Video Content
+@description: A section for displaying course videos with thumbnails and play buttons.
+@params:
+  - sectionClass: CSS classes for the main section (optional, default: "mx-auto max-w-7xl mb-20")
+  - bgColor: Background color class (optional, default: "bg-gray-50")
+  - padding: Padding classes (optional, default: "px-6 py-16 lg:px-8")
+  - icons: Array of icon objects with image path and alt text (optional)
+  - iconClass: CSS classes for individual icons (optional, default: "w-auto not-prose m-0")
+  - title: Main section title (optional)
+  - titleColor: Color class for title (optional, default: "text-gray-900") 
+  - titleClass: CSS classes for title (optional, default: "text-3xl lg:text-5xl font-bold text-center mt-0 mb-6")
+  - description: Section description text (optional)
+  - descriptionColor: Color class for description (optional, default: "text-gray-900")
+  - descriptionClass: CSS classes for description (optional, default: "text-lg leading-8 text-center max-w-3xl mx-auto")
+  - videoSessions: Array of video session objects (required)
+    Each video session requires: sessionNumber (e.g., "Video session 1:"), title, videoURL, posterImage
+  - bannerText: Banner text content, supports HTML (optional)
+  - bannerImage: Path to banner image (optional, default: "/images/landing-pages/ai-training-sertificate.png")
+  - bannerImageAlt: Alt text for banner image (optional)
+  - bannerTextColor: Text color for banner (optional, default: "text-white")
+  - bannerBackgroundColor: Background color for banner (optional, default gradient)
+@example:
+  {{< courses-video 
+    title="Video Training Sessions"
+    description="Learn through our comprehensive video training series"
+    bannerText="Showcase Your Expertise<br><b>With Our Certificate!</b>"
+    sectionClass="mx-auto max-w-7xl mb-0"
+    >}}
+    {
+    "icons": [
+        {"image": "/images/landing-pages/company-logo.svg", "alt": "Company Logo"}
+    ],
+    "videoSessions": [
+        {
+            "sessionNumber": "Video session 1:",
+            "title": "Introduction to Generative AI",
+            "videoURL": "https://www.youtube.com/watch?v=exampleId1",
+            "posterImage": "/images/video-thumbnails/intro-ai.jpg"
+        },
+        {
+            "sessionNumber": "Video session 2:",
+            "title": "Deep Dive Training Videos",
+            "videoURL": "https://www.youtube.com/watch?v=exampleId2",
+            "posterImage": "/images/video-thumbnails/deep-dive.jpg"
+        },
+        {
+            "sessionNumber": "Video session 3:",
+            "title": "Compliance & Governance Videos",
+            "videoURL": "https://www.youtube.com/watch?v=exampleId3",
+            "posterImage": "/images/video-thumbnails/governance.jpg"
+        },
+        {
+            "sessionNumber": "Video session 4:",
+            "title": "Bespoke Training Sessions",
+            "videoURL": "https://www.youtube.com/watch?v=exampleId4",
+            "posterImage": "/images/video-thumbnails/training.jpg"
+        }
+    ]
+    }
+    {{< /courses-video >}}
+*/}}
+
+{{/* Layout configuration */}}
+{{ $sectionClass := .sectionClass | default "mx-auto max-w-7xl mb-20" }}
+{{ $bgColor := .bgColor | default "bg-gray-50" }}
+{{ $padding := .padding | default "px-6 py-16 lg:px-8" }}
+{{ $iconClass := .iconClass | default "w-auto not-prose m-0" }}
+
+{{/* Content variables */}}
+{{ $title := .title | default "" }}
+{{ $titleColor := .titleColor | default "text-gray-900" }}
+{{ $titleClass := .titleClass | default "text-3xl lg:text-5xl font-bold text-center mt-0 mb-6" }}
+{{ $description := .description | default "" }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-900" }}
+{{ $descriptionClass := .descriptionClass | default "text-lg leading-8 text-center max-w-3xl mx-auto" }}
+
+{{/* Video Sessions Section */}}
+{{ $videoSessions := .videoSessions | default nil }}
+
+{{/* Banner settings */}}
+{{ $bannerText := .bannerText | default "" }}
+{{ $bannerImage := .bannerImage | default "/images/landing-pages/ai-training-sertificate.png" }}
+{{ $bannerImageAlt := .bannerImageAlt | default "" }}
+{{ $bannerTextColor := .bannerTextColor | default "text-white" }}
+{{ $bannerBackgroundColor := .bannerBackgroundColor | default "bg-gradient-to-l from-[#1a1a1a] to-[#0f1f5c] bg-opacity-10" }}
+
+<section class="{{ $sectionClass }} {{ $bgColor }} {{ $padding }} rounded-2xl mx-6 sm:mx-8">
+    <!-- Icons Section - Technology Partners -->
+    {{ if .icons }}
+    <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16 lg:gap-20 mb-20">
+        {{ range .icons }}
+        <div class="flex items-center justify-center w-auto h-auto">
+            {{ partial "components/media/lazyimg.html" (dict 
+                "src" .image 
+                "alt" (.alt) 
+                "class" (print $iconClass " object-contain")
+            ) }}
+        </div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <!-- Title and Description -->
+    <div class="text-center mb-20">
+        {{ if $title }}
+        <h2 class="{{ $titleClass }} {{ $titleColor }}">{{ $title }}</h2>
+        {{ end }}
+        
+        {{ if $description }}
+        <div class="{{ $descriptionClass }} {{ $descriptionColor }}">
+            {{ $description | safeHTML }}
+        </div>
+        {{ end }}
+    </div>
+
+    <!-- Video Block -->
+    {{ if $videoSessions }}
+    <div class="grid max-w-3xl mx-auto grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+        {{ range $videoSessions }}
+        <div class="rounded-lg">
+            <p class="text-sm mb-2">{{ .sessionNumber }}</p>
+            <h3 class="text-2xl font-bold mt-1 min-h-16">{{ .title }}</h3>
+            {{ partial "components/media/lazyvideo.html" (dict
+                "src" .videoURL
+                "title" .title
+                "controls" false
+                "autoplay" false
+                "muted" false
+                "loop" false
+                "width" "100%"
+                "height" "auto"
+            ) }}
+        </div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <!-- Banner -->
+    {{ if $bannerText }}
+    <div class="max-w-3xl mx-auto">
+        {{ partial "sections/banners/with_image.html" (dict 
+            "text" $bannerText
+            "image" $bannerImage
+            "image_alt" $bannerImageAlt
+            "backgroundColor" $bannerBackgroundColor
+            "textColor" $bannerTextColor
+        ) }}
+    </div>
+    {{ end }}
+</section>

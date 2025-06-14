@@ -1,0 +1,103 @@
+{{/* 
+  Hero Split with Image Tiles Shortcode
+  
+  Usage:
+  {{< hero-split-with-image-tiles 
+    heading="Innovate Your Workflow" 
+    description="Discover how our tools can streamline your processes and boost productivity." 
+    primaryCtaText="Learn More" 
+    primaryCtaUrl="/learn-more" 
+    secondaryCtaText="Contact Us" 
+    secondaryCtaUrl="/contact"
+    typewriterEnabled="true"
+    typewriterWords="2"
+    typewriterSpeed="120"
+    typewriterDeleteSpeed="60"
+    typewriterPause="2500"
+    typewriterColor="text-indigo-600"
+  >}}
+    [
+      {
+        "url": "/images/hero-image-1.jpg",
+        "alt": "Team collaboration meeting"
+      },
+      {
+        "url": "/images/hero-image-2.jpg",
+        "alt": "Product demonstration"
+      },
+      {
+        "url": "/images/hero-image-3.jpg",
+        "alt": "Customer using mobile app"
+      },
+      {
+        "url": "/images/hero-image-4.jpg",
+        "alt": "Data visualization screen"
+      },
+      {
+        "url": "/images/hero-image-5.jpg",
+        "alt": "Team member working on laptop"
+      }
+    ]
+  {{< /hero-split-with-image-tiles >}}
+  
+  Parameters:
+  - heading: Main heading text (default: "We're changing the way people connect")
+  - description: Supporting text below the heading
+  - primaryCtaText: Text for primary call-to-action button
+  - primaryCtaUrl: URL for primary call-to-action button
+  - secondaryCtaText: Text for secondary call-to-action link
+  - secondaryCtaUrl: URL for secondary call-to-action link
+  - typewriterEnabled: Enable/disable typewriter effect (true/false, default: false)
+  - typewriterWords: Number of words to animate from the end (default: 1)
+  - typewriterSpeed: Typing speed in milliseconds (default: 100)
+  - typewriterDeleteSpeed: Deleting speed in milliseconds (default: 50)
+  - typewriterPause: Pause duration between word cycles in milliseconds (default: 2000)
+  - typewriterColor: Tailwind CSS color class for animated text (default: "text-indigo-600")
+  
+  Inner Content (optional JSON array):
+  - Array of 5 image objects with "url" and "alt" properties
+  - If not provided, default images will be used
+*/}}
+
+{{/* Split Hero with Image Tiles Shortcode */}}
+{{ $heading := .Get "heading" | default "We're changing the way people connect" }}
+{{ $description := .Get "description" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt sunt." }}
+{{ $primaryCtaText := .Get "primaryCtaText" | default "" }}
+{{ $primaryCtaUrl := .Get "primaryCtaUrl" | default "#" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default "" }}
+{{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default "#" }}
+
+{{/* Typewriter parameters */}}
+{{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
+{{ $typewriterWords := .Get "typewriterWords" | default 1 }}
+{{ $typewriterSpeed := .Get "typewriterSpeed" | default 100 }}
+{{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
+{{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
+{{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
+
+{{ $images := slice }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $images = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ $typewriter := dict
+  "enabled" (eq $typewriterEnabled "true")
+  "words" $typewriterWords
+  "speed" $typewriterSpeed
+  "deleteSpeed" $typewriterDeleteSpeed
+  "pause" $typewriterPause
+  "color" $typewriterColor
+}}
+
+{{ partial "sections/hero/split_with_image_tiles.html" (dict 
+  "heading" $heading
+  "description" $description
+  "primaryCtaText" $primaryCtaText
+  "primaryCtaUrl" $primaryCtaUrl
+  "secondaryCtaText" $secondaryCtaText
+  "secondaryCtaUrl" $secondaryCtaUrl
+  "images" $images
+  "typewriter" $typewriter
+) }}

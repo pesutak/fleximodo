@@ -1,0 +1,184 @@
+<div class="bg-background-alt p-6 rounded-lg">
+  <h3 class="text-xl font-semibold mb-4">CSS Variables from configuration</h3>
+  
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b">
+          <th class="py-2 px-4 text-left">Variable Name</th>
+          <th class="py-2 px-4 text-left">Value</th>
+          <th class="py-2 px-4 text-left">Preview</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Primary section -->
+        <tr class="border-b bg-background-dark">
+          <td colspan="3" class="py-2 px-4 font-bold">Primary Colors</td>
+        </tr>
+        
+        <!-- Primary -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-primary</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.primary }}{{ . }}{{ else }}#ff0000{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-primary border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Primary Light -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-primary-light</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.primaryLight }}{{ . }}{{ else }}#4285f4{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-primary-light border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Primary Dark -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-primary-dark</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.primaryDark }}{{ . }}{{ else }}#1557b0{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-primary-dark border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Secondary section -->
+        <tr class="border-b bg-background-dark">
+          <td colspan="3" class="py-2 px-4 font-bold">Secondary Colors</td>
+        </tr>
+        
+        <!-- Secondary -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-secondary</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.secondary }}{{ . }}{{ else }}#34a853{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-secondary border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Secondary Light -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-secondary-light</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.secondaryLight }}{{ . }}{{ else }}#46c167{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-secondary-light border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Secondary Dark -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-secondary-dark</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.secondaryDark }}{{ . }}{{ else }}#2d8644{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-secondary-dark border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Accent section -->
+        <tr class="border-b bg-background-dark">
+          <td colspan="3" class="py-2 px-4 font-bold">Accent Color</td>
+        </tr>
+        
+        <!-- Accent -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-accent</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.accent }}{{ . }}{{ else }}#fbbc05{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-accent border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Text section -->
+        <tr class="border-b bg-background-dark">
+          <td colspan="3" class="py-2 px-4 font-bold">Text Colors</td>
+        </tr>
+        
+        <!-- Text -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-text</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.text }}{{ . }}{{ else }}#202124{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-text border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Text Light -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-text-light</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.textLight }}{{ . }}{{ else }}#5f6368{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-text-light border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Text Muted -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-text-muted</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.textMuted }}{{ . }}{{ else }}#9aa0a6{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-text-muted border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Background section -->
+        <tr class="border-b bg-background-dark">
+          <td colspan="3" class="py-2 px-4 font-bold">Background Colors</td>
+        </tr>
+        
+        <!-- Background -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-background</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.background }}{{ . }}{{ else }}#ffffff{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-background border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Background Alt -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-background-alt</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.backgroundAlt }}{{ . }}{{ else }}#f8f9fa{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-background-alt border border-text-muted rounded"></div>
+          </td>
+        </tr>
+        
+        <!-- Background Dark -->
+        <tr class="border-b">
+          <td class="py-3 px-4 font-mono">--color-background-dark</td>
+          <td class="py-3 px-4 font-mono">
+            {{ with .Site.Params.theme.colors.backgroundDark }}{{ . }}{{ else }}#f1f3f4{{ end }}
+          </td>
+          <td class="py-3 px-4">
+            <div class="w-12 h-6 bg-background-dark border border-text-muted rounded"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

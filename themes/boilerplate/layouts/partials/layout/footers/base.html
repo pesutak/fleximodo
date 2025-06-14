@@ -1,0 +1,28 @@
+{{/*
+@component: Footer Base Router
+@description: Router component that selects and renders the appropriate footer type based on the provided parameter.
+@params:
+  - footerType: The type of footer to display (optional, default: "4-column_with_call-to-action_on_dark")
+    Possible values:
+    - "4-column_with_call-to-action_on_dark" (default)
+    - "simple"
+    - "centered"
+  - All parameters required by the selected footer component
+@example:
+  {{ partial "layout/footers/base.html" (dict 
+      "footerType" "simple"
+      "copyrightText" "&copy; 2025 Acme Corp. All rights reserved."
+  ) }}
+@note: This component serves as a convenient wrapper to select different footer styles while maintaining a consistent interface.
+*/}}
+{{ $footerType := .footerType | default "4-column_with_call-to-action_on_dark" }}
+
+{{ if eq $footerType "4-column_with_call-to-action_on_dark" }}
+  {{ partial "layout/footers/4-column_with_call-to-action_on_dark" . }}
+{{ else if eq $footerType "simple" }}
+  {{ partial "footers/simple" . }}
+{{ else if eq $footerType "centered" }}
+  {{ partial "footers/centered" . }}
+{{ else }}
+  {{ partial "layout/footers/4-column_with_call-to-action_on_dark" . }}
+{{ end }}

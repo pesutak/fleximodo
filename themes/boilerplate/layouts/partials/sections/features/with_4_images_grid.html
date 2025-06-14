@@ -1,0 +1,95 @@
+{{/* 
+  Features partial with 4 images grid
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Technical Specifications")
+  - description: Subheading text below the main heading (default: "The walnut wood card tray is precision milled to perfectly fit a stack of Focus cards. The powder coated steel divider separates active cards from new ones, or can be used to archive important task lists.")
+  - specifications: Array of specification objects with the following structure:
+    - title: Specification title
+    - description: Specification description
+  - images: Array of image objects with the following structure:
+    - url: Image URL
+    - alt: Alt text for the image
+  - page: Page context for linkbuilding
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Technical Specifications" }}
+{{ $description := .description | default "The walnut wood card tray is precision milled to perfectly fit a stack of Focus cards. The powder coated steel divider separates active cards from new ones, or can be used to archive important task lists." }}
+
+{{/* Page context for linkbuilding */}}
+{{ $page := .page }}
+
+{{ $specifications := .specifications | default (slice 
+  (dict 
+    "title" "Origin"
+    "description" "Designed by Good Goods, Inc."
+  )
+  (dict 
+    "title" "Material"
+    "description" "Solid walnut base with rare earth magnets and powder coated steel card cover"
+  )
+  (dict 
+    "title" "Dimensions"
+    "description" "6.25\" x 3.55\" x 1.15\""
+  )
+  (dict 
+    "title" "Finish"
+    "description" "Hand sanded and finished with natural oil"
+  )
+  (dict 
+    "title" "Includes"
+    "description" "Wood card tray and 3 refill packs"
+  )
+  (dict 
+    "title" "Considerations"
+    "description" "Made from natural materials. Grain and color vary with each item."
+  )
+) }}
+
+{{ $images := .images | default (slice 
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-01.jpg"
+    "alt" "Walnut card tray with white powder coated steel divider and 3 punchout holes."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-02.jpg"
+    "alt" "Top down view of walnut card tray with embedded magnets and card groove."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-03.jpg"
+    "alt" "Side of walnut card tray with card groove and recessed card area."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-04.jpg"
+    "alt" "Walnut card tray filled with cards and card angled in dedicated groove."
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+    <div>
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ $heading }}</h2>
+      <p class="mt-4 text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
+
+      <dl class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
+        {{ range $specifications }}
+        <div class="border-t border-gray-200 pt-4">
+          <dt class="font-medium text-gray-900">{{ .title }}</dt>
+          <dd class="mt-2 text-sm text-gray-500">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
+        </div>
+        {{ end }}
+      </dl>
+    </div>
+    <div class="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
+      {{ range $images }}
+      {{ partial "components/media/lazyimg.html" (dict 
+        "src" .url
+        "alt" .alt
+        "class" "rounded-lg bg-gray-100"
+      ) }}
+      {{ end }}
+    </div>
+  </div>
+</div>

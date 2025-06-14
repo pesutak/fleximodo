@@ -1,0 +1,71 @@
+{{ define "main" }}
+<div class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">{{ i18n "categories_title" }}</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-xl text-gray-500">{{ i18n "categories_browse_all" }}</p>
+    </div>
+
+    <!-- Alphabet navigation -->
+    <div class="mt-10 flex flex-wrap justify-center gap-2">
+      {{ $letters := slice "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z" }}
+      {{ $categories := $.Site.Taxonomies.categories }}
+      {{ $categoriesByFirstLetter := dict }}
+      
+      {{ range $name, $taxonomy := $categories }}
+        {{ $firstLetter := upper (substr $name 0 1) }}
+        {{ $categoryInfo := dict "name" $name "count" (len $taxonomy.Pages) }}
+        
+        {{ if isset $categoriesByFirstLetter $firstLetter }}
+          {{ $existingCategories := index $categoriesByFirstLetter $firstLetter }}
+          {{ $updatedCategories := $existingCategories | append $categoryInfo }}
+          {{ $categoriesByFirstLetter = merge $categoriesByFirstLetter (dict $firstLetter $updatedCategories) }}
+        {{ else }}
+          {{ $categoriesByFirstLetter = merge $categoriesByFirstLetter (dict $firstLetter (slice $categoryInfo)) }}
+        {{ end }}
+      {{ end }}
+      
+      {{ range $letters }}
+        {{ $letter := . }}
+        {{ $hasCategories := false }}
+        {{ if isset $categoriesByFirstLetter $letter }}
+          {{ $hasCategories = true }}
+        {{ end }}
+        
+        <a href="#{{ $letter }}" class="inline-flex items-center justify-center h-10 w-10 rounded-full {{ if $hasCategories }}bg-indigo-600 text-white hover:bg-indigo-700{{ else }}bg-gray-200 text-gray-400 cursor-not-allowed{{ end }}">
+          {{ $letter }}
+        </a>
+      {{ end }}
+    </div>
+
+    <!-- Categories grouped by letter -->
+    <div class="mt-16 space-y-16">
+      {{ range $letters }}
+        {{ $letter := . }}
+        {{ $categoriesInLetter := index $categoriesByFirstLetter $letter | default slice }}
+        
+        {{ if $categoriesInLetter }}
+          <div id="{{ $letter }}" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-4">{{ $letter }}</h2>
+            <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {{ range $categoriesInLetter }}
+                <li class="group relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <h3 class="text-lg font-semibold text-gray-900">
+                    <a href="{{ "/categories/" | relLangURL }}{{ .name | urlize }}/" class="hover:text-indigo-600 focus:outline-none">
+                      <span class="absolute inset-0" aria-hidden="true"></span>
+                      {{ .name }}
+                    </a>
+                  </h3>
+                  <p class="mt-2 text-sm text-gray-500">
+                    {{ .count }} {{ if eq .count 1 }}{{ i18n "content_article_singular" }}{{ else }}{{ i18n "content_article_plural" }}{{ end }}
+                  </p>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

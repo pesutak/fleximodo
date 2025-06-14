@@ -1,0 +1,71 @@
+{{ define "main" }}
+<div class="container mx-auto px-4 py-12">
+  <div class="flex items-center justify-between mb-12">
+    <div>
+      <h1 class="text-4xl font-bold text-primary mb-2">{{ .Title }}</h1>
+      <p class="text-text-light">Internal use only - not indexed</p>
+    </div>
+    <div class="bg-background-alt text-text-light px-3 py-1 rounded-md text-sm">
+      Last updated: {{ now.Format "Jan 2, 2006" }}
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <!-- Sidebar navigation -->
+    <div class="md:col-span-1">
+      <nav class="sticky top-24 bg-background-alt p-4 rounded-lg">
+        <h3 class="font-medium mb-3 text-text">Navigation</h3>
+        <ul class="space-y-3">
+          <li><a href="#colors" class="text-primary hover:text-primary-dark block">Colors</a></li>
+          <li><a href="#gradients" class="text-primary hover:text-primary-dark block">Gradients</a></li>
+          <li><a href="#typography" class="text-primary hover:text-primary-dark block">Typography</a></li>
+          <li><a href="#variables" class="text-primary hover:text-primary-dark block">CSS Variables</a></li>
+          <li><a href="#icons" class="text-primary hover:text-primary-dark block">Icons</a></li>
+          <li><a href="#partials" class="text-primary hover:text-primary-dark block">Partials</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class="md:col-span-3">
+      <!-- Colors -->
+      <section id="colors" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 pb-2 border-b">Colors</h2>
+        {{ partial "design-system/colors.html" . }}
+      </section>
+
+      <!-- Typography -->
+      <section id="typography" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 pb-2 border-b">Typography</h2>
+        {{ partial "design-system/typography.html" . }}
+      </section>
+
+      <!-- Gradients -->
+      <section id="gradients" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 pb-2 border-b">Gradients</h2>
+        {{ partial "design-system/gradients.html" . }}
+      </section>
+
+      <!-- CSS Variables -->
+      <section id="variables" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 pb-2 border-b">CSS Variables</h2>
+        {{ partial "design-system/css-variables.html" . }}
+      </section>
+
+      <!-- Icons -->
+      <section id="icons" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 pb-2 border-b">Icons</h2>
+        {{ partial "design-system/icons.html" . }}
+      </section>
+
+      <!-- Partials -->
+      <section id="partials" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 pb-2 border-b">Partials</h2>
+        {{ partial "design-system/partials.html" . }}
+      </section>
+
+    </div>
+  </div>
+</div>
+
+{{ end }}

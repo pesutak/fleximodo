@@ -1,0 +1,59 @@
+{{/*
+@section: Privacy Notice Left Aligned Banner
+@description: A left-aligned cookie consent or privacy notice banner that appears at the bottom of the viewport with accept/reject options and a link to the privacy policy.
+@params:
+  - message: Main message text about cookie usage (optional, default: "This website uses cookies...")
+  - policyText: Text for the privacy/cookie policy link (optional, default: "cookie policy")
+  - policyUrl: URL to the privacy/cookie policy (optional, default: "#")
+  - acceptText: Text for the accept button (optional, default: "Accept all")
+  - rejectText: Text for the reject button (optional, default: "Reject all")
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - textColor: Text color class (optional, default: "text-gray-900")
+  - linkColor: Link color class (optional, default: "text-indigo-600")
+  - acceptButtonBackgroundColor: Accept button background color class (optional, default: "bg-gray-900")
+  - acceptButtonTextColor: Accept button text color class (optional, default: "text-white")
+  - acceptButtonHoverColor: Accept button hover color class (optional, default: "hover:bg-gray-700")
+  - acceptButtonFocusColor: Accept button focus ring color class (optional, default: "focus-visible:outline-gray-900")
+  - rejectButtonTextColor: Reject button text color class (optional, default: "text-gray-900")
+  - id: Custom ID for the banner (optional, default: auto-generated from acceptText and rejectText)
+@example:
+  {{ partial "sections/banners/privacy_notice_left_aligned.html" (dict 
+      "message" "We use cookies to enhance your browsing experience and analyze our traffic."
+      "policyText" "privacy policy"
+      "policyUrl" "/privacy"
+      "acceptText" "Accept cookies"
+      "rejectText" "Decline"
+      "backgroundColor" "bg-gray-50"
+      "linkColor" "text-blue-600"
+      "acceptButtonBackgroundColor" "bg-blue-600"
+      "acceptButtonHoverColor" "hover:bg-blue-500"
+  ) }}
+@note: This banner appears fixed at the bottom left of the viewport. It includes dismiss functionality through JavaScript and will be automatically removed from the DOM when either button is clicked.
+*/}}
+
+
+
+{{- $message := .message | default "This website uses cookies to supplement a balanced diet and provide a much deserved reward to the senses after consuming bland but nutritious meals. Accepting our cookies is optional but recommended, as they are delicious." -}}
+{{- $policyText := .policyText | default "cookie policy" -}}
+{{- $policyUrl := .policyUrl | default "#" -}}
+{{- $acceptText := .acceptText | default "Accept all" -}}
+{{- $rejectText := .rejectText | default "Reject all" -}}
+{{- $backgroundColor := .backgroundColor | default "bg-white" -}}
+{{- $textColor := .textColor | default "text-gray-900" -}}
+{{- $linkColor := .linkColor | default "text-indigo-600" -}}
+{{- $acceptButtonBackgroundColor := .acceptButtonBackgroundColor | default "bg-gray-900" -}}
+{{- $acceptButtonTextColor := .acceptButtonTextColor | default "text-white" -}}
+{{- $acceptButtonHoverColor := .acceptButtonHoverColor | default "hover:bg-gray-700" -}}
+{{- $acceptButtonFocusColor := .acceptButtonFocusColor | default "focus-visible:outline-gray-900" -}}
+{{- $rejectButtonTextColor := .rejectButtonTextColor | default "text-gray-900" -}}
+{{- $bannerId := .id | default (printf "banner-%s" (substr (md5 (printf "%s%s" $acceptText $rejectText)) 0 8)) -}}
+
+<div id="{{ $bannerId }}" data-banner class="pointer-events-none fixed inset-x-0 bottom-0 px-6 pb-6 z-50">
+  <div class="pointer-events-auto max-w-xl rounded-xl {{ $backgroundColor }} p-6 ring-1 shadow-lg ring-gray-900/10">
+    <p class="text-sm/6 {{ $textColor }}">{{ $message }} See our <a href="{{ $policyUrl }}" class="font-semibold {{ $linkColor }}">{{ $policyText }}</a>.</p>
+    <div class="mt-4 flex items-center gap-x-5">
+      <button type="button" data-dismiss-banner class="rounded-md {{ $acceptButtonBackgroundColor }} px-3 py-2 text-sm font-semibold {{ $acceptButtonTextColor }} shadow-xs {{ $acceptButtonHoverColor }} focus-visible:outline-2 focus-visible:outline-offset-2 {{ $acceptButtonFocusColor }}">{{ $acceptText }}</button>
+      <button type="button" data-dismiss-banner class="text-sm/6 font-semibold {{ $rejectButtonTextColor }}">{{ $rejectText }}</button>
+    </div>
+  </div>
+</div>

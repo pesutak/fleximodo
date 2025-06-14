@@ -1,0 +1,182 @@
+{{/*
+@component: 4-Column Footer with Company Mission on Dark Background
+@description: A comprehensive footer with company mission statement, social media links, 4-column navigation, and copyright information on a dark background.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - borderColor: Border color for separators (optional, default: "border-white/10")
+  
+  # Logo and Mission
+  - logoUrl: URL to the company/site logo (optional, default: Tailwind's default logo)
+  - logoHeight: Height class for the logo (optional, default: "h-9")
+  - logoAlt: Alt text for the logo (optional, default: "Company name")
+  - missionText: Company mission statement text (optional, default: "Making the world a better place through constructing elegant hierarchies.")
+  - missionTextColor: Text color for mission statement (optional, default: "text-gray-300")
+  
+  # Navigation Columns
+  - headingColor: Text color for column headings (optional, default: "text-white")
+  - linkColor: Text color for links (optional, default: "text-gray-400")
+  - linkHoverColor: Text color for links on hover (optional, default: "text-white")
+  - column1Title: Heading for first column (optional, default: "Solutions")
+  - column1Links: Array of link objects for first column, each with text and URL
+  - column2Title: Heading for second column (optional, default: "Support")
+  - column2Links: Array of link objects for second column
+  - column3Title: Heading for third column (optional, default: "Company")
+  - column3Links: Array of link objects for third column
+  - column4Title: Heading for fourth column (optional, default: "Legal")
+  - column4Links: Array of link objects for fourth column
+  
+  # Social Links
+  - socialLinks: Array of social media objects, each with name, URL, and icon identifier
+  - socialLinkColor: Color for social media icons (optional, default: "text-gray-400")
+  - socialLinkHoverColor: Hover color for social media icons (optional, default: "text-gray-300")
+  
+  # Copyright
+  - copyrightText: Copyright text (optional, default: "&copy; 2024 Your Company, Inc. All rights reserved.")
+  - copyrightColor: Color for copyright text (optional, default: "text-gray-400")
+@example:
+  {{ partial "layout/footers/4-column_with_company_mission_on_dark.html" (dict 
+      "logoUrl" "/images/logo-white.svg"
+      "logoAlt" "FlowHunt"
+      "missionText" "Empowering creators through AI-driven workflows and automation tools."
+      "column1Title" "Product"
+      "column1Links" (slice 
+        (dict "text" "Features" "url" "/features")
+        (dict "text" "Pricing" "url" "/pricing")
+      )
+      "socialLinks" (slice 
+        (dict "name" "Twitter" "url" "https://twitter.com/youraccount" "icon" "x")
+        (dict "name" "GitHub" "url" "https://github.com/youraccount" "icon" "github")
+      )
+      "copyrightText" (printf "&copy; %d FlowHunt, Inc. All rights reserved." now.Year)
+  ) }}
+@note: This component is ideal for brands that want to highlight their mission statement while providing comprehensive site navigation. It's designed with a dark theme for improved contrast and visual appeal.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $logoUrl := .logoUrl | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" }}
+{{ $logoHeight := .logoHeight | default "h-9" }}
+{{ $logoAlt := .logoAlt | default "Company name" }}
+{{ $missionText := .missionText | default "Making the world a better place through constructing elegant hierarchies." }}
+{{ $missionTextColor := .missionTextColor | default "text-gray-300" }}
+{{ $socialLinkColor := .socialLinkColor | default "text-gray-400" }}
+{{ $socialLinkHoverColor := .socialLinkHoverColor | default "text-gray-300" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $linkColor := .linkColor | default "text-gray-400" }}
+{{ $linkHoverColor := .linkHoverColor | default "text-white" }}
+{{ $copyrightText := .copyrightText | default "&copy; 2024 Your Company, Inc. All rights reserved." }}
+{{ $copyrightColor := .copyrightColor | default "text-gray-400" }}
+{{ $borderColor := .borderColor | default "border-white/10" }}
+
+{{/* Social links */}}
+{{ $socialLinks := .socialLinks | default (slice 
+  (dict "name" "Facebook" "url" "#" "icon" "facebook")
+  (dict "name" "Instagram" "url" "#" "icon" "instagram")
+  (dict "name" "X" "url" "#" "icon" "x")
+  (dict "name" "GitHub" "url" "#" "icon" "github")
+  (dict "name" "YouTube" "url" "#" "icon" "youtube")
+) }}
+
+{{/* Navigation columns */}}
+{{ $column1Title := .column1Title | default "Solutions" }}
+{{ $column1Links := .column1Links | default (slice 
+  (dict "text" "Marketing" "url" "#")
+  (dict "text" "Analytics" "url" "#")
+  (dict "text" "Automation" "url" "#")
+  (dict "text" "Commerce" "url" "#")
+  (dict "text" "Insights" "url" "#")
+) }}
+
+{{ $column2Title := .column2Title | default "Support" }}
+{{ $column2Links := .column2Links | default (slice 
+  (dict "text" "Submit ticket" "url" "#")
+  (dict "text" "Documentation" "url" "#")
+  (dict "text" "Guides" "url" "#")
+) }}
+
+{{ $column3Title := .column3Title | default "Company" }}
+{{ $column3Links := .column3Links | default (slice 
+  (dict "text" "About" "url" "#")
+  (dict "text" "Blog" "url" "#")
+  (dict "text" "Jobs" "url" "#")
+  (dict "text" "Press" "url" "#")
+) }}
+
+{{ $column4Title := .column4Title | default "Legal" }}
+{{ $column4Links := .column4Links | default (slice 
+  (dict "text" "Terms of service" "url" "#")
+  (dict "text" "Privacy policy" "url" "#")
+  (dict "text" "License" "url" "#")
+) }}
+
+<footer class="{{ $bgColor }}">
+  <div class="mx-auto max-w-7xl px-6 pt-16 pb-8 sm:pt-24 lg:px-8 lg:pt-32">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      <div class="space-y-8">
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" $logoUrl
+          "alt" $logoAlt
+          "class" $logoHeight
+        ) }}
+        <p class="text-sm/6 text-balance {{ $missionTextColor }}">{{ $missionText }}</p>
+        <div class="flex gap-x-6">
+          {{ range $socialLinks }}
+          <a href="{{ .url }}" class="{{ $socialLinkColor }} hover:{{ $socialLinkHoverColor }}">
+            <span class="sr-only">{{ .name }}</span>
+            {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+          </a>
+          {{ end }}
+        </div>
+      </div>
+      <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column1Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column1Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column2Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column2Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column3Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column3Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          <div class="mt-10 md:mt-0">
+            <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column4Title }}</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              {{ range $column4Links }}
+              <li>
+                <a href="{{ .url }}" class="text-sm/6 {{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 border-t {{ $borderColor }} pt-8 sm:mt-20 lg:mt-24">
+      <p class="text-sm/6 {{ $copyrightColor }}">{{ $copyrightText | safeHTML }}</p>
+    </div>
+  </div>
+</footer>

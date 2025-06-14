@@ -1,0 +1,85 @@
+# English translations
+frequently_asked_questions: "Preguntes Freqüents"
+language_selector_title: "Idiomes Disponibles"
+glossary_subtitle: "Una llista completa de termes i definicions"
+glossary_title: "Glossari"
+home_title: "Inici"
+
+# Glossary translations
+glossary_eyebrow: "Glossari"
+
+# Category page translations
+categories_title: "Categories"
+categories_browse_all: "Explora tot el contingut per categoria"
+category_eyebrow: "Categoria"
+category_browse_content: "Explora tot el contingut a la categoria %s"
+category_no_content_found: "No s'ha trobat contingut en aquesta categoria"
+category_try_browsing: "Prova a explorar altres categories o cercar contingut"
+category_other_categories: "Altres Categories"
+
+# CTA translations
+cta_default_heading: "Amplia els teus coneixements amb els nostres recursos"
+cta_default_description: "Explora la nostra biblioteca completa d'articles, guies i tutorials per aprofundir la teva comprensió dels conceptes clau i mantenir-te al dia amb els últims desenvolupaments."
+cta_default_primary_text: "Explora recursos"
+cta_default_secondary_text: "Contacta amb els nostres experts"
+
+# Content type translations
+content_article_singular: "article"
+content_article_plural: "articles"
+
+# Tags page translations
+tags_title: "Etiquetes"
+tags_browse_all: "Explora tot el contingut per tema"
+tag_eyebrow: "Etiqueta"
+tag_browse_content: "Explora tot el contingut etiquetat amb %s"
+tag_no_content_found: "No s'ha trobat contingut amb aquesta etiqueta"
+tag_try_browsing: "Prova a explorar altres etiquetes o a cercar contingut"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Anterior"
+tag_pagination_next: "Següent"
+tag_other_tags: "Altres Etiquetes"
+
+# Cookie consent translations
+cookie_consent_title: "Consentiment de Cookies"
+cookie_consent_message: "Utilitzem cookies per millorar la vostra experiència de navegació i analitzar el nostre trànsit."
+cookie_consent_accept_all: "Acceptar Tot"
+cookie_consent_accept_necessary: "Acceptar Només les Necessàries"
+cookie_consent_settings: "Configuració de Cookies"
+cookie_settings_title: "Configuració de Cookies"
+cookie_settings_close: "Tancar"
+cookie_settings_necessary_title: "Cookies Necessàries"
+cookie_settings_necessary_description: "Aquestes cookies són necessàries per al funcionament del lloc web i no es poden desactivar."
+cookie_settings_analytics_title: "Cookies d'Anàlisi"
+cookie_settings_analytics_description: "Aquestes cookies ens ajuden a comprendre com interactuen els visitants amb el nostre lloc web."
+cookie_settings_cancel: "Cancel·lar"
+cookie_settings_save: "Guardar Preferències"
+
+# Pagination translations
+pagination_previous: "Anterior"
+pagination_next: "Següent"
+pagination_showing: "Mostrant"
+pagination_to: "a"
+pagination_of: "de"
+pagination_results: "resultats"
+pagination_browse_all: "Explora tot el contingut a"
+
+# FAQ translations
+faq_heading: "Preguntes freqüents"
+faq_description: "Troba respostes a preguntes comunes sobre aquest tema."
+no_terms_available: "No hi ha termes disponibles"
+pricing_monthly_label: "Mensual"
+pricing_yearly_label: "Anual"
+wantMore: "Vols més?"
+learnMore: "Més informació"
+pricing_tagline: "Preus"
+pricing_title: "Preus que creixen amb tu"
+pricing_description: "Tria un pla assequible ple de les millors funcions per involucrar la teva audiència, crear fidelitat del client i impulsar les vendes."
+pricing_comparison_title: "Compara plans"
+pricing_comparison_description: "Consulta les nostres comparacions de plans i selecciona el millor per a tu"
+read_more_post: "Llegeix més"
+no_posts_found: "No s'han trobat publicacions"
+minutes_read: "min lectura"
+get_started: "Comença"
+courses.session: "Sessió"
+courses.you_will_learn: "Aprendràs:"
+courses.or: "o"

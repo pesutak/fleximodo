@@ -1,0 +1,76 @@
+{{/* 
+  Categories shortcode with product list card with full details
+  
+  Example usage:
+  {{< categories-product-list-card-with-full-details backgroundColor="bg-gray-50" heading="Featured Collection" >}}
+  
+  With custom products:
+  {{< categories-product-list-card-with-full-details backgroundColor="bg-blue-50" heading="Summer Collection" >}}
+    {{< product 
+        title="Summer T-Shirt" 
+        description="Light and breathable cotton t-shirt perfect for hot days."
+        url="/products/summer-tshirt"
+        imageUrl="/images/products/summer-tshirt.jpg"
+        imageAlt="Person wearing a light blue t-shirt on a sunny beach"
+        variant="3 colors"
+        price="$29.99"
+    >}}
+    {{< product 
+        title="Beach Shorts" 
+        description="Quick-dry beach shorts with comfortable elastic waistband."
+        url="/products/beach-shorts"
+        imageUrl="/images/products/beach-shorts.jpg"
+        imageAlt="Colorful beach shorts laid flat"
+        variant="Multiple patterns"
+        price="$34.99"
+    >}}
+  {{< /categories-product-list-card-with-full-details >}}
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Products", sr-only by default)
+  
+  The products are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Products" }}
+
+{{ $defaultProducts := slice 
+  (dict 
+    "title" "Basic Tee 8-Pack"
+    "description" "Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-01.jpg"
+    "imageAlt" "Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green."
+    "variant" "8 colors"
+    "price" "$256"
+  )
+  (dict 
+    "title" "Basic Tee"
+    "description" "Look like a visionary CEO and wear the same black t-shirt every day."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-02.jpg"
+    "imageAlt" "Front of plain black t-shirt."
+    "variant" "Black"
+    "price" "$32"
+  )
+  (dict 
+    "title" "Premium Hoodie"
+    "description" "Stay warm and stylish with our premium hoodie made from high-quality materials."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-03.jpg"
+    "imageAlt" "Front of gray hoodie with embroidered logo."
+    "variant" "Gray"
+    "price" "$75"
+  )
+}}
+
+{{ $customProducts := .Inner | .Scratch.Set "customProducts" }}
+{{ $products := cond (eq (len $customProducts) 0) $defaultProducts $customProducts }}
+
+{{ partial "categories/product_list_card_with_full_details.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "products" $products
+) }}

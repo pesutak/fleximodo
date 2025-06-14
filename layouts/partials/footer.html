@@ -1,0 +1,57 @@
+{{/*
+@component: Footer
+@description: Standard page footer with 4 columns of links, CTA section, social icons, and copyright.
+@params:
+  None - all parameters are preset and passed to the layout/footers/4-column_with_call-to-action_on_dark component
+@example:
+  {{ partial "footer.html" . }}
+@note: This is a basic footer implementation that uses the layout/footers/4-column_with_call-to-action_on_dark component with default values.
+*/}}
+
+{{ partial "layout/footers/4-column_simple" (dict 
+    "bgColor" "bg-gradient-to-r from-blue-800 to-blue-600"
+    "headingColor" "text-white"
+    "linkColor" "text-white"
+    "linkHoverColor" "text-gray-300"
+    "logoUrl" "https://fleximodo.com/assets/svg/logos/fleximodo_white_logo.svg"
+    "logoAlt" "Fleximodo Logo"
+    "logoHeight" "h-10"
+    "ctaTagline" "Ready to get started?"
+    "ctaHeading" "Start using our services today"
+    "ctaDescription" "Join thousands of satisfied customers who have transformed their business with our solutions."
+    "ctaButtonText" "Get started"
+    "ctaButtonUrl" "/contact/"
+    "column1Title" "Solutions"
+    "column1Links" (slice 
+        (dict "text" "Marketing" "url" "#")
+        (dict "text" "Analytics" "url" "#")
+        (dict "text" "Automation" "url" "#")
+        (dict "text" "Commerce" "url" "#")
+    )
+    "column2Title" "Support"
+    "column2Links" (slice 
+        (dict "text" "Documentation" "url" "#")
+        (dict "text" "Guides" "url" "#")
+        (dict "text" "API Status" "url" "#")
+    )
+    "column3Title" "Company"
+    "column3Links" (slice 
+        (dict "text" "About" "url" "/about/")
+        (dict "text" "Blog" "url" "/blog/")
+        (dict "text" "Careers" "url" "/careers/")
+        (dict "text" "Press" "url" "/press/")
+    )
+    "column4Title" "Legal"
+    "column4Links" (slice 
+        (dict "text" "Privacy" "url" "#")
+        (dict "text" "Terms" "url" "#")
+        (dict "text" "Cookie Policy" "url" "#")
+    )
+    "socialLinks" (slice 
+        (dict "name" "GitHub" "url" "https://github.com" "icon" "github")
+        (dict "name" "X" "url" "https://x.com" "icon" "x")
+        (dict "name" "LinkedIn" "url" "https://linkedin.com" "icon" "linkedin")
+    )
+    "copyrightText" (printf "&copy; %d Your Company, Inc. All rights reserved." now.Year)
+    "currentPage" .
+) }}

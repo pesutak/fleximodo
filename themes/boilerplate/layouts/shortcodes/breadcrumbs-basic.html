@@ -1,0 +1,24 @@
+{{- /*
+  Shortcode for basic breadcrumbs navigation
+  
+  Usage in Markdown:
+  
+  {{< breadcrumbs-basic 
+    separator="/" 
+    items="[
+      {\"title\": \"UI Blocks\", \"url\": \"/plus/ui-blocks\"},
+      {\"title\": \"Marketing\", \"url\": \"/plus/ui-blocks/marketing\"},
+      {\"title\": \"Page Sections\", \"url\": \"/plus/ui-blocks/marketing#product-marketing-sections\"}
+    ]"
+  >}}
+  
+  Parameters:
+  - items: JSON string array of objects with title and url properties
+  - separator: (Optional) Character to use between breadcrumb items, defaults to "/"
+*/ -}}
+
+{{- $separator := .Get "separator" | default "/" -}}
+{{- $itemsJson := .Get "items" | default "[]" -}}
+{{- $items := $itemsJson | unmarshal -}}
+
+{{ partial "components/breadcrumbs/basic" (dict "items" $items "separator" $separator) }}

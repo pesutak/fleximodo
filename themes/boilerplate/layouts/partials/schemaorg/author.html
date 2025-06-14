@@ -1,0 +1,43 @@
+{{/*
+@partial: Schema.org Author
+@description: Generates JSON-LD structured data for blog post authors using schema.org Person type
+@params:
+  - page: The current page context (required)
+  - authorKey: Optional author key to override the one from page params
+@example:
+  {{ partial "schemaorg/author.html" . }}
+  {{ partial "schemaorg/author.html" (dict "page" . "authorKey" "vzeman") }}
+@note: Requires authors.yaml data file with author information
+*/}}
+
+{{ $authorKey := .Params.author }}
+{{ if not $authorKey }}
+    {{ $authors := site.Data.authors }}
+    {{ if and $authorKey $authors (index $authors $authorKey) }}
+        {{ $author := index $authors $authorKey }}
+        {{ $authorName := $author.name }}
+        {{ $authorImage := $author.image }}
+        {{ $authorRole := $author.role }}
+        {{ $authorDescription := $author.description }}
+        
+        {{ if $authorName }}
+            <script type="application/ld+json">
+            {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": {{ $authorName | jsonify }},
+            {{ if $authorImage }}"image": {{ $authorImage | jsonify }},{{ end }}
+            {{ if $authorRole }}"jobTitle": {{ $authorRole | jsonify }},{{ end }}
+            {{ if $authorDescription }}"description": {{ $authorDescription | jsonify }},{{ end }}
+            "url": {{ .Site.BaseURL | jsonify }},
+            "worksFor": {
+                "@type": "Organization",
+                "name": {{ .Site.Title | jsonify }},
+                "url": {{ .Site.BaseURL | jsonify }}
+            }
+            }
+            </script>
+        {{ end }}
+    {{ end }}
+
+{{ end }}

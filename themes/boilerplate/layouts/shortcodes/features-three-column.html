@@ -1,0 +1,68 @@
+{{/* 
+  Features Three Column with Large Icons Shortcode
+  
+  Named Parameters:
+  - eyebrow: Optional text displayed above the heading (new!)
+  - heading: Main heading text (default: "Stay on top of customer support")
+  - description: Description text below the main heading
+  
+  Inner Content (optional JSON array):
+  - Array of feature objects with the following structure:
+    - icon: SVG path element for the feature icon
+    - title: Feature title
+    - description: Feature description
+    - link: Object with text and url properties for the "Learn more" link (optional)
+  
+  Example usage with custom features:
+  {{< features-three-column 
+      eyebrow="FEATURES"
+      heading="Our Key Features"
+      description="Discover the powerful features that make our product stand out from the competition."
+  >}}
+    [
+      {
+        "icon": "lock-closed",
+        "title": "Real-time Updates",
+        "description": "Get instant notifications and updates as they happen, ensuring you never miss important information.",
+        "link": {
+          "text": ((i18n "learnMore") | default "Learn more"),
+          "url": "/features/real-time-updates"
+        }
+      },
+      {
+        "icon": "lock-closed",
+        "title": "Advanced Security",
+        "description": "Enterprise-grade security features to keep your data protected and give you peace of mind.",
+        "link": {
+          "text": ((i18n "learnMore") | default "Learn more"),
+          "url": "/features/security"
+        }
+      }
+    ]
+  {{< /features-three-column >}}
+  
+  If no inner content is provided, default features will be used.
+*/}}
+
+{{ $eyebrow := .Get "eyebrow" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
+{{ $bgColor := .Get "bgColor" | default "bg-white" }}
+
+{{ $defaultFeatures := slice }}
+
+{{ $features := $defaultFeatures }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $features = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "sections/features/simple_three_column_with_large_icons.html" (dict 
+  "eyebrow" $eyebrow
+  "heading" $heading
+  "description" $description
+  "bgColor" $bgColor
+  "features" $features
+  "page" $.Page
+) }}

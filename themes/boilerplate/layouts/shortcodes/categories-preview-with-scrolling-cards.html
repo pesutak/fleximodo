@@ -1,0 +1,89 @@
+{{/* 
+  Categories shortcode with preview with scrolling cards
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Shop by Category")
+  - browseAllText: Text for the "Browse all" link (default: "Browse all categories")
+  - browseAllUrl: URL for the "Browse all" link (default: "#")
+  
+  Inner Content (optional JSON array):
+  - Array of category objects with the following structure:
+    - title: Category title
+    - url: URL for the category link
+    - imageUrl: URL to category image
+    - imageAlt: Alt text for category image
+  
+  Example usage with custom categories:
+  {{< categories-preview-with-scrolling-cards heading="Featured Categories" >}}
+    [
+      {
+        "title": "Cameras",
+        "url": "/products/cameras",
+        "imageUrl": "/images/categories/cameras.jpg",
+        "imageAlt": "Various camera models on display"
+      },
+      {
+        "title": "Lenses",
+        "url": "/products/lenses",
+        "imageUrl": "/images/categories/lenses.jpg",
+        "imageAlt": "Professional camera lenses arranged in a row"
+      }
+    ]
+  {{< /categories-preview-with-scrolling-cards >}}
+  
+  If no inner content is provided, default categories will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Shop by Category" }}
+{{ $browseAllText := .Get "browseAllText" | default "Browse all categories" }}
+{{ $browseAllUrl := .Get "browseAllUrl" | default "#" }}
+
+{{ $defaultCategories := slice 
+  (dict 
+    "title" "New Arrivals"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-01.jpg"
+    "imageAlt" "New arrivals category thumbnail"
+  )
+  (dict 
+    "title" "Productivity"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-02.jpg"
+    "imageAlt" "Productivity category thumbnail"
+  )
+  (dict 
+    "title" "Workspace"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-04.jpg"
+    "imageAlt" "Workspace category thumbnail"
+  )
+  (dict 
+    "title" "Accessories"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-05.jpg"
+    "imageAlt" "Accessories category thumbnail"
+  )
+  (dict 
+    "title" "Sale"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-03.jpg"
+    "imageAlt" "Sale category thumbnail"
+  )
+}}
+
+{{ $categories := $defaultCategories }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $categories = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "categories/preview_with_scrolling_cards.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "browseAllText" $browseAllText
+  "browseAllUrl" $browseAllUrl
+  "categories" $categories
+) }}

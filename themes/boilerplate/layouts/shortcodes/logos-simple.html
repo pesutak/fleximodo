@@ -1,0 +1,69 @@
+{{/* Simple Logos Shortcode */}}
+{{- /*
+  Usage in markdown:
+  {{< logos-simple 
+    bgColor="bg-gray-50" 
+    padding="py-16 sm:py-24" 
+    logoColor="gray-800" 
+    heading="Our Partners"
+    headingColor="text-blue-700"
+    description="We work with these amazing companies"
+    descriptionColor="text-blue-500"
+    logos="data.partner_logos"
+  >}}
+
+  Parameters:
+    - heading: Optional heading text (default: "")
+    - headingColor: Optional heading text color class (default: "text-gray-900")
+    - description: Optional description text (default: "")
+    - descriptionColor: Optional description text color class (default: "text-gray-600")
+    - bgColor: Background color class (default: "bg-white")
+    - padding: CSS padding classes (default: "py-24 sm:py-32")
+    - logoColor: Color of the logos (default: "gray-900")
+    - logos: Reference to data file containing logo information (e.g., "partner_logos")
+
+Logo data structure example (in data file):
+[[partner_logos]]
+  name = "Company Name"
+  image = "/images/logos/company-logo.svg"
+  url = "https://company-website.com"  # Optional link to company homepage
+  width = "158"
+  height = "48"
+
+[[partner_logos]]
+  name = "Another Company"
+  image = "/images/logos/another-logo.svg"
+  width = "158"
+  height = "48"
+
+*/ -}}
+
+{{ $bgColor := .Get "bgColor" | default "bg-white" }}
+{{ $padding := .Get "padding" | default "" }}
+{{ $logoColor := .Get "logoColor" | default "gray-900" }}
+{{ $logosReference := .Get "logos" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
+{{ $description := .Get "description" | default "" }}
+{{ $descriptionColor := .Get "descriptionColor" | default $headingColor }}
+
+{{ $params := dict 
+  "bgColor" $bgColor
+  "padding" $padding
+  "logoColor" $logoColor
+  "heading" $heading
+  "headingColor" $headingColor
+  "description" $description
+  "descriptionColor" $descriptionColor
+}}
+
+{{/* Add logos parameter if provided */}}
+{{ if ne $logosReference "" }}
+  {{ if isset .Page.Params $logosReference }}
+    {{ $params = merge $params (dict "logos" (index .Page.Params $logosReference)) }}
+  {{ else }}
+    {{ $params = merge $params (dict "logos" $logosReference) }}
+  {{ end }}
+{{ end }}
+
+{{ partial "components/logos/simple.html" $params }}

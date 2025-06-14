@@ -1,0 +1,84 @@
+{{/* 
+  Example usage:
+  {{< incentives-3-column-with-illustrations-and-heading 
+      backgroundColor="bg-blue-100" 
+      innerBackgroundColor="bg-white" 
+      title="Why Choose Us?" 
+  >}}
+    [
+      {
+        "title": "Free shipping",
+        "description": "Free worldwide shipping on all orders over $100.",
+        "iconUrl": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-shipping-simple.svg",
+        "iconAlt": "Shipping icon"
+      },
+      {
+        "title": "10-year warranty",
+        "description": "If it breaks in the first 10 years we'll replace it.",
+        "iconUrl": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-simple.svg",
+        "iconAlt": "Warranty icon"
+      },
+      {
+        "title": "Exchanges",
+        "description": "Easy returns within 30 days of purchase.",
+        "iconUrl": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-exchange-simple.svg",
+        "iconAlt": "Exchange icon"
+      }
+    ]
+  {{< /incentives-3-column-with-illustrations-and-heading >}}
+
+  3-column incentives shortcode with illustrations and centered heading
+  
+  Parameters:
+  - backgroundColor: Background color class for the outer container (default: "bg-white")
+  - innerBackgroundColor: Background color class for the inner container (default: "bg-gray-50")
+  - title: Main heading text (default: from partial)
+  
+  Inner Content:
+  JSON array of incentive objects with the following structure:
+  - title: Incentive title
+  - description: Incentive description
+  - iconUrl: URL to the incentive icon
+  - iconAlt: Alt text for the icon
+  
+  If no inner content is provided, default incentives will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $innerBackgroundColor := .Get "innerBackgroundColor" | default "bg-gray-50" }}
+{{ $title := .Get "title" | default "" }}
+
+{{ $defaultIncentives := slice 
+  (dict 
+    "title" "Free shipping" 
+    "description" "It's not actually free we just price it into the products. Someone's paying for it, and it's not us." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-shipping-simple.svg"
+    "iconAlt" "Shipping icon"
+  )
+  (dict 
+    "title" "10-year warranty" 
+    "description" "If it breaks in the first 10 years we'll replace it. After that you're on your own though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-simple.svg"
+    "iconAlt" "Warranty icon"
+  )
+  (dict 
+    "title" "Exchanges" 
+    "description" "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-exchange-simple.svg"
+    "iconAlt" "Exchange icon"
+  )
+}}
+
+{{ $incentives := $defaultIncentives }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $incentives = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "incentives/3-column_with_illustrations_and_heading.html" (dict 
+  "backgroundColor" $backgroundColor
+  "innerBackgroundColor" $innerBackgroundColor
+  "title" $title
+  "incentives" $incentives
+) }}

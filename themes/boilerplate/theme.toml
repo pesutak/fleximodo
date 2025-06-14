@@ -1,0 +1,20 @@
+name = 'FlowHunt Boilerplate'
+description = 'A clean and minimal Hugo boilerplate theme'
+version = '1.0.0'
+license = 'MIT'
+
+# The home page of the theme, where the source can be found
+homepage = 'https://github.com/qualityunit/repo'
+
+# If you have a running demo of the theme
+demosite = 'https://www.flowhunt.io'
+
+# Taxonomy terms
+tags = ['blog', 'company']
+features = ['some', 'awesome', 'features']
+
+# If the theme has a single author
+[author]
+  name = 'Viktor Zeman'
+  homepage = 'https://www.flowhunt.io'
+

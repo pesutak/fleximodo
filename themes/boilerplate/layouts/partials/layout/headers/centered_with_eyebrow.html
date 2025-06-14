@@ -1,0 +1,52 @@
+{{/*
+@component: Centered Header with Eyebrow
+@description: A centered header with an optional eyebrow text above the main heading and description text.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "px-6 py-24 sm:py-32 lg:px-8")
+  - showEyebrow: Boolean to show/hide eyebrow text (optional, default: true)
+  - eyebrow: Eyebrow text (optional, default: "Get the help you need")
+  - eyebrowColor: Eyebrow text color (optional, default: "text-primary")
+  - heading: Header headline text
+  - headingColor: Heading text color (optional, default: "text-gray-900")
+  - description: Descriptive text below heading
+  - descriptionColor: Description text color (optional, default: "text-gray-500")
+  - maxWidth: Max width class for content container (optional, default: "max-w-2xl")
+@example:
+  {{ partial "layout/headers/centered_with_eyebrow.html" (dict 
+      "eyebrow" "AI-Powered Workflows"
+      "heading" "Welcome to FlowHunt"
+      "description" "Create powerful AI workflows without writing code. Design, test, and deploy AI agents in minutes."
+      "bgColor" "bg-gray-50"
+  ) }}
+@note: This component extends the basic centered header with an optional eyebrow text that helps establish hierarchy and improve scannability.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "" }}
+
+{{/* Eyebrow */}}
+{{ $eyebrow := .eyebrow }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
+
+{{/* Heading */}}
+{{ $heading := .heading | default "" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description | default "" }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-500" }}
+
+{{/* Max width */}}
+{{ $maxWidth := .maxWidth | default "" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="wrapper py-24 text-center">
+    {{ if $eyebrow }}
+    <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
+    {{ end }}
+    <h2 class="mt-2 text-4xl font-semibold tracking-tight {{ $headingColor }} sm:text-7xl">{{ $heading }}</h2>
+    {{ if $description }}
+    <p class="mt-8 text-lg font-medium text-pretty {{ $descriptionColor }} sm:text-xl/8">{{ $description | safeHTML }}</p>
+    {{ end }}
+  </div>
+</div>

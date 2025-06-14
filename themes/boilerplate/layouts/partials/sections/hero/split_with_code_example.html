@@ -1,0 +1,101 @@
+{{/*
+@section: Split Hero with Code Example
+@description: A split hero section with text content on the left and a code example preview on the right, perfect for developer-focused products.
+@params:
+  - logo: URL to logo image (default: Tailwind CSS logo)
+  - badge: Object with badge information (optional)
+    - text: Badge text (default: "What's new")
+    - version: Version text (default: "Just shipped v0.1.0")
+  - heading: Main section heading (default: "Supercharge your web app")
+  - description: Description below the heading (default: "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.")
+  - cta: Object with CTA buttons information (optional)
+    - primary: Primary CTA button (text, url)
+    - secondary: Secondary CTA button (text, url)
+  - code: Object with code example information (optional)
+    - activeFile: Name of the active file tab (default: "NotificationSetting.jsx")
+    - inactiveFile: Name of the inactive file tab (default: "App.jsx")
+    - content: The code content to display (default: "// Add your code example here")
+  - typewriter: Object with typewriter effect configuration (optional)
+    - enabled: Boolean to enable/disable the effect (default: false)
+    - words: Number of words to animate (default: 1)
+    - speed: Typing speed in ms (default: 100)
+    - deleteSpeed: Deleting speed in ms (default: 50)
+    - pause: Pause duration in ms (default: 2000)
+    - color: Color class for animated text (default: "text-indigo-600")
+@example:
+  {{ partial "sections/hero/split_with_code_example.html" (dict 
+      "heading" "Build faster with our SDK"
+      "description" "Our powerful SDK makes it easy to integrate advanced features into your application."
+      "cta" (dict 
+          "primary" (dict "text" "View Documentation" "url" "/docs") 
+          "secondary" (dict "text" "GitHub" "url" "https://github.com/example")
+      )
+      "code" (dict
+          "activeFile" "integration.js"
+          "inactiveFile" "config.js"
+          "content" "import { SDK } from '@company/sdk';\n\nconst client = new SDK({\n  apiKey: process.env.API_KEY\n});\n\nclient.connect();"
+      )
+      "typewriter" (dict
+          "enabled" true
+          "words" 2
+          "speed" 100
+          "deleteSpeed" 50
+          "pause" 2000
+          "color" "text-indigo-600"
+      )
+  ) }}
+*/}}
+{{/* Split Hero with Code Example */}}
+{{ $logo := .logo | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $badge := .badge | default (dict
+  "text" "What's new"
+  "version" "Just shipped v0.1.0"
+) }}
+{{ $heading := .heading | default "Supercharge your web app" }}
+{{ $description := .description | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo." }}
+{{ $cta := .cta | default (dict 
+  "primary" (dict "text" "Documentation" "url" "#")
+  "secondary" (dict "text" "View on GitHub" "url" "#")
+) }}
+{{ $code := .code | default (dict
+  "activeFile" "NotificationSetting.jsx"
+  "inactiveFile" "App.jsx"
+  "content" "// Add your code example here"
+) }}
+
+<div class="bg-white">
+  <div class="relative isolate overflow-hidden bg-linear-to-b from-indigo-100/20">
+    <div class="mx-auto max-w-7xl pt-10 pb-24 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
+      <div class="px-6 lg:px-0 lg:pt-4">
+        <div class="mx-auto max-w-2xl">
+          {{ partial "sections/hero/split_left_side_helper.html" .}}
+        </div>
+      </div>
+      <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
+        <div class="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white ring-1 shadow-xl shadow-indigo-600/10 ring-indigo-50 md:-mr-20 lg:-mr-36" aria-hidden="true"></div>
+        <div class="shadow-lg md:rounded-3xl">
+          <div class="bg-indigo-500 [clip-path:inset(0)] md:[clip-path:inset(0_round_var(--radius-3xl))]">
+            <div class="absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-white ring-inset md:ml-20 lg:ml-36" aria-hidden="true"></div>
+            <div class="relative px-6 pt-8 sm:pt-16 md:pr-0 md:pl-16">
+              <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
+                <div class="w-screen overflow-hidden rounded-tl-xl bg-gray-900">
+                  <div class="flex bg-gray-800/40 ring-1 ring-white/5">
+                    <div class="-mb-px flex text-sm/6 font-medium text-gray-400">
+                      <div class="border-r border-b border-r-white/10 border-b-white/20 bg-white/5 px-4 py-2 text-white">{{ $code.activeFile }}</div>
+                      <div class="border-r border-gray-600/10 px-4 py-2">{{ $code.inactiveFile }}</div>
+                    </div>
+                  </div>
+                  <div class="px-6 pt-6 pb-14">
+                    <pre class="text-sm text-gray-300"><code>{{ $code.content }}</code></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="pointer-events-none absolute inset-0 ring-1 ring-black/10 ring-inset md:rounded-3xl" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-linear-to-t from-white sm:h-32"></div>
+  </div>
+</div>

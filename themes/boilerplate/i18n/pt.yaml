@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Perguntas Frequentes"
+language_selector_title: "Idiomas Disponíveis"
+glossary_subtitle: "Uma lista abrangente de termos e definições"
+glossary_title: "Glossário"
+home_title: "Início"
+
+# Glossary translations
+glossary_eyebrow: "Glossário"
+
+# Category page translations
+categories_title: "Categorias"
+categories_browse_all: "Navegar por todo o conteúdo por categoria"
+category_eyebrow: "Categoria"
+category_browse_content: "Navegar por todo o conteúdo na categoria %s"
+category_no_content_found: "Nenhum conteúdo encontrado nesta categoria"
+category_try_browsing: "Tente navegar por outras categorias ou buscar por conteúdo"
+category_other_categories: "Outras Categorias"
+
+# CTA translations
+cta_default_heading: "Amplie seu conhecimento com nossos recursos"
+cta_default_description: "Explore nossa biblioteca abrangente de artigos, guias e tutoriais para aprofundar seu entendimento de conceitos-chave e manter-se atualizado com os últimos desenvolvimentos."
+cta_default_primary_text: "Navegar pelos recursos"
+cta_default_secondary_text: "Contatar nossos especialistas"
+
+# Content type translations
+content_article_singular: "artigo"
+content_article_plural: "artigos"
+
+# Tags page translations
+tags_title: "Tags"
+tags_browse_all: "Navegar por todo o conteúdo por tópico"
+tag_eyebrow: "Tag"
+tag_browse_content: "Navegue por todo o conteúdo marcado com %s"
+tag_no_content_found: "Nenhum conteúdo encontrado com esta tag"
+tag_try_browsing: "Tente navegar por outras tags ou buscar por conteúdo"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Anterior"
+tag_pagination_next: "Próximo"
+tag_other_tags: "Outras Tags"
+
+# Cookie consent translations
+cookie_consent_title: "Consentimento de Cookies"
+cookie_consent_message: "Usamos cookies para melhorar sua experiência de navegação e analisar nosso tráfego."
+cookie_consent_accept_all: "Aceitar Todos"
+cookie_consent_accept_necessary: "Aceitar Apenas Necessários"
+cookie_consent_settings: "Configurações de Cookies"
+cookie_settings_title: "Configurações de Cookies"
+cookie_settings_close: "Fechar"
+cookie_settings_necessary_title: "Cookies Necessários"
+cookie_settings_necessary_description: "Esses cookies são necessários para o funcionamento do site e não podem ser desativados."
+cookie_settings_analytics_title: "Cookies de Análise"
+cookie_settings_analytics_description: "Esses cookies nos ajudam a entender como os visitantes interagem com nosso site."
+cookie_settings_cancel: "Cancelar"
+cookie_settings_save: "Salvar Preferências"
+
+# Pagination translations
+pagination_previous: "Anterior"
+pagination_next: "Próximo"
+pagination_showing: "Mostrando"
+pagination_to: "a"
+pagination_of: "de"
+pagination_results: "resultados"
+pagination_browse_all: "Navegar por todo o conteúdo em"
+
+# FAQ translations
+faq_heading: "Perguntas frequentes"
+faq_description: "Encontre respostas para perguntas comuns sobre este tópico."
+no_terms_available: "Nenhum termo disponível"
+
+pricing_monthly_label: "Mensal"
+pricing_yearly_label: "Anual"
+wantMore: "Quer mais?"
+learnMore: "Saiba mais"
+pricing_tagline: "Preços"
+pricing_title: "Preços que crescem com você"
+pricing_description: "Escolha um plano acessível repleto das melhores recursos para envolver seu público, criar fidelidade do cliente e impulsionar as vendas."
+pricing_comparison_title: "Comparar planos"
+pricing_comparison_description: "Confira nossas comparações de planos e selecione o melhor para você"
+read_more_post: "Ler mais"
+no_posts_found: "Nenhuma publicação encontrada"
+minutes_read: "min de leitura"
+get_started: "Começar"
+courses.session: "Sessão"
+courses.you_will_learn: "Você aprenderá:"
+courses.or: "ou"

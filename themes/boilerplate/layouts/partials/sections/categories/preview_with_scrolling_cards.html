@@ -1,0 +1,134 @@
+{{/*
+@section: Preview with Scrolling Cards
+@description: A horizontally scrollable category preview section that displays category cards with clean designs on smaller screens and expands into a grid on larger screens.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - heading: Main section heading (optional, default: "Shop by Category")
+  - subheading: Optional subheading text (optional, default: "")
+  - browseAllText: Text for the "Browse all" link (optional, default: "Browse all categories")
+  - browseAllUrl: URL for the "Browse all" link (optional, default: "#")
+  - categories: Array of category objects (optional, includes defaults)
+    - title: Category title
+    - url: URL for the category link
+    - imageUrl: URL to category image
+    - imageAlt: Alt text for category image
+@example:
+  {{ partial "sections/categories/preview_with_scrolling_cards.html" (dict 
+      "backgroundColor" "bg-gray-50"
+      "heading" "Browse Collections" 
+      "subheading" "Find what you need in our curated collections"
+      "browseAllText" "See all collections"
+      "browseAllUrl" "/collections"
+      "categories" (slice
+          (dict 
+              "title" "Accessories" 
+              "url" "/collections/accessories"
+              "imageUrl" "/images/categories/accessories.jpg"
+              "imageAlt" "Collection of fashion accessories including watches, bags, and hats."
+          )
+          (dict 
+              "title" "Home Decor" 
+              "url" "/collections/home-decor"
+              "imageUrl" "/images/categories/home-decor.jpg"
+              "imageAlt" "Modern home decor items including vases, frames, and decorative objects."
+          )
+          (dict 
+              "title" "Electronics" 
+              "url" "/collections/electronics"
+              "imageUrl" "/images/categories/electronics.jpg"
+              "imageAlt" "Collection of consumer electronics including headphones, speakers, and smartwatches."
+          )
+          (dict 
+              "title" "Outdoor" 
+              "url" "/collections/outdoor"
+              "imageUrl" "/images/categories/outdoor.jpg"
+              "imageAlt" "Outdoor equipment and furniture for patios and gardens."
+          )
+      )
+  ) }}
+@note: This component provides an elegant browsing experience that adapts to screen size - on mobile it offers a space-efficient scrollable horizontal list, while on larger screens it transforms into a proper grid layout.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Shop by Category" }}
+{{ $subheading := .subheading | default "" }}
+{{ $browseAllText := .browseAllText | default "Browse all categories" }}
+{{ $browseAllUrl := .browseAllUrl | default "#" }}
+
+{{ $categories := .categories | default (slice 
+  (dict 
+    "title" "New Arrivals"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-01.jpg"
+    "imageAlt" "New arrivals category thumbnail"
+  )
+  (dict 
+    "title" "Productivity"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-02.jpg"
+    "imageAlt" "Productivity category thumbnail"
+  )
+  (dict 
+    "title" "Workspace"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-04.jpg"
+    "imageAlt" "Workspace category thumbnail"
+  )
+  (dict 
+    "title" "Accessories"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-05.jpg"
+    "imageAlt" "Accessories category thumbnail"
+  )
+  (dict 
+    "title" "Sale"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-category-03.jpg"
+    "imageAlt" "Sale category thumbnail"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="py-16 sm:py-24 xl:mx-auto xl:max-w-7xl xl:px-8">
+    <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ $heading }}</h2>
+      {{ if $subheading }}
+      <p class="mt-2 text-sm text-gray-500">{{ $subheading }}</p>
+      {{ end }}
+      <a href="{{ $browseAllUrl }}" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+        {{ $browseAllText }}
+        <span aria-hidden="true"> &rarr;</span>
+      </a>
+    </div>
+
+    <div class="mt-4 flow-root">
+      <div class="-my-2">
+        <div class="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
+          <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+            {{ range $categories }}
+            <a href="{{ .url }}" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
+              <span aria-hidden="true" class="absolute inset-0">
+                {{ partial "components/media/lazyimg.html" (dict 
+                  "src" .imageUrl 
+                  "alt" .imageAlt
+                  "class" "absolute inset-0 size-full object-cover"
+                  "maxWidth" 400
+                ) }}
+              </span>
+              <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-gray-800 opacity-50"></span>
+              <span class="relative mt-auto text-center text-xl font-bold text-white">{{ .title }}</span>
+            </a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 px-4 sm:hidden">
+      <a href="{{ $browseAllUrl }}" class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
+        {{ $browseAllText }}
+        <span aria-hidden="true"> &rarr;</span>
+      </a>
+    </div>
+  </div>
+</div>

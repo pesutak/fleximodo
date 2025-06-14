@@ -1,0 +1,23 @@
+{{/*
+@component: Header
+@description: Standard page header with logo, navigation menu, and optional CTA buttons.
+@params:
+None - all parameters are preset and passed to the components/menus/header_menu component
+@example:
+{{ partial "header.html" . }}
+@note: This is a basic header implementation that uses the menu/header_menu component with default values.
+*/}}
+
+{{ partial "components/menus/header_menu" (dict
+  "logoUrl" "https://fleximodo.com/assets/svg/logos/fleximodo_white_logo.svg"
+  "logoAlt" "Fleximodo Logo"
+  "logoHeight" "h-10"
+  "siteTitle" "Fleximodo"
+  "ctaText" "Get demo kit"
+  "ctaUrl" "#"
+  "ctaBgColor" "bg-primary"
+  "ctaHoverBgColor" "hover:bg-primary-dark"
+  "ctaTextColor" "text-white"
+  "loginText" "Log in"
+  "loginUrl" "#"
+) }}

@@ -1,0 +1,153 @@
+{{/*
+@component: Post Card with Image
+@description: Displays a blog post card with featured image, title, description, date, section, tags, author, and reading time.
+@params:
+  This component expects a page context (.) that has the following properties:
+  - Title: The title of the post
+  - Params.image: Featured image URL (uses a placeholder if not provided)
+  - Params.description or .Description or .Summary: Post description/summary
+  - Date: Publication date
+  - ReadingTime: Estimated reading time in minutes
+  - RelPermalink: URL to the post
+  - Section: The content section (e.g., "blog")
+  - Params.tags: Array of post tags (optional)
+  - Params.author: Post author name (optional)
+  - Params.price (optional): Price of the product (if applicable) in EUR
+  - imageBgColor: Background color for the image section (optional, default: rgb(249 250 251)
+  - cardHeight: Height of the card in pixels (optional, default: 300)
+  - showImages: Whether to display images (optional, default: true)
+@example:
+{{ partial "components/cards/post_card_with_image.html" (dict "cardHeight" 500 "page" .) }}
+@note: This component is similar to post_card.html but always includes an image. It will use a placeholder image if none is specified.
+*/}}
+
+{{ $cardHeight := 300 }}
+{{ if (isset . "cardHeight") }}
+  {{ $cardHeight = .cardHeight }}
+{{ end }}
+{{ $page := .page | default . }}
+{{ $imageSectionHeight := div (mul $cardHeight 45) 100 }} {{/* 45% of cardHeight */}}
+{{ $image := $page.Params.image | default "/placeholder-image.jpg" }}
+{{ $title := $page.Title }}
+{{ $showImages := true }}
+{{ if (isset . "showImages") }}
+  {{ $showImages = .showImages }}
+{{ end }}
+
+{{/* Summary and description */}}
+{{ $description := or $page.Params.description $page.Description }}
+{{ if and $description (gt (len $description) 160) }}
+  {{- $description = printf "%.160s..." $description -}}
+{{ end }}
+{{ if not $description }}
+  {{- $plain := $page.Summary | plainify -}}
+  {{- $noShortcodes := replaceRE `{{<[^>]*>}}` "" $plain -}}
+  {{- $noDoubleCurlies := replaceRE `{{[^}]*}}` "" $noShortcodes -}}
+  {{- $noHTML := replaceRE `<[^>]*>` "" $noDoubleCurlies -}}
+  {{- $compact := replaceRE `[\r\n\t]+` " " $noHTML -}}
+  {{- if gt (len $compact) 160 -}}
+    {{- $compact = printf "%.160s..." $compact -}}
+  {{- end -}}
+  {{- $description = $compact -}}
+{{ end }}
+
+{{ $date := $page.Date.Format "Jan 2, 2006" }}
+{{ $readingTime := $page.ReadingTime }}
+{{ $permalink := $page.RelPermalink }}
+{{ $section := $page.Section }}
+{{ $imageBgColor := $page.Params.imageBgColor | default "#ffffff" }}
+{{ $isCurrent := and $section (ne $section $page.Section) }}
+{{ $labelBySection := partial "components/label/label.html" (dict 
+    "text" (humanize $section)
+    "bgColor" "bg-gray-100"
+    "textColor" "text-gray-500"
+    "rounded" "rounded-[4.3125rem]"
+) }}
+
+<article class="group relative rounded-lg flex flex-col overflow-hidden" style="height: {{ $cardHeight }}px;">
+    {{ if and $image $showImages }}
+    <div class="flex-none flex items-center justify-center mb-8 overflow-hidden border border-opacity/black-10% rounded-lg min-h-[16.875rem]"
+        style="height: {{ $imageSectionHeight }}px; background-color: {{ $imageBgColor }};">
+        <a href="{{ $permalink }}" class="w-full h-full flex items-center justify-center">
+            {{ partial "components/media/lazyimg.html" (dict
+                "src" $image
+                "alt" $title
+                "class" "w-full h-full object-cover"
+                "classPicture" "w-full h-full object-cover"
+            ) }}
+        </a>
+    </div>
+    {{ end }}
+
+    <div class="flex flex-col flex-grow">
+        <!-- Date and Section -->
+        <div class="flex items-center gap-4 mb-2.5">
+            <span class="flex items-center">
+                {{ if $page.Date }}
+                <time datetime="{{ $date }}" class="text-xs font-normal text-gray-600">
+                    {{ $date }}
+                </time>
+                {{ end }}
+                <!-- Reading Time -->
+                {{ if $readingTime }}
+                <div class="flex items-center text-xs font-normal text-gray-600">
+                    {{ if $page.Date }}
+                    <span class="inline-flex mx-1.5 w-0.5 h-0.5 rounded-full bg-gray-600"></span>
+                    {{ end }}
+                    {{ printf "%d %s" $readingTime (i18n "minutes_read") }}
+                </div>
+                {{ end }}
+            </span>
+            {{ if $isCurrent }}
+            <!-- Section Link -->
+            <a href="{{ print "/" $section "/" | relLangURL }}">
+                {{ $labelBySection }}
+            </a>
+            {{ else }}
+            <!-- Current Section -->
+                {{ $labelBySection }}
+            {{ end }}
+
+        </div>
+
+        <!-- Title and Description -->
+        <h3 class="mb-5 text-lg font-semibold group-hover:text-primary text-gray-900">
+            <a href="{{ $permalink }}" class="hover:text-primary focus:outline-none">
+                <span class="inset-0" aria-hidden="true"></span>
+                {{ $title }}
+            </a>
+        </h3>
+        <a href="{{ $permalink }}" class="">
+            <p class="text-sm leading-6 text-gray-600 font-normal line-clamp-2 flex-grow overflow-hidden">{{ $description }}</p>
+        </a>
+
+        <!-- Tags -->
+        <div class="mt-6 flex items-center justify-between">
+            <!-- Tags (limited to 2) -->
+            {{ if $page.Params.tags }}
+            <div class="flex flex-wrap gap-1">
+                {{ range first 2 $page.Params.tags }}
+                <a href="{{ print "/tags/" (. | urlize) | relLangURL }}/">
+                    {{ partial "components/label/label.html" (dict 
+                        "text" . 
+                        "bgColor" "bg-gray-100" 
+                        "textColor" "text-gray-500"
+                        "borderColor" "border-zinc-200"
+                    ) }}
+                </a>
+                {{ end }}
+                {{ if gt (len $page.Params.tags) 2 }}
+                <a href="{{ "/tags/" | relLangURL }}">
+                {{ partial "components/label/label.html" (dict 
+                    "text" (printf "+%d" (sub (len $page.Params.tags) 2)) 
+                    "bgColor" "bg-gray-100" 
+                    "textColor" "text-gray-500"
+                    "borderColor" "border-zinc-200"
+                ) }}
+                </a>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</article>

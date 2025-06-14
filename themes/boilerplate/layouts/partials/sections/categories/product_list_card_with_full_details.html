@@ -1,0 +1,117 @@
+{{/*
+@section: Product List Card with Full Details
+@description: A grid layout displaying products with rich details including title, description, variant information, image, and price.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - heading: Main section heading (optional, default: "Products", sr-only by default)
+  - products: Array of product objects (optional, includes defaults)
+    - title: Product title
+    - description: Product description
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - variant: Product variant text (e.g., "8 colors", "Black")
+    - price: Product price
+@example:
+  {{ partial "sections/categories/product_list_card_with_full_details.html" (dict 
+      "backgroundColor" "bg-gray-50"
+      "heading" "Featured Products" 
+      "products" (slice
+          (dict 
+              "title" "Premium Office Chair" 
+              "description" "Ergonomic design with adjustable height and lumbar support for all-day comfort."
+              "url" "/products/office-chair"
+              "imageUrl" "/images/products/office-chair.jpg"
+              "imageAlt" "Premium black ergonomic office chair with adjustable armrests."
+              "variant" "3 colors"
+              "price" "$249"
+          )
+          (dict 
+              "title" "Wireless Earbuds" 
+              "description" "High-fidelity sound with noise cancellation and long battery life."
+              "url" "/products/wireless-earbuds"
+              "imageUrl" "/images/products/wireless-earbuds.jpg"
+              "imageAlt" "White wireless earbuds with charging case."
+              "variant" "White"
+              "price" "$129"
+          )
+          (dict 
+              "title" "Mechanical Keyboard" 
+              "description" "Tactile typing experience with customizable RGB lighting and programmable keys."
+              "url" "/products/mechanical-keyboard"
+              "imageUrl" "/images/products/mechanical-keyboard.jpg"
+              "imageAlt" "Black mechanical keyboard with illuminated keys."
+              "variant" "Multiple switch options"
+              "price" "$179"
+          )
+      )
+  ) }}
+@note: This component provides a comprehensive product display with all essential details, making it ideal for category pages where users need detailed information to make informed decisions. Each card features a hover state that subtly indicates interactivity.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Products" }}
+
+{{ $products := .products | default (slice 
+  (dict 
+    "title" "Basic Tee 8-Pack"
+    "description" "Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-01.jpg"
+    "imageAlt" "Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green."
+    "variant" "8 colors"
+    "price" "$256"
+  )
+  (dict 
+    "title" "Basic Tee"
+    "description" "Look like a visionary CEO and wear the same black t-shirt every day."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-02.jpg"
+    "imageAlt" "Front of plain black t-shirt."
+    "variant" "Black"
+    "price" "$32"
+  )
+  (dict 
+    "title" "Premium Hoodie"
+    "description" "Stay warm and stylish with our premium hoodie made from high-quality materials."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-03.jpg"
+    "imageAlt" "Front of gray hoodie with embroidered logo."
+    "variant" "Gray"
+    "price" "$75"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="sr-only">{{ $heading }}</h2>
+
+    <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
+      {{ range $products }}
+      <div class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
+        <div class="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" .imageUrl 
+            "alt" .imageAlt
+            "class" "size-full object-cover object-center"
+            "maxWidth" 800
+          ) }}
+        </div>
+        <div class="flex flex-1 flex-col space-y-2 p-4">
+          <h3 class="text-sm font-medium text-gray-900">
+            <a href="{{ .url }}">
+              <span aria-hidden="true" class="absolute inset-0"></span>
+              {{ .title }}
+            </a>
+          </h3>
+          <p class="text-sm text-gray-500">{{ .description }}</p>
+          <div class="flex flex-1 flex-col justify-end">
+            <p class="text-sm text-gray-500 italic">{{ .variant }}</p>
+            <p class="text-base font-medium text-gray-900">{{ .price }}</p>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

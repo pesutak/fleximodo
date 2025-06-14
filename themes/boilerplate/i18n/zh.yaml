@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "常见问题"
+language_selector_title: "可用语言"
+glossary_subtitle: "术语和定义的全面列表"
+glossary_title: "术语表"
+home_title: "首页"
+
+# Glossary translations
+glossary_eyebrow: "术语表"
+
+# Category page translations
+categories_title: "分类"
+categories_browse_all: "按分类浏览所有内容"
+category_eyebrow: "分类"
+category_browse_content: "浏览 %s 分类中的所有内容"
+category_no_content_found: "在此分类中未找到内容"
+category_try_browsing: "尝试浏览其他分类或搜索内容"
+category_other_categories: "其他分类"
+
+# CTA translations
+cta_default_heading: "利用我们的资源扩展您的知识"
+cta_default_description: "探索我们全面的文章、指南和教程库，加深您对关键概念的理解，并了解最新发展动态。"
+cta_default_primary_text: "浏览资源"
+cta_default_secondary_text: "联系我们的专家"
+
+# Content type translations
+content_article_singular: "文章"
+content_article_plural: "文章"
+
+# Tags page translations
+tags_title: "标签"
+tags_browse_all: "按主题浏览所有内容"
+tag_eyebrow: "标签"
+tag_browse_content: "浏览所有标记为 %s 的内容"
+tag_no_content_found: "未找到包含此标签的内容"
+tag_try_browsing: "尝试浏览其他标签或搜索内容"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "上一页"
+tag_pagination_next: "下一页"
+tag_other_tags: "其他标签"
+
+# Cookie consent translations
+cookie_consent_title: "Cookie 同意"
+cookie_consent_message: "我们使用 cookie 来增强您的浏览体验并分析我们的流量。"
+cookie_consent_accept_all: "全部接受"
+cookie_consent_accept_necessary: "仅接受必要的"
+cookie_consent_settings: "Cookie 设置"
+cookie_settings_title: "Cookie 设置"
+cookie_settings_close: "关闭"
+cookie_settings_necessary_title: "必要的 Cookie"
+cookie_settings_necessary_description: "这些 cookie 是网站功能必需的，不可禁用。"
+cookie_settings_analytics_title: "分析 Cookie"
+cookie_settings_analytics_description: "这些 cookie 帮助我们了解访问者如何与我们的网站互动。"
+cookie_settings_cancel: "取消"
+cookie_settings_save: "保存偏好"
+
+# Pagination translations
+pagination_previous: "上一页"
+pagination_next: "下一页"
+pagination_showing: "显示"
+pagination_to: "至"
+pagination_of: "共"
+pagination_results: "结果"
+pagination_browse_all: "浏览全部内容于"
+
+# FAQ translations
+faq_heading: "常见问题"
+faq_description: "查找有关此主题的常见问题的答案。"
+
+no_terms_available: "暂无术语"
+pricing_monthly_label: "每月"
+pricing_yearly_label: "每年"
+wantMore: "需要更多？"
+learnMore: "了解更多"
+pricing_tagline: "价格"
+pricing_title: "与您共同成长的定价"
+pricing_description: "选择一个经济实惠的套餐，配备最佳功能来吸引您的受众、建立客户忠诚度并推动销售。"
+pricing_comparison_title: "比较套餐"
+pricing_comparison_description: "查看我们的套餐比较并选择最适合您的"
+read_more_post: "阅读更多"
+no_posts_found: "未找到帖子"
+minutes_read: "分钟阅读"
+get_started: "开始使用"
+courses.session: "课程"
+courses.you_will_learn: "您将学习："
+courses.or: "或"

@@ -1,0 +1,237 @@
+{{/*
+@section: Three-Tier Pricing with Dividers
+@description: A clean pricing section displaying three pricing tiers separated by dividers, with each tier featuring a list of included features and a prominent call-to-action button.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color class (optional, default: "white")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - headingColor: Color class for the heading (optional, default: "gray-900")
+  - descriptionColor: Color class for the description (optional, default: "gray-600")
+  - dividerColor: Color class for the dividers between tiers (optional, default: "gray-100")
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - price: Price amount with currency symbol
+    - interval: Billing frequency (e.g., "/month")
+    - annualPrice: Description of annual pricing option
+    - summary: Short description of the tier
+    - features: Array of features included in this tier
+    - cta: Object with text and url for the call-to-action button
+    - nameColor: Color class for the tier name
+    - priceColor: Color class for the price
+    - intervalColor: Color class for the interval text
+    - annualPriceColor: Color class for the annual price text
+    - summaryColor: Color class for the summary text
+    - featureColor: Color class for the feature text
+    - checkColor: Color class for the checkmark icons
+    - ctaColor: Color class for the CTA button text
+    - ctaBgColor: Color class for the CTA button background
+    - ctaHoverBgColor: Color class for the CTA button hover background
+  - checkIcon: SVG path for the checkmark icon (optional, has default)
+@example:
+  {{ partial "sections/pricing/three_tiers_with_dividers.html" (dict 
+      "tagline" "Simple Pricing" 
+      "heading" "Choose the plan that's right for you"
+      "description" "All plans include a 30-day free trial with no credit card required. Cancel anytime."
+      "tiers" (slice
+          (dict
+              "name" "Starter"
+              "id" "tier-starter"
+              "price" "$12"
+              "interval" "/month"
+              "annualPrice" "$9 per month if paid annually"
+              "summary" "Perfect for individuals and small projects."
+              "features" (slice
+                  "3 projects"
+                  "Up to 1,000 subscribers"
+                  "Basic analytics"
+                  "Email support"
+              )
+              "cta" (dict
+                  "text" "Get started"
+                  "url" "/signup/starter"
+              )
+          )
+          (dict
+              "name" "Team"
+              "id" "tier-team"
+              "price" "$32"
+              "interval" "/month"
+              "annualPrice" "$29 per month if paid annually"
+              "summary" "Everything in Starter, plus team collaboration tools."
+              "features" (slice
+                  "10 projects"
+                  "Up to 10,000 subscribers"
+                  "Advanced analytics"
+                  "Priority email support"
+                  "Team collaboration"
+              )
+              "cta" (dict
+                  "text" "Try free for 30 days"
+                  "url" "/signup/team"
+              )
+          )
+          (dict
+              "name" "Business"
+              "id" "tier-business"
+              "price" "$82"
+              "interval" "/month"
+              "annualPrice" "$69 per month if paid annually"
+              "summary" "Everything in Team, plus enterprise features and support."
+              "features" (slice
+                  "Unlimited projects"
+                  "Unlimited subscribers"
+                  "Custom analytics"
+                  "24/7 phone support"
+                  "Team collaboration"
+                  "SSO & advanced security"
+              )
+              "cta" (dict
+                  "text" "Contact sales"
+                  "url" "/contact/sales"
+              )
+          )
+      )
+      "dividerColor" "gray-200"
+  ) }}
+@note: This component adapts responsively - on mobile screens, the tiers are stacked vertically with horizontal dividers, while on desktop they display side-by-side with vertical dividers between them.
+*/}}
+
+{{ $tagline := .tagline | default "Pricing" }}
+{{ $heading := .heading | default "Pricing that grows with you" }}
+{{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
+{{ $backgroundColor := .backgroundColor | default "white" }}
+{{ $taglineColor := .taglineColor | default "indigo-600" }}
+{{ $headingColor := .headingColor | default "gray-900" }}
+{{ $descriptionColor := .descriptionColor | default "gray-600" }}
+{{ $dividerColor := .dividerColor | default "gray-100" }}
+
+{{ $tiers := .tiers | default (slice
+  (dict
+    "name" "Basic"
+    "id" "tier-basic"
+    "price" "$19"
+    "interval" "/month"
+    "annualPrice" "$15 per month if paid annually"
+    "summary" "Everything necessary to get started."
+    "features" (slice
+      "5 products"
+      "Up to 1,000 subscribers"
+      "Basic analytics"
+      "48-hour support response time"
+    )
+    "cta" (dict
+      "text" "Buy plan"
+      "url" "#"
+    )
+    "nameColor" "gray-900"
+    "priceColor" "gray-900"
+    "intervalColor" "gray-600"
+    "annualPriceColor" "gray-500"
+    "summaryColor" "gray-900"
+    "featureColor" "gray-600"
+    "checkColor" "indigo-600"
+    "ctaColor" "white"
+    "ctaBgColor" "indigo-600"
+    "ctaHoverBgColor" "indigo-500"
+  )
+  (dict
+    "name" "Essential"
+    "id" "tier-essential"
+    "price" "$49"
+    "interval" "/month"
+    "annualPrice" "$39 per month if paid annually"
+    "summary" "Everything in Basic, plus essential tools for growing your business."
+    "features" (slice
+      "25 products"
+      "Up to 10,000 subscribers"
+      "Advanced analytics"
+      "24-hour support response time"
+      "Marketing automations"
+    )
+    "cta" (dict
+      "text" "Buy plan"
+      "url" "#"
+    )
+    "nameColor" "gray-900"
+    "priceColor" "gray-900"
+    "intervalColor" "gray-600"
+    "annualPriceColor" "gray-500"
+    "summaryColor" "gray-900"
+    "featureColor" "gray-600"
+    "checkColor" "indigo-600"
+    "ctaColor" "white"
+    "ctaBgColor" "indigo-600"
+    "ctaHoverBgColor" "indigo-500"
+  )
+  (dict
+    "name" "Growth"
+    "id" "tier-growth"
+    "price" "$99"
+    "interval" "/month"
+    "annualPrice" "$79 per month if paid annually"
+    "summary" "Everything in Essential, plus collaboration tools and deeper insights."
+    "features" (slice
+      "Unlimited products"
+      "Unlimited subscribers"
+      "Advanced analytics"
+      "1-hour, dedicated support response time"
+      "Marketing automations"
+      "Custom reporting tools"
+    )
+    "cta" (dict
+      "text" "Buy plan"
+      "url" "#"
+    )
+    "nameColor" "gray-900"
+    "priceColor" "gray-900"
+    "intervalColor" "gray-600"
+    "annualPriceColor" "gray-500"
+    "summaryColor" "gray-900"
+    "featureColor" "gray-600"
+    "checkColor" "indigo-600"
+    "ctaColor" "white"
+    "ctaBgColor" "indigo-600"
+    "ctaHoverBgColor" "indigo-500"
+  )
+) }}
+
+{{ $checkIcon := .checkIcon | default "check" }}
+
+<div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl sm:text-center">
+      <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+      <p class="mt-2 text-5xl font-semibold tracking-tight text-pretty text-{{ $headingColor }} sm:text-6xl sm:text-balance">{{ $heading }}</p>
+    </div>
+    <p class="mx-auto mt-6 max-w-2xl text-lg font-medium text-pretty text-{{ $descriptionColor }} sm:text-center sm:text-xl/8">{{ $description }}</p>
+    <div class="mt-20 flow-root">
+      <div class="isolate -mt-16 grid max-w-sm grid-cols-1 gap-y-16 divide-y divide-{{ $dividerColor }} sm:mx-auto lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:divide-x lg:divide-y-0 xl:-mx-4">
+        {{ range $tier := $tiers }}
+        <div class="pt-16 lg:px-8 lg:pt-0 xl:px-14">
+          <h3 id="{{ $tier.id }}" class="text-base/7 font-semibold text-{{ $tier.nameColor }}">{{ $tier.name }}</h3>
+          <p class="mt-6 flex items-baseline gap-x-1">
+            <span class="text-5xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.price }}</span>
+            <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
+          </p>
+          <p class="mt-3 text-sm/6 text-{{ $tier.annualPriceColor }}">{{ $tier.annualPrice }}</p>
+          <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-10 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} shadow-xs hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaBgColor }}">{{ $tier.cta.text }}</a>
+          <p class="mt-10 text-sm/6 font-semibold text-{{ $tier.summaryColor }}">{{ $tier.summary }}</p>
+          <ul role="list" class="mt-6 space-y-3 text-sm/6 text-{{ $tier.featureColor }}">
+            {{ range $feature := $tier.features }}
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-{{ $tier.checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                {{ $checkIcon | safeHTML }}
+              </svg>
+              {{ $feature }}
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

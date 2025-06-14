@@ -1,0 +1,134 @@
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $eyebrow := .eyebrow | default "About us" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
+{{ $heading := .heading | default "On a mission to empower remote teams" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $description := .description | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-300" }}
+
+{{/* Mission section */}}
+{{ $missionTitle := .missionTitle | default "Our mission" }}
+{{ $missionTitleColor := .missionTitleColor | default "text-white" }}
+{{ $missionText1 := .missionText1 | default "Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id." }}
+{{ $missionText2 := .missionText2 | default "Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci." }}
+{{ $missionTextColor := .missionTextColor | default "text-gray-400" }}
+
+{{/* Stats section */}}
+{{ $statsTitle := .statsTitle | default "The numbers" }}
+{{ $statsTitleColor := .statsTitleColor | default "text-gray-400" }}
+{{ $statsBorderColor := .statsBorderColor | default "border-gray-700" }}
+{{ $statsLabelColor := .statsLabelColor | default "text-gray-400" }}
+{{ $statsValueColor := .statsValueColor | default "text-white" }}
+{{ $stats := .stats | default (slice 
+  (dict 
+    "label" "Raised"
+    "value" "$150M"
+    "prefix" "$"
+    "number" "150"
+    "suffix" "M"
+  )
+  (dict 
+    "label" "Companies"
+    "value" "30K"
+    "prefix" ""
+    "number" "30"
+    "suffix" "K"
+  )
+  (dict 
+    "label" "Deals Closed"
+    "value" "1.5M"
+    "prefix" ""
+    "number" "1.5"
+    "suffix" "M"
+  )
+  (dict 
+    "label" "Leads Generated"
+    "value" "200M"
+    "prefix" ""
+    "number" "200"
+    "suffix" "M"
+  )
+) }}
+
+{{/* Images */}}
+{{ $images := .images | default (slice 
+  (dict 
+    "src" "https://images.unsplash.com/photo-1590650516494-0c8e4a4dd67e?&auto=format&fit=crop&crop=center&w=560&h=560&q=90"
+    "alt" "Team collaboration"
+  )
+  (dict 
+    "src" "https://images.unsplash.com/photo-1557804506-669a67965ba0?&auto=format&fit=crop&crop=left&w=560&h=560&q=90"
+    "alt" "Office workspace"
+  )
+  (dict 
+    "src" "https://images.unsplash.com/photo-1559136555-9303baea8ebd?&auto=format&fit=crop&crop=left&w=560&h=560&q=90"
+    "alt" "Remote working"
+  )
+  (dict 
+    "src" "https://images.unsplash.com/photo-1598257006458-087169a1f08d?&auto=format&fit=crop&crop=center&w=560&h=560&q=90"
+    "alt" "Team meeting"
+  )
+) }}
+
+<div class="relative isolate overflow-hidden {{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <svg class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" aria-hidden="true">
+    <defs>
+      <pattern id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+        <path d="M.5 200V.5H200" fill="none" />
+      </pattern>
+    </defs>
+    <svg x="50%" y="-1" class="overflow-visible fill-gray-800/20">
+      <path d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z" stroke-width="0" />
+    </svg>
+    <rect width="100%" height="100%" stroke-width="0" fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+  </svg>
+  
+  <div class="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]" aria-hidden="true">
+    <div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20" style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"></div>
+  </div>
+  
+  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+    <div class="max-w-4xl">
+      <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
+      <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h1>
+      <p class="mt-6 text-xl/8 text-balance {{ $descriptionColor }}">{{ $description }}</p>
+    </div>
+    <section class="mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16">
+      <div class="lg:pr-8">
+        <h2 class="text-2xl font-semibold tracking-tight text-pretty {{ $missionTitleColor }}">{{ $missionTitle }}</h2>
+        <p class="mt-6 text-base/7 {{ $missionTextColor }}">{{ $missionText1 }}</p>
+        <p class="mt-8 text-base/7 {{ $missionTextColor }}">{{ $missionText2 }}</p>
+      </div>
+      <div class="pt-16 lg:row-span-2 lg:-mr-16 xl:mr-auto">
+        <div class="-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 lg:gap-4 xl:gap-8">
+          {{ range $index, $image := $images }}
+          <div class="{{ if or (eq $index 1) (eq $index 3) }}-mt-8 lg:-mt-40{{ end }} aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" $image.src 
+              "alt" $image.alt
+              "class" "block size-full object-cover"
+            ) }}
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      <div class="max-lg:mt-16 lg:col-span-1">
+        <p class="text-base/7 font-semibold {{ $statsTitleColor }}">{{ $statsTitle }}</p>
+        <hr class="mt-6 border-t {{ $statsBorderColor }}">
+        <dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+          {{ range $index, $stat := $stats }}
+          <div class="flex flex-col gap-y-2 {{ if lt $index 2 }}border-b border-dotted {{ $statsBorderColor }} pb-4{{ else if eq $index 2 }}max-sm:border-b max-sm:border-dotted max-sm:{{ $statsBorderColor }} max-sm:pb-4{{ end }}">
+            <dt class="text-sm/6 {{ $statsLabelColor }}">{{ $stat.label }}</dt>
+            <dd class="order-first text-6xl font-semibold tracking-tight {{ $statsValueColor }}">{{ if $stat.prefix }}{{ $stat.prefix }}{{ end }}<span>{{ $stat.number }}</span>{{ if $stat.suffix }}{{ $stat.suffix }}{{ end }}</dd>
+          </div>
+          {{ end }}
+        </dl>
+      </div>
+    </section>
+  </div>
+</div>

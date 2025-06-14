@@ -1,0 +1,45 @@
+{{/* 
+Centered CTA on Dark Panel Shortcode 
+
+Usage:
+{{< cta-dark-panel 
+  heading="Your Custom Heading" 
+  description="Your custom description text here." 
+  primaryCtaText="Sign Up" 
+  primaryCtaUrl="/signup" 
+  secondaryCtaText="Learn More" 
+  secondaryCtaUrl="/learn-more" 
+  gradientStartColor="#123456" 
+  gradientEndColor="#654321" 
+  gradientId="unique-gradient-id" 
+>}}
+*/}}
+{{ $heading := (.Get "heading") | default "Boost your productivity today" }}
+{{ $description := (.Get "description") | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
+{{ $primaryCtaText := (.Get "primaryCtaText") | default "Get started" }}
+{{ $primaryCtaUrl := (.Get "primaryCtaUrl") | default "#" }}
+{{ $secondaryCtaText := (.Get "secondaryCtaText") | default (i18n "learnMore") | default "Learn more" }}
+{{ $secondaryCtaUrl := (.Get "secondaryCtaUrl") | default "#" }}
+{{ $gradientStartColor := (.Get "gradientStartColor") | default "#7775D6" }}
+{{ $gradientEndColor := (.Get "gradientEndColor") | default "#E935C1" }}
+{{ $gradientId := (.Get "gradientId") | default "827591b1-ce8c-4110-b064-7cb85a0b1217" }}
+
+{{ $primaryCta := dict 
+  "text" $primaryCtaText
+  "url" $primaryCtaUrl
+}}
+
+{{ $secondaryCta := dict 
+  "text" $secondaryCtaText
+  "url" $secondaryCtaUrl
+}}
+
+{{ partial "sections/cta/centered_on_dark_panel.html" (dict 
+  "heading" $heading
+  "description" $description
+  "primaryCta" $primaryCta
+  "secondaryCta" $secondaryCta
+  "gradientStartColor" $gradientStartColor
+  "gradientEndColor" $gradientEndColor
+  "gradientId" $gradientId
+) }}

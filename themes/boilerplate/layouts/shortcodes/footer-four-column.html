@@ -1,0 +1,82 @@
+{{/* Four Column Simple Footer Shortcode */}}
+
+{{/* 
+  Parameters:
+  - bgColor: Background color class (default: "bg-white")
+  - logoUrl: URL to the logo image (default: Tailwind logo)
+  - logoAlt: Alt text for the logo (default: "Company name")
+  - logoHeight: Height class for the logo (default: "h-9")
+  - headingColor: Text color class for column headings (default: "text-gray-900")
+  - linkColor: Text color class for links (default: "text-gray-600")
+  - linkHoverColor: Text color class for links on hover (default: "text-gray-900")
+  - column1Title: Title for the first column (default: "Solutions")
+  - column2Title: Title for the second column (default: "Support")
+  - column3Title: Title for the third column (default: "Company")
+  - column4Title: Title for the fourth column (default: "Legal")
+  - column1Links: Array of link objects for the first column
+  - column2Links: Array of link objects for the second column
+  - column3Links: Array of link objects for the third column
+  - column4Links: Array of link objects for the fourth column
+*/}}
+
+{{ $bgColor := .Get "bgColor" | default "bg-white" }}
+{{ $logoUrl := .Get "logoUrl" | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $logoAlt := .Get "logoAlt" | default "Company name" }}
+{{ $logoHeight := .Get "logoHeight" | default "h-9" }}
+{{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
+{{ $linkColor := .Get "linkColor" | default "text-gray-600" }}
+{{ $linkHoverColor := .Get "linkHoverColor" | default "text-gray-900" }}
+{{ $column1Title := .Get "column1Title" | default "Solutions" }}
+{{ $column2Title := .Get "column2Title" | default "Support" }}
+{{ $column3Title := .Get "column3Title" | default "Company" }}
+{{ $column4Title := .Get "column4Title" | default "Legal" }}
+
+{{ $defaultColumn1Links := slice 
+  (dict "text" "Marketing" "url" "#")
+  (dict "text" "Analytics" "url" "#")
+  (dict "text" "Automation" "url" "#")
+  (dict "text" "Commerce" "url" "#")
+  (dict "text" "Insights" "url" "#")
+}}
+
+{{ $defaultColumn2Links := slice 
+  (dict "text" "Submit ticket" "url" "#")
+  (dict "text" "Documentation" "url" "#")
+  (dict "text" "Guides" "url" "#")
+}}
+
+{{ $defaultColumn3Links := slice 
+  (dict "text" "About" "url" "#")
+  (dict "text" "Blog" "url" "#")
+  (dict "text" "Jobs" "url" "#")
+  (dict "text" "Press" "url" "#")
+}}
+
+{{ $defaultColumn4Links := slice 
+  (dict "text" "Terms of service" "url" "#")
+  (dict "text" "Privacy policy" "url" "#")
+  (dict "text" "License" "url" "#")
+}}
+
+{{ $column1Links := .Get "column1Links" | default $defaultColumn1Links }}
+{{ $column2Links := .Get "column2Links" | default $defaultColumn2Links }}
+{{ $column3Links := .Get "column3Links" | default $defaultColumn3Links }}
+{{ $column4Links := .Get "column4Links" | default $defaultColumn4Links }}
+
+{{ partial "footers/4-column_simple.html" (dict 
+  "bgColor" $bgColor
+  "logoUrl" $logoUrl
+  "logoAlt" $logoAlt
+  "logoHeight" $logoHeight
+  "headingColor" $headingColor
+  "linkColor" $linkColor
+  "linkHoverColor" $linkHoverColor
+  "column1Title" $column1Title
+  "column2Title" $column2Title
+  "column3Title" $column3Title
+  "column4Title" $column4Title
+  "column1Links" $column1Links
+  "column2Links" $column2Links
+  "column3Links" $column3Links
+  "column4Links" $column4Links
+) }}

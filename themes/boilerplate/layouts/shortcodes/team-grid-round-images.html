@@ -1,0 +1,54 @@
+{{/* 
+  Example usage of the shortcode:
+  {{< team-grid-round-images 
+    "heading=Our Amazing Team" 
+    "description=Meet the talented individuals behind our success." 
+    "bgColor=bg-gray-100" 
+    "padding=py-20 sm:py-28" 
+    "headingColor=text-blue-900" 
+    "descriptionColor=text-blue-600" 
+    "nameColor=text-black" 
+    "roleColor=text-gray-500" 
+  >}}
+[
+{
+"name": "Keisha Williams",
+"role": "Sales Manager",
+"image": "/images/team/keisha-williams.jpg"
+},
+... other team members ...
+]
+{{< /team-grid-round-images >}}
+*/}}
+
+{{/* Team Grid with Round Images Shortcode */}}
+{{ $heading := (.Get "heading") | default "Our team" }}
+{{ $description := (.Get "description") | default "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients." }}
+{{ $bgColor := (.Get "bgColor") | default "bg-white" }}
+{{ $padding := (.Get "padding") | default "py-24 sm:py-32" }}
+{{ $headingColor := (.Get "headingColor") | default "text-gray-900" }}
+{{ $descriptionColor := (.Get "descriptionColor") | default "text-gray-600" }}
+{{ $nameColor := (.Get "nameColor") | default "text-gray-900" }}
+{{ $roleColor := (.Get "roleColor") | default "text-gray-600" }}
+{{- $teamMembers := slice -}}
+{{- if .Inner -}}
+{{- $rawTeamMembers := transform.Unmarshal .Inner -}}
+{{- if reflect.IsSlice $rawTeamMembers -}}
+{{- $teamMembers = $rawTeamMembers -}}
+{{- end -}}
+{{- else -}}
+{{- $teamMembers = .Page.Params.teamMembers | default slice -}}
+{{- end -}}
+
+
+{{ partial "sections/team/grid_with_round_images.html" (dict 
+  "heading" $heading
+  "description" $description
+  "bgColor" $bgColor
+  "padding" $padding
+  "headingColor" $headingColor
+  "descriptionColor" $descriptionColor
+  "nameColor" $nameColor
+  "roleColor" $roleColor
+  "teamMembers" $teamMembers
+) }}

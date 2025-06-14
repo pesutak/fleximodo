@@ -1,0 +1,129 @@
+{{/*
+@component: Simple Logos With Call-to-action
+@description: Displays a grid of client/partner logos with a call-to-action banner below them.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - logoColor: Color of the logos (optional, default: "gray-900")
+  - logos: Array of logo objects, each with:
+    - name: Company/brand name
+    - url: URL to the logo image
+    - width: Logo width
+    - height: Logo height
+  - ctaBgColor: Background color for the call-to-action banner (optional, default: "bg-gray-50")
+  - ctaTextColor: Text color for the call-to-action message (optional, default: "text-gray-600")
+  - ctaRingColor: Border ring color for the call-to-action banner (optional, default: "ring-gray-900/5")
+  - ctaText: Main text for the call-to-action banner (optional, default: "Over 2500 companies use our tools to better their business.")
+  - ctaLinkText: Text for the call-to-action link (optional, default: "Read our customer stories")
+  - ctaLinkUrl: URL for the call-to-action link (optional, default: "#")
+  - ctaLinkColor: Text color for the call-to-action link (optional, default: "text-indigo-600")
+@example:
+  {{ partial "components/logos/simple_with_call-to-action.html" (dict 
+      "logos" (slice 
+        (dict 
+          "name" "Company A" 
+          "url" "/images/logos/company-a.svg"
+          "width" "158"
+          "height" "48"
+        )
+        (dict 
+          "name" "Company B" 
+          "url" "/images/logos/company-b.svg"
+          "width" "158"
+          "height" "48"
+        )
+      )
+      "ctaText" "Join over 5,000 businesses using our platform"
+      "ctaLinkText" "See customer testimonials"
+      "ctaLinkUrl" "/testimonials"
+  ) }}
+@note: This component combines a logo showcase with a subtle call-to-action below, making it effective for directing visitors to customer stories or testimonials after establishing trust through the displayed logos.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Logos */}}
+{{ $logoColor := .logoColor | default "gray-900" }}
+{{ $logos := .logos | default (slice 
+  (dict 
+    "name" "Transistor" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "Reform" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-gray-900.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "Tuple" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-gray-900.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "SavvyCal" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-gray-900.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "Statamic" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg"
+    "width" "158"
+    "height" "48"
+  )
+) }}
+
+{{/* Call-to-action */}}
+{{ $ctaBgColor := .ctaBgColor | default "bg-gray-50" }}
+{{ $ctaTextColor := .ctaTextColor | default "text-gray-600" }}
+{{ $ctaRingColor := .ctaRingColor | default "ring-gray-900/5" }}
+{{ $ctaText := .ctaText | default "Over 2500 companies use our tools to better their business." }}
+{{ $ctaLinkText := .ctaLinkText | default "Read our customer stories" }}
+{{ $ctaLinkUrl := .ctaLinkUrl | default "#" }}
+{{ $ctaLinkColor := .ctaLinkColor | default "text-indigo-600" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+      {{ range $index, $logo := $logos }}
+        {{ if eq $index 3 }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $logo.url 
+            "alt" $logo.name 
+            "class" "col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
+        {{ else if eq $index 4 }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $logo.url 
+            "alt" $logo.name 
+            "class" "col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
+        {{ else }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $logo.url 
+            "alt" $logo.name 
+            "class" "col-span-2 max-h-12 w-full object-contain lg:col-span-1" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
+        {{ end }}
+      {{ end }}
+    </div>
+    <div class="mt-16 flex justify-center">
+      <p class="relative rounded-full {{ $ctaBgColor }} px-4 py-1.5 text-sm/6 {{ $ctaTextColor }} ring-1 {{ $ctaRingColor }} ring-inset">
+        <span class="hidden md:inline">{{ $ctaText }}</span>
+        <a href="{{ $ctaLinkUrl }}" class="font-semibold {{ $ctaLinkColor }}"><span class="absolute inset-0" aria-hidden="true"></span> {{ $ctaLinkText }} <span aria-hidden="true">&rarr;</span></a>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+{{/*
+@section: CTA with Image Tiles
+@description: A visually engaging call-to-action section featuring a grid of four staggered image tiles alongside heading, description text and a primary CTA button.
+@params:
+  - heading: Main section heading (optional, default: "Our people")
+  - description1: First paragraph of description text (optional, default: "Quasi est quaerat...")
+  - description2: Second paragraph of description text (optional, default: "Anim aute id magna...")
+  - cta: Object with CTA button configuration (optional)
+    - text: Button text (default: "Join our team")
+    - url: Button URL (default: "#")
+  - images: Array of image objects (optional, includes defaults)
+    - url: Image URL
+    - alt: Alt text for the image
+    - class: CSS classes for styling the image
+  - primaryCtaColor: Primary button color class (optional, default: "indigo-600")
+  - primaryCtaHoverColor: Primary button hover color class (optional, default: "indigo-500")
+@example:
+  {{ partial "sections/cta/with_image_tiles.html" (dict 
+      "heading" "Join our diverse team" 
+      "description1" "We're looking for passionate people to join us on our mission to build better solutions for businesses around the world."
+      "description2" "Our team values collaboration, innovation, and making a positive impact through technology."
+      "cta" (dict 
+          "text" "View open positions"
+          "url" "/careers"
+      )
+      "images" (slice
+          (dict 
+              "url" "/images/team/office-collaboration.jpg"
+              "alt" "Team collaboration session"
+              "class" "aspect-7/5 w-[37rem] max-w-none rounded-2xl bg-gray-50 object-cover"
+          )
+          (dict 
+              "url" "/images/team/team-meeting.jpg"
+              "alt" "Team meeting"
+              "class" "aspect-4/3 w-[24rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover"
+          )
+          (dict 
+              "url" "/images/team/workspace.jpg"
+              "alt" "Modern workspace"
+              "class" "aspect-7/5 w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover"
+          )
+          (dict 
+              "url" "/images/team/team-building.jpg"
+              "alt" "Team building activity"
+              "class" "aspect-4/3 w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover"
+          )
+      )
+      "primaryCtaColor" "blue-600"
+      "primaryCtaHoverColor" "blue-500"
+  ) }}
+@note: This section creates visual interest through a staggered image grid layout that pairs well with the text content. Images are arranged in a thoughtful composition that creates a balanced, yet dynamic presentation.
+*/}}
+
+{{/* CTA Section with Image Tiles */}}
+{{ $heading := .heading | default "Our people" }}
+{{ $description1 := .description1 | default "Quasi est quaerat. Sit molestiae et. Provident ad dolorem occaecati eos iste. Soluta rerum quidem minus ut molestiae velit error quod. Excepturi quidem expedita molestias quas." }}
+{{ $description2 := .description2 | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat. Quasi aperiam sit non sit neque reprehenderit." }}
+{{ $cta := .cta | default (dict 
+  "text" "Join our team"
+  "url" "#"
+) }}
+{{ $images := .images | default (slice
+  (dict 
+    "url" "https://images.unsplash.com/photo-1670272502246-768d249768ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1152&q=80"
+    "alt" ""
+    "class" "aspect-7/5 w-[37rem] max-w-none rounded-2xl bg-gray-50 object-cover"
+  )
+  (dict 
+    "url" "https://images.unsplash.com/photo-1605656816944-971cd5c1407f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=768&h=604&q=80"
+    "alt" ""
+    "class" "aspect-4/3 w-[24rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover"
+  )
+  (dict 
+    "url" "https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1152&h=842&q=80"
+    "alt" ""
+    "class" "aspect-7/5 w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover"
+  )
+  (dict 
+    "url" "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=768&h=604&q=80"
+    "alt" ""
+    "class" "aspect-4/3 w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover"
+  )
+) }}
+{{ $primaryCtaColor := .primaryCtaColor | default "indigo-600" }}
+{{ $primaryCtaHoverColor := .primaryCtaHoverColor | default "indigo-500" }}
+
+<div class="overflow-hidden bg-white py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:flex lg:px-8">
+    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:max-w-none lg:min-w-full lg:flex-none lg:gap-y-8">
+      <div class="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
+        <h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{ $heading }}</h2>
+        <p class="mt-6 text-xl/8 text-gray-600">{{ $description1 }}</p>
+        <p class="mt-6 text-base/7 text-gray-600">{{ $description2 }}</p>
+        <div class="mt-10 flex">
+          <a href="{{ $cta.url }}" class="rounded-md bg-{{ $primaryCtaColor }} px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-{{ $primaryCtaHoverColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $primaryCtaColor }}">{{ $cta.text }} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
+        <div class="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" (index $images 0 "url") 
+            "alt" (index $images 0 "alt") 
+            "class" (index $images 0 "class")
+            "maxWidth" 400
+          ) }}
+          <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
+        </div>
+        <div class="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
+          <div class="order-first flex w-64 flex-none justify-end self-end lg:w-auto">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" (index $images 1 "url") 
+              "alt" (index $images 1 "alt") 
+              "class" (index $images 1 "class")
+              "maxWidth" 400
+            ) }}
+            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
+          </div>
+          <div class="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" (index $images 2 "url") 
+              "alt" (index $images 2 "alt") 
+              "class" (index $images 2 "class")
+              "maxWidth" 400
+            ) }}
+            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
+          </div>
+          <div class="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" (index $images 3 "url") 
+              "alt" (index $images 3 "alt") 
+              "class" (index $images 3 "class")
+              "maxWidth" 400
+            ) }}
+            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

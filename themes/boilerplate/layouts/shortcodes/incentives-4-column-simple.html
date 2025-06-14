@@ -1,0 +1,78 @@
+{{/* 
+  Example usage:
+  {{< incentives-4-column-simple 
+      backgroundColor="bg-gray-100" 
+      title="We built our business on customer service" 
+      description="Focus on creating a great customer experience" 
+  >}}
+    [
+      {
+        "title": "Free returns",
+        "description": "Return any item within 30 days, no questions asked."
+      },
+      {
+        "title": "Global delivery",
+        "description": "We deliver to over 100 countries worldwide."
+      },
+      {
+        "title": "Secure payments",
+        "description": "All transactions are secured and encrypted."
+      },
+      {
+        "title": "Lifetime warranty",
+        "description": "All our products are covered by our lifetime warranty."
+      }
+    ]
+  {{< /incentives-4-column-simple >}}
+
+  4-column simple incentives shortcode
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - title: Main heading text (default: from partial)
+  - description: Supporting text below the heading (default: from partial)
+  
+  Inner Content:
+  JSON array of incentive objects with the following structure:
+  - title: Incentive title
+  - description: Incentive description
+  
+  If no inner content is provided, default incentives will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $title := .Get "title" | default "" }}
+{{ $description := .Get "description" | default "" }}
+
+{{ $defaultIncentives := slice 
+  (dict 
+    "title" "Free returns" 
+    "description" "Free 30-day return policy for all items."
+  )
+  (dict 
+    "title" "Global delivery" 
+    "description" "We ship to over 100 countries."
+  )
+  (dict 
+    "title" "Secure payments" 
+    "description" "All transactions secured and encrypted."
+  )
+  (dict 
+    "title" "Lifetime warranty" 
+    "description" "Lifetime guarantee on all products."
+  )
+}}
+
+{{ $incentives := $defaultIncentives }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $incentives = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "incentives/4-column_simple.html" (dict 
+  "backgroundColor" $backgroundColor
+  "title" $title
+  "description" $description
+  "incentives" $incentives
+) }}

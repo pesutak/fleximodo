@@ -1,0 +1,85 @@
+# English translations
+frequently_asked_questions: "প্রায় জিজ্ঞাসিত প্রশ্নাবলী"
+language_selector_title: "উপলভ্য ভাষাসমূহ"
+glossary_subtitle: "শব্দ এবং সংজ্ঞার একটি বিস্তৃত তালিকা"
+glossary_title: "শব্দকোষ"
+home_title: "হোম"
+
+# Glossary translations
+glossary_eyebrow: "শব্দকোষ"
+
+# Category page translations
+categories_title: "বিভাগসমূহ"
+categories_browse_all: "বিভাগ অনুসারে সমস্ত বিষয়বস্তু ব্রাউজ করুন"
+category_eyebrow: "বিভাগ"
+category_browse_content: "%s বিভাগের সমস্ত বিষয়বস্তু ব্রাউজ করুন"
+category_no_content_found: "এই বিভাগে কোনো বিষয়বস্তু পাওয়া যায়নি"
+category_try_browsing: "অন্যান্য বিভাগ ব্রাউজ করতে বা বিষয়বস্তু অনুসন্ধান করতে চেষ্টা করুন"
+category_other_categories: "অন্যান্য বিভাগ"
+
+# CTA translations
+cta_default_heading: "আমাদের সম্পদ দিয়ে আপনার জ্ঞান বাড়ান"
+cta_default_description: "প্রধান ধারণাগুলি সম্পর্কে আপনার বোঝাপড়া গভীর করতে এবং সর্বশেষ উন্নয়ন সম্পর্কে আপডেট থাকতে আমাদের বিস্তৃত নিবন্ধ, গাইড এবং টিউটোরিয়াল লাইব্রেরি অন্বেষণ করুন।"
+cta_default_primary_text: "সম্পদ ব্রাউজ করুন"
+cta_default_secondary_text: "আমাদের বিশেষজ্ঞদের সাথে যোগাযোগ করুন"
+
+# Content type translations
+content_article_singular: "নিবন্ধ"
+content_article_plural: "নিবন্ধসমূহ"
+
+# Tags page translations
+tags_title: "ট্যাগসমূহ"
+tags_browse_all: "বিষয় অনুসারে সমস্ত বিষয়বস্তু ব্রাউজ করুন"
+tag_eyebrow: "ট্যাগ"
+tag_browse_content: "%s ট্যাগযুক্ত সমস্ত বিষয়বস্তু ব্রাউজ করুন"
+tag_no_content_found: "এই ট্যাগ সহ কোনো বিষয়বস্তু পাওয়া যায়নি"
+tag_try_browsing: "অন্যান্য ট্যাগ ব্রাউজ করুন অথবা বিষয়বস্তু অনুসন্ধান করুন"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "পূর্ববর্তী"
+tag_pagination_next: "পরবর্তী"
+tag_other_tags: "অন্যান্য ট্যাগ"
+
+# Cookie consent translations
+cookie_consent_title: "কুকি সম্মতি"
+cookie_consent_message: "আমরা আপনার ব্রাউজিং অভিজ্ঞতা উন্নত করতে এবং আমাদের ট্রাফিক বিশ্লেষণ করতে কুকি ব্যবহার করি।"
+cookie_consent_accept_all: "সব গ্রহণ করুন"
+cookie_consent_accept_necessary: "শুধুমাত্র প্রয়োজনীয় গ্রহণ করুন"
+cookie_consent_settings: "কুকি সেটিংস"
+cookie_settings_title: "কুকি সেটিংস"
+cookie_settings_close: "বন্ধ করুন"
+cookie_settings_necessary_title: "প্রয়োজনীয় কুকি"
+cookie_settings_necessary_description: "এই কুকিগুলি ওয়েবসাইটের কাজের জন্য প্রয়োজনীয় এবং অক্ষম করা যাবে না।"
+cookie_settings_analytics_title: "বিশ্লেষণ কুকি"
+cookie_settings_analytics_description: "এই কুকিগুলি আমাদের বুঝতে সহায়তা করে যে দর্শকরা আমাদের ওয়েবসাইটের সাথে কীভাবে ইন্টারঅ্যাক্ট করে।"
+cookie_settings_cancel: "বাতিল করুন"
+cookie_settings_save: "পছন্দগুলি সংরক্ষণ করুন"
+
+# Pagination translations
+pagination_previous: "পূর্ববর্তী"
+pagination_next: "পরবর্তী"
+pagination_showing: "দেখাচ্ছে"
+pagination_to: "থেকে"
+pagination_of: "এর মধ্যে"
+pagination_results: "ফলাফল"
+pagination_browse_all: "সমস্ত বিষয়বস্তু ব্রাউজ করুন"
+
+# FAQ translations
+faq_heading: "প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী"
+faq_description: "এই বিষয় সম্পর্কে সাধারণ প্রশ্নের উত্তর খুঁজুন।"
+no_terms_available: "কোনো শব্দ পাওয়া যায়নি"
+pricing_monthly_label: "মাসিক"
+pricing_yearly_label: "বার্ষিক"
+wantMore: "আরও চান?"
+learnMore: "আরও জানুন"
+pricing_tagline: "মূল্য নির্ধারণ"
+pricing_title: "আপনার সাথে বাড়ে এমন মূল্য নির্ধারণ"
+pricing_description: "আপনার দর্শকদের আকৃষ্ট করতে, গ্রাহক আনুগত্য তৈরি করতে এবং বিক্রয় বাড়াতে সেরা বৈশিষ্ট্যসমূহ সহ একটি সাশ্রয়ী পরিকল্পনা বেছে নিন।"
+pricing_comparison_title: "পরিকল্পনা তুলনা করুন"
+pricing_comparison_description: "আমাদের পরিকল্পনা তুলনা দেখুন এবং আপনার জন্য সেরা একটি নির্বাচন করুন"
+read_more_post: "আরও পড়ুন"
+no_posts_found: "কোনো পোস্ট পাওয়া যায়নি"
+minutes_read: "মিনিট পড়া"
+get_started: "শুরু করুন"
+courses.session: "সেশন"
+courses.you_will_learn: "আপনি শিখবেন:"
+courses.or: "অথবা"

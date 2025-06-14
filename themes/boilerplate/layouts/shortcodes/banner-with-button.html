@@ -1,0 +1,51 @@
+{{- /*
+  Usage in markdown:
+  {{< banner-with-button 
+    title="GeneriCon 2023"
+    message="Join us in Denver from June 7 – 9 to see what's coming next."
+    buttonText="Register now"
+    buttonUrl="#"
+    isDismissable=true
+    backgroundColor="bg-gray-50"
+    textColor="text-gray-900"
+    buttonBackgroundColor="bg-gray-900"
+    buttonTextColor="text-white"
+    buttonHoverColor="hover:bg-gray-700"
+    buttonFocusColor="focus-visible:outline-gray-900"
+    dismissButtonColor="text-gray-900"
+    gradientFromColor="from-[#ff80b5]"
+    gradientToColor="to-[#9089fc]"
+  >}}
+*/ -}}
+
+{{- $title := .Get "title" | default "GeneriCon 2023" -}}
+{{- $message := .Get "message" | default "Join us in Denver from June 7 – 9 to see what's coming next." -}}
+{{- $buttonText := .Get "buttonText" | default "Register now" -}}
+{{- $buttonUrl := .Get "buttonUrl" | default "#" -}}
+{{- $isDismissable := .Get "isDismissable" | default true -}}
+{{- $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" -}}
+{{- $textColor := .Get "textColor" | default "text-gray-900" -}}
+{{- $buttonBackgroundColor := .Get "buttonBackgroundColor" | default "bg-gray-900" -}}
+{{- $buttonTextColor := .Get "buttonTextColor" | default "text-white" -}}
+{{- $buttonHoverColor := .Get "buttonHoverColor" | default "hover:bg-gray-700" -}}
+{{- $buttonFocusColor := .Get "buttonFocusColor" | default "focus-visible:outline-gray-900" -}}
+{{- $dismissButtonColor := .Get "dismissButtonColor" | default "text-gray-900" -}}
+{{- $gradientFromColor := .Get "gradientFromColor" | default "from-[#ff80b5]" -}}
+{{- $gradientToColor := .Get "gradientToColor" | default "to-[#9089fc]" -}}
+
+{{ partial "sections/banners/with_button" (dict 
+  "title" $title
+  "message" $message
+  "buttonText" $buttonText
+  "buttonUrl" $buttonUrl
+  "isDismissable" $isDismissable
+  "backgroundColor" $backgroundColor
+  "textColor" $textColor
+  "buttonBackgroundColor" $buttonBackgroundColor
+  "buttonTextColor" $buttonTextColor
+  "buttonHoverColor" $buttonHoverColor
+  "buttonFocusColor" $buttonFocusColor
+  "dismissButtonColor" $dismissButtonColor
+  "gradientFromColor" $gradientFromColor
+  "gradientToColor" $gradientToColor
+) }}

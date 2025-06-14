@@ -1,0 +1,134 @@
+{{/* 
+  Features partial with intro and tabs
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "")
+  - description: Description text below the main heading (default: "")
+  - page: Page context for linkbuilding (required)
+  - verticalAlign: Controls the vertical alignment of content and image ("center" or "top", default: "top")
+  - activeTab: ID of the tab that should be active by default (default: first tab)
+  - tabs: Array of tab objects with the following structure:
+    - id: Unique ID for the tab
+    - title: Tab title
+    - content: Tab content object with:
+      - title: Content title
+      - description: Content description
+      - imageUrl: URL to content image
+      - imageAlt: Alt text for content image
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
+{{ $page := .page }}
+{{ $verticalAlign := .verticalAlign | default "top" }}
+{{ $uniqueID := printf "features-tabs-%d" (now.UnixNano) }}
+{{ $activeTab := .activeTab }}
+
+{{ $tabs := .tabs | default (slice) }}
+
+{{ $defaultActiveTabId := "" }}
+{{ if $tabs }}
+  {{ if $activeTab }}
+    {{ $defaultActiveTabId = $activeTab }}
+  {{ else }}
+    {{ $defaultActiveTabId = (index $tabs 0).id }}
+  {{ end }}
+{{ end }}
+
+<div class="{{ $backgroundColor }}">
+  <section aria-labelledby="{{ $uniqueID }}-heading" class="mx-auto max-w-7xl py-32 sm:px-2 lg:px-8">
+    <div class="mx-auto max-w-2xl px-4 lg:max-w-none lg:px-0">
+      <div class="w-full text-center">
+        <h2 id="{{ $uniqueID }}-heading" class="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">{{ $heading }}</h2>
+        <p class="mt-4 text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
+      </div>
+
+      <div class="mt-4">
+        <div class="-mx-4 flex overflow-x-auto sm:mx-0">
+          <div class="flex-auto border-b border-gray-200 px-4 sm:px-0">
+            <div class="-mb-px flex justify-center space-x-10" aria-orientation="horizontal" role="tablist">
+              {{ range $index, $tab := $tabs }}
+                <button id="{{ $uniqueID }}-tab-{{ $tab.id }}" 
+                  class="border-b-2 {{ if eq $tab.id $defaultActiveTabId }}border-primary text-primary{{ else }}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{{ end }} py-6 text-base font-medium whitespace-nowrap" 
+                  aria-controls="{{ $uniqueID }}-panel-{{ $tab.id }}" 
+                  role="tab" 
+                  type="button"
+                  data-tab-id="{{ $tab.id }}"
+                  data-tabs-group="{{ $uniqueID }}">
+                  {{ $tab.title }}
+                </button>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+
+        {{ range $index, $tab := $tabs }}
+          <div id="{{ $uniqueID }}-panel-{{ $tab.id }}" 
+            class="text-lg space-y-16 pt-10 lg:pt-16 {{ if ne $tab.id $defaultActiveTabId }}hidden{{ end }}" 
+            aria-labelledby="{{ $uniqueID }}-tab-{{ $tab.id }}" 
+            role="tabpanel" 
+            tabindex="0">
+            {{ if or $tab.content.title $tab.content.description }}
+            <div class="flex flex-col-reverse lg:grid lg:grid-cols-12 lg:gap-x-8 {{ if eq $verticalAlign "center" }}lg:items-center{{ end }}">
+              <div class="mt-6 lg:col-span-6 lg:mt-0">
+                {{if $tab.content.title }}<h3 class="text-3xl font-medium text-gray-900">{{ $tab.content.title }}</h3>{{ end }}
+                {{if $tab.content.description }}<p class="mt-2 text-md text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $tab.content.description "page" $page) | safeHTML }}</p>{{ end }}
+              </div>
+              {{ if $tab.content.imageUrl }}
+              <div class="lg:col-span-6">
+                {{ partial "components/media/lazyimg.html" (dict 
+                  "src" $tab.content.imageUrl
+                  "alt" $tab.content.imageAlt
+                  "class" "aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-5/2"
+                ) }}
+              </div>
+              {{ end }}
+            </div>
+            {{ else }}
+            <div class="w-full">
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" $tab.content.imageUrl
+                "alt" $tab.content.imageAlt
+                "class" "aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-5/2"
+              ) }}
+            </div>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('[data-tabs-group="{{ $uniqueID }}"]');
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const tabId = this.getAttribute('data-tab-id');
+      const tabsGroup = this.getAttribute('data-tabs-group');
+      
+      // Hide all panels
+      document.querySelectorAll(`[id^="${tabsGroup}-panel-"]`).forEach(panel => {
+        panel.classList.add('hidden');
+      });
+      
+      // Show the selected panel
+      document.getElementById(`${tabsGroup}-panel-${tabId}`).classList.remove('hidden');
+      
+      // Update tab button styles
+      document.querySelectorAll(`[data-tabs-group="${tabsGroup}"]`).forEach(btn => {
+        btn.classList.remove('border-primary', 'text-primary');
+        btn.classList.add('border-transparent', 'text-gray-500', 'hover:border-gray-300', 'hover:text-gray-700');
+      });
+      
+      // Style the active tab
+      this.classList.remove('border-transparent', 'text-gray-500', 'hover:border-gray-300', 'hover:text-gray-700');
+      this.classList.add('border-primary', 'text-primary');
+    });
+  });
+});
+</script>

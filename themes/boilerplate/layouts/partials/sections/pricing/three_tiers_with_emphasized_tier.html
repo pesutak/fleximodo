@@ -1,0 +1,281 @@
+{{/*
+@section: Three-Tier Pricing with Emphasized Tier
+@description: A pricing section displaying three pricing tiers with one visually emphasized tier, and an optional toggle between monthly and annual billing options.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color class (optional, default: "white")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - headingColor: Color class for the heading (optional, default: "gray-900")
+  - descriptionColor: Color class for the description (optional, default: "gray-600")
+  - showFrequencyToggle: Boolean to show/hide the billing frequency toggle (optional, default: true)
+  - toggleTextColor: Color class for the toggle text (optional, default: "gray-500")
+  - toggleActiveColor: Color class for the active toggle text (optional, default: "white")
+  - toggleActiveBgColor: Color class for the active toggle background (optional, default: "indigo-600")
+  - toggleBorderColor: Color class for the toggle border (optional, default: "gray-200")
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - monthlyPrice: Price for monthly billing
+    - annualPrice: Price for annual billing
+    - interval: Text after the price (e.g., "/month")
+    - description: Short description of the tier
+    - emphasized: Boolean to indicate if this is the emphasized tier
+    - features: Array of features included in this tier
+    - cta: Object with text and url for the call-to-action button
+    - nameColor: Color class for the tier name
+    - priceColor: Color class for the price
+    - intervalColor: Color class for the interval text
+    - descriptionColor: Color class for the description
+    - featureColor: Color class for the feature text
+    - checkColor: Color class for the checkmark icons
+    - ctaColor: Color class for the CTA button text
+    - ctaBgColor: Color class for the CTA button background
+    - ctaHoverBgColor: Color class for the CTA button hover background
+    - backgroundColor: Background color class for the tier
+    - borderColor: Border color class for the tier
+  - checkIcon: SVG path for the checkmark icon (optional, has default)
+@example:
+  {{ partial "sections/pricing/three_tiers_with_emphasized_tier.html" (dict 
+      "tagline" "Our Pricing" 
+      "heading" "Choose the perfect plan for your business"
+      "description" "All plans include a 14-day free trial period. No credit card required."
+      "tiers" (slice
+          (dict
+              "name" "Basic"
+              "id" "tier-basic"
+              "monthlyPrice" "$9"
+              "annualPrice" "$7"
+              "interval" "/month"
+              "description" "Great for personal projects and small teams."
+              "emphasized" false
+              "features" (slice
+                  "3 projects"
+                  "5 team members"
+                  "Basic analytics"
+                  "Email support"
+              )
+              "cta" (dict
+                  "text" "Get started"
+                  "url" "/signup/basic"
+              )
+          )
+          (dict
+              "name" "Pro"
+              "id" "tier-pro"
+              "monthlyPrice" "$29"
+              "annualPrice" "$24"
+              "interval" "/month"
+              "description" "Everything a growing business needs."
+              "emphasized" true
+              "features" (slice
+                  "Unlimited projects"
+                  "20 team members"
+                  "Advanced analytics"
+                  "Priority support"
+                  "Custom integrations"
+              )
+              "cta" (dict
+                  "text" "Start free trial"
+                  "url" "/signup/pro"
+              )
+              "backgroundColor" "blue-600"
+              "nameColor" "white"
+              "priceColor" "white"
+          )
+          (dict
+              "name" "Enterprise"
+              "id" "tier-enterprise"
+              "monthlyPrice" "Custom"
+              "annualPrice" "Custom"
+              "interval" ""
+              "description" "Dedicated support and infrastructure for your company."
+              "emphasized" false
+              "features" (slice
+                  "Unlimited everything"
+                  "Dedicated account manager"
+                  "Custom reporting"
+                  "24/7 phone support"
+                  "SLA guarantees"
+                  "Advanced security"
+              )
+              "cta" (dict
+                  "text" "Contact sales"
+                  "url" "/contact/sales"
+              )
+          )
+      )
+      "toggleActiveBgColor" "blue-500"
+  ) }}
+@note: This component adapts responsively to different screen sizes. The emphasized tier stands out with a different background color and styling, making it the focal point for users. The optional billing frequency toggle allows users to switch between monthly and annual pricing options.
+*/}}
+
+{{ $tagline := .tagline | default "Pricing" }}
+{{ $heading := .heading | default "Pricing that grows with you" }}
+{{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
+{{ $backgroundColor := .backgroundColor | default "white" }}
+{{ $taglineColor := .taglineColor | default "indigo-600" }}
+{{ $headingColor := .headingColor | default "gray-900" }}
+{{ $descriptionColor := .descriptionColor | default "gray-600" }}
+
+{{ $showFrequencyToggle := .showFrequencyToggle | default true }}
+{{ $toggleTextColor := .toggleTextColor | default "gray-500" }}
+{{ $toggleActiveColor := .toggleActiveColor | default "white" }}
+{{ $toggleActiveBgColor := .toggleActiveBgColor | default "indigo-600" }}
+{{ $toggleBorderColor := .toggleBorderColor | default "gray-200" }}
+
+{{ $tiers := .tiers | default (slice
+  (dict
+    "name" "Freelancer"
+    "id" "tier-freelancer"
+    "monthlyPrice" "$19"
+    "annualPrice" "$15"
+    "interval" "/month"
+    "description" "The essentials to provide your best work for clients."
+    "emphasized" false
+    "features" (slice
+      "5 products"
+      "Up to 1,000 subscribers"
+      "Basic analytics"
+      "48-hour support response time"
+    )
+    "cta" (dict
+      "text" "Buy plan"
+      "url" "#"
+    )
+    "nameColor" "gray-900"
+    "priceColor" "gray-900"
+    "intervalColor" "gray-600"
+    "descriptionColor" "gray-600"
+    "featureColor" "gray-600"
+    "checkColor" "indigo-600"
+    "ctaColor" "white"
+    "ctaBgColor" "indigo-600"
+    "ctaHoverBgColor" "indigo-500"
+    "backgroundColor" "white"
+    "borderColor" "gray-200"
+  )
+  (dict
+    "name" "Startup"
+    "id" "tier-startup"
+    "monthlyPrice" "$29"
+    "annualPrice" "$24"
+    "interval" "/month"
+    "description" "A plan that scales with your rapidly growing business."
+    "emphasized" false
+    "features" (slice
+      "25 products"
+      "Up to 10,000 subscribers"
+      "Advanced analytics"
+      "24-hour support response time"
+      "Marketing automations"
+    )
+    "cta" (dict
+      "text" "Buy plan"
+      "url" "#"
+    )
+    "nameColor" "gray-900"
+    "priceColor" "gray-900"
+    "intervalColor" "gray-600"
+    "descriptionColor" "gray-600"
+    "featureColor" "gray-600"
+    "checkColor" "indigo-600"
+    "ctaColor" "white"
+    "ctaBgColor" "indigo-600"
+    "ctaHoverBgColor" "indigo-500"
+    "backgroundColor" "white"
+    "borderColor" "gray-200"
+  )
+  (dict
+    "name" "Enterprise"
+    "id" "tier-enterprise"
+    "monthlyPrice" "Custom"
+    "annualPrice" "Custom"
+    "interval" ""
+    "description" "Dedicated support and infrastructure for your company."
+    "emphasized" true
+    "features" (slice
+      "Unlimited products"
+      "Unlimited subscribers"
+      "Advanced analytics"
+      "1-hour, dedicated support response time"
+      "Marketing automations"
+      "Custom reporting tools"
+    )
+    "cta" (dict
+      "text" "Contact sales"
+      "url" "#"
+    )
+    "nameColor" "white"
+    "priceColor" "white"
+    "intervalColor" "gray-300"
+    "descriptionColor" "gray-300"
+    "featureColor" "gray-300"
+    "checkColor" "white"
+    "ctaColor" "white"
+    "ctaBgColor" "white/10"
+    "ctaHoverBgColor" "white/20"
+    "backgroundColor" "gray-900"
+    "borderColor" "gray-900"
+  )
+) }}
+
+{{ $checkIcon := .checkIcon | default "check" }}
+
+<div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl text-center">
+      <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+      <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-{{ $headingColor }} sm:text-6xl">{{ $heading }}</p>
+    </div>
+    <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-{{ $descriptionColor }} sm:text-xl/8">{{ $description }}</p>
+    
+    {{ if $showFrequencyToggle }}
+    <div class="mt-16 flex justify-center">
+      <fieldset aria-label="Payment frequency">
+        <div class="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs/5 font-semibold ring-1 ring-{{ $toggleBorderColor }} ring-inset">
+          <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
+          <label class="cursor-pointer rounded-full px-2.5 py-1 bg-{{ $toggleActiveBgColor }} text-{{ $toggleActiveColor }}">
+            <input type="radio" name="frequency" value="monthly" class="sr-only" checked>
+            <span>Monthly</span>
+          </label>
+          <!-- Checked: "bg-indigo-600 text-white", Not Checked: "text-gray-500" -->
+          <label class="cursor-pointer rounded-full px-2.5 py-1 text-{{ $toggleTextColor }}">
+            <input type="radio" name="frequency" value="annually" class="sr-only">
+            <span>Annually</span>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+    {{ end }}
+    
+    <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      {{ range $tier := $tiers }}
+      <div class="rounded-3xl p-8 ring-1 ring-{{ $tier.borderColor }} {{ if $tier.emphasized }}bg-{{ $tier.backgroundColor }}{{ end }} xl:p-10">
+        <h3 id="{{ $tier.id }}" class="text-lg/8 font-semibold text-{{ $tier.nameColor }}">{{ $tier.name }}</h3>
+        <p class="mt-4 text-sm/6 text-{{ $tier.descriptionColor }}">{{ $tier.description }}</p>
+        <p class="mt-6 flex items-baseline gap-x-1">
+          <!-- Price, update based on frequency toggle state -->
+          <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.monthlyPrice }}</span>
+          <!-- Payment frequency, update based on frequency toggle state -->
+          {{ if $tier.interval }}
+          <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
+          {{ end }}
+        </p>
+        <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-6 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} shadow-xs hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ if $tier.emphasized }}white{{ else }}{{ $tier.ctaBgColor }}{{ end }}">{{ $tier.cta.text }}</a>
+        <ul role="list" class="mt-8 space-y-3 text-sm/6 text-{{ $tier.featureColor }} xl:mt-10">
+          {{ range $feature := $tier.features }}
+          <li class="flex gap-x-3">
+            <svg class="h-6 w-5 flex-none text-{{ $tier.checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+              {{ $checkIcon | safeHTML }}
+            </svg>
+            {{ $feature }}
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

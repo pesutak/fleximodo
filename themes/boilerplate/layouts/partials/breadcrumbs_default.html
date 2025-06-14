@@ -1,0 +1,12 @@
+<!-- Breadcrumbs -->
+{{ $breadcrumbItems := slice (dict "title" (i18n "home_title") "url" .Site.Home.RelPermalink) }}
+{{ $path := "" }}
+{{ $parts := split (strings.TrimPrefix "/" .RelPermalink) "/" }}
+{{ range $index, $part := first (sub (len $parts) 1) $parts }}
+{{ $path = printf "%s/%s" $path $part }}
+{{ with $.Site.GetPage $path }}
+  {{ $title := replace .Title "-" " " }}
+  {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" $title "url" .RelPermalink) }}
+{{ end }}
+{{ end }}
+{{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}

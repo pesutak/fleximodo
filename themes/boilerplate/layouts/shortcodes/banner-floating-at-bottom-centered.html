@@ -1,0 +1,33 @@
+{{- /*
+  Usage in markdown:
+  {{< banner-floating-at-bottom-centered 
+    title="GeneriCon 2023"
+    message="Join us in Denver from June 7 – 9 to see what's coming next"
+    url="#"
+    isDismissable=true
+    backgroundColor="bg-gray-900"
+    textColor="text-white"
+    dismissButtonColor="text-white"
+  >}}
+
+  Note: Make sure you add some bottom padding to pages that include a sticky banner like this to prevent
+  your content from being obscured when the user scrolls to the bottom of the page.
+*/ -}}
+
+{{- $title := .Get "title" | default "GeneriCon 2023" -}}
+{{- $message := .Get "message" | default "Join us in Denver from June 7 – 9 to see what's coming next" -}}
+{{- $url := .Get "url" | default "#" -}}
+{{- $isDismissable := .Get "isDismissable" | default true -}}
+{{- $backgroundColor := .Get "backgroundColor" | default "bg-gray-900" -}}
+{{- $textColor := .Get "textColor" | default "text-white" -}}
+{{- $dismissButtonColor := .Get "dismissButtonColor" | default "text-white" -}}
+
+{{ partial "sections/banners/floating_at_bottom_centered" (dict 
+  "title" $title
+  "message" $message
+  "url" $url
+  "isDismissable" $isDismissable
+  "backgroundColor" $backgroundColor
+  "textColor" $textColor
+  "dismissButtonColor" $dismissButtonColor
+) }}

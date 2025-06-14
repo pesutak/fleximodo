@@ -1,0 +1,63 @@
+{{/*
+    @params:
+  - title: Main section title (required)
+  - description: Section description text (required)
+  - contacts: List of contact items (required)
+    - Each contact item should have:
+      - title: Contact item title (required)
+      - description: Contact item description (required)
+      - linkText: Text for the call-to-action link (required)
+      - linkUrl: URL for the call-to-action link (required)
+      - icon: Heroicon name (required, e.g., "envelope", "bug-ant", "question-mark-circle")
+      - iconStyle: Optional, "solid" or "outline" (defaults to "solid" if not specified)
+@example:
+  {{ partial "sections/contact/simple-centered.html" (dict 
+      "title" "Contact sales"
+      "description" "Aute magna irure deserunt veniam aliqua magna enim voluptate."
+      "contacts" (slice
+        (dict
+          "title" "Sales support"
+          "description" "Ut cursus est ut amet. Lobortis eget egestas leo vitae eget porttitor risus blandit."
+          "linkText" "Contact us"
+          "linkUrl" "#"
+          "icon" "map"
+        )
+        (dict
+          "title" "Bug reports"
+          "description" "Expedita qui non ut quia ipsum voluptatum ipsam pariatur. Culpa vitae ipsum minus eius vero quo quibusdam."
+          "linkText" "Report a bug"
+          "linkUrl" "#"
+        )
+        (dict
+          "title" "Technical support"
+          "description" "Sint aut modi porro consequatur architecto commodi qui consequatur. Dignissimos adipisci minima."
+          "linkText" "Join our Discord"
+          "linkUrl" "#"
+        )
+      )
+  ) }}
+*/}}
+<div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+  <div class="mx-auto max-w-2xl sm:text-center">
+    <h2 class="text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">{{ .title }}</h2>
+    <p class="mt-2 text-lg/8 text-gray-600">{{ .description }}</p>
+  </div>
+  <div class="mx-auto mt-20 max-w-7xl">
+    <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+      {{ range .contacts }}
+      <div class="flex gap-x-6">
+        {{ if isset . "icon" }}
+          {{ .icon }}
+        {{ end }}
+        <div>
+          <h3 class="text-base/7 font-semibold text-gray-900">{{ .title }}</h3>
+          <p class="mt-2 text-base/7 text-gray-600">{{ .description }}</p>
+          <p class="mt-4 text-sm/6 font-semibold">
+            <a href="{{ .linkUrl }}" class="text-indigo-600">{{ .linkText }} <span aria-hidden="true">&rarr;</span></a>
+          </p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

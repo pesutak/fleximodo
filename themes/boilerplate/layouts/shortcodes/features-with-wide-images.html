@@ -1,0 +1,49 @@
+{{/* 
+  Features shortcode with wide images
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - subheading: Subheading text above the main heading (default: "Drawstring Canister")
+  - heading: Main heading text (default: "Use it your way")
+  - description: Description text below the main heading
+  - features: Optional array of feature objects to override the defaults
+  - page: Optional page context for linkbuilding (defaults to current page)
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $subheading := .Get "subheading" | default "Drawstring Canister" }}
+{{ $heading := .Get "heading" | default "Use it your way" }}
+{{ $description := .Get "description" | default "The Drawstring Canister comes with multiple strap and handle options to adapt throughout your day. Shoulder sling it, backpack it, or handy carry it." }}
+{{ $page := .Get "page" | default . }}
+
+{{ $defaultFeatures := slice 
+  (dict 
+    "title" "Adventure-ready"
+    "description" "The Drawstring Canister is water and tear resistant with durable canvas construction. This bag holds up to the demands of daily use while keeping your snacks secure."
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-04-detail-03.jpg"
+    "imageAlt" "Printed photo of bag being tossed into the sky on top of grass."
+  )
+  (dict 
+    "title" "Minimal and clean"
+    "description" "Everything you need, nothing you don't. This bag has the simple, contemporary design that enables you to tell everyone you know about how essentialism is the only rational way to live life."
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-04-detail-01.jpg"
+    "imageAlt" "Double stitched black canvas hook loop."
+  )
+  (dict 
+    "title" "Organized"
+    "description" "Never lose your snacks again with our patent-pending snack stash pocket system. With dedicated pouches for each of your snacking needs, the Drawstring Canister unlocks new levels of efficiency and convenience."
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-04-detail-02.jpg"
+    "imageAlt" "Black canvas body with chrome zipper and key ring."
+  )
+}}
+
+{{ $features := .Get "features" | default $defaultFeatures }}
+
+{{ partial "sections/features/with_wide_images.html" (dict 
+  "backgroundColor" $backgroundColor
+  "subheading" $subheading
+  "heading" $heading
+  "description" $description
+  "features" $features
+  "page" $page
+) }}

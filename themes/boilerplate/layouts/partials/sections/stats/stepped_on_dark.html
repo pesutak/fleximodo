@@ -1,0 +1,144 @@
+{{/*
+@section: Stepped Stats on Dark
+@description: A visually distinctive statistics section with stepped layout on a dark background, featuring advanced customization for differently sized and colored stat cards.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - heading: Main section heading (optional, default: "We approach work as a place to make the world better")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional)
+  - descriptionColor: Description color class (optional, default: "text-gray-400")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: The statistic value to display
+    - title: Title/heading for the statistic
+    - description: Detailed description of the statistic
+    - bgColor: Background color for this specific stat item (optional, default: varies by position)
+    - valueColor: Text color for the statistic value (optional, default: "text-white")
+    - titleColor: Text color for the statistic title (optional, default: "text-white")
+    - descriptionColor: Text color for the description (optional, default: varies by position)
+    - width: Width control for the card on large screens (optional, default varies by position)
+    - gapY: Vertical gap control for the card (optional)
+@example:
+  {{ partial "sections/stats/stepped_on_dark.html" (dict 
+      "heading" "Our Impact in Numbers" 
+      "description" "Key metrics that showcase our company's growth and reach over the past year."
+      "stats" (slice
+          (dict 
+              "value" "3.5M+" 
+              "title" "Global users"
+              "description" "Active users accessing our platform across 150+ countries worldwide."
+              "bgColor" "bg-purple-900/70"
+          )
+          (dict 
+              "value" "$12.8M"
+              "title" "Annual recurring revenue"
+              "description" "Sustained growth with 85% year-over-year increase in subscriptions."
+              "bgColor" "bg-white/10"
+              "descriptionColor" "text-gray-300"
+          )
+          (dict 
+              "value" "99.99%"
+              "title" "Platform uptime"
+              "description" "Enterprise-grade reliability with multi-region redundancy and advanced monitoring."
+              "bgColor" "bg-indigo-700"
+              "descriptionColor" "text-indigo-200"
+          )
+      )
+  ) }}
+@note: This component creates a visually striking stepped layout with cards of varying sizes that adapt responsively across screen sizes. On mobile, cards stack vertically, while on larger screens they form an asymmetric pattern. Each card can have custom colors, sizes, and spacing for maximum visual impact.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading */}}
+{{ $showHeading := .showHeading | default true }}
+{{ $heading := .heading | default "We approach work as a place to make the world better" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $description := .description | default "Diam nunc lacus lacus aliquam turpis enim. Eget hac velit est euismod lacus. Est non placerat nam arcu. Cras purus nibh cursus sit eu in id. Integer vel nibh." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-400" }}
+
+{{/* Stats */}}
+{{ $stats := .stats | default slice }}
+
+{{/* Default stats if none provided */}}
+{{ if eq (len $stats) 0 }}
+  {{ $stats = slice 
+    (dict 
+      "value" "250k"
+      "title" "Users on the platform"
+      "description" "Vel labore deleniti veniam consequuntur sunt nobis."
+      "bgColor" "bg-gray-800"
+      "valueColor" "text-white"
+      "titleColor" "text-white"
+      "descriptionColor" "text-gray-400"
+      "width" "lg:w-72"
+    )
+    (dict 
+      "value" "$8.9 billion"
+      "title" "We're proud that our customers have made over $8 billion in total revenue."
+      "description" "Eu duis porta aliquam ornare. Elementum eget magna egestas."
+      "bgColor" "bg-white/10"
+      "valueColor" "text-white"
+      "titleColor" "text-white"
+      "descriptionColor" "text-gray-300"
+      "width" "lg:w-full lg:max-w-sm lg:flex-auto"
+      "gapY" "lg:gap-y-44"
+    )
+    (dict 
+      "value" "401,093"
+      "title" "Transactions this year"
+      "description" "Eu duis porta aliquam ornare. Elementum eget magna egestas. Eu duis porta aliquam ornare."
+      "bgColor" "bg-indigo-600"
+      "valueColor" "text-white"
+      "titleColor" "text-white"
+      "descriptionColor" "text-indigo-200"
+      "width" "lg:w-full lg:max-w-none lg:flex-auto"
+      "gapY" "lg:gap-y-28"
+    )
+  }}
+{{ end }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[60%] w-[90%] rounded-full bg-indigo-500 opacity-10 blur-[100px]"></div>
+  
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    {{ if $showHeading }}
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      <h2 class="text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+      <p class="mt-6 text-base/7 {{ $descriptionColor }}">{{ $description }}</p>
+    </div>
+    {{ end }}
+    <div class="mx-auto mt-16 flex max-w-2xl flex-col gap-8 lg:mx-0 lg:mt-20 lg:max-w-none lg:flex-row lg:items-end">
+      {{ range $index, $stat := $stats }}
+      {{ $width := $stat.width | default "lg:w-72 lg:max-w-none lg:flex-none" }}
+      {{ $gapY := $stat.gapY | default "" }}
+      {{ $bgColor := $stat.bgColor | default "bg-gray-800" }}
+      {{ $valueColor := $stat.valueColor | default "text-white" }}
+      {{ $titleColor := $stat.titleColor | default "text-white" }}
+      {{ $descriptionColor := $stat.descriptionColor | default "text-gray-400" }}
+      
+      {{ $smWidth := "" }}
+      {{ if eq $index 0 }}
+        {{ $smWidth = "sm:w-3/4 sm:max-w-md" }}
+      {{ else if eq $index 1 }}
+        {{ $smWidth = "" }}
+      {{ else if eq $index 2 }}
+        {{ $smWidth = "sm:w-11/12 sm:max-w-xl" }}
+      {{ end }}
+      
+      <div class="flex flex-col-reverse justify-between gap-x-16 gap-y-8 rounded-2xl {{ $bgColor }} p-8 {{ $smWidth }} sm:flex-row-reverse sm:items-end {{ $width }} lg:flex-col lg:items-start {{ $gapY }}">
+        <p class="flex-none text-3xl font-bold tracking-tight {{ $valueColor }}">{{ $stat.value }}</p>
+        <div class="sm:w-80 sm:shrink lg:w-auto lg:flex-none">
+          <p class="text-lg font-semibold tracking-tight {{ $titleColor }}">{{ $stat.title }}</p>
+          <p class="mt-2 text-base/7 {{ $descriptionColor }}">{{ $stat.description }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

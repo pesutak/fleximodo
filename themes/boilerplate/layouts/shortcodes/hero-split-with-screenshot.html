@@ -1,0 +1,92 @@
+{{/*
+Example Usage:
+{{< hero-split-with-screenshot 
+  title="Your Hero Title" 
+  subtitle="Your Hero Subtitle" 
+  buttonText="Click Here" 
+  buttonLink="/example-link" 
+  imagePath="/path-to-image.jpg" 
+  altText="Descriptive Alt Text"
+  typewriterEnabled="true"
+  typewriterWords="2"
+  typewriterSpeed="120"
+  typewriterDeleteSpeed="60"
+  typewriterPause="2500"
+  typewriterColor="text-blue-600"
+>}}
+
+Description:
+This shortcode renders a split hero section with a screenshot. It is designed to display a prominent title, subtitle, call-to-action button, and an accompanying image. The layout is ideal for showcasing a product, feature, or service.
+
+Parameters:
+- `title` (string): The main heading text for the hero section.
+- `subtitle` (string): The subheading text providing additional context.
+- `buttonText` (string): The text displayed on the call-to-action button.
+- `buttonLink` (string): The URL the button links to when clicked.
+- `imagePath` (string): The file path or URL of the image to be displayed.
+- `altText` (string): The alt text for the image, used for accessibility and SEO.
+- `typewriterEnabled` (string): Enable/disable typewriter effect (true/false, default: false)
+- `typewriterWords` (number): Number of words to animate from the end (default: 1)
+- `typewriterSpeed` (number): Typing speed in milliseconds (default: 100)
+- `typewriterDeleteSpeed` (number): Deleting speed in milliseconds (default: 50)
+- `typewriterPause` (number): Pause duration between word cycles in milliseconds (default: 2000)
+- `typewriterColor` (string): Tailwind CSS color class for animated text (default: "text-indigo-600")
+
+*/}}
+
+{{/* Split Hero with Screenshot Shortcode */}}
+{{ $logo := .Get "logo" | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $heading := .Get "title" | default "Deploy to the cloud with confidence" }}
+{{ $description := .Get "subtitle" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
+{{ $primaryCtaText := .Get "primaryCtaText" | default "Get started" }}
+{{ $primaryCtaUrl := .Get "primaryCtaUrl" | default "#" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default (i18n "learnMore") | default "Learn more" }}
+{{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default "#" }}
+{{ $screenshotUrl := .Get "imagePath" | default "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png" }}
+{{ $screenshotAlt := .Get "altText" | default "App screenshot" }}
+{{ $badgeText := .Get "badgeText" | default "What's new" }}
+{{ $badgeVersion := .Get "badgeVersion" | default "Just shipped v1.0" }}
+
+{{/* Typewriter parameters */}}
+{{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
+{{ $typewriterWords := .Get "typewriterWords" | default 1 }}
+{{ $typewriterSpeed := .Get "typewriterSpeed" | default 100 }}
+{{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
+{{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
+{{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
+
+{{ $badge := dict
+  "text" $badgeText
+  "version" $badgeVersion
+}}
+
+{{ $cta := dict 
+  "primary" (dict "text" $primaryCtaText "url" $primaryCtaUrl)
+  "secondary" (dict "text" $secondaryCtaText "url" $secondaryCtaUrl)
+}}
+
+{{ $screenshot := dict
+  "url" $screenshotUrl
+  "alt" $screenshotAlt
+  "width" "2432"
+  "height" "1442"
+}}
+
+{{ $typewriter := dict
+  "enabled" (eq $typewriterEnabled "true")
+  "words" $typewriterWords
+  "speed" $typewriterSpeed
+  "deleteSpeed" $typewriterDeleteSpeed
+  "pause" $typewriterPause
+  "color" $typewriterColor
+}}
+
+{{ partial "sections/hero/split_with_screenshot.html" (dict 
+  "logo" $logo
+  "heading" $heading
+  "description" $description
+  "cta" $cta
+  "badge" $badge
+  "screenshot" $screenshot
+  "typewriter" $typewriter
+) }}

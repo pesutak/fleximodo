@@ -1,0 +1,149 @@
+{{/*
+@section: Team with Vertical Images
+@description: A detailed team showcase with a vertical layout featuring portrait-oriented images, member bios, and social media links in a clean, list-style format.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-white")
+  - padding: Padding classes for the section (optional, default: "py-24 md:py-32")
+  - heading: Main heading text (optional, default: "About the team")
+  - headingColor: Color class for the heading text (optional, default: "text-gray-900")
+  - description: Descriptive text below the heading (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Color class for the description text (optional, default: "text-gray-600")
+  - nameColor: Color class for team member names (optional, default: "text-gray-900")
+  - roleColor: Color class for team member roles (optional, default: "text-gray-600")
+  - bioColor: Color class for team member biography text (optional, default: "text-gray-600")
+  - dividerColor: Color class for dividers between team members (optional, default: "divide-gray-200")
+  - socialIconColor: Color class for social media icons (optional, default: "text-gray-400")
+  - socialIconHoverColor: Color class for social media icons on hover (optional, default: "hover:text-gray-500")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Name of the team member
+    - role: Position or role of the team member
+    - image: URL to the team member's portrait image
+    - bio: Short biography or description of the team member
+    - twitter: Twitter/X profile URL (optional)
+    - linkedin: LinkedIn profile URL (optional)
+@example:
+  {{ partial "sections/team/with_vertical_images.html" (dict 
+      "heading" "Meet Our Experts"
+      "description" "Our team brings together professionals with diverse backgrounds and specialties, united by a passion for excellence and innovation."
+      "teamMembers" (slice
+          (dict
+              "name" "Daniel Morgan"
+              "role" "Chief Financial Officer"
+              "image" "/images/team/daniel-morgan.jpg"
+              "bio" "Daniel brings over 15 years of experience in financial strategy and operations. His expertise has been crucial in guiding our company through periods of growth and transformation."
+              "twitter" "https://twitter.com/danielmorgan"
+              "linkedin" "https://linkedin.com/in/danielmorgan"
+          )
+          (dict
+              "name" "Sarah Williams"
+              "role" "Head of Research"
+              "image" "/images/team/sarah-williams.jpg"
+              "bio" "With a PhD in Computer Science and multiple published papers, Sarah leads our research initiatives, driving innovation and ensuring we stay at the cutting edge of technology."
+              "linkedin" "https://linkedin.com/in/sarahwilliams"
+          )
+          (dict
+              "name" "Robert Chen"
+              "role" "Lead Product Designer"
+              "image" "/images/team/robert-chen.jpg"
+              "bio" "Robert combines his background in psychology with exceptional design skills to create intuitive and engaging user experiences that resonate with our customers."
+              "twitter" "https://twitter.com/robertchen"
+              "linkedin" "https://linkedin.com/in/robertchen"
+          )
+      )
+      "bgColor" "bg-gray-50"
+  ) }}
+@note: This component is ideal for showcasing team members in greater detail, with space for longer biographies and personal information. The vertical layout with dividers creates a clean, readable presentation suitable for about pages and team introductions on corporate or professional services websites.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 md:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "About the team" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description | default "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-600" }}
+
+{{/* Team members */}}
+{{ $nameColor := .nameColor | default "text-gray-900" }}
+{{ $roleColor := .roleColor | default "text-gray-600" }}
+{{ $bioColor := .bioColor | default "text-gray-600" }}
+{{ $dividerColor := .dividerColor | default "divide-gray-200" }}
+{{ $socialIconColor := .socialIconColor | default "text-gray-400" }}
+{{ $socialIconHoverColor := .socialIconHoverColor | default "hover:text-gray-500" }}
+{{ $teamMembers := .teamMembers | default (slice 
+  (dict 
+    "name" "Leslie Alexander" 
+    "role" "Co-Founder / CEO"
+    "image" "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum."
+    "twitter" "#"
+    "linkedin" "#"
+  )
+  (dict 
+    "name" "Michael Foster" 
+    "role" "Co-Founder / CTO"
+    "image" "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Enim sit amet venenatis urna cursus. Tortor dignissim convallis aenean et tortor at risus viverra adipiscing. Sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum."
+    "twitter" "#"
+    "linkedin" "#"
+  )
+  (dict 
+    "name" "Dries Vincent" 
+    "role" "Business Relations"
+    "image" "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Vulputate ut pharetra sit amet aliquam id diam maecenas ultricies. Nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum. Odio ut enim blandit volutpat maecenas."
+    "twitter" "#"
+    "linkedin" "#"
+  )
+) }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-20 px-6 lg:px-8 xl:grid-cols-5">
+    <div class="max-w-2xl xl:col-span-2">
+      <h2 class="text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+      <p class="mt-6 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+    </div>
+    <ul role="list" class="divide-y {{ $dividerColor }} xl:col-span-3">
+      {{ range $teamMembers }}
+      <li class="flex flex-col gap-10 py-12 first:pt-0 last:pb-0 sm:flex-row">
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" .image 
+          "alt" .name 
+          "class" "aspect-4/5 w-52 flex-none rounded-2xl object-cover" 
+          "loading" "lazy" 
+          "decoding" "async"
+        ) }}
+        <div class="max-w-xl flex-auto">
+          <h3 class="text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
+          <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>
+          <p class="mt-6 text-base/7 {{ $bioColor }}">{{ .bio }}</p>
+          <ul role="list" class="mt-6 flex gap-x-6">
+            {{ if .twitter }}
+            <li>
+              <a href="{{ .twitter }}" class="{{ $socialIconColor }} {{ $socialIconHoverColor }}">
+                <span class="sr-only">X</span>
+                <svg class="size-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M11.4678 8.77491L17.2961 2H15.915L10.8543 7.88256L6.81232 2H2.15039L8.26263 10.8955L2.15039 18H3.53159L8.87581 11.7878L13.1444 18H17.8063L11.4675 8.77491H11.4678ZM9.57608 10.9738L8.95678 10.0881L4.02925 3.03974H6.15068L10.1273 8.72795L10.7466 9.61374L15.9156 17.0075H13.7942L9.57608 10.9742V10.9738Z" />
+                </svg>
+              </a>
+            </li>
+            {{ end }}
+            {{ if .linkedin }}
+            <li>
+              <a href="{{ .linkedin }}" class="{{ $socialIconColor }} {{ $socialIconHoverColor }}">
+                <span class="sr-only">LinkedIn</span>
+                <svg class="size-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>

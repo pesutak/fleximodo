@@ -1,0 +1,32 @@
+{{/*
+@component: Basic Breadcrumbs
+@description: Displays a simple breadcrumb navigation with structured data markup for SEO.
+@params:
+  - items: Array of breadcrumb items, each with:
+    - title: Text to display for the breadcrumb link
+    - url: URL for the breadcrumb link
+  - separator: Symbol to display between items (optional, default: "/")
+@example:
+  {{ partial "components/breadcrumbs/basic.html" (dict
+    "items" (slice 
+      (dict "title" "UI Blocks" "url" "/plus/ui-blocks")
+      (dict "title" "Marketing" "url" "/plus/ui-blocks/marketing")
+      (dict "title" "Page Sections" "url" "/plus/ui-blocks/marketing#product-marketing-sections")
+    )
+    "separator" ">"
+  ) }}
+*/}}
+
+{{- $items := .items -}}
+{{- $separator := .separator | default "/" -}}
+
+<nav class="wrapper flex gap-2 py-8" aria-label="Breadcrumbs">
+  {{- range $index, $item := $items -}}
+    {{- if $index -}}
+      <p class="text-gray-400 select-none text-base tracking-widest text-pretty" aria-hidden="true">{{ $separator }}</p>
+    {{- end -}}
+    <a class="hover:text-gray-950 text-base tracking-widest text-pretty text-gray-600" href="{{ $item.url }}">{{ $item.title }}</a>
+  {{- end -}}
+</nav>
+
+{{ partial "schemaorg/breadcrumbs.html" (dict "items" $items) }}

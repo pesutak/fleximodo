@@ -1,0 +1,89 @@
+{{/* 
+  Categories shortcode with preview with image backgrounds
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - heading: Main heading text (default: "Shop by Category")
+  - browseAllText: Text for the "Browse all" link (default: "Browse all categories")
+  - browseAllUrl: URL for the "Browse all" link (default: "#")
+  
+  Inner Content (optional JSON array):
+  - Array of category objects with the following structure:
+    - title: Category title
+    - actionText: Text for the action link (default: "Shop now")
+    - url: URL for the category link
+    - imageUrl: URL to category image
+    - imageAlt: Alt text for category image
+    - isLarge: Boolean indicating if this is the large featured category (default: false)
+  
+  Example usage with custom categories:
+  {{< categories-preview-with-image-backgrounds heading="Featured Categories" >}}
+    [
+      {
+        "title": "Spring Collection",
+        "actionText": "Shop now",
+        "url": "/collections/spring",
+        "imageUrl": "/images/collections/spring.jpg",
+        "imageAlt": "Spring collection with bright colors and light fabrics",
+        "isLarge": true
+      },
+      {
+        "title": "Footwear",
+        "actionText": "View all",
+        "url": "/collections/footwear",
+        "imageUrl": "/images/collections/footwear.jpg",
+        "imageAlt": "Various shoes and boots on display",
+        "isLarge": false
+      }
+    ]
+  {{< /categories-preview-with-image-backgrounds >}}
+  
+  If no inner content is provided, default categories will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $heading := .Get "heading" | default "Shop by Category" }}
+{{ $browseAllText := .Get "browseAllText" | default "Browse all categories" }}
+{{ $browseAllUrl := .Get "browseAllUrl" | default "#" }}
+
+{{ $defaultCategories := slice 
+  (dict 
+    "title" "New Arrivals"
+    "actionText" "Shop now"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-featured-category.jpg"
+    "imageAlt" "Two models wearing women's black cotton crewneck tee and off-white cotton crewneck tee."
+    "isLarge" true
+  )
+  (dict 
+    "title" "Accessories"
+    "actionText" "Shop now"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-category-01.jpg"
+    "imageAlt" "Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters."
+    "isLarge" false
+  )
+  (dict 
+    "title" "Workspace"
+    "actionText" "Shop now"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-category-02.jpg"
+    "imageAlt" "Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
+    "isLarge" false
+  )
+}}
+
+{{ $categories := $defaultCategories }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $categories = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "categories/preview_with_image_backgrounds.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "browseAllText" $browseAllText
+  "browseAllUrl" $browseAllUrl
+  "categories" $categories
+) }}

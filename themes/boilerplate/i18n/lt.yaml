@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Dažniausiai užduodami klausimai"
+language_selector_title: "Galimos kalbos"
+glossary_subtitle: "Išsamus terminų ir apibrėžimų sąrašas"
+glossary_title: "Žodynėlis"
+home_title: "Pagrindinis"
+
+# Glossary translations
+glossary_eyebrow: "Žodynėlis"
+
+# Category page translations
+categories_title: "Kategorijos"
+categories_browse_all: "Naršykite visą turinį pagal kategoriją"
+category_eyebrow: "Kategorija"
+category_browse_content: "Naršykite visą turinį kategorijoje %s"
+category_no_content_found: "Šioje kategorijoje turinys nerastas"
+category_try_browsing: "Pabandykite naršyti kitas kategorijas arba ieškoti turinio"
+category_other_categories: "Kitos kategorijos"
+
+# CTA translations
+cta_default_heading: "Plėskite savo žinias su mūsų ištekliais"
+cta_default_description: "Tyrinėkite mūsų išsamią straipsnių, vadovų ir pamokų biblioteką, kad pagilintumėte pagrindinių koncepcijų supratimą ir būtumėte informuoti apie naujausius pokyčius."
+cta_default_primary_text: "Naršyti išteklius"
+cta_default_secondary_text: "Susisiekti su mūsų ekspertais"
+
+# Content type translations
+content_article_singular: "straipsnis"
+content_article_plural: "straipsniai"
+
+# Tags page translations
+tags_title: "Žymos"
+tags_browse_all: "Naršykite visą turinį pagal temą"
+tag_eyebrow: "Žyma"
+tag_browse_content: "Naršykite visą turinį pažymėtą %s"
+tag_no_content_found: "Turinys su šia žyma nerastas"
+tag_try_browsing: "Pabandykite naršyti kitas žymas arba ieškoti turinio"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Ankstesnis"
+tag_pagination_next: "Kitas"
+tag_other_tags: "Kitos žymos"
+
+# Cookie consent translations
+cookie_consent_title: "Slapukų sutikimas"
+cookie_consent_message: "Naudojame slapukus naršymo patirčiai pagerinti ir analizuoti mūsų srautą."
+cookie_consent_accept_all: "Priimti visus"
+cookie_consent_accept_necessary: "Priimti tik būtinuosius"
+cookie_consent_settings: "Slapukų nustatymai"
+cookie_settings_title: "Slapukų nustatymai"
+cookie_settings_close: "Uždaryti"
+cookie_settings_necessary_title: "Būtini slapukai"
+cookie_settings_necessary_description: "Šie slapukai yra būtini svetainės veikimui ir jų negalima išjungti."
+cookie_settings_analytics_title: "Analitiniai slapukai"
+cookie_settings_analytics_description: "Šie slapukai padeda mums suprasti, kaip lankytojai sąveikauja su mūsų svetaine."
+cookie_settings_cancel: "Atšaukti"
+cookie_settings_save: "Išsaugoti nustatymus"
+
+# Pagination translations
+pagination_previous: "Ankstesnis"
+pagination_next: "Kitas"
+pagination_showing: "Rodoma"
+pagination_to: "iki"
+pagination_of: "iš"
+pagination_results: "rezultatų"
+pagination_browse_all: "Naršykite visą turinį"
+
+# FAQ translations
+faq_heading: "Dažniausiai užduodami klausimai"
+faq_description: "Raskite atsakymus į dažniausiai užduodamus klausimus šia tema."
+
+no_terms_available: "Nėra galimų terminų"
+pricing_monthly_label: "Kas mėnesį"
+pricing_yearly_label: "Kasmet"
+wantMore: "Norite daugiau?"
+learnMore: "Sužinokite daugiau"
+pricing_tagline: "Kainodara"
+pricing_title: "Kainodara, kuri auga kartu su jumis"
+pricing_description: "Pasirinkite prieinamą planą, kuriame yra geriausios funkcijos, skirtos pritraukti auditoriją, kurti klientų lojalumą ir skatinti pardavimus."
+pricing_comparison_title: "Palyginkite planus"
+pricing_comparison_description: "Peržiūrėkite mūsų planų palyginimus ir pasirinkite geriausią jums"
+read_more_post: "Skaityti daugiau"
+no_posts_found: "Įrašų nerasta"
+minutes_read: "min skaitymas"
+get_started: "Pradėti"
+courses.session: "Session"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

@@ -1,0 +1,88 @@
+{{/*
+@section: Simple Centered Testimonial
+@description: A centered testimonial section featuring a quote, optional company logo, and author information with a decorative background effect.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "px-6 py-24 sm:py-32 lg:px-8")
+  - gradientColor: Radial gradient color (optional, default: "var(--color-indigo-100)")
+  - gradientOpacity: Gradient opacity class (optional, default: "opacity-20")
+  - skewBgColor: Skewed background element color (optional, default: "bg-white")
+  - skewRingColor: Skewed background border color (optional, default: "ring-indigo-50")
+  - skewShadowColor: Skewed background shadow color (optional, default: "shadow-indigo-600/10")
+  - logo: URL to company logo (optional)
+  - logoAlt: Alt text for the logo (optional)
+  - logoHeight: Height class for logo (optional, default: "h-12")
+  - quote: Testimonial text (optional, default: "Lorem ipsum dolor sit amet consectetur...")
+  - quoteColor: Quote text color class (optional, default: "text-gray-900")
+  - personImage: URL to person's avatar image (optional)
+  - personImageAlt: Alt text for the person's image (optional)
+  - personName: Name of the person giving testimonial (optional, default: "Judith Black")
+  - personNameColor: Person name color class (optional, default: "text-gray-900")
+  - personRole: Role or title of the person (optional, default: "CEO of Workcation")
+  - personRoleColor: Person role color class (optional, default: "text-gray-600")
+  - dotColor: Color for the separator dot (optional, default: "fill-gray-900")
+@example:
+  {{ partial "sections/testimonials/simple_centered.html" (dict 
+      "logo" "/images/logos/customer-logo.svg"
+      "logoAlt" "Customer Company Logo"
+      "quote" "This product has transformed how we operate. The interface is intuitive and the features are powerful yet easy to use."
+      "personImage" "/images/team/jane-doe.jpg"
+      "personName" "Jane Doe"
+      "personRole" "CTO at TechCorp"
+      "bgColor" "bg-gray-50"
+      "gradientColor" "var(--color-blue-100)"
+  ) }}
+@note: This section includes a decorative skewed background and radial gradient for visual interest.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "px-6 py-24 sm:py-32 lg:px-8" }}
+
+{{/* Background styling */}}
+{{ $gradientColor := .gradientColor | default "var(--color-indigo-100)" }}
+{{ $gradientOpacity := .gradientOpacity | default "opacity-20" }}
+{{ $skewBgColor := .skewBgColor | default "bg-white" }}
+{{ $skewRingColor := .skewRingColor | default "ring-indigo-50" }}
+{{ $skewShadowColor := .skewShadowColor | default "shadow-indigo-600/10" }}
+
+{{/* Content */}}
+{{ $logo := .logo | default "https://tailwindcss.com/plus-assets/img/logos/workcation-logo-indigo-600.svg" }}
+{{ $logoAlt := .logoAlt | default "" }}
+{{ $logoHeight := .logoHeight | default "h-12" }}
+{{ $quote := .quote | default "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis." }}
+{{ $quoteColor := .quoteColor | default "text-gray-900" }}
+{{ $personImage := .personImage | default "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" }}
+{{ $personImageAlt := .personImageAlt | default "" }}
+{{ $personName := .personName | default "Judith Black" }}
+{{ $personNameColor := .personNameColor | default "text-gray-900" }}
+{{ $personRole := .personRole | default "CEO of Workcation" }}
+{{ $personRoleColor := .personRoleColor | default "text-gray-600" }}
+{{ $dotColor := .dotColor | default "fill-gray-900" }}
+
+<section class="relative isolate overflow-hidden {{ $bgColor }} {{ $padding }}">
+  <div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,{{ $gradientColor }},white)] {{ $gradientOpacity }}"></div>
+  <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] {{ $skewBgColor }} ring-1 shadow-xl {{ $skewShadowColor }} {{ $skewRingColor }} sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+  <div class="mx-auto max-w-2xl lg:max-w-4xl">
+    {{ if $logo }}
+      {{ partial "components/media/lazyimg.html" (dict "src" $logo "alt" $logoAlt "class" "mx-auto {{ $logoHeight }}") }}
+    {{ end }}
+    <figure class="mt-10">
+      <blockquote class="text-center text-xl/8 font-semibold {{ $quoteColor }} sm:text-2xl/9">
+        <p>"{{ $quote }}"</p>
+      </blockquote>
+      <figcaption class="mt-10">
+        {{ if $personImage }}
+          {{ partial "components/media/lazyimg.html" (dict "src" $personImage "alt" $personImageAlt "class" "mx-auto size-10 rounded-full") }}
+        {{ end }}
+        <div class="mt-4 flex items-center justify-center space-x-3 text-base">
+          <div class="font-semibold {{ $personNameColor }}">{{ $personName }}</div>
+          <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="{{ $dotColor }}">
+            <circle cx="1" cy="1" r="1" />
+          </svg>
+          <div class="{{ $personRoleColor }}">{{ $personRole }}</div>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>

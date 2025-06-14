@@ -1,0 +1,76 @@
+{{ $heading := .heading | default .Title | default "" }}
+{{ $description := .shortDescription | default .description | default ""}}
+{{ $cta := .cta }}
+{{ $tags := .tags }}
+{{ $categories := .categories }}
+{{ $typewriter := .typewriter | default dict }}
+{{ $typewriter := merge (dict "enabled" false) $typewriter }}
+{{ $typewriter := merge (dict "words" 1) $typewriter }}
+{{ $typewriter := merge (dict "speed" 100) $typewriter }}
+{{ $typewriter := merge (dict "deleteSpeed" 50) $typewriter }}
+{{ $typewriter := merge (dict "pause" 2000) $typewriter }}
+{{ $typewriter := merge (dict "color" "text-indigo-600") $typewriter }}
+{{ $typewriter := merge (dict "wordAlternatives" "") $typewriter }}{{/* comma separated words to alternate with */}}
+
+<div class="">
+    {{ if .logo }}
+        {{ partial "components/media/lazyimg.html" (dict
+        "src" .logo
+        "class" "h-11"
+        "maxWidth" 200
+        ) }}
+    {{ end }}
+    {{ if and .announcement .announcement.enabled }}
+        <div class="hidden sm:mt-32 sm:flex lg:mt-16">
+            <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                {{ .announcement.text }} {{ if and .announcement.linkUrl .announcement.linkText }}<a href="{{ .announcement.linkUrl }}" class="font-semibold whitespace-nowrap text-primary"><span class="absolute inset-0" aria-hidden="true"></span>{{ .announcement.linkText }} <span aria-hidden="true">&rarr;</span></a>{{end}}
+            </div>
+        </div>
+    {{ end }}
+    {{ if .eyebrow }}
+        {{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
+        <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ .eyebrow }}</p>
+    {{ end }}
+    {{ if $heading }}<h1 class="mt-12 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:mt-10 sm:text-7xl"{{ if $typewriter.enabled }} data-typewriter data-typewriter-words="{{ $typewriter.words }}" data-typewriter-word-alternatives="{{$typewriter.wordAlternatives}}" data-typewriter-speed="{{ $typewriter.speed }}" data-typewriter-delete-speed="{{ $typewriter.deleteSpeed }}" data-typewriter-pause="{{ $typewriter.pause }}" data-typewriter-color="{{ $typewriter.color }}"{{ end }}>{{ $heading }}</h1>{{ end }}
+    {{ if $description }}
+    <p class="mt-8 text-lg text-pretty text-gray-500 sm:text-xl/8">{{ $description }}</p>
+    {{ end }}
+
+    <!-- Tags and Categories -->
+    <div class="mt-6 flex flex-col gap-4">
+        {{ if $categories }}
+        <div class="flex flex-wrap gap-2">
+            {{ range $categories }}
+            <a href="{{ print "/categories/" (. | urlize) | relLangURL }}/" class="inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-primary-dark hover:bg-indigo-100">
+            {{ . }}
+            </a>
+            {{ end }}
+        </div>
+        {{ end }}
+
+        {{ if $tags }}
+        <div class="flex flex-wrap gap-2">
+            {{ range $tags }}
+            <a href="{{ print "/tags/" (. | urlize) | relLangURL }}/" class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800 hover:bg-gray-200">
+            {{ . }}
+            </a>
+            {{ end }}
+        </div>
+        {{ end }}
+    </div>
+
+    {{ if $cta }}
+        {{ $showPrimaryCta := and (isset $cta "primary") (isset $cta.primary "url") (isset $cta.primary "text") (ne $cta.primary.url "") (ne $cta.primary.text "") }}
+        {{ $showSecondaryCta := and (isset $cta "secondary") (isset $cta.secondary "url") (isset $cta.secondary "text") (ne $cta.secondary.url "") (ne $cta.secondary.text "") }}
+        {{ if or $showPrimaryCta $showSecondaryCta }}
+            <div class="mt-10 flex items-center gap-x-6">
+                {{ if $showPrimaryCta }}
+                    <a href="{{ $cta.primary.url }}" class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">{{ $cta.primary.text }}</a>
+                {{ end }}
+                {{ if $showSecondaryCta }}
+                    <a href="{{ $cta.secondary.url }}" class="text-sm/6 font-semibold text-gray-900">{{ $cta.secondary.text }} <span aria-hidden="true">→</span></a>
+                {{ end }}
+            </div>
+        {{ end }}
+    {{ end }}
+</div>

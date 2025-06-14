@@ -1,0 +1,277 @@
+{{/*
+@section: Courses Content
+@description: A comprehensive courses section with icons, pricing, features, and call-to-action banner.
+@params:
+  - sectionClass: CSS classes for the main section (optional, default: "mx-auto max-w-7xl mb-20")
+  - bgColor: Background color class (optional, default: "bg-gray-50")
+  - padding: Padding classes (optional, default: "px-6 py-16 lg:px-8")
+  - icons: Array of icon objects with image path and alt text (optional)
+  - iconClass: CSS classes for individual icons (optional, default: "w-auto not-prose m-0")
+  - title: Main section title (comes from .md file content)
+  - titleColor: Color class for title (optional, default: "text-gray-900") 
+  - titleClass: CSS classes for title (optional, default: "text-3xl lg:text-5xl font-bold text-center mt-0 mb-6")
+  - description: Section description text (comes from .md file content)
+  - descriptionColor: Color class for description (optional, default: "text-gray-900")
+  - descriptionClass: CSS classes for description (optional, default: "text-lg leading-8 text-center max-w-3xl mx-auto")
+  - sessions: Array of session objects for pricing (optional)
+    Each session requires: title, subtitle, count, countLabel, smallGroupTitle, smallGroupPrice, largeGroupTitle, largeGroupPrice
+  - session1, session2: Alternative way to pass individual session objects (optional)
+  - labels: Array of offer objects (optional)
+    Each label requires: text, bgColor (optional), textColor (optional)
+  - ctaText: Text for call-to-action button (optional)
+  - ctaUrl: URL for call-to-action button (optional)
+  - sessionFeatures: Array of course feature objects (optional)
+    Each feature requires: title, items (array of learning points)
+  - bannerText: Banner text content, supports HTML (optional)
+  - bannerImage: Path to banner image (optional, default: "/images/landing-pages/ai-training-sertificate.png")
+  - bannerImageAlt: Alt text for banner image (optional)
+  - bannerTextColor: Text color for banner (optional, default: "text-white")
+  - bannerBackgroundColor: Background color for banner (optional, default gradient)
+@example:
+  {{< courses-content 
+    title="Microsoft Copilot Training Course"
+    description="Ensuring teams get the most value from the integrated Microsoft Copilot is crucial any company using Microsoft products. Our mentored learning sessions help teams work smarter and use integrated generative AI tools to enhance everyday workflows."
+    ctaText="Book Now"
+    ctaUrl="/booking/"
+    bannerText="Showcase Your Expertise<br><b>With Our Certificate!</b>"
+    comment="Main AI training course details"
+    sectionClass="mx-auto max-w-7xl mb-0"
+    >}}
+    {
+    "icons": [
+        {"image": "/images/landing-pages/microsoft-copilot.svg"}
+    ],
+    "sessions": [
+        {
+        "title": "2 x 2.5 hour",
+        "subtitle": "online sessions",
+        "count": "2",
+        "countLabel": "sessions in bundle",
+        "smallGroupTitle": "1-6 people:",
+        "smallGroupPrice": "€900",
+        "largeGroupTitle": "7-12 people:",
+        "largeGroupPrice": "€1100"
+        },
+        {
+        "title": "5 x 1 hour",
+        "subtitle": "online sessions",
+        "count": "5",
+        "countLabel": "sessions in bundle",
+        "smallGroupTitle": "1-6 people:",
+        "smallGroupPrice": "€1000",
+        "largeGroupTitle": "7-12 people:",
+        "largeGroupPrice": "€1200"
+        }
+    ],
+    "labels": [
+        {"text": "10% Discount for further bookings over 5 sessions", "bgColor": "bg-green-600", "textColor": "text-white"}
+    ],
+    "features": [
+        {
+        "title": "Introduction to Microsoft Copilot for Companies",
+        "items": [
+            "From AI to Generative AI",
+            "What is an LLM?",
+            "Tackling AI hallucination"
+        ]
+        },
+        {
+        "title": "Practical Use Cases for M365 Applications",
+        "items": [
+            "AI-assisted writing in MS Word",
+            "Presentations with Copilot in MS PowerPoint",
+            "Email workflows in MS Outlook",
+        ]
+        }
+    ]
+    }
+    {{< /courses-content >}}
+*/}}
+
+{{/* Configurable variables */}}
+{{ $sectionClass := .sectionClass | default "mx-auto max-w-7xl mb-20" }}
+{{ $bgColor := .bgColor | default "bg-gray-50" }}
+{{ $padding := .padding | default "px-6 py-16 lg:px-8" }}
+
+{{/* Icons configuration */}}
+{{ $icons := .icons }}
+{{ $iconClass := .iconClass | default "w-auto not-prose m-0" }}
+
+{{/* Header content */}}
+{{ $title := .title | default "" }}
+{{ $titleColor := .titleColor | default "text-gray-900" }}
+{{ $titleClass := .titleClass | default "text-3xl lg:text-5xl font-bold text-center mt-0 mb-6" }}
+{{ $description := .description | default "" }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-900" }}
+{{ $descriptionClass := .descriptionClass | default "text-lg leading-8 text-center max-w-3xl mx-auto" }}
+
+{{/* Pricing configuration */}}
+{{ $pricingContainerClass := .pricingContainerClass | default "max-w-3xl mx-auto mb-6 border rounded-md p-5 bg-white" }}
+{{ $sessions := cond (isset . "sessions") .sessions (cond (isset . "session1") (slice .session1 .session2) (slice)) }}
+{{ $labels := .labels | default (slice) }}
+{{ $ctaText := .ctaText | default "" }}
+{{ $ctaUrl := .ctaUrl | default "" }}
+
+{{/* Course features configuration */}}
+{{ $sessionFeatures := .sessionFeatures | default (slice) }}
+
+{{/* Banner configuration */}}
+{{ $bannerImage := .bannerImage | default "/images/landing-pages/ai-training-sertificate.png" }}
+{{ $bannerImageAlt := .bannerImageAlt | default "" }}
+{{ $bannerText := .bannerText | default "" }}
+{{ $bannerTextColor := .bannerTextColor | default "text-white" }}
+{{ $bannerBackgroundColor := .bannerBackgroundColor | default "bg-gradient-to-l from-[#1a1a1a] to-[#0f1f5c] bg-opacity-10" }}
+
+<section class="{{ $sectionClass }} {{ $bgColor }} {{ $padding }} rounded-2xl mx-6 sm:mx-8">
+    <!-- Icons Section - Technology Partners -->
+    {{ if $icons}}
+    <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16 lg:gap-20 mb-20">
+        {{ range $icons }}
+        <div class="flex items-center justify-center w-auto h-auto">
+            {{ partial "components/media/lazyimg.html" (dict 
+                "src" .image 
+                "alt" (.alt) 
+                "class" (print $iconClass " object-contain")
+            ) }}
+        </div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <!-- Title and Description -->
+    <div class="text-center mb-20">
+        {{ if $title }}
+        <h2 class="{{ $titleClass }} {{ $titleColor }}">{{ $title }}</h2>
+        {{ end }}
+        
+        {{ if $description }}
+        <div class="{{ $descriptionClass }} {{ $descriptionColor }}">
+            {{ $description | safeHTML }}
+        </div>
+        {{ end }}
+    </div>
+
+    <!-- Pricing Block -->
+    {{ if or (gt (len $sessions) 0) $labels $ctaText }}
+    <div class="{{ $pricingContainerClass }}">
+        <!-- Pricing Grid -->
+        {{ if gt (len $sessions) 0 }}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-6 relative">
+            <!-- First Row - Session 1 Details -->
+            <div class="bg-gray-200 p-5 col-span-2 md:order-1 order-1 rounded-md">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <div class="font-medium">{{ index $sessions 0 "title" }}</div>
+                        <div class="text-gray-900 text-sm">{{ index $sessions 0 "subtitle" }}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-medium">{{ index $sessions 0 "count" }}</div>
+                        <div class="text-gray-900 text-sm">{{ index $sessions 0 "countLabel" }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            {{ if gt (len $sessions) 1 }}
+            <!-- First Row - Session 2 Details -->
+            <div class="bg-gray-200 p-5 col-span-2 md:order-2 order-4 rounded-md">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <div class="font-medium">{{ index $sessions 1 "title" }}</div>
+                        <div class="text-gray-900 text-sm">{{ index $sessions 1 "subtitle" }}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-medium">{{ index $sessions 1 "count" }}</div>
+                        <div class="text-gray-900 text-sm">{{ index $sessions 1 "countLabel" }}</div>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+            
+            <!-- Second Row - Session 1 Pricing -->
+            <div class="bg-gray-200 p-5 md:order-3 order-2 rounded-md">
+                <div class="text-sm text-gray-900">{{ index $sessions 0 "smallGroupTitle" }}</div>
+                <div class="font-bold text-xl lg:text-3xl">{{ index $sessions 0 "smallGroupPrice" }}</div>
+            </div>
+
+            <div class="bg-gray-200 p-5 md:order-4 order-3 rounded-md">
+                <div class="text-sm text-gray-900">{{ index $sessions 0 "largeGroupTitle" }}</div>
+                <div class="font-bold text-xl lg:text-3xl">{{ index $sessions 0 "largeGroupPrice" }}</div>
+            </div>
+
+            {{ if gt (len $sessions) 1 }}
+            <div class="bg-gray-200 p-5 md:order-5 order-5 rounded-md">
+                <div class="text-sm text-gray-900">{{ index $sessions 1 "smallGroupTitle" }}</div>
+                <div class="font-bold text-xl lg:text-3xl">{{ index $sessions 1 "smallGroupPrice" }}</div>
+            </div>
+
+            <div class="bg-gray-200 p-5 md:order-6 order-6 rounded-md">
+                <div class="text-sm text-gray-900">{{ index $sessions 1 "largeGroupTitle" }}</div>
+                <div class="font-bold text-xl lg:text-3xl">{{ index $sessions 1 "largeGroupPrice" }}</div>
+            </div>
+            
+            <!-- "or" separator -->
+            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <div class="bg-white px-4 py-1 text-gray-900 text-sm">{{ i18n "courses.or" }}</div>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+
+        <!-- Labels Section -->
+        {{ if $labels }}
+        <div class="mb-6 space-y-3">
+            {{ range $labels }}
+            {{ partial "components/label/label.html" (dict 
+                "text" .text
+                "bgColor" .bgColor
+                "textColor" .textColor
+            ) }}
+            {{ end }}
+        </div>
+        {{ end }}
+
+        <!-- Call to Action Button -->
+        {{ if $ctaText }}
+            {{ partial "components/buttons/buttons.html" (dict 
+                "text" $ctaText 
+                "url" $ctaUrl 
+                "variants" "primary"
+            ) }}
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <!-- Course Features Grid -->
+    {{ if $sessionFeatures }}
+    <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-6">
+        {{ range $index, $feature := $sessionFeatures }}
+        <div class="bg-gray-150 rounded-lg p-5 border border-gray-200 overflow-hidden">
+            <div class="text-xs font-medium mb-2">{{ i18n "courses.session" }} {{ add $index 1 }}:</div>
+            <h3 class="text-base font-semibold text-gray-900 mt-0 mb-8">{{ $feature.title }}</h3>
+            <p class="text-sm text-gray-600 mb-4">{{ i18n "courses.you_will_learn" }}</p>
+            <ul role="list" class="space-y-3 not-prose">
+                {{ range $feature.items }}
+                <li class="flex gap-2 items-start">
+                    <span class="flex-shrink-0 w-4 h-4 mt-1 text-primary">{{ partial "icons/check-circle" . }}</span>
+                    <span class="text-base text-gray-900">{{ . }}</span>
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+        {{ end }}
+    </div>
+    {{ end }}
+
+    <!-- Banner -->
+    {{ if $bannerText }}
+    <div class="max-w-3xl mx-auto">
+        {{ partial "sections/banners/with_image.html" (dict 
+            "text" $bannerText
+            "image" $bannerImage
+            "image_alt" $bannerImageAlt
+            "backgroundColor" $bannerBackgroundColor
+            "textColor" $bannerTextColor
+        ) }}
+    </div>
+    {{ end }}
+</section>

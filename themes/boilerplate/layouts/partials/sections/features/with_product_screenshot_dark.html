@@ -1,0 +1,57 @@
+{{ $tagline := .tagline  }}
+{{ $heading := .heading }}
+{{ $description := .description }}
+{{ $features := .features | default (slice) }}
+{{ $cta := .cta }}
+{{ $screenshot := .screenshot | default (dict
+  "url" "https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
+  "alt" "Product screenshot"
+  "width" "2432"
+  "height" "1442"
+) }}
+
+{{ $page := .page }}
+
+<div class="overflow-hidden bg-gray-900 py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+      <div class="lg:pt-4 lg:pr-8">
+        <div class="lg:max-w-lg">
+          <h2 class="text-base/7 font-semibold text-indigo-400">{{ $tagline }}</h2>
+          <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">{{ $heading }}</p>
+          <p class="mt-6 text-lg/8 text-gray-300">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
+          <dl class="mt-10 max-w-xl space-y-8 text-base/7 text-gray-300 lg:max-w-none">
+            {{ range $features }}
+            <div class="relative pl-9">
+              <dt class="font-semibold text-white flex items-center">
+              <span class="absolute left-1 top-1 size-5 text-indigo-600">{{ partial "components/media/icon.html" (dict "icon" .icon) }}</span>
+              <span class="ml-7">{{ .title }}</span>
+              </dt>
+              <dd class="mt-1 ml-7 text-gray-300">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
+            </div>
+            {{ end }}
+          </dl>
+          {{ if $cta }}
+          <div class="mt-10">
+            {{ partial "components/buttons/buttons.html" (dict
+              "text" $cta.text
+              "url" $cta.url
+              "bgColor" $cta.bgColor
+              "hoverBgColor" $cta.hoverBgColor
+            ) }}
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      <div class="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" $screenshot.url 
+          "alt" $screenshot.alt
+          "width" $screenshot.width
+          "height" $screenshot.height
+          "class" "w-[48rem] max-w-none rounded-xl ring-1 shadow-xl ring-white/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
+        ) }}
+      </div>
+    </div>
+  </div>
+</div>

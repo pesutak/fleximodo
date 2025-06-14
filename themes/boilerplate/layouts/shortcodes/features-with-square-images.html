@@ -1,0 +1,55 @@
+{{/* 
+  Features shortcode with square images
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - subheading: Subheading text above the main heading (default: "Focus")
+  - heading: Main heading text (default: "Simple productivity")
+  - description: Description text below the main heading
+  - features: Optional array of feature objects to override the defaults
+  - page: Optional page context for linkbuilding (defaults to current page)
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $subheading := .Get "subheading" | default "Focus" }}
+{{ $heading := .Get "heading" | default "Simple productivity" }}
+{{ $description := .Get "description" | default "Focus allows you to plan 10 daily tasks, while also thinking ahead about what's next. Forget distracting digital apps and embrace these small, sturdy pieces of paper." }}
+{{ $page := .Get "page" | default . }}
+
+{{ $defaultFeatures := slice 
+  (dict 
+    "title" "Three card types"
+    "description" "Today, Next, and Someday cards allow you to defer your dreams into the future."
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-08-detail-01.jpg"
+    "imageAlt" "Green cardstock box containing white, beige, and brown cards."
+  )
+  (dict 
+    "title" "The perfect mix"
+    "description" "Each refill pack contains plenty of cards to last you a month of procrastination."
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-08-detail-02.jpg"
+    "imageAlt" "Green cardstock box open with 50 cards inside."
+  )
+  (dict 
+    "title" "Dot grid backs"
+    "description" "Flip a card over to doodle during meetings when you should be listening."
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-08-detail-03.jpg"
+    "imageAlt" "Detail of white today card, beige next card, and brown someday card with dot grid."
+  )
+  (dict 
+    "title" "Refill packs"
+    "description" "Subscribe and save on routine refill packs to keep you productive all year long."
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-08-detail-04.jpg"
+    "imageAlt" "Stack of three green cardstock boxes with 3 hole cutouts showing cards inside."
+  )
+}}
+
+{{ $features := .Get "features" | default $defaultFeatures }}
+
+{{ partial "sections/features/with_square_images.html" (dict 
+  "backgroundColor" $backgroundColor
+  "subheading" $subheading
+  "heading" $heading
+  "description" $description
+  "features" $features
+  "page" $page
+) }}

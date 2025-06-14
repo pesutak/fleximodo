@@ -1,0 +1,24 @@
+{{/*
+@component: square-3-stack-3d (outline) Icon
+@params:
+  - class: CSS classes to apply to the SVG element (optional, default: "w-6 h-6 text-gray-500")
+@examples:
+  <!-- Basic usage with default classes -->
+  {{ partial "icons/square-3-stack-3d" . }}
+
+  <!-- With custom size and color classes -->
+  {{ partial "icons/square-3-stack-3d" "w-8 h-8 text-blue-600" }}
+
+  <!-- With responsive classes -->
+  {{ partial "icons/square-3-stack-3d" "w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 text-indigo-500" }}
+*/}}
+
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24" 
+    class="{{ if . }}{{ . }}{{ else }}w-6 h-6 text-gray-500{{ end }}"
+    fill="none"
+>
+<path d="M6.42857 9.75L2.25 12L6.42857 14.25M6.42857 9.75L12 12.75L17.5714 9.75M6.42857 9.75L2.25 7.5L12 2.25L21.75 7.5L17.5714 9.75M17.5714 9.75L21.75 12L17.5714 14.25M17.5714 14.25L21.75 16.5L12 21.75L2.25 16.5L6.42857 14.25M17.5714 14.25L12 17.25L6.42857 14.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

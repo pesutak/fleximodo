@@ -1,0 +1,56 @@
+{{/* 
+  4-column incentives shortcode with illustrations
+  
+  Example usage:
+  {{< incentives-4-column-with-illustrations backgroundColor="bg-blue-100" >}}
+  
+  With custom incentives:
+  {{< incentives-4-column-with-illustrations backgroundColor="bg-blue-100" >}}
+    {{< incentive title="Custom Title" description="Custom description" iconUrl="path/to/icon.svg" iconAlt="Icon description" >}}
+    {{< incentive title="Another Title" description="Another description" iconUrl="path/to/icon2.svg" iconAlt="Another icon" >}}
+  {{< /incentives-4-column-with-illustrations >}}
+
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - Use nested {{< incentive >}} shortcodes to define custom incentives
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $incentives := .Inner | trim }}
+
+{{ $defaultIncentives := slice 
+  (dict 
+    "title" "Free Shipping" 
+    "description" "It's not actually free we just price it into the products. Someone's paying for it, and it's not us." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-delivery-light.svg"
+    "iconAlt" "Delivery icon"
+  )
+  (dict 
+    "title" "24/7 Customer Support" 
+    "description" "Our AI chat widget is powered by a naive series of if/else statements. Guaranteed to irritate." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-chat-light.svg"
+    "iconAlt" "Chat icon"
+  )
+  (dict 
+    "title" "Fast Shopping Cart" 
+    "description" "Look how fast that cart is going. What does this mean for the actual experience? I don't know." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-fast-checkout-light.svg"
+    "iconAlt" "Fast checkout icon"
+  )
+  (dict 
+    "title" "Gift Cards" 
+    "description" "Buy them for your friends, especially if they don't like our store. Free money for us, it's great." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-gift-card-light.svg"
+    "iconAlt" "Gift card icon"
+  )
+}}
+
+{{ $finalIncentives := $defaultIncentives }}
+{{ if ne $incentives "" }}
+  {{ $finalIncentives = .Scratch.Get "incentives" | default slice }}
+{{ end }}
+
+{{ partial "incentives/4-column_with_illustrations.html" (dict 
+  "backgroundColor" $backgroundColor
+  "incentives" $finalIncentives
+) }}

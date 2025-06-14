@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Часто задаваемые вопросы"
+language_selector_title: "Доступные языки"
+glossary_subtitle: "Подробный список терминов и определений"
+glossary_title: "Глоссарий"
+home_title: "Главная"
+
+# Glossary translations
+glossary_eyebrow: "Глоссарий"
+
+# Category page translations
+categories_title: "Категории"
+categories_browse_all: "Просмотреть весь контент по категориям"
+category_eyebrow: "Категория"
+category_browse_content: "Просмотреть весь контент в категории %s"
+category_no_content_found: "В этой категории контент не найден"
+category_try_browsing: "Попробуйте просмотреть другие категории или поискать контент"
+category_other_categories: "Другие категории"
+
+# CTA translations
+cta_default_heading: "Расширьте свои знания с помощью наших ресурсов"
+cta_default_description: "Изучите нашу обширную библиотеку статей, руководств и учебных пособий, чтобы углубить понимание ключевых концепций и быть в курсе последних разработок."
+cta_default_primary_text: "Просмотреть ресурсы"
+cta_default_secondary_text: "Связаться с нашими экспертами"
+
+# Content type translations
+content_article_singular: "статья"
+content_article_plural: "статьи"
+
+# Tags page translations
+tags_title: "Теги"
+tags_browse_all: "Просмотреть весь контент по темам"
+tag_eyebrow: "Тег"
+tag_browse_content: "Просмотреть весь контент с тегом %s"
+tag_no_content_found: "Контент с этим тегом не найден"
+tag_try_browsing: "Попробуйте просмотреть другие теги или поискать контент"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Предыдущая"
+tag_pagination_next: "Следующая"
+tag_other_tags: "Другие теги"
+
+# Cookie consent translations
+cookie_consent_title: "Согласие на использование файлов cookie"
+cookie_consent_message: "Мы используем файлы cookie для улучшения вашего опыта просмотра и анализа нашего трафика."
+cookie_consent_accept_all: "Принять все"
+cookie_consent_accept_necessary: "Принять только необходимые"
+cookie_consent_settings: "Настройки файлов cookie"
+cookie_settings_title: "Настройки файлов cookie"
+cookie_settings_close: "Закрыть"
+cookie_settings_necessary_title: "Необходимые файлы cookie"
+cookie_settings_necessary_description: "Эти файлы необходимы для работы сайта и не могут быть отключены."
+cookie_settings_analytics_title: "Аналитические файлы cookie"
+cookie_settings_analytics_description: "Эти файлы помогают нам понять, как посетители взаимодействуют с нашим сайтом."
+cookie_settings_cancel: "Отмена"
+cookie_settings_save: "Сохранить предпочтения"
+
+# Pagination translations
+pagination_previous: "Предыдущая"
+pagination_next: "Следующая"
+pagination_showing: "Показано"
+pagination_to: "до"
+pagination_of: "из"
+pagination_results: "результатов"
+pagination_browse_all: "Просмотреть весь контент в"
+
+# FAQ translations
+faq_heading: "Часто задаваемые вопросы"
+faq_description: "Найдите ответы на распространенные вопросы по этой теме."
+
+no_terms_available: "Термины отсутствуют"
+pricing_monthly_label: "Ежемесячно"
+pricing_yearly_label: "Ежегодно"
+wantMore: "Хотите больше?"
+learnMore: "Узнать больше"
+pricing_tagline: "Тарифы"
+pricing_title: "Тарифы, которые растут вместе с вами"
+pricing_description: "Выберите доступный план с лучшими функциями для взаимодействия с аудиторией, создания лояльности клиентов и увеличения продаж."
+pricing_comparison_title: "Сравнить планы"
+pricing_comparison_description: "Ознакомьтесь с нашими сравнениями планов и выберите лучший для вас"
+read_more_post: "Читать далее"
+no_posts_found: "Записи не найдены"
+minutes_read: "мин чтения"
+get_started: "Начать"
+courses.session: "Сессия"
+courses.you_will_learn: "Вы узнаете:"
+courses.or: "или"

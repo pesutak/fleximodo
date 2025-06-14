@@ -1,0 +1,327 @@
+{{/*
+@section: Three-Tier Pricing with Toggle on Dark Background
+@description: A pricing section featuring three tiers with a toggle between monthly and annual billing, displayed on a dark background for a premium feel.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color for the section (optional, default: "gray-900")
+  - taglineColor: Color for the tagline text (optional, default: "indigo-400")
+  - headingColor: Color for the heading text (optional, default: "white")
+  - descriptionColor: Color for the description text (optional, default: "gray-400")
+  - toggleBgColor: Background color for the toggle (optional, default: "white/5")
+  - toggleTextColor: Color for the toggle text (optional, default: "white")
+  - toggleActiveBgColor: Color for the active toggle background (optional, default: "indigo-500")
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - monthlyPrice: Price for monthly billing
+    - annualPrice: Price for annual billing
+    - interval: Text after the price (e.g., "/month")
+    - description: Short description of the tier
+    - popular: Boolean to indicate if this is the most popular tier
+    - features: Array of features included in this tier
+    - cta: Object with text and url for the call-to-action button
+    - nameColor: Color for the tier name
+    - priceColor: Color for the price
+    - intervalColor: Color for the interval text
+    - descriptionColor: Color for the tier description
+    - featureColor: Color for the feature text
+    - checkColor: Color for the checkmark icons
+    - ctaColor: Color for the CTA button text
+    - ctaBgColor: Color for the CTA button background
+    - ctaHoverBgColor: Color for the CTA button hover background
+    - backgroundColor: Background color for the tier
+    - borderColor: Border color for the tier
+    - borderWidth: Border width for the tier (default: 1, use 2 for emphasis)
+@example:
+  {{ partial "sections/pricing/three_tiers_with_toggle_on_dark.html" (dict 
+      "tagline" "Simple Pricing"
+      "heading" "The right price for you, whoever you are"
+      "description" "Choose the plan that fits your needs. All plans include a 14-day free trial with no credit card required."
+      "tiers" (slice
+          (dict 
+              "name" "Basic" 
+              "id" "tier-basic" 
+              "monthlyPrice" "$9" 
+              "annualPrice" "$7" 
+              "interval" "/month" 
+              "description" "Perfect for individuals and small projects." 
+              "popular" false 
+              "features" (slice 
+                  "3 projects" 
+                  "Up to 1,000 subscribers" 
+                  "Basic analytics" 
+                  "48-hour support"
+              )
+              "cta" (dict 
+                  "text" "Get started" 
+                  "url" "/signup/basic"
+              )
+          )
+          (dict 
+              "name" "Pro" 
+              "id" "tier-pro" 
+              "monthlyPrice" "$29" 
+              "annualPrice" "$24" 
+              "interval" "/month" 
+              "description" "Best for growing businesses and teams." 
+              "popular" true 
+              "features" (slice 
+                  "Unlimited projects" 
+                  "Up to 10,000 subscribers" 
+                  "Advanced analytics" 
+                  "24-hour support" 
+                  "Marketing automations"
+              )
+              "cta" (dict 
+                  "text" "Start free trial" 
+                  "url" "/signup/pro"
+              )
+              "backgroundColor" "white/5"
+              "borderColor" "indigo-500"
+              "borderWidth" 2
+          )
+          (dict 
+              "name" "Enterprise" 
+              "id" "tier-enterprise" 
+              "monthlyPrice" "$99" 
+              "annualPrice" "$89" 
+              "interval" "/month" 
+              "description" "Custom solutions for large organizations." 
+              "popular" false 
+              "features" (slice 
+                  "Unlimited everything" 
+                  "Advanced security" 
+                  "Custom integrations" 
+                  "Dedicated support" 
+                  "Advanced reporting" 
+                  "Custom branding"
+              )
+              "cta" (dict 
+                  "text" "Contact sales" 
+                  "url" "/contact/sales"
+              )
+          )
+      )
+      "backgroundColor" "slate-900"
+      "toggleActiveBgColor" "purple-500"
+  ) }}
+@note: This component features a toggle between monthly and annual pricing with JavaScript functionality that dynamically updates the displayed prices without a page refresh. The dark background creates a premium, high-contrast design that makes the pricing tiers stand out.
+*/}}
+
+{{ $tagline := .tagline | default "Pricing" }}
+{{ $heading := .heading | default "Pricing that grows with you" }}
+{{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
+{{ $backgroundColor := .backgroundColor | default "gray-900" }}
+{{ $taglineColor := .taglineColor | default "indigo-400" }}
+{{ $headingColor := .headingColor | default "white" }}
+{{ $descriptionColor := .descriptionColor | default "gray-400" }}
+{{ $toggleBgColor := .toggleBgColor | default "white/5" }}
+{{ $toggleTextColor := .toggleTextColor | default "white" }}
+{{ $toggleActiveBgColor := .toggleActiveBgColor | default "indigo-500" }}
+
+{{ $tiers := .tiers | default (slice 
+  (dict 
+    "name" "Freelancer" 
+    "id" "tier-freelancer" 
+    "monthlyPrice" "$19" 
+    "annualPrice" "$15" 
+    "interval" "/month" 
+    "description" "The essentials to provide your best work for clients." 
+    "popular" false 
+    "features" (slice 
+      "5 products" 
+      "Up to 1,000 subscribers" 
+      "Basic analytics" 
+      "48-hour support response time"
+    ) 
+    "cta" (dict 
+      "text" "Buy plan" 
+      "url" "#"
+    ) 
+    "nameColor" "white" 
+    "priceColor" "white" 
+    "intervalColor" "gray-300" 
+    "descriptionColor" "gray-300" 
+    "featureColor" "gray-300" 
+    "checkColor" "white" 
+    "ctaColor" "white" 
+    "ctaBgColor" "white/10" 
+    "ctaHoverBgColor" "white/20" 
+    "backgroundColor" "" 
+    "borderColor" "white/10" 
+    "borderWidth" 1
+  ) 
+  (dict 
+    "name" "Startup" 
+    "id" "tier-startup" 
+    "monthlyPrice" "$29" 
+    "annualPrice" "$24" 
+    "interval" "/month" 
+    "description" "A plan that scales with your rapidly growing business." 
+    "popular" true 
+    "features" (slice 
+      "25 products" 
+      "Up to 10,000 subscribers" 
+      "Advanced analytics" 
+      "24-hour support response time" 
+      "Marketing automations"
+    ) 
+    "cta" (dict 
+      "text" "Buy plan" 
+      "url" "#"
+    ) 
+    "nameColor" "white" 
+    "priceColor" "white" 
+    "intervalColor" "gray-300" 
+    "descriptionColor" "gray-300" 
+    "featureColor" "gray-300" 
+    "checkColor" "white" 
+    "ctaColor" "white" 
+    "ctaBgColor" "indigo-500" 
+    "ctaHoverBgColor" "indigo-400" 
+    "backgroundColor" "white/5" 
+    "borderColor" "indigo-500" 
+    "borderWidth" 2
+  ) 
+  (dict 
+    "name" "Enterprise" 
+    "id" "tier-enterprise" 
+    "monthlyPrice" "$59" 
+    "annualPrice" "$49" 
+    "interval" "/month" 
+    "description" "Dedicated support and infrastructure for your company." 
+    "popular" false 
+    "features" (slice 
+      "Unlimited products" 
+      "Unlimited subscribers" 
+      "Advanced analytics" 
+      "1-hour, dedicated support response time" 
+      "Marketing automations" 
+      "Custom reporting tools"
+    ) 
+    "cta" (dict 
+      "text" "Buy plan" 
+      "url" "#"
+    ) 
+    "nameColor" "white" 
+    "priceColor" "white" 
+    "intervalColor" "gray-300" 
+    "descriptionColor" "gray-300" 
+    "featureColor" "gray-300" 
+    "checkColor" "white" 
+    "ctaColor" "white" 
+    "ctaBgColor" "white/10" 
+    "ctaHoverBgColor" "white/20" 
+    "backgroundColor" "" 
+    "borderColor" "white/10" 
+    "borderWidth" 1
+  )
+) }}
+
+<div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl text-center">
+      <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+      <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-{{ $headingColor }} sm:text-6xl">{{ $heading }}</p>
+    </div>
+    <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-{{ $descriptionColor }} sm:text-xl/8">{{ $description }}</p>
+    
+    <div class="mt-16 flex justify-center">
+      <fieldset aria-label="Payment frequency">
+        <div class="grid grid-cols-2 gap-x-1 rounded-full bg-{{ $toggleBgColor }} p-1 text-center text-xs/5 font-semibold text-{{ $toggleTextColor }}">
+          <!-- Monthly option -->
+          <label class="cursor-pointer rounded-full px-2.5 py-1 bg-{{ $toggleActiveBgColor }}" id="monthly-label">
+            <input type="radio" name="frequency" value="monthly" class="sr-only" checked>
+            <span>Monthly</span>
+          </label>
+          <!-- Annual option -->
+          <label class="cursor-pointer rounded-full px-2.5 py-1" id="annually-label">
+            <input type="radio" name="frequency" value="annually" class="sr-only">
+            <span>Annually</span>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+    
+    <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      {{ range $index, $tier := $tiers }}
+        {{ $borderWidth := or $tier.borderWidth 1 }}
+        {{ $bgClass := "" }}
+        {{ if $tier.backgroundColor }}
+          {{ $bgClass = printf "bg-%s" $tier.backgroundColor }}
+        {{ end }}
+        <div class="rounded-3xl p-8 {{ $bgClass }} ring-{{ $borderWidth }} ring-{{ $tier.borderColor }} xl:p-10">
+          <div class="flex items-center justify-between gap-x-4">
+            <h3 id="{{ $tier.id }}" class="text-lg/8 font-semibold text-{{ $tier.nameColor }}">{{ $tier.name }}</h3>
+            {{ if $tier.popular }}
+              <p class="rounded-full bg-indigo-500 px-2.5 py-1 text-xs/5 font-semibold text-white">Most popular</p>
+            {{ end }}
+          </div>
+          <p class="mt-4 text-sm/6 text-{{ $tier.descriptionColor }}">{{ $tier.description }}</p>
+          <p class="mt-6 flex items-baseline gap-x-1">
+            <!-- Monthly price (default visible) -->
+            <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} monthly-price">{{ $tier.monthlyPrice }}</span>
+            <!-- Annual price (hidden by default) -->
+            <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} annual-price hidden">{{ $tier.annualPrice }}</span>
+            <!-- Interval -->
+            <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
+          </p>
+          
+          <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-6 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ if eq $tier.ctaColor "white" }}white{{ else }}indigo-500{{ end }}">{{ $tier.cta.text }}</a>
+          
+          <ul role="list" class="mt-8 space-y-3 text-sm/6 text-{{ $tier.featureColor }} xl:mt-10">
+            {{ range $tier.features }}
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-{{ $tier.checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                {{ . }}
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for toggle functionality -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const monthlyLabel = document.getElementById('monthly-label');
+    const annuallyLabel = document.getElementById('annually-label');
+    const monthlyPrices = document.querySelectorAll('.monthly-price');
+    const annualPrices = document.querySelectorAll('.annual-price');
+    
+    // Function to toggle between monthly and annual pricing
+    function togglePricing(isMonthly) {
+      if (isMonthly) {
+        monthlyLabel.classList.add('bg-{{ $toggleActiveBgColor }}');
+        annuallyLabel.classList.remove('bg-{{ $toggleActiveBgColor }}');
+        
+        monthlyPrices.forEach(el => el.classList.remove('hidden'));
+        annualPrices.forEach(el => el.classList.add('hidden'));
+      } else {
+        annuallyLabel.classList.add('bg-{{ $toggleActiveBgColor }}');
+        monthlyLabel.classList.remove('bg-{{ $toggleActiveBgColor }}');
+        
+        monthlyPrices.forEach(el => el.classList.add('hidden'));
+        annualPrices.forEach(el => el.classList.remove('hidden'));
+      }
+    }
+    
+    // Set up event listeners for the toggle
+    monthlyLabel.addEventListener('click', function() {
+      togglePricing(true);
+    });
+    
+    annuallyLabel.addEventListener('click', function() {
+      togglePricing(false);
+    });
+    
+    // Initialize with monthly pricing
+    togglePricing(true);
+  });
+</script>

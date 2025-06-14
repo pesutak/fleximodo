@@ -1,0 +1,100 @@
+{{/*
+@section: 2x2 Grid Incentives with Illustrations
+@description: A section displaying incentives or benefits in a 2x2 grid layout with icons, each featuring a title and description. Ideal for showcasing multiple key features or advantages of your product or service.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-gray-50")
+  - srTitle: Screen reader title for accessibility (optional, default: "Our perks")
+  - incentives: Array of incentive objects (optional, includes defaults)
+    - title: Incentive title
+    - description: Incentive description
+    - iconUrl: URL for the incentive icon
+    - iconAlt: Alt text for the incentive icon
+@example:
+  {{ partial "sections/incentives/2x2_grid_with_illustrations.html" (dict 
+      "srTitle" "Why Choose Us"
+      "incentives" (slice
+          (dict 
+              "title" "Free Shipping" 
+              "description" "We offer free shipping on all orders over $50 to anywhere in the continental US."
+              "iconUrl" "/images/icons/shipping.svg"
+              "iconAlt" "Shipping icon"
+          )
+          (dict 
+              "title" "Lifetime Warranty" 
+              "description" "All our products come with a lifetime warranty against manufacturing defects."
+              "iconUrl" "/images/icons/warranty.svg"
+              "iconAlt" "Warranty icon"
+          )
+          (dict 
+              "title" "Easy Returns" 
+              "description" "Not satisfied? Return any unused product within 30 days for a full refund."
+              "iconUrl" "/images/icons/returns.svg"
+              "iconAlt" "Returns icon"
+          )
+          (dict 
+              "title" "Eco-Friendly" 
+              "description" "We donate 1% of all sales to environmental conservation and use sustainable packaging."
+              "iconUrl" "/images/icons/eco.svg"
+              "iconAlt" "Eco-friendly icon"
+          )
+      )
+      "backgroundColor" "bg-gray-100"
+  ) }}
+@note: This component features responsive design that adapts to different screen sizes - on mobile it shows a vertical list with icons on the left, while on desktop it displays in a 2x2 grid format.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-gray-50" }}
+{{ $srTitle := .srTitle | default "Our perks" }}
+{{ $incentives := .incentives | default (slice 
+  (dict 
+    "title" "Free delivery" 
+    "description" "Order now and you'll get delivery absolutely free. Well, it's not actually free, we just price it into the products. Someone's paying for it, and it's not us." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-delivery-light.svg"
+    "iconAlt" "Delivery icon"
+  )
+  (dict 
+    "title" "10-year warranty" 
+    "description" "We have a 10 year warranty with every product that you purchase, whether thats a new pen or organizer, you can be sure we'll stand behind it." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-light.svg"
+    "iconAlt" "Warranty icon"
+  )
+  (dict 
+    "title" "Exchanges" 
+    "description" "We understand that when your product arrives you might not particularly like it, or you ordered the wrong thing. Conditions apply here." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-returns-light.svg"
+    "iconAlt" "Returns icon"
+  )
+  (dict 
+    "title" "For the planet" 
+    "description" "Like you, we love the planet, and so we've pledged 1% of all sales to the preservation and restoration of the natural environment." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-planet-light.svg"
+    "iconAlt" "Planet icon"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <h2 class="sr-only">{{ $srTitle }}</h2>
+  <div class="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 lg:px-4">
+    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 px-4 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+      {{ range $incentives }}
+        <div class="sm:flex">
+          <div class="sm:shrink-0">
+            <div class="flow-root">
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" .iconUrl 
+                "alt" .iconAlt 
+                "class" "h-24 w-28" 
+                "loading" "lazy" 
+                "decoding" "async"
+              ) }}
+            </div>
+          </div>
+          <div class="mt-3 sm:mt-0 sm:ml-3">
+            <h3 class="text-sm font-medium text-gray-900">{{ .title }}</h3>
+            <p class="mt-2 text-sm text-gray-500">{{ .description }}</p>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

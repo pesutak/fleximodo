@@ -1,0 +1,75 @@
+{{/* 
+  Testimonials shortcode with background image
+  
+  Usage:
+  {{< testimonials-with-background-image 
+      backgroundColor="bg-gray-900"
+      backgroundImageUrl="/images/testimonial-bg.jpg"
+      testimonialText="Your product has transformed how we work. We've seen a 40% increase in productivity since implementing it."
+      testimonialAuthor="Sarah Johnson"
+      testimonialAuthorTitle="Director of Operations, TechCorp"
+  >}}
+    {
+      "rating": 5,
+      "logoUrl": "/images/logos/techcorp.svg",
+      "logoAlt": "TechCorp logo"
+    }
+  {{< /testimonials-with-background-image >}}
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-900")
+  - backgroundImageUrl: URL for the background image (default: from partial)
+  - testimonialText: Testimonial content text
+  - testimonialAuthor: Name of the person giving the testimonial
+  - testimonialAuthorTitle: Role/title of the testimonial author
+  
+  Inner Content (optional JSON object):
+  - rating: Star rating, integer from 1-5 (default: 5)
+  - logoUrl: URL to the company logo image
+  - logoAlt: Alt text for the logo
+  
+  If inner content is not provided, default values will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-900" }}
+{{ $backgroundImageUrl := .Get "backgroundImageUrl" | default "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2894&q=80" }}
+{{ $testimonialText := .Get "testimonialText" | default "We needed the same level of information density available in our desktop app. Tailwind let us achieve that without sacrificing the quality of the overall design." }}
+{{ $testimonialAuthor := .Get "testimonialAuthor" | default "Renee Wells" }}
+{{ $testimonialAuthorTitle := .Get "testimonialAuthorTitle" | default "Product Manager, EasyERP" }}
+
+{{ $defaultRating := 5 }}
+{{ $defaultLogoUrl := "https://tailwindcss.com/plus-assets/img/logos/mark.svg" }}
+{{ $defaultLogoAlt := "Company logo" }}
+
+{{ $customData := dict }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $customData = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ $rating := $defaultRating }}
+{{ if isset $customData "rating" }}
+  {{ $rating = index $customData "rating" }}
+{{ end }}
+
+{{ $logoUrl := $defaultLogoUrl }}
+{{ if isset $customData "logoUrl" }}
+  {{ $logoUrl = index $customData "logoUrl" }}
+{{ end }}
+
+{{ $logoAlt := $defaultLogoAlt }}
+{{ if isset $customData "logoAlt" }}
+  {{ $logoAlt = index $customData "logoAlt" }}
+{{ end }}
+
+{{ partial "sections/testimonials/with_background_image.html" (dict 
+  "backgroundColor" $backgroundColor
+  "backgroundImageUrl" $backgroundImageUrl
+  "testimonialText" $testimonialText
+  "testimonialAuthor" $testimonialAuthor
+  "testimonialAuthorTitle" $testimonialAuthorTitle
+  "rating" $rating
+  "logoUrl" $logoUrl
+  "logoAlt" $logoAlt
+) }}

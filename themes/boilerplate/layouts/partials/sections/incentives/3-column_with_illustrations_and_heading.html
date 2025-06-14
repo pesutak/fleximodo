@@ -1,0 +1,97 @@
+{{/*
+@section: Three-Column Incentives with Illustrations and Heading
+@description: A section displaying incentives or benefits in a three-column layout with illustrations, contained within a colored background box with a centered heading.
+@params:
+  - backgroundColor: Background color class for the outer container (optional, default: "bg-white")
+  - innerBackgroundColor: Background color class for the inner container (optional, default: "bg-gray-50")
+  - title: Main heading text (optional, default: "We built our business on customer service")
+  - incentives: Array of incentive objects (optional, includes defaults)
+    - title: Incentive title
+    - description: Incentive description
+    - iconUrl: URL for the incentive icon
+    - iconAlt: Alt text for the incentive icon
+@example:
+  {{ partial "sections/incentives/3-column_with_illustrations_and_heading.html" (dict 
+      "title" "Why Choose Our Service" 
+      "incentives" (slice
+          (dict 
+              "title" "Fast Delivery" 
+              "description" "Get your products delivered to your doorstep within 24 hours of ordering."
+              "iconUrl" "/images/icons/delivery.svg"
+              "iconAlt" "Delivery icon"
+          )
+          (dict 
+              "title" "Quality Guarantee" 
+              "description" "All our products come with a quality guarantee that ensures satisfaction."
+              "iconUrl" "/images/icons/quality.svg"
+              "iconAlt" "Quality icon"
+          )
+          (dict 
+              "title" "Excellent Support" 
+              "description" "Our customer support team is available 24/7 to help you with any issues."
+              "iconUrl" "/images/icons/support.svg"
+              "iconAlt" "Support icon"
+          )
+      )
+      "backgroundColor" "bg-white"
+      "innerBackgroundColor" "bg-blue-50"
+  ) }}
+@note: This component features a responsive design, reorganizing the layout from centered grid on desktop to horizontal alignment on smaller screens.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $innerBackgroundColor := .innerBackgroundColor | default "bg-gray-50" }}
+{{ $title := .title | default "We built our business on customer service" }}
+{{ $incentives := .incentives | default (slice 
+  (dict 
+    "title" "Free shipping" 
+    "description" "It's not actually free we just price it into the products. Someone's paying for it, and it's not us." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-shipping-simple.svg"
+    "iconAlt" "Shipping icon"
+  )
+  (dict 
+    "title" "10-year warranty" 
+    "description" "If it breaks in the first 10 years we'll replace it. After that you're on your own though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-simple.svg"
+    "iconAlt" "Warranty icon"
+  )
+  (dict 
+    "title" "Exchanges" 
+    "description" "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-exchange-simple.svg"
+    "iconAlt" "Exchange icon"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <div class="rounded-2xl {{ $innerBackgroundColor }} px-6 py-16 sm:p-16">
+      <div class="mx-auto max-w-xl lg:max-w-none">
+        <div class="text-center">
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ $title }}</h2>
+        </div>
+        <div class="mx-auto mt-12 grid max-w-sm grid-cols-1 gap-x-8 gap-y-10 sm:max-w-none lg:grid-cols-3">
+          {{ range $incentives }}
+            <div class="text-center sm:flex sm:text-left lg:block lg:text-center">
+              <div class="sm:shrink-0">
+                <div class="flow-root">
+                  {{ partial "components/media/lazyimg.html" (dict 
+                    "src" .iconUrl 
+                    "alt" .iconAlt 
+                    "class" "mx-auto size-16" 
+                    "loading" "lazy" 
+                    "decoding" "async"
+                  ) }}
+                </div>
+              </div>
+              <div class="mt-3 sm:mt-0 sm:ml-6 lg:mt-6 lg:ml-0">
+                <h3 class="text-sm font-medium text-gray-900">{{ .title }}</h3>
+                <p class="mt-2 text-sm text-gray-500">{{ .description }}</p>
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

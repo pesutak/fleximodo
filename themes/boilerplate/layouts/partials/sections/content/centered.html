@@ -1,0 +1,74 @@
+{{/*
+@section: Centered Content
+@description: A clean, centered content section with optional eyebrow text, heading, description, and rich text content. Includes typography styling for rich content with proper spacing and responsive design.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-50")
+  - padding: Padding classes (optional, default: "px-6 py-32 lg:px-8")
+  - eyebrow: Small text displayed above heading (optional)
+  - eyebrowColor: Color class for eyebrow text (optional, default: "text-primary")
+  - heading: Main section heading (optional)
+  - headingColor: Color class for heading (optional, default: "text-gray-900")
+  - description: Section description text (optional)
+  - descriptionColor: Color class for description (optional, default: "text-gray-700")
+  - content: Main content HTML/Markdown (optional)
+  - contentColor: Color class for main content (optional, default: "text-gray-700")
+  - page: Page context for linkbuilding function (required)
+@example:
+  {{ partial "sections/content/centered.html" (dict 
+      "eyebrow" "About us" 
+      "heading" "Our mission and values"
+      "description" "Learn more about what drives us and our approach to creating great products."
+      "content" "
+        <p>Founded in 2015, our company has been dedicated to building tools that help teams work more efficiently.</p>
+        <h2>Our Mission</h2>
+        <p>We believe that great software should be both powerful and easy to use. Our mission is to create tools that simplify complex workflows without sacrificing functionality.</p>
+        <h2>Core Values</h2>
+        <ul>
+          <li><strong>User-centered design:</strong> We put our users first in every decision we make.</li>
+          <li><strong>Continuous improvement:</strong> We're always looking for ways to make our products better.</li>
+          <li><strong>Transparency:</strong> We communicate openly with our team and our customers.</li>
+        </ul>
+      "
+      "bgColor" "bg-white"
+      "page" .
+  ) }}
+@note: This section automatically applies typography styling to HTML content, enhancing headings, paragraphs, lists, blockquotes, code blocks, and tables with appropriate spacing and styling.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "" }}
+{{ $padding := .padding | default "" }}
+
+{{/* Heading section */}}
+{{ $eyebrow := .eyebrow | default "" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
+{{ $heading := .heading | default "" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description | default "" }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-700" }}
+
+{{/* Content section */}}
+{{ $contentColor := .contentColor | default "text-gray-700" }}
+{{ $content := .content | default "" }}
+{{ $page := .page }}
+
+<div class="{{ $bgColor }} {{ $padding }} rounded-xl wrapper">
+  <div class="text-base/7 {{ $contentColor }}">
+    {{ if $eyebrow }}
+    <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
+    {{ end }}
+    
+    {{ if $heading }}
+    <h2 class="mt-2 text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+    {{ end }}
+    
+    {{ if $description }}
+    <p class="mt-6 text-xl/8 {{ $descriptionColor }}">{{ $description }}</p>
+    {{ end }}
+    
+    <!-- Apply Tailwind typography with custom processing for better heading styles -->
+    <div class="mt-10 prose prose-lg prose-indigo max-w-none">
+      {{ $content }}
+    </div>
+  </div>
+</div>

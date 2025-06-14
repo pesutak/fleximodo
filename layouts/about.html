@@ -1,0 +1,231 @@
+{{ define "main" }}
+<!-- Hero Section -->
+<div class="relative isolate overflow-hidden bg-gray-900">
+    <!-- Background pattern -->
+    <svg class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+        aria-hidden="true">
+        <defs>
+            <pattern id="hero-pattern" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+                <path d="M.5 200V.5H200" fill="none" />
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" stroke-width="0" fill="url(#hero-pattern)" />
+    </svg>
+
+    <!-- Gradient background -->
+    <div class="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+        aria-hidden="true">
+        <div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+            style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
+        </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:mx-0">
+            <h1 class="text-5xl font-semibold tracking-tight text-white sm:text-7xl">{{ .Params.hero_title | default "About Us" }}</h1>
+            <p class="mt-8 text-xl/8 text-gray-300">{{ .Params.hero_subtitle | default "Meet the future of parking today" }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Mission Section -->
+{{ with .Params.mission }}
+<div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:mx-0">
+            <h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Our Mission</h2>
+        </div>
+        <div
+            class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:mt-10 lg:max-w-none lg:grid-cols-12">
+            <div class="relative lg:order-last lg:col-span-5">
+                <svg class="absolute -top-[40rem] left-1 -z-10 h-[64rem] w-[175.5rem] -translate-x-1/2 stroke-gray-900/10 [mask-image:radial-gradient(64rem_64rem_at_111.5rem_0%,white,transparent)]"
+                    aria-hidden="true">
+                    <defs>
+                        <pattern id="mission-pattern" width="200" height="200" x="50%" y="-1"
+                            patternUnits="userSpaceOnUse">
+                            <path d="M.5 200V.5H200" fill="none" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" stroke-width="0" fill="url(#mission-pattern)" />
+                </svg>
+                <figure class="border-l border-primary pl-8">
+                    <blockquote class="text-xl/8 font-semibold text-gray-900">
+                        <p>"{{ .quote }}"</p>
+                    </blockquote>
+                    {{ with .founder }}
+                    <figcaption class="mt-8 flex gap-x-4">
+                        <img src="/images/team/{{ .photo }}.jpg" alt="{{ .name }}"
+                            class="mt-1 h-10 w-10 flex-none rounded-full bg-gray-50">
+                        <div class="text-sm/6">
+                            <div class="font-semibold text-gray-900">{{ .name }}</div>
+                            <div class="text-gray-600">{{ .title }}</div>
+                        </div>
+                    </figcaption>
+                    {{ end }}
+                </figure>
+            </div>
+            <div class="max-w-xl text-base/7 text-gray-700 lg:col-span-7">
+                <p>At Fleximodo, we're revolutionizing the parking industry through innovative IoT solutions and
+                    cutting-edge technology. Our mission is to transform every parking experience from frustration to
+                    seamless convenience.</p>
+                <p class="mt-8">We believe in bringing rocket science to urban challenges, leveraging our space
+                    technology heritage to solve real-world parking problems with precision and efficiency.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
+
+<!-- Story Section -->
+{{ with .Params.story }}
+<div class="bg-gray-50 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:mx-0">
+            <h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{ .title }}</h2>
+            <p class="mt-6 text-xl/8 text-gray-600">{{ .intro }}</p>
+        </div>
+        <div class="mx-auto mt-16 max-w-2xl lg:mx-0 lg:max-w-none">
+            <div class="grid grid-cols-1 gap-x-8 gap-y-6 text-base/7 text-gray-700 md:grid-cols-2">
+                {{ range .paragraphs }}
+                <div class="bg-white p-8 ring-1 ring-gray-200 rounded-2xl">
+                    <p>{{ . | markdownify }}</p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
+
+<!-- Team Section -->
+{{ with .Params.team }}
+<div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:mx-0">
+            <h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Our Team</h2>
+            <p class="mt-6 text-xl/8 text-gray-600">Meet the innovative minds behind Fleximodo's success</p>
+        </div>
+
+        <!-- Business Body -->
+        {{ with .business_body }}
+        <div class="mx-auto mt-20 max-w-2xl lg:mx-0 lg:max-w-none">
+            <h3 class="text-2xl font-semibold tracking-tight text-gray-900 mb-12">Leadership Team</h3>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+                {{ range . }}
+                {{ if .separator }}
+                <div class="col-span-full">
+                    <div class="border-t border-gray-200 my-8"></div>
+                </div>
+                {{ else }}
+                <div class="group relative">
+                    <div class="aspect-[3/2] w-full overflow-hidden rounded-2xl bg-gray-100">
+                        <img src="/images/team/{{ .photo }}.jpg" alt="{{ .name }}"
+                            class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity">
+                    </div>
+                    <h3 class="mt-6 text-lg font-semibold text-gray-900">{{ .name }}</h3>
+                    <p class="text-base text-gray-600">{{ .position | safeHTML }}</p>
+                </div>
+                {{ end }}
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+
+        <!-- Marketing Team -->
+        {{ with .marketing }}
+        <div class="mx-auto mt-20 max-w-2xl lg:mx-0 lg:max-w-none">
+            <h3 class="text-2xl font-semibold tracking-tight text-gray-900 mb-12">Marketing & Design</h3>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+                {{ range . }}
+                <div class="group relative">
+                    <div class="aspect-[3/2] w-full overflow-hidden rounded-2xl bg-gray-100">
+                        <img src="/images/team/{{ .photo }}.jpg" alt="{{ .name }}"
+                            class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity">
+                    </div>
+                    <h3 class="mt-6 text-lg font-semibold text-gray-900">{{ .name }}</h3>
+                    <p class="text-base text-gray-600">{{ .position | safeHTML }}</p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+
+        <!-- Technical Team -->
+        {{ with .technical_body }}
+        <div class="mx-auto mt-20 max-w-2xl lg:mx-0 lg:max-w-none">
+            <h3 class="text-2xl font-semibold tracking-tight text-gray-900 mb-12">Technical Team</h3>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+                {{ range . }}
+                <div class="group relative">
+                    <div class="aspect-[3/2] w-full overflow-hidden rounded-2xl bg-gray-100">
+                        <img src="/images/team/{{ .photo }}.jpg" alt="{{ .name }}"
+                            class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity">
+                    </div>
+                    <h3 class="mt-6 text-lg font-semibold text-gray-900">{{ .name }}</h3>
+                    <p class="text-base text-gray-600">{{ .position | safeHTML }}</p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+
+        <!-- IT & Software Team -->
+        {{ with .it_software }}
+        <div class="mx-auto mt-20 max-w-2xl lg:mx-0 lg:max-w-none">
+            <h3 class="text-2xl font-semibold tracking-tight text-gray-900 mb-12">IT & Software Engineers</h3>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+                {{ range . }}
+                <div class="group relative">
+                    <div class="aspect-[3/2] w-full overflow-hidden rounded-2xl bg-gray-100">
+                        <img src="/images/team/{{ .photo }}.jpg" alt="{{ .name }}"
+                            class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity">
+                    </div>
+                    <h3 class="mt-6 text-lg font-semibold text-gray-900">{{ .name }}</h3>
+                    <p class="text-base text-gray-600">{{ .position | safeHTML }}</p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+
+        <!-- Support Team -->
+        {{ with .support }}
+        <div class="mx-auto mt-20 max-w-2xl lg:mx-0 lg:max-w-none">
+            <h3 class="text-2xl font-semibold tracking-tight text-gray-900 mb-12">Support Team</h3>
+            <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+                {{ range . }}
+                <div class="group relative">
+                    <div class="aspect-[3/2] w-full overflow-hidden rounded-2xl bg-gray-100">
+                        <img src="/images/team/{{ .photo }}.jpg" alt="{{ .name }}"
+                            class="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity">
+                    </div>
+                    <h3 class="mt-6 text-lg font-semibold text-gray-900">{{ .name }}</h3>
+                    <p class="text-base text-gray-600">{{ .position | safeHTML }}</p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+
+<!-- CTA Section -->
+<div class="bg-gray-900">
+    <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+            <h2 class="text-4xl font-semibold tracking-tight text-white sm:text-5xl">Ready to revolutionize your
+                parking?</h2>
+            <p class="mx-auto mt-6 max-w-xl text-lg/8 text-gray-300">Join the parking revolution with Fleximodo's
+                cutting-edge IoT solutions. Let's transform your parking challenges into seamless experiences.</p>
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+                <a href="/contact"
+                    class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Get
+                    started</a>
+                <a href="/products" class="text-sm font-semibold text-white">Learn more <span
+                        aria-hidden="true">→</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

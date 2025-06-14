@@ -1,0 +1,170 @@
+{{/*
+@section: Dynamic Bento Grid
+@description: A visually appealing layout with a flexible grid of content cards that can dynamically arrange in multiple rows, ideal for showcasing features or categories with images and descriptions.
+@params:
+  - tagline: Short text displayed above the main heading (optional, default: "Deploy faster")
+  - heading: Main section heading (optional, default: "Everything you need to deploy your app")
+  - description: Description text that appears below the heading (optional)
+  - taglineColor: Color class for the tagline (optional, default: "primary")
+  - backgroundColor: Background color class for the section (optional, default: "white")
+  - linkText: Text for the optional link button below the description (optional)
+  - linkUrl: URL for the optional link button (optional)
+  - cards: Array of card objects with varying sizes and content (optional, includes defaults)
+    - title: Card title text
+    - category: Category label displayed above the title
+    - description: Card description text
+    - image: URL to card image
+    - imageAlt: Alt text for the image
+    - url: URL to link the card to, making the entire card clickable (optional)
+    - cardSize: Card size in the grid ("large" or "small", optional, default: "large")
+      - large: Takes 3 columns (2 large cards per row)
+      - small: Takes 2 columns (3 small cards per row)
+    - categoryColor: Color class for the category text (optional, default: "primary")
+@example:
+  {{ partial "sections/bentogrids/two_row_bento_grid.html" (dict 
+      "tagline" "Our Services" 
+      "heading" "Solutions tailored to your business needs"
+      "description" "Explore our range of services designed to help you succeed in the digital age."
+      "backgroundColor" "gray-50"
+      "cards" (slice
+          (dict
+              "title" "Digital Transformation" 
+              "category" "Strategy"
+              "description" "Comprehensive digital transformation services to modernize your business processes and technology stack."
+              "image" "/images/services/digital-transformation.jpg"
+              "imageAlt" "Digital transformation illustration"
+              "url" "/services/digital-transformation"
+              "cardSize" "large"
+              "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
+          )
+          (dict
+              "title" "Cloud Infrastructure" 
+              "category" "Technology"
+              "description" "Secure, scalable cloud solutions designed to optimize performance and reduce operational costs."
+              "image" "/images/services/cloud-infrastructure.jpg"
+              "imageAlt" "Cloud infrastructure diagram"
+              "cardSize" "large"
+              "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
+          )
+          (dict
+              "title" "Data Analytics" 
+              "category" "Insights"
+              "description" "Turn your data into actionable business insights with our advanced analytics solutions."
+              "image" "/images/services/data-analytics.jpg"
+              "imageAlt" "Data analytics dashboard"
+              "cardSize" "small"
+              "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
+          )
+          (dict
+              "title" "API Integration" 
+              "category" "Connectivity"
+              "description" "Seamlessly connect your systems and applications with our API integration services."
+              "image" "/images/services/api-integration.jpg"
+              "imageAlt" "API integration flowchart"
+              "cardSize" "small"
+              "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
+          )
+          (dict
+              "title" "Cybersecurity" 
+              "category" "Security"
+              "description" "Protect your business with enterprise-grade security solutions and best practices."
+              "image" "/images/services/cybersecurity.jpg"
+              "imageAlt" "Cybersecurity shield icon"
+              "cardSize" "small"
+              "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
+          )
+      )
+  ) }}
+@note: This section uses a responsive bento grid layout that dynamically arranges cards based on their size. Large cards take 3 columns (2 per row) and small cards take 2 columns (3 per row) in a 6-column grid system. Cards will automatically flow to new rows as needed.
+*/}}
+
+{{/* Dynamic Bento Grid Section */}}
+{{ $tagline := .tagline | default "" }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
+{{ $linkText := .linkText | default "" }}
+{{ $linkUrl := .linkUrl | default "" }}
+{{ $taglineColor := .taglineColor | default "primary" }}
+{{ $backgroundColor := .backgroundColor | default "white" }}
+
+{{/* Default cards if none provided */}}
+
+{{ $cards := .cards | default (slice) }}
+
+<div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
+  <div class="wrapper">
+    {{ if $tagline }}
+    <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+    {{ end }}
+    
+    {{ if $heading }}
+    <p class="mt-2 max-w-lg text-4xl font-semibold tracking-tight text-pretty text-gray-950 sm:text-5xl">{{ $heading }}</p>
+    {{ end }}
+    
+    {{ if $description }}
+    <p class="mt-1 text-lg/8 text-gray-600">{{ partial "utils/linkbuilding" (dict "content" $description "page" .Page) | safeHTML }}</p>
+    {{ end }}
+    
+    {{ if $linkUrl }}
+    <div class="mt-1">
+      <a href="{{ $linkUrl }}" class="inline-block rounded-md bg-{{ $taglineColor }} px-4 py-2 text-sm/6 font-semibold text-white hover:bg-{{ $taglineColor }}-700 focus:outline-none focus:ring-2 focus:ring-{{ $taglineColor }}-500 focus:ring-offset-2">
+        {{ $linkText }}
+      </a>
+    </div>
+    {{ end }}
+    
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6">
+      {{ range $index, $card := $cards }}
+        {{ $cardSize := $card.cardSize | default "large" }}
+        {{ $colSpan := cond (eq $cardSize "small") "lg:col-span-2" "lg:col-span-3" }}
+        {{ $url := $card.url | default "" }}
+        {{ $cardImageClasses := $card.cardImageClasses | default "h-80 object-cover object-left" }}
+        <div class="relative {{ $colSpan }}">
+          <div class="absolute inset-px rounded-lg bg-white"></div>
+          {{ if $url }}
+            {{ $cardImageClasses = $card.cardImageClasses | default "h-80 object-cover object-left transition-transform group-hover:scale-105" }}
+
+            <a href="{{ $url }}" class="relative block h-full group">
+              <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
+                {{ partial "components/media/lazyimg.html" (dict
+                  "src" $card.image
+                  "alt" $card.imageAlt
+                  "class" $card.cardImageClasses
+                ) }}
+                {{ if or $card.category $card.title $card.description }}
+                <div class="p-10 pt-4">
+                  <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+                  <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 group-hover:underline">{{ $card.title }}</p>
+                  <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+                </div>
+                {{ end }}
+              </div>
+              <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 group-hover:ring-2 group-hover:ring-{{ $card.categoryColor | default "primary" }}/30"></div>
+            </a>
+          {{ else }}
+            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
+              {{ partial "components/media/lazyimg.html" (dict
+                "src" $card.image
+                "alt" $card.imageAlt
+                "class" $cardImageClasses
+              ) }}
+              {{ if or $card.category $card.title $card.description }}
+              <div class="p-10 pt-4">
+                <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+              </div>
+              {{ end }}
+            </div>
+            <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

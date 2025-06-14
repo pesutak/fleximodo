@@ -1,0 +1,66 @@
+{{/* 
+  Features shortcode with tiered images
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - subheading: Subheading text above the main heading (default: "Machined Kettle")
+  - heading: Main heading text (default: "Elegant simplicity")
+  - features: Optional array of feature objects to override the defaults
+  - mainImage: Optional object to override the default main image
+  - smallImages: Optional array of image objects to override the default small images
+  - page: Optional page context for linkbuilding (defaults to current page)
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $subheading := .Get "subheading" | default "Machined Kettle" }}
+{{ $heading := .Get "heading" | default "Elegant simplicity" }}
+{{ $page := .Get "page" | default . }}
+
+{{ $defaultFeatures := slice 
+  (dict 
+    "title" "Sleek design"
+    "description" "The machined kettle has a smooth black finish and contemporary shape that stands apart from most plastic appliances."
+  )
+  (dict 
+    "title" "Comfort handle"
+    "description" "Shaped for steady pours and insulated to prevent burns."
+  )
+  (dict 
+    "title" "One-button control"
+    "description" "The one button control has a digital readout for setting temperature and turning the kettle on and off."
+  )
+  (dict 
+    "title" "Long spout"
+    "description" "Designed specifically for controlled pour-overs that don't slash or sputter."
+  )
+}}
+
+{{ $defaultMainImage := dict 
+  "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-09-main-detail.jpg"
+  "alt" "Black kettle with long pour spot and angled body on marble counter next to coffee mug and pour-over system."
+}}
+
+{{ $defaultSmallImages := slice 
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-09-detail-01.jpg"
+    "alt" "Detail of temperature setting button on kettle bass with digital degree readout."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-09-detail-02.jpg"
+    "alt" "Kettle spout pouring boiling water into coffee grounds in pour-over mug."
+  )
+}}
+
+{{ $features := .Get "features" | default $defaultFeatures }}
+{{ $mainImage := .Get "mainImage" | default $defaultMainImage }}
+{{ $smallImages := .Get "smallImages" | default $defaultSmallImages }}
+
+{{ partial "sections/features/with_tiered_images.html" (dict 
+  "backgroundColor" $backgroundColor
+  "subheading" $subheading
+  "heading" $heading
+  "features" $features
+  "mainImage" $mainImage
+  "smallImages" $smallImages
+  "page" $page
+) }}

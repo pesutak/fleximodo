@@ -1,0 +1,24 @@
+{{/*
+@component: arrow-long-up (outline) Icon
+@params:
+  - class: CSS classes to apply to the SVG element (optional, default: "w-6 h-6 text-gray-500")
+@examples:
+  <!-- Basic usage with default classes -->
+  {{ partial "icons/arrow-long-up" . }}
+
+  <!-- With custom size and color classes -->
+  {{ partial "icons/arrow-long-up" "w-8 h-8 text-blue-600" }}
+
+  <!-- With responsive classes -->
+  {{ partial "icons/arrow-long-up" "w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 text-indigo-500" }}
+*/}}
+
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24" 
+    class="{{ if . }}{{ . }}{{ else }}w-6 h-6 text-gray-500{{ end }}"
+    fill="none"
+>
+<path d="M8.25 6.75L12 3M12 3L15.75 6.75M12 3V21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

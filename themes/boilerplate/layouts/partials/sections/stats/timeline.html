@@ -1,0 +1,111 @@
+{{/*
+@section: Timeline Stats
+@description: A chronological timeline display for showcasing company milestones, product evolution, or historical achievements with dates, titles, and descriptions.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - timelineItems: Array of timeline objects (optional, includes defaults)
+    - date: Display date (e.g., "Aug 2021")
+    - datetime: Machine-readable date format (e.g., "2021-08")
+    - title: Title of the milestone/event
+    - description: Detailed description of the event
+  - dateColor: Color class for dates (optional, default: "text-indigo-600")
+  - titleColor: Color class for title text (optional, default: "text-gray-900")
+  - descriptionColor: Color class for description text (optional, default: "text-gray-600")
+  - lineColor: Color class for the timeline connector line (optional, default: "bg-gray-900/10")
+@example:
+  {{ partial "sections/stats/timeline.html" (dict 
+      "timelineItems" (slice
+          (dict 
+              "date" "Jan 2020" 
+              "datetime" "2020-01"
+              "title" "Company founded"
+              "description" "Our journey began with a small team and a big vision to transform the industry."
+          )
+          (dict 
+              "date" "Mar 2021" 
+              "datetime" "2021-03"
+              "title" "Series A funding"
+              "description" "We secured $12M in funding to accelerate product development and market expansion."
+          )
+          (dict 
+              "date" "Sep 2022" 
+              "datetime" "2022-09"
+              "title" "International expansion"
+              "description" "We expanded operations to Europe and Asia, adding support for 12 new languages."
+          )
+          (dict 
+              "date" "Apr 2023" 
+              "datetime" "2023-04"
+              "title" "1 million users"
+              "description" "We celebrated reaching our first million users milestone, a testament to our growing community."
+          )
+      )
+      "dateColor" "text-blue-600"
+      "lineColor" "bg-blue-200"
+  ) }}
+@note: This component presents a clean, horizontal timeline on desktop and a vertical timeline on mobile, making it responsive across all device sizes. Each milestone is clearly separated with date indicators and connecting lines, creating a visual flow that guides the user through the chronology.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Timeline items */}}
+{{ $timelineItems := .timelineItems | default slice }}
+
+{{/* Default timeline items if none provided */}}
+{{ if eq (len $timelineItems) 0 }}
+  {{ $timelineItems = slice 
+    (dict 
+      "date" "Aug 2021"
+      "datetime" "2021-08"
+      "title" "Founded company"
+      "description" "Nihil aut nam. Dignissimos a pariatur et quos omnis. Aspernatur asperiores et dolorem dolorem optio voluptate repudiandae."
+    )
+    (dict 
+      "date" "Dec 2021"
+      "datetime" "2021-12"
+      "title" "Secured $65m in funding"
+      "description" "Provident quia ut esse. Vero vel eos repudiandae aspernatur. Cumque minima impedit sapiente a architecto nihil."
+    )
+    (dict 
+      "date" "Feb 2022"
+      "datetime" "2022-02"
+      "title" "Released beta"
+      "description" "Sunt perspiciatis incidunt. Non necessitatibus aliquid. Consequatur ut officiis earum eum quia facilis. Hic deleniti dolorem quia et."
+    )
+    (dict 
+      "date" "Dec 2022"
+      "datetime" "2022-12"
+      "title" "Global launch of product"
+      "description" "Ut ipsa sint distinctio quod itaque nam qui. Possimus aut unde id architecto voluptatem hic aut pariatur velit."
+    )
+  }}
+{{ end }}
+
+{{/* Text colors */}}
+{{ $dateColor := .dateColor | default "text-indigo-600" }}
+{{ $titleColor := .titleColor | default "text-gray-900" }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-600" }}
+{{ $lineColor := .lineColor | default "bg-gray-900/10" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4">
+      {{ range $item := $timelineItems }}
+      <div>
+        <time datetime="{{ $item.datetime }}" class="flex items-center text-sm/6 font-semibold {{ $dateColor }}">
+          <svg viewBox="0 0 4 4" class="mr-4 size-1 flex-none" aria-hidden="true">
+            <circle cx="2" cy="2" r="2" fill="currentColor" />
+          </svg>
+          {{ $item.date }}
+          <div class="absolute -ml-2 h-px w-screen -translate-x-full {{ $lineColor }} sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0" aria-hidden="true"></div>
+        </time>
+        <p class="mt-6 text-lg/8 font-semibold tracking-tight {{ $titleColor }}">{{ $item.title }}</p>
+        <p class="mt-1 text-base/7 {{ $descriptionColor }}">{{ $item.description }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

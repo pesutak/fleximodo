@@ -1,0 +1,43 @@
+{{/*
+@component: Lazy Image
+@description: Directs to the appropriate lazy image loading component based on URL type
+@params:
+  - src: Path to the source image (required)
+  - alt: Alternative text for accessibility (required)
+  - class: Additional CSS classes (optional)
+  - id: Image ID (optional)
+  - width: Image width (optional)
+  - height: Image height (optional)
+  - maxWidth: Maximum image width for loading (optional)
+@example:
+  {{ partial "components/media/lazyimg.html" (dict 
+      "src" "/images/example.jpg" 
+      "alt" "Example image" 
+      "class" "rounded-lg shadow-md"
+  ) }}
+*/}}
+
+{{ $src := .src }}
+
+{{ if $src }}
+  {{ if or (hasPrefix $src "https://www.youtube.com/") (hasPrefix $src "https://youtu.be/") }}
+    {{ $videoID := $src }}
+    {{ if hasPrefix $src "https://www.youtube.com/watch?v=" }}
+      {{ $videoID = replaceRE "^https://www.youtube.com/watch\\?v=([a-zA-Z0-9_-]+).*$" "$1" $src }}
+    {{ else if hasPrefix $src "https://youtu.be/" }}
+      {{ $videoID = replaceRE "^https://youtu.be/([a-zA-Z0-9_-]+).*$" "$1" $src }}
+    {{ end }}
+    {{ partial "components/media/youtubevideo.html" (dict 
+        "videoID" $videoID 
+        "title" (.alt | default "YouTube Video")
+        "class" .class
+        "width" .width
+        "height" .height
+        "id" .id
+    ) }}
+  {{ else if or (hasPrefix $src "http://") (hasPrefix $src "https://") }}
+    {{ partial "components/media/lazyimg_external.html" . }}
+  {{ else }}
+    {{ partial "components/media/lazyimg_internal.html" . }}
+  {{ end }}
+{{ end }}

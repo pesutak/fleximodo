@@ -1,0 +1,149 @@
+{{/*
+@component: Flyout Menu - Full Width Two Columns
+@description: Displays a full-width dropdown flyout menu with two columns, featuring engagement links, resource links, and recent blog posts.
+@params:
+  - buttonText: Text displayed on the dropdown button (optional, default: "Solutions")
+  - engagementLinks: Array of engagement link objects, each with:
+    - title: Link text
+    - url: URL for the link
+    - icon: Icon identifier (supported: information-circle, users, newspaper, briefcase, shield-check)
+  - resourceLinks: Array of resource link objects, each with:
+    - title: Link text
+    - url: URL for the link
+    - icon: Icon identifier (supported: user-group, globe-alt, book-open, video-camera)
+  - blogPosts: Array of blog post objects, each with:
+    - title: Blog post title
+    - description: Short description of the blog post
+    - url: URL for the blog post
+    - image: URL to the blog post image
+    - date: Publication date (YYYY-MM-DD format)
+    - category: Blog post category
+    - categoryUrl: URL for the category
+  - buttonTextColor: Text color class for button (optional, default: "text-gray-900")
+  - sectionHeadingColor: Text color for section headings (optional, default: "text-gray-500")
+  - linkTextColor: Text color for links (optional, default: "text-gray-900")
+  - linkIconColor: Icon color for links (optional, default: "text-gray-400")
+  - blogDateColor: Text color for blog dates (optional, default: "text-gray-600")
+  - blogCategoryBgColor: Background color for category badges (optional, default: "bg-gray-50")
+  - blogCategoryTextColor: Text color for category badges (optional, default: "text-gray-600")
+  - blogCategoryHoverColor: Hover color for category badges (optional, default: "hover:bg-gray-100")
+  - blogTitleColor: Text color for blog titles (optional, default: "text-gray-900")
+  - blogDescriptionColor: Text color for blog descriptions (optional, default: "text-gray-600")
+@example:
+  {{ partial "components/menus/flyout_menu_full_width_two_columns.html" (dict 
+      "buttonText" "Solutions"
+      "engagementLinks" (slice 
+        (dict "title" "About" "url" "/about" "icon" "information-circle")
+        (dict "title" "Customers" "url" "/customers" "icon" "users")
+      )
+      "resourceLinks" (slice 
+        (dict "title" "Community" "url" "/community" "icon" "user-group")
+        (dict "title" "Guides" "url" "/guides" "icon" "book-open")
+      )
+  ) }}
+@note: This component provides a complete flyout menu solution with default values for all parameters, making it easy to implement without needing to specify every parameter.
+*/}}
+
+{{- $buttonText := .buttonText | default "Solutions" -}}
+{{- $engagementLinks := .engagementLinks | default slice -}}
+{{- $resourceLinks := .resourceLinks | default slice -}}
+{{- $blogPosts := .blogPosts | default slice -}}
+{{- $buttonTextColor := .buttonTextColor | default "text-gray-900" -}}
+{{- $sectionHeadingColor := .sectionHeadingColor | default "text-gray-500" -}}
+{{- $linkTextColor := .linkTextColor | default "text-gray-900" -}}
+{{- $linkIconColor := .linkIconColor | default "text-gray-400" -}}
+{{- $blogDateColor := .blogDateColor | default "text-gray-600" -}}
+{{- $blogCategoryBgColor := .blogCategoryBgColor | default "bg-gray-50" -}}
+{{- $blogCategoryTextColor := .blogCategoryTextColor | default "text-gray-600" -}}
+{{- $blogCategoryHoverColor := .blogCategoryHoverColor | default "hover:bg-gray-100" -}}
+{{- $blogTitleColor := .blogTitleColor | default "text-gray-900" -}}
+{{- $blogDescriptionColor := .blogDescriptionColor | default "text-gray-600" -}}
+
+<div class="relative isolate z-50 shadow-sm">
+  <div class="bg-white py-5">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <button type="button" class="inline-flex items-center gap-x-1 text-sm/6 font-semibold {{ $buttonTextColor }}" aria-expanded="false">
+        {{ $buttonText }}
+        <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+          <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!--
+    'Product' flyout menu, show/hide based on flyout menu state.
+
+    Entering: "transition ease-out duration-200"
+      From: "opacity-0 -translate-y-1"
+      To: "opacity-100 translate-y-0"
+    Leaving: "transition ease-in duration-150"
+      From: "opacity-100 translate-y-0"
+      To: "opacity-0 -translate-y-1"
+  -->
+  <div class="absolute inset-x-0 top-0 -z-10 bg-white pt-16 ring-1 shadow-lg ring-gray-900/5">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-6 py-10 lg:grid-cols-2 lg:px-8">
+      <div class="grid grid-cols-2 gap-x-6 sm:gap-x-8">
+        <div>
+          <h3 class="text-sm/6 font-medium {{ $sectionHeadingColor }}">Engagement</h3>
+          <div class="mt-6 flow-root">
+            <div class="-my-2">
+              {{ range $engagementLinks }}
+              <a href="{{ .url }}" class="flex gap-x-4 py-2 text-sm/6 font-semibold {{ $linkTextColor }}">
+                {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+                {{ .title }}
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm/6 font-medium {{ $sectionHeadingColor }}">Resources</h3>
+          <div class="mt-6 flow-root">
+            <div class="-my-2">
+              {{ range $resourceLinks }}
+              <a href="{{ .url }}" class="flex gap-x-4 py-2 text-sm/6 font-semibold {{ $linkTextColor }}">
+                {{ if .icon }}
+                {{ partial (printf "icons/%s" .icon) }}
+                {{ end }}
+                {{ .title }}
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-10 sm:gap-8 lg:grid-cols-2">
+        <h3 class="sr-only">Recent blog posts</h3>
+        {{ range $blogPosts }}
+        <article class="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch">
+          <div class="relative flex-none">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" .image 
+              "alt" "" 
+              "class" "aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" 
+              "loading" "lazy" 
+              "decoding" "async"
+              "maxWidth" 400
+            ) }}
+            <div class="absolute inset-0 rounded-lg ring-1 ring-gray-900/10 ring-inset"></div>
+          </div>
+          <div>
+            <div class="flex items-center gap-x-4">
+              <time datetime="{{ .date }}" class="text-sm/6 {{ $blogDateColor }}">{{ dateFormat "Jan 2, 2006" .date }}</time>
+              <a href="{{ .categoryUrl }}" class="relative z-10 rounded-full {{ $blogCategoryBgColor }} px-3 py-1.5 text-xs font-medium {{ $blogCategoryTextColor }} {{ $blogCategoryHoverColor }}">{{ .category }}</a>
+            </div>
+            <h4 class="mt-2 text-sm/6 font-semibold {{ $blogTitleColor }}">
+              <a href="{{ .url }}">
+                <span class="absolute inset-0"></span>
+                {{ .title }}
+              </a>
+            </h4>
+            <p class="mt-2 text-sm/6 {{ $blogDescriptionColor }}">{{ .description }}</p>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+{{/* 
+  Testimonials shortcode with centered layout and logos
+  
+  Usage:
+  {{< testimonials-centered-with-logos 
+      backgroundColor="bg-gray-50"
+      heading="Trusted by businesses worldwide"
+      testimonialText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."
+      testimonialAuthor="Jane Smith"
+      testimonialAuthorTitle="CEO, Acme Inc."
+  >}}
+    {
+      "logos": [
+        {
+          "url": "/images/logos/acme.svg",
+          "alt": "Acme Inc.",
+          "href": "https://example.com/acme"
+        },
+        {
+          "url": "/images/logos/globex.svg",
+          "alt": "Globex Corporation",
+          "href": "https://example.com/globex"
+        },
+        {
+          "url": "/images/logos/initech.svg",
+          "alt": "Initech",
+          "href": "https://example.com/initech"
+        }
+      ]
+    }
+  {{< /testimonials-centered-with-logos >}}
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Section heading text (default: "Trusted by thousands of businesses worldwide")
+  - testimonialText: Testimonial content text
+  - testimonialAuthor: Name of the person giving the testimonial
+  - testimonialAuthorTitle: Role/title of the testimonial author
+  
+  Inner Content (optional JSON object):
+  - logos: Array of logo objects with the following structure:
+    - url: URL to the logo image
+    - alt: Alt text for the logo
+    - href: Link destination for the logo (optional)
+  
+  If inner content is not provided, default values will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Trusted by thousands of businesses worldwide" }}
+{{ $testimonialText := .Get "testimonialText" | default "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent." }}
+{{ $testimonialAuthor := .Get "testimonialAuthor" | default "Judith Black" }}
+{{ $testimonialAuthorTitle := .Get "testimonialAuthorTitle" | default "CEO of Tuple" }}
+
+{{ $defaultLogos := slice 
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/transistor-logo-gray-900.svg"
+    "alt" "Transistor"
+    "href" "#"
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/reform-logo-gray-900.svg"
+    "alt" "Reform"
+    "href" "#"
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/tuple-logo-gray-900.svg"
+    "alt" "Tuple"
+    "href" "#"
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/savvycal-logo-gray-900.svg"
+    "alt" "SavvyCal"
+    "href" "#"
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/statamic-logo-gray-900.svg"
+    "alt" "Statamic"
+    "href" "#"
+  )
+}}
+
+{{ $customData := dict }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $customData = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ $logos := $defaultLogos }}
+{{ if isset $customData "logos" }}
+  {{ $logos = index $customData "logos" }}
+{{ end }}
+
+{{ partial "sections/testimonials/centered_with_logos.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "testimonialText" $testimonialText
+  "testimonialAuthor" $testimonialAuthor
+  "testimonialAuthorTitle" $testimonialAuthorTitle
+  "logos" $logos
+) }}

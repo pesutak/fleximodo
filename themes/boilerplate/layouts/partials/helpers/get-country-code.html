@@ -1,0 +1,95 @@
+{{/*
+@helper: Get Country Code
+@description: Maps language codes to country codes for flag display
+@params:
+  .code (string): The language code to map
+@returns: Country code string for flag URL
+@example:
+  {{ $countryCode := partial "helpers/get-country-code.html" (dict "code" "en") }}
+*/}}
+
+{{ $code := .code }}
+{{ $countryCode := $code }}
+
+{{ if eq $code "en" }}{{ $countryCode = "gb" }}
+{{ else if eq $code "en-us" }}{{ $countryCode = "us" }}
+{{ else if eq $code "de-at" }}{{ $countryCode = "at" }}
+{{ else if eq $code "cy" }}{{ $countryCode = "gb-wls" }}
+{{ else if eq $code "gd" }}{{ $countryCode = "gb-sct" }}
+{{ else if eq $code "by" }}{{ $countryCode = "by" }}
+{{ else if eq $code "cs" }}{{ $countryCode = "cz" }}
+{{ else if eq $code "da" }}{{ $countryCode = "dk" }}
+{{ else if eq $code "en-gb" }}{{ $countryCode = "gb" }}
+{{ else if eq $code "en-ca" }}{{ $countryCode = "ca" }}
+{{ else if eq $code "en-au" }}{{ $countryCode = "au" }}
+{{ else if eq $code "en-nz" }}{{ $countryCode = "nz" }}
+{{ else if eq $code "en-ie" }}{{ $countryCode = "ie" }}
+{{ else if eq $code "en-sg" }}{{ $countryCode = "sg" }}
+{{ else if eq $code "se" }}{{ $countryCode = "se" }}
+{{ else if eq $code "en-za" }}{{ $countryCode = "za" }}
+{{ else if eq $code "es-mx" }}{{ $countryCode = "mx" }}
+{{ else if eq $code "es-es" }}{{ $countryCode = "es" }}
+{{ else if eq $code "fr-ca" }}{{ $countryCode = "ca-fr" }}
+{{ else if eq $code "fr-ch" }}{{ $countryCode = "ch-fr" }}
+{{ else if eq $code "fr-be" }}{{ $countryCode = "be" }}
+{{ else if eq $code "fr-lu" }}{{ $countryCode = "lu" }}
+{{ else if eq $code "fr" }}{{ $countryCode = "fr" }}
+{{ else if eq $code "it-ch" }}{{ $countryCode = "ch-it" }}
+{{ else if eq $code "it" }}{{ $countryCode = "it" }}
+{{ else if eq $code "ja" }}{{ $countryCode = "jp" }}
+{{ else if eq $code "ko" }}{{ $countryCode = "kr" }}
+{{ else if eq $code "pl" }}{{ $countryCode = "pl" }}
+{{ else if eq $code "pt-br" }}{{ $countryCode = "br" }}
+{{ else if eq $code "pt-pt" }}{{ $countryCode = "pt" }}
+{{ else if eq $code "ro" }}{{ $countryCode = "ro" }}
+{{ else if eq $code "ru" }}{{ $countryCode = "ru" }}
+{{ else if eq $code "tr" }}{{ $countryCode = "tr" }}
+{{ else if eq $code "uk" }}{{ $countryCode = "ua" }}
+{{ else if eq $code "zh" }}{{ $countryCode = "cn" }}
+{{ else if eq $code "zh-hans" }}{{ $countryCode = "cn" }}
+{{ else if eq $code "zh-hant" }}{{ $countryCode = "tw" }}
+{{ else if eq $code "ar" }}{{ $countryCode = "ae" }}
+{{ else if eq $code "el" }}{{ $countryCode = "gr" }}
+{{ else if eq $code "hi" }}{{ $countryCode = "in" }}
+{{ else if eq $code "th" }}{{ $countryCode = "th" }}
+{{ else if eq $code "vi" }}{{ $countryCode = "vn" }}
+{{ else if eq $code "id" }}{{ $countryCode = "id" }}
+{{ else if eq $code "ms" }}{{ $countryCode = "my" }}
+{{ else if eq $code "bn" }}{{ $countryCode = "bd" }}
+{{ else if eq $code "fa" }}{{ $countryCode = "ir" }}
+{{ else if eq $code "sw" }}{{ $countryCode = "ke" }}
+{{ else if eq $code "tl" }}{{ $countryCode = "ph" }}
+{{ else if eq $code "zu" }}{{ $countryCode = "za" }}
+{{ else if eq $code "sq" }}{{ $countryCode = "al" }}
+{{ else if eq $code "hr" }}{{ $countryCode = "hr" }}
+{{ else if eq $code "sk" }}{{ $countryCode = "sk" }}
+{{ else if eq $code "sl" }}{{ $countryCode = "si" }}
+{{ else if eq $code "lv" }}{{ $countryCode = "lv" }}
+{{ else if eq $code "lt" }}{{ $countryCode = "lt" }}
+{{ else if eq $code "et" }}{{ $countryCode = "ee" }}
+{{ else if eq $code "is" }}{{ $countryCode = "is" }}
+{{ else if eq $code "mt" }}{{ $countryCode = "mt" }}
+{{ else if eq $code "no" }}{{ $countryCode = "no" }}
+{{ else if eq $code "fi" }}{{ $countryCode = "fi" }}
+{{ else if eq $code "hu" }}{{ $countryCode = "hu" }}
+{{ else if eq $code "bg" }}{{ $countryCode = "bg" }}
+{{ else if eq $code "sr" }}{{ $countryCode = "rs" }}
+{{ else if eq $code "mk" }}{{ $countryCode = "mk" }}
+{{ else if eq $code "bs" }}{{ $countryCode = "ba" }}
+{{ else if eq $code "tlh" }}{{ $countryCode = "tlh" }}
+{{ else if eq $code "ga" }}{{ $countryCode = "ie" }}
+{{ else if eq $code "eu" }}{{ $countryCode = "es" }}
+{{ else if eq $code "ca" }}{{ $countryCode = "es" }}
+{{ else if eq $code "gl" }}{{ $countryCode = "es" }}
+{{ else if eq $code "la" }}{{ $countryCode = "va" }}
+{{ else if eq $code "xh" }}{{ $countryCode = "za" }}
+{{ else if eq $code "st" }}{{ $countryCode = "za" }}
+{{ else if eq $code "tn" }}{{ $countryCode = "za" }}
+{{ else if eq $code "ts" }}{{ $countryCode = "za" }}
+{{ else if eq $code "nr" }}{{ $countryCode = "za" }}
+{{ else if eq $code "ss" }}{{ $countryCode = "za" }}
+{{ else if eq $code "ve" }}{{ $countryCode = "za" }}
+{{ else if eq $code "nl" }}{{ $countryCode = "nl" }}
+{{ end }}
+
+{{ return $countryCode }}

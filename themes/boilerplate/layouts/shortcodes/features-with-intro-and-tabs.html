@@ -1,0 +1,75 @@
+{{- /*
+  Usage in markdown:
+  {{< features-with-intro-and-tabs 
+    backgroundColor="bg-white"
+    heading="Technical Specifications" 
+    description="The Organize modular system offers endless options for arranging your favorite and most used items."
+    activeTab="design"
+    verticalAlign="center"
+  >}}
+    [
+      {
+        "id": "design",
+        "title": "Design",
+        "content": {
+          "title": "Adaptive and modular",
+          "description": "The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup.",
+          "imageUrl": "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-01.jpg",
+          "imageAlt": "Maple organizer base with slots, supporting white polycarbonate trays of various sizes."
+        }
+      },
+      {
+        "id": "material",
+        "title": "Material",
+        "content": {
+          "title": "Natural wood options",
+          "description": "Organize has options for rich walnut and bright maple base materials. Accent your desk with a contrasting material, or match similar woods for a calm and cohesive look. Every base is hand sanded and finished.",
+          "imageUrl": "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-02.jpg",
+          "imageAlt": "Walnut organizer base with pen, sticky note, phone, and bin trays, next to modular drink coaster attachment."
+        }
+      }
+    ]
+  {{< /features-with-intro-and-tabs >}}
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Technical Specifications")
+  - description: Description text below the main heading
+  - activeTab: ID of the tab that should be active by default (default: first tab)
+  - verticalAlign: Controls the vertical alignment of content and image ("center" or "top", default: "top")
+  
+  Inner Content:
+  JSON array of tab objects with the following structure:
+  - id: Unique ID for the tab
+  - title: Tab title display text
+  - content: Object containing tab content with:
+    - title: Content section title
+    - description: Content section description
+    - imageUrl: URL for the tab's image
+    - imageAlt: Alt text for the image
+*/ -}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
+{{ $activeTab := .Get "activeTab" | default "" }}
+{{ $verticalAlign := .Get "verticalAlign" | default "top" }}
+
+{{ $defaultTabs := slice }}
+
+{{ $tabs := $defaultTabs }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $tabs = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "sections/features/with_intro_and_tabs.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "activeTab" $activeTab
+  "verticalAlign" $verticalAlign
+  "tabs" $tabs
+  "page" $.Page
+) }}

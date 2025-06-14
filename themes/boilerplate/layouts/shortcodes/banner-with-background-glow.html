@@ -1,0 +1,36 @@
+{{- /*
+  Usage in markdown:
+  {{< banner-with-background-glow 
+    title="GeneriCon 2023"
+    message="Join us in Denver from June 7 – 9 to see what's coming next"
+    url="#"
+    isDismissable=true
+    backgroundColor="bg-gray-50"
+    textColor="text-gray-900"
+    dismissButtonColor="text-gray-900"
+    gradientFromColor="from-[#ff80b5]"
+    gradientToColor="to-[#9089fc]"
+  >}}
+*/ -}}
+
+{{- $title := .Get "title" | default "GeneriCon 2023" -}}
+{{- $message := .Get "message" | default "Join us in Denver from June 7 – 9 to see what's coming next" -}}
+{{- $url := .Get "url" | default "#" -}}
+{{- $isDismissable := .Get "isDismissable" | default true -}}
+{{- $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" -}}
+{{- $textColor := .Get "textColor" | default "text-gray-900" -}}
+{{- $dismissButtonColor := .Get "dismissButtonColor" | default "text-gray-900" -}}
+{{- $gradientFromColor := .Get "gradientFromColor" | default "from-[#ff80b5]" -}}
+{{- $gradientToColor := .Get "gradientToColor" | default "to-[#9089fc]" -}}
+
+{{ partial "sections/banners/with_background_glow" (dict 
+  "title" $title
+  "message" $message
+  "url" $url
+  "isDismissable" $isDismissable
+  "backgroundColor" $backgroundColor
+  "textColor" $textColor
+  "dismissButtonColor" $dismissButtonColor
+  "gradientFromColor" $gradientFromColor
+  "gradientToColor" $gradientToColor
+) }}

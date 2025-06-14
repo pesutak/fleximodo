@@ -1,0 +1,89 @@
+{{/*
+  # Contact Offices Shortcode
+
+  Displays a list of office locations with addresses in a responsive grid layout.
+
+  ## Usage Examples
+
+  ### Basic usage (using page front matter):
+  ```md
+  ---
+  title: Contact Us
+  officesTitle: Our Global Offices
+  officesDescription: Find us at one of our many locations around the world.
+  officesBorderColor: blue
+  offices:
+    - city: Berlin
+      company: German Headquarters
+      address:
+        - 123 Berlin Street
+        - Berlin, 10115
+    - city: Paris
+      company: French Division
+      address:
+        - 456 Avenue de Paris
+        - Paris, 75001
+  ---
+
+  {{< contact-offices >}}
+  ```
+
+  ### Using shortcode parameters:
+  ```md
+  {{< contact-offices
+    title="Visit Our Offices"
+    description="Get in touch with our team around the world"
+    borderColor="green"
+  >}}
+  ```
+
+  ### Providing office data directly within the shortcode:
+  ```md
+  {{< contact-offices title="Our Locations" >}}
+  [
+    {
+      "city": "Singapore",
+      "company": "Asia Pacific HQ",
+      "address": ["100 Singapore Drive", "Singapore, 123456"]
+    },
+    {
+      "city": "Sydney",
+      "company": "Australia Office",
+      "address": ["42 Sydney Street", "Sydney, NSW 2000"]
+    }
+  ]
+  {{< /contact-offices >}}
+  ```
+
+  ## Parameters
+  - title: Section heading (defaults to "Our offices" if not set)
+  - description: Text description below the heading
+  - borderColor: Color for the left border accent (default: "indigo")
+  - offices: Can be defined in frontmatter or as JSON inside the shortcode
+    Each office should include:
+    - city: Name of the city
+    - company: (Optional) Company name or office type
+    - address: Array of address lines
+*/}}
+
+{{- $title := .Get "title" | default (.Page.Params.officesTitle) | default "" -}}
+{{- $description := .Get "description" | default (.Page.Params.officesDescription) | default "" -}}
+{{- $borderColor := .Get "borderColor" | default (.Page.Params.officesBorderColor) | default "indigo" -}}
+
+{{- $offices := slice -}}
+{{- if .Inner -}}
+  {{- $rawOffices := transform.Unmarshal .Inner -}}
+  {{- if reflect.IsSlice $rawOffices -}}
+    {{- $offices = $rawOffices -}}
+  {{- end -}}
+{{- else -}}
+  {{- $offices = .Page.Params.offices | default slice -}}
+{{- end -}}
+
+{{ partial "sections/contact/offices.html" (dict
+  "title" $title
+  "description" $description
+  "borderColor" $borderColor
+  "offices" $offices
+) }}
+

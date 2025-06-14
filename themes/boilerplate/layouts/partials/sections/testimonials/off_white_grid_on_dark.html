@@ -1,0 +1,145 @@
+{{/*
+@section: Off-White Testimonials Grid on Dark Background
+@description: A testimonial grid layout with dark card backgrounds displayed on a dark section background, creating an elegant and premium appearance for showcasing customer testimonials.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the section (optional, default: "py-24 sm:py-32")
+  - cardBgColor: Background color class for testimonial cards (optional, default: "bg-gray-800")
+  - cardPadding: Padding classes for the testimonial cards (optional, default: "p-8")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - headingTag: Small heading text above the main heading (optional, default: "Testimonials")
+  - headingTagColor: Color class for the heading tag (optional, default: "text-indigo-400")
+  - heading: Main heading text (optional, default: "We have worked with thousands of amazing people")
+  - headingColor: Color class for the main heading (optional, default: "text-white")
+  - testimonials: Array of testimonial objects (optional, includes defaults)
+    - quote: The testimonial text
+    - personImage: URL for the person's avatar image
+    - personName: Name of the person
+    - personHandle: Social media handle or position of the person
+@example:
+  {{ partial "sections/testimonials/off_white_grid_on_dark.html" (dict 
+      "heading" "What our clients have to say"
+      "headingTag" "Client Testimonials"
+      "cardBgColor" "bg-gray-800"
+      "testimonials" (slice
+          (dict
+              "quote" "The platform's analytics capabilities have given us insights we never had before. Our decision-making process is now backed by solid data."
+              "personImage" "/images/testimonials/alex-johnson.jpg"
+              "personName" "Alex Johnson"
+              "personHandle" "Data Scientist, AnalyticsPro"
+          )
+          (dict
+              "quote" "Integration with our existing systems was seamless. The support team was always available to answer questions and provide guidance."
+              "personImage" "/images/testimonials/sophia-rodriguez.jpg"
+              "personName" "Sophia Rodriguez"
+              "personHandle" "CTO, TechWave Solutions"
+          )
+          (dict
+              "quote" "The automation features have allowed us to focus on strategy rather than repetitive tasks. We've saved countless hours every week."
+              "personImage" "/images/testimonials/michael-smith.jpg"
+              "personName" "Michael Smith"
+              "personHandle" "Operations Manager, Streamline Inc."
+          )
+      )
+  ) }}
+@note: This component is the dark-themed counterpart to the standard off-white grid, featuring the same responsive multi-column layout but with a dark color scheme. It includes subtle background patterns and a gradient effect for added visual interest.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+{{ $cardBgColor := .cardBgColor | default "bg-gray-800" }}
+{{ $cardPadding := .cardPadding | default "p-8" }}
+
+{{/* Heading */}}
+{{ $showHeading := .showHeading | default true }}
+{{ $headingTag := .headingTag | default "Testimonials" }}
+{{ $headingTagColor := .headingTagColor | default "text-indigo-400" }}
+{{ $heading := .heading | default "We have worked with thousands of amazing people" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+
+{{/* Testimonials */}}
+{{ $testimonials := .testimonials | default slice }}
+
+{{/* Default testimonials if none provided */}}
+{{ if eq (len $testimonials) 0 }}
+  {{ $testimonials = slice 
+    (dict 
+      "quote" "Laborum quis quam. Dolorum et ut quod quia. Voluptas numquam delectus nihil. Aut enim doloremque et ipsam."
+      "personImage" "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Leslie Alexander"
+      "personHandle" "@lesliealexander"
+    )
+    (dict 
+      "quote" "Integer id nunc sit semper purus. Bibendum at lacus ut arcu blandit montes vitae auctor libero. Hac condimentum dignissim nibh vulputate ut nunc. Amet nibh orci mi venenatis blandit vel et proin. Non hendrerit in vel ac diam."
+      "personImage" "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Lindsay Walton"
+      "personHandle" "@lindsaywalton"
+    )
+    (dict 
+      "quote" "Aut reprehenderit voluptatem eum asperiores beatae id. Iure molestiae ipsam ut officia rem nulla blanditiis."
+      "personImage" "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Tom Cook"
+      "personHandle" "@tomcook"
+    )
+    (dict 
+      "quote" "Voluptas quos itaque ipsam in voluptatem est. Iste eos blanditiis repudiandae. Earum deserunt enim molestiae ipsum perferendis recusandae saepe corrupti."
+      "personImage" "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=1024&h=1024&q=80"
+      "personName" "Brenna Goyette"
+      "personHandle" "@brennagoyette"
+    )
+    (dict 
+      "quote" "Molestias ea earum quos nostrum doloremque sed. Quaerat quasi aut velit incidunt excepturi rerum voluptatem minus harum."
+      "personImage" "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Leonard Krasner"
+      "personHandle" "@leonardkrasner"
+    )
+    (dict 
+      "quote" "Fugiat enim voluptatem reprehenderit fugit harum tenetur. Et rerum nesciunt facere eos aut suscipit delectus. Vel sed laudantium ut totam."
+      "personImage" "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+      "personName" "Dries Vincent"
+      "personHandle" "@driesvincent"
+    )
+  }}
+{{ end }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[60%] w-[90%] rounded-full bg-indigo-500 opacity-10 blur-[100px]"></div>
+  
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    {{ if $showHeading }}
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-base/7 font-semibold {{ $headingTagColor }}">{{ $headingTag }}</h2>
+      <p class="mt-2 text-4xl font-semibold tracking-tight text-balance {{ $headingColor }} sm:text-5xl">{{ $heading }}</p>
+    </div>
+    {{ end }}
+    <div class="mx-auto mt-16 flow-root max-w-2xl sm:mt-20 lg:mx-0 lg:max-w-none">
+      <div class="-mt-8 sm:-mx-4 sm:columns-2 sm:text-[0] lg:columns-3">
+        {{ range $testimonial := $testimonials }}
+        <div class="pt-8 sm:inline-block sm:w-full sm:px-4">
+          <figure class="rounded-2xl {{ $cardBgColor }} {{ $cardPadding }} text-sm/6">
+            <blockquote class="text-white">
+              <p>"{{ $testimonial.quote }}"</p>
+            </blockquote>
+            <figcaption class="mt-6 flex items-center gap-x-4">
+              {{ if $testimonial.personImage }}
+                {{ partial "components/media/lazyimg.html" (dict 
+                  "src" $testimonial.personImage 
+                  "alt" $testimonial.personName
+                  "class" "size-10 rounded-full bg-gray-700"
+                ) }}
+              {{ end }}
+              <div>
+                <div class="font-semibold text-white">{{ $testimonial.personName }}</div>
+                <div class="text-gray-400">{{ $testimonial.personHandle }}</div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

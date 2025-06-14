@@ -1,0 +1,6 @@
+{{ if .icon }}
+{{ $iconPath := printf "icons/%s.html" .icon }}
+{{ if templates.Exists (printf "partials/%s" $iconPath) }}
+  {{ partial $iconPath . }}
+{{ end }}
+{{ end }}

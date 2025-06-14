@@ -1,0 +1,13 @@
+accelerate
+transformers
+sentence-transformers
+faiss-cpu
+pyyaml>=5.3
+python-frontmatter
+markdown
+beautifulsoup4
+tqdm
+python-dotenv
+requests
+toml
+git+https://github.com/qualityunit/flowhunt-python-sdk.git

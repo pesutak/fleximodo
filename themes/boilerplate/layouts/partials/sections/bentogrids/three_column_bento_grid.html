@@ -1,0 +1,123 @@
+{{/*
+@section: Three Column Bento Grid
+@description: A visually appealing layout featuring multiple content cards of varying sizes arranged in a three-column grid pattern, ideal for showcasing features or product highlights.
+@params:
+  - tagline: Short text displayed above the main heading (optional, default: empty)
+  - heading: Main section heading (optional, default: empty)
+  - taglineColor: Color class for the tagline (optional, default: "primary")
+  - backgroundColor: Background color class for the section (optional, default: "gray-50")
+  - cards: Array of card objects with content (supports unlimited cards)
+    - title: Card title text (optional)
+    - description: Card description text (optional)
+    - image: URL to image (required)
+    - imageAlt: Alt text for the image (optional)
+    - imagePosition: Position of the image in the card, "top" or "bottom" (optional, default: "top")
+    - url: URL to link the card to, making the entire card clickable (optional)
+    - linkText: Text to display as a link at the bottom of the card (optional)
+@example:
+  {{ partial "sections/bentogrids/three_column_bento_grid.html" (dict 
+      "tagline" "Features" 
+      "heading" "Everything you need to build your application"
+      "backgroundColor" "white"
+      "cards" (slice
+          (dict
+              "title" "Responsive Design" 
+              "description" "Our platform automatically adapts to any device or screen size."
+              "image" "/images/features/responsive.png"
+              "imageAlt" "Responsive design illustration"
+          )
+          (dict
+              "title" "Analytics" 
+              "description" "Detailed insights into your user behavior and application performance."
+              "image" "/images/features/analytics.png"
+              "imageAlt" "Analytics dashboard"
+          )
+          (dict
+              "title" "Security" 
+              "description" "Enterprise-grade security with end-to-end encryption."
+              "image" "/images/features/security.png"
+              "imageAlt" "Security shield"
+          )
+          (dict
+              "image" "/images/features/more-features.png"
+              "imageAlt" "Additional feature"
+          )
+      )
+  ) }}
+@note: This section uses a dynamic bento grid layout with cards of varying sizes to create visual interest. The layout automatically adapts to any number of cards provided. Every third card (0, 3, 6...) will span 2 rows to create visual interest. Card heights are dynamically calculated based on their content.
+*/}}
+
+{{/* Three Column Bento Grid Section */}}
+{{ $tagline := .tagline | default "" }}
+{{ $heading := .heading | default "" }}
+{{ $taglineColor := .taglineColor | default "primary" }}
+{{ $backgroundColor := .backgroundColor | default "gray-50" }}
+
+{{ $cards := .cards | default (slice) }}
+
+<div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
+  <div class="wrapper">
+    {{ if $tagline }}
+    <h2 class="text-center text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+    {{ end }}
+    {{ if $heading }}
+    <p class="mt-2 text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">{{ $heading }}</p>
+    {{ end }}
+    <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3">
+      {{ range $index, $card := $cards }}
+        {{ $imagePosition := $card.imagePosition | default "top" }}
+        <div class="relative group transition-transform duration-300 ease-in-out hover:transform hover:-translate-y-1 hover:shadow-lg">
+          <div class="absolute inset-px rounded-lg bg-white"></div>
+          {{ if $card.url }}
+          <a href="{{ $card.url }}" class="relative flex flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] h-full group">
+          {{ else }}
+          <div class="relative flex flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
+          {{ end }}
+            {{ if and $card.image (eq $imagePosition "top") }}
+            <div class="@container flex items-center justify-center px-8 pt-8 sm:px-10 sm:pt-10">
+              {{ partial "components/media/lazyimg.html" (dict "src" $card.image "alt" ($card.imageAlt | default "") ) }}
+            </div>
+            {{ end }}
+            
+            {{ if or $card.title $card.description }}
+            <div class="px-8 pt-8 pb-6 sm:px-10 sm:pt-10 sm:pb-6">
+              {{ if $card.title }}
+              <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center {{ if $card.url }}group-hover:text-{{ $taglineColor }}{{ end }}">{{ $card.title }}</p>
+              {{ end }}
+              {{ if $card.description }}
+              <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">{{ $card.description }}</p>
+              {{ end }}
+            </div>
+            {{ end }}
+
+            {{ if and $card.image (eq $imagePosition "bottom") }}
+            <div class="@container flex items-center justify-center px-8 sm:px-10 pb-8 pt-2">
+              {{ partial "components/media/lazyimg.html" (dict "src" $card.image "alt" ($card.imageAlt | default "") ) }}
+            </div>
+            {{ end }}
+            
+            {{ if $card.linkText }}
+            <div class="px-8 pb-8 pt-4 sm:px-10 sm:pb-8 mt-auto">
+              <div class="flex items-center justify-start">
+                <span class="text-{{ $taglineColor }} font-medium text-sm flex items-center group-hover:underline">
+                  {{ $card.linkText }}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            {{ else if not $card.image }}
+            <div class="pb-6"></div> <!-- Empty space at bottom if no link and no image -->
+            {{ end }}
+          {{ if $card.url }}
+          </a>
+          {{ else }}
+          </div>
+          {{ end }}
+          <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 {{ if $card.url }}group-hover:ring-{{ $taglineColor }}/50{{ end }} transition-all"></div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+mainSections = ["post"]
+featuredImageField = "image"
+rssFullContent = true
+favicon = "favicon.ico"
+disableImageProcessing = true
+ignoreLogs = ['warning-goldmark-raw-html']

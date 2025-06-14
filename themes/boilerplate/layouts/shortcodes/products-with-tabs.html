@@ -1,0 +1,180 @@
+{{/* 
+  Products shortcode with tabs
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - title: Product title (default: "Application UI Icon Pack")
+  - price: Product price (default: "$220")
+  - rating: Product rating out of 5 (default: 4)
+  - version: Product version (default: "Version 1.0 (Updated June 5, 2021)")
+  - description: Product description text
+  - imageUrl: URL of the product image
+  - imageAlt: Alt text for the product image
+  - highlights: Comma-separated list of product highlights
+  - license: Product license text
+  - socialLinks: Comma-separated list of social links in "name,href" format
+  - reviewAuthors: Comma-separated list of review authors
+  - reviewDates: Comma-separated list of review dates
+  - reviewDateTimes: Comma-separated list of review date times in ISO format
+  - reviewRatings: Comma-separated list of review ratings
+  - reviewContents: Comma-separated list of review contents
+  - reviewAvatars: Comma-separated list of review avatar URLs
+  - faqQuestions: Comma-separated list of FAQ questions
+  - faqAnswers: Comma-separated list of FAQ answers
+  - licenseOverview: License overview text
+  - licenseOverviewItems: Comma-separated list of license overview items
+  - licenseCanTitle: Title for what you can do section
+  - licenseCanItems: Comma-separated list of what you can do items
+  - licenseCannotTitle: Title for what you cannot do section
+  - licenseCannotItems: Comma-separated list of what you cannot do items
+  
+  Example usage:
+  {{< products-with-tabs 
+      backgroundColor="bg-gray-50"
+      title="Premium Icon Pack"
+      price="$149"
+      rating="5"
+      version="Version 2.1 (Updated April 12, 2025)"
+      description="Our premium icon pack includes 500+ high-quality SVG icons perfect for your next project."
+      imageUrl="/images/product-icons.jpg"
+      imageAlt="Collection of beautiful icons in various styles and colors"
+      highlights="500+ premium icons,Compatible with all design software,Regular updates,24/7 support"
+      license="Licensed for use in unlimited commercial projects. Redistribution prohibited."
+      faqQuestions="How do I download the icons?,Can I modify the icons?,Do you offer refunds?"
+      faqAnswers="You can download the icons from your account dashboard.,Yes, you can modify colors and sizes as needed.,We offer a 30-day money-back guarantee."
+  >}}
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $title := .Get "title" | default "Application UI Icon Pack" }}
+{{ $price := .Get "price" | default "$220" }}
+{{ $rating := .Get "rating" | default 4 }}
+{{ $version := .Get "version" | default "Version 1.0 (Updated June 5, 2021)" }}
+{{ $description := .Get "description" | default "The Application UI Icon Pack comes with over 200 icons in 3 styles: outline, filled, and branded. This playful icon pack is tailored for complex application user interfaces with a friendly and legible look." }}
+
+<!-- Process image parameters -->
+{{ $imageUrl := .Get "imageUrl" | default "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-product-01.jpg" }}
+{{ $imageAlt := .Get "imageAlt" | default "Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles." }}
+
+<!-- Process highlights -->
+{{ $highlightsString := .Get "highlights" | default "200+ SVG icons in 3 unique styles,Compatible with Figma, Sketch, and Adobe XD,Drawn on 24 x 24 pixel grid" }}
+{{ $highlightsArray := split $highlightsString "," }}
+
+<!-- Process license -->
+{{ $licenseText := .Get "license" | default "For personal and professional use. You cannot resell or redistribute these icons in their original or modified state." }}
+
+<!-- Process social links -->
+{{ $socialLinksString := .Get "socialLinks" | default "" }}
+{{ $socialLinks := slice 
+  (dict 
+    "name" "Facebook"
+    "href" "#"
+    "icon" "<svg class=\"size-5\" fill=\"currentColor\" viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" d=\"M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z\" clip-rule=\"evenodd\" /></svg>"
+  )
+  (dict 
+    "name" "Instagram"
+    "href" "#"
+    "icon" "<svg class=\"size-6\" fill=\"currentColor\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" d=\"M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z\" clip-rule=\"evenodd\" /></svg>"
+  )
+  (dict 
+    "name" "X"
+    "href" "#"
+    "icon" "<svg class=\"size-5\" fill=\"currentColor\" viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M11.4678 8.77491L17.2961 2H15.915L10.8543 7.88256L6.81232 2H2.15039L8.26263 10.8955L2.15039 18H3.53159L8.87581 11.7878L13.1444 18H17.8063L11.4675 8.77491H11.4678ZM9.57608 10.9738L8.95678 10.0881L4.02925 3.03974H6.15068L10.1273 8.72795L10.7466 9.61374L15.9156 17.0075H13.7942L9.57608 10.9742V10.9738Z\" /></svg>"
+  )
+}}
+
+<!-- Process review parameters -->
+{{ $reviewAuthors := split (.Get "reviewAuthors" | default "Emily Selman,Hector Gibbons") "," }}
+{{ $reviewDates := split (.Get "reviewDates" | default "July 16, 2021,July 12, 2021") "," }}
+{{ $reviewDateTimes := split (.Get "reviewDateTimes" | default "2021-07-16,2021-07-12") "," }}
+{{ $reviewRatings := split (.Get "reviewRatings" | default "5,5") "," }}
+{{ $reviewContents := split (.Get "reviewContents" | default "This icon pack is just what I need for my latest project. There's an icon for just about anything I could ever need. Love the playful look!,Blown away by how polished this icon pack is. Everything looks so consistent and each SVG is optimized out of the box so I can use it directly with confidence. It would take me several hours to create a single icon this good, so it's a steal at this price.") "," }}
+{{ $reviewAvatars := split (.Get "reviewAvatars" | default "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80,https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80") "," }}
+
+<!-- Process FAQ parameters -->
+{{ $faqQuestions := split (.Get "faqQuestions" | default "What format are these icons?,Can I use the icons at different sizes?") "," }}
+{{ $faqAnswers := split (.Get "faqAnswers" | default "The icons are in SVG (Scalable Vector Graphic) format. They can be imported into your design tool of choice and used directly in code.,Yes. The icons are drawn on a 24 x 24 pixel grid, but the icons can be scaled to different sizes as needed. We don't recommend going smaller than 20 x 20 or larger than 64 x 64 to retain legibility and visual balance.") "," }}
+
+<!-- Process license tab parameters -->
+{{ $licenseOverview := .Get "licenseOverview" | default "For personal and professional use. You cannot resell or redistribute these icons in their original or modified state." }}
+{{ $licenseOverviewItems := split (.Get "licenseOverviewItems" | default "You're allowed to use the icons in unlimited projects.,Attribution is not required to use the icons.") "," }}
+{{ $licenseCanTitle := .Get "licenseCanTitle" | default "What you can do with it" }}
+{{ $licenseCanItems := split (.Get "licenseCanItems" | default "Use them freely in your personal and professional work.,Make them your own. Change the colors to suit your project or brand.") "," }}
+{{ $licenseCannotTitle := .Get "licenseCannotTitle" | default "What you can't do with it" }}
+{{ $licenseCannotItems := split (.Get "licenseCannotItems" | default "Don't be greedy. Selling or distributing these icons in their original or modified state is prohibited.,Don't be evil. These icons cannot be used on websites or applications that promote illegal or immoral beliefs or activities.") "," }}
+
+<!-- Create reviews array -->
+{{ $reviews := slice }}
+{{ range $index, $author := $reviewAuthors }}
+  {{ $review := dict 
+    "author" (index $reviewAuthors $index)
+    "date" (index $reviewDates $index)
+    "dateTime" (index $reviewDateTimes $index)
+    "rating" (index $reviewRatings $index | int)
+    "content" (index $reviewContents $index)
+    "avatar" (index $reviewAvatars $index)
+  }}
+  {{ $reviews = $reviews | append $review }}
+{{ end }}
+
+<!-- Create FAQ array -->
+{{ $faqs := slice }}
+{{ range $index, $question := $faqQuestions }}
+  {{ $faq := dict 
+    "question" (index $faqQuestions $index)
+    "answer" (index $faqAnswers $index)
+  }}
+  {{ $faqs = $faqs | append $faq }}
+{{ end }}
+
+<!-- Create full product object -->
+{{ $product := dict 
+  "title" $title
+  "version" $version
+  "price" $price
+  "rating" (int $rating)
+  "description" $description
+  "image" (dict 
+    "url" $imageUrl
+    "alt" $imageAlt
+  )
+  "highlights" $highlightsArray
+  "license" $licenseText
+  "tabs" (slice 
+    (dict 
+      "id" "reviews"
+      "title" "Customer Reviews"
+      "content" $reviews
+    )
+    (dict 
+      "id" "faq"
+      "title" "FAQ"
+      "content" $faqs
+    )
+    (dict 
+      "id" "license"
+      "title" "License"
+      "content" (dict 
+        "overview" (dict 
+          "title" "Overview"
+          "description" $licenseOverview
+          "items" $licenseOverviewItems
+        )
+        "can" (dict 
+          "title" $licenseCanTitle
+          "items" $licenseCanItems
+        )
+        "cannot" (dict 
+          "title" $licenseCannotTitle
+          "items" $licenseCannotItems
+        )
+      )
+    )
+  )
+  "socialLinks" $socialLinks
+}}
+
+{{ partial "sections/products/with_tabs.html" (dict 
+  "backgroundColor" $backgroundColor
+  "product" $product
+) }}

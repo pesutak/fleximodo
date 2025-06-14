@@ -1,0 +1,86 @@
+# ترجمه‌های فارسی
+frequently_asked_questions: "سوالات متداول"
+language_selector_title: "زبان‌های موجود"
+glossary_subtitle: "فهرستی جامع از اصطلاحات و تعاریف"
+glossary_title: "فرهنگ لغات"
+home_title: "خانه"
+
+# Glossary translations
+glossary_eyebrow: "فرهنگ لغات"
+
+# Category page translations
+categories_title: "دسته‌بندی‌ها"
+categories_browse_all: "مرور تمام محتوا براساس دسته‌بندی"
+category_eyebrow: "دسته‌بندی"
+category_browse_content: "مرور تمام محتوا در دسته‌بندی %s"
+category_no_content_found: "هیچ محتوایی در این دسته‌بندی یافت نشد"
+category_try_browsing: "سعی کنید دسته‌بندی‌های دیگر را مرور کنید یا به دنبال محتوا بگردید"
+category_other_categories: "دسته‌بندی‌های دیگر"
+
+# CTA translations
+cta_default_heading: "دانش خود را با منابع ما گسترش دهید"
+cta_default_description: "کتابخانه جامع مقالات، راهنماها و آموزش‌های ما را برای عمیق‌تر کردن درک خود از مفاهیم کلیدی و اطلاع از آخرین تحولات کاوش کنید."
+cta_default_primary_text: "مرور منابع"
+cta_default_secondary_text: "تماس با متخصصان ما"
+
+# Content type translations
+content_article_singular: "مقاله"
+content_article_plural: "مقالات"
+
+# ترجمه‌های صفحه برچسب‌ها
+tags_title: "برچسب‌ها"
+tags_browse_all: "مرور تمام محتوا براساس موضوع"
+tag_eyebrow: "برچسب"
+tag_browse_content: "مرور تمام محتوای دارای برچسب %s"
+tag_no_content_found: "هیچ محتوایی با این برچسب یافت نشد"
+tag_try_browsing: "سعی کنید برچسب‌های دیگر را مرور کنید یا به دنبال محتوا بگردید"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "قبلی"
+tag_pagination_next: "بعدی"
+tag_other_tags: "برچسب‌های دیگر"
+
+# ترجمه‌های رضایت‌نامه کوکی
+cookie_consent_title: "رضایت‌نامه کوکی"
+cookie_consent_message: "ما از کوکی‌ها برای بهبود تجربه مرور شما و تحلیل ترافیک خود استفاده می‌کنیم."
+cookie_consent_accept_all: "همه را بپذیرید"
+cookie_consent_accept_necessary: "تنها الزامی‌ها را بپذیرید"
+cookie_consent_settings: "تنظیمات کوکی"
+cookie_settings_title: "تنظیمات کوکی"
+cookie_settings_close: "بستن"
+cookie_settings_necessary_title: "کوکی‌های ضروری"
+cookie_settings_necessary_description: "این کوکی‌ها برای عملکرد سایت ضروری هستند و نمی‌توان آنها را غیرفعال کرد."
+cookie_settings_analytics_title: "کوکی‌های تحلیلی"
+cookie_settings_analytics_description: "این کوکی‌ها به ما کمک می‌کنند بفهمیم بازدیدکنندگان چگونه با وب‌سایت ما تعامل دارند."
+cookie_settings_cancel: "لغو"
+cookie_settings_save: "ذخیره ترجیحات"
+
+# Pagination translations
+pagination_previous: "قبلی"
+pagination_next: "بعدی"
+pagination_showing: "نمایش"
+pagination_to: "تا"
+pagination_of: "از"
+pagination_results: "نتایج"
+pagination_browse_all: "مرور تمام محتوا در"
+
+# FAQ translations
+faq_heading: "سوالات متداول"
+faq_description: "پاسخ‌هایی برای سوالات رایج در مورد این موضوع پیدا کنید."
+
+no_terms_available: "هیچ اصطلاحی موجود نیست"
+pricing_monthly_label: "ماهانه"
+pricing_yearly_label: "سالانه"
+wantMore: "Want more?"
+learnMore: "Learn more"
+pricing_tagline: "Pricing"
+pricing_title: "قیمت‌گذاری که با شما رشد می‌کند"
+pricing_description: "طرحی مقرون به صرفه انتخاب کنید که شامل بهترین ویژگی‌ها برای درگیر کردن مخاطبان، ایجاد وفاداری مشتری و افزایش فروش باشد."
+pricing_comparison_title: "مقایسه طرح‌ها"
+pricing_comparison_description: "مقایسه طرح‌های ما را بررسی کنید و بهترین آن را برای خود انتخاب کنید"
+read_more_post: "بیشتر بخوانید"
+no_posts_found: "هیچ پستی پیدا نشد"
+minutes_read: "دقیقه خواندن"
+get_started: "شروع کنید"
+courses.session: "جلسه"
+courses.you_will_learn: "شما خواهید آموخت:"
+courses.or: "یا"

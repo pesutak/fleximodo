@@ -1,0 +1,134 @@
+{{/*
+@section: Stats Split with Image on Dark
+@description: An elegant statistics component that combines a striking image with key metrics on a dark background. Features a sophisticated grid pattern and subtle glow effect that enhances the visual hierarchy while maintaining readability.
+@params:
+  bgColor: Background color class (default: "bg-gray-900")
+  padding: Padding classes (default: "py-24 sm:py-32")
+  
+  showHeading: Whether to show the heading section (default: true)
+  headingTag: Small heading above the main heading (default: "Deploy faster")
+  headingTagColor: Color class for the heading tag (default: "text-indigo-400")
+  heading: Main heading text (default: "A better workflow")
+  headingColor: Color class for the main heading (default: "text-white")
+  description: Description text below the heading (default: "Lorem ipsum...")
+  descriptionColor: Color class for the description text (default: "text-gray-300")
+  
+  image: Image source URL (default: "https://images.unsplash.com/...")
+  imageAlt: Alt text for the image (default: "App screenshot")
+  
+  stats: Array of statistics objects with "value" and "label" (default: predefined stats)
+  valueColor: Color class for the stat values (default: "text-white")
+  labelColor: Color class for the stat labels (default: "text-gray-300")
+  borderColor: Color class for the border (default: "border-white/10")
+@example:
+  {{ partial "sections/stats/split_with_image_on_dark.html" (dict
+    "headingTag" "Performance Metrics"
+    "heading" "Our impact by the numbers"
+    "description" "These key performance indicators highlight our growth and impact over the past fiscal year."
+    "image" "/images/dashboard-stats.jpg"
+    "imageAlt" "Dashboard statistics visualization"
+    "stats" (slice
+      (dict "value" "8K+" "label" "Companies")
+      (dict "value" "25K+" "label" "Active users")
+      (dict "value" "98%" "label" "Satisfaction rate")
+      (dict "value" "12M+" "label" "Transactions")
+    )
+  ) }}
+@note: This component works especially well for showcasing product screenshots or data visualizations alongside supporting statistics in a visually appealing dark-themed layout.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $image := .image | default "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2850&q=80" }}
+{{ $imageAlt := .imageAlt | default "" }}
+{{ $imagePosition := .imagePosition | default "left" }}
+
+{{/* Heading */}}
+{{ $showHeading := .showHeading | default true }}
+{{ $headingTag := .headingTag | default "Our track record" }}
+{{ $headingTagColor := .headingTagColor | default "text-indigo-400" }}
+{{ $heading := .heading | default "Trusted by thousands of creators worldwide" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $description := .description | default "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-400" }}
+
+{{/* Stats */}}
+{{ $stats := .stats | default slice }}
+
+{{/* Default stats if none provided */}}
+{{ if eq (len $stats) 0 }}
+  {{ $stats = slice 
+    (dict 
+      "value" "8,000+"
+      "label" "Creators on the platform"
+    )
+    (dict 
+      "value" "3%"
+      "label" "Flat platform fee"
+    )
+    (dict 
+      "value" "99.9%"
+      "label" "Uptime guarantee"
+    )
+    (dict 
+      "value" "$70M"
+      "label" "Paid out to creators"
+    )
+  }}
+{{ end }}
+
+{{/* Text colors */}}
+{{ $valueColor := .valueColor | default "text-white" }}
+{{ $labelColor := .labelColor | default "text-gray-400" }}
+{{ $borderColor := .borderColor | default "border-white/10" }}
+
+<div class="relative {{ $bgColor }}">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  
+  {{ if $image }}
+    {{ if eq $imagePosition "left" }}
+      <div class="lg:absolute lg:inset-y-0 lg:left-0 lg:w-1/2">
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" $image 
+          "alt" $imageAlt
+          "class" "aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+          "maxWidth" 1024
+        ) }}
+      </div>
+    {{ else }}
+      <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" $image 
+          "alt" $imageAlt
+          "class" "aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+          "maxWidth" 1024
+        ) }}
+      </div>
+    {{ end }}
+  {{ end }}
+  
+  <div class="mx-auto grid max-w-7xl lg:grid-cols-2">
+    {{ if eq $imagePosition "left" }}
+    <div class="px-6 pt-16 pb-24 sm:pt-20 sm:pb-32 lg:col-start-2 lg:px-8 lg:pt-32">
+    {{ else }}
+    <div class="px-6 pt-16 pb-24 sm:pt-20 sm:pb-32 lg:px-8 lg:pt-32">
+    {{ end }}
+      <div class="mx-auto max-w-2xl lg:mr-0 lg:max-w-lg">
+        {{ if $showHeading }}
+        <h2 class="text-base/8 font-semibold {{ $headingTagColor }}">{{ $headingTag }}</h2>
+        <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</p>
+        <p class="mt-6 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+        {{ end }}
+        <dl class="mt-16 grid max-w-xl grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 xl:mt-16">
+          {{ range $stat := $stats }}
+          <div class="flex flex-col gap-y-3 border-l {{ $borderColor }} pl-6">
+            <dt class="text-sm/6 {{ $labelColor }}">{{ $stat.label }}</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight {{ $valueColor }}">{{ $stat.value }}</dd>
+          </div>
+          {{ end }}
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>

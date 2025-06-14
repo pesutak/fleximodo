@@ -1,0 +1,47 @@
+/* Typewriter effect styles */
+.typewriter-container {
+  position: relative;
+  display: inline-block;
+}
+
+.typewriter-text {
+  position: relative;
+  /* color: theme('colors.indigo.600'); */ /* Replaced by gradient */
+  font-weight: inherit;
+  background-image: linear-gradient(to right, theme('colors.indigo.600'), theme('colors.purple.600'), theme('colors.pink.500')); /* Example gradient */
+  -webkit-background-clip: text; /* For Safari/Chrome */
+  background-clip: text;
+  color: transparent;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 1px;
+  animation: typewriter-blink 1s infinite;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.typewriter-cursor.typing {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes typewriter-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Hide the cursor when the container is invisible */
+.typewriter-container.hidden .typewriter-cursor {
+  display: none;
+}
+
+/* Ensure smooth text transitions */
+.typewriter-text {
+  transition: color 0.2s ease;
+}

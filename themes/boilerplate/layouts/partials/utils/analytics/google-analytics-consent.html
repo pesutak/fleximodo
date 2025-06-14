@@ -1,0 +1,98 @@
+{{/*
+@component: Google Analytics Consent
+@description: Implementuje Google Analytics s podporou cookie consent systému. Automaticky detekuje ID merania podľa jazykovej verzie.
+@params:
+  - gaMeasurementID: ID merania Google Analytics (zo Site.Language.Params.gaMeasurementID alebo Site.Params.gaMeasurementID)
+@usage:
+  {{ partial "utils/analytics/google-analytics-consent.html" . }}
+*/}}
+
+{{/* Determine the appropriate Google Analytics ID */}}
+{{ $analyticsID := "" }}
+
+{{/* Get the measurement ID from the language params */}}
+{{ with .Site.Language.Params.gaMeasurementID }}
+  {{ $analyticsID = . }}
+{{ end }}
+
+{{/* Fallback to the site params if no language-specific ID is found */}}
+{{ if not $analyticsID }}
+  {{ $analyticsID = .Site.Params.gaMeasurementID | default "" }}
+{{ end }}
+
+{{/* Only proceed if we have a valid analytics ID */}}
+{{ if $analyticsID }}
+  <script>
+    // Define a function that will be called by the cookie consent system
+    window.updateGoogleAnalyticsConsent = function(allowed) {
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', {
+          'analytics_storage': allowed ? 'granted' : 'denied',
+          'ad_storage': allowed ? 'granted' : 'denied',
+          'ad_user_data': allowed ? 'granted' : 'denied',
+          'ad_personalization': allowed ? 'granted' : 'denied'
+        });
+      }
+    };
+    
+    // Initialize dataLayer
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    // Helper function to get cookie value
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+    
+    // Check for existing consent before setting defaults
+    const consentStatus = getCookie('cookie_consent_status');
+    
+    if (consentStatus === 'all') {
+      // User has previously accepted all cookies
+      gtag('consent', 'default', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    } else {
+      // No consent or only necessary cookies - deny by default
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+      });
+    }
+
+    // Configure Google Analytics with consent mode
+    gtag('config', '{{ $analyticsID }}', {
+      'allow_google_signals': true,
+      'linker': {
+        'domains': [
+          {{- $domains := slice -}}
+          {{- range site.Home.AllTranslations -}}
+            {{- $url := .Permalink -}}
+            {{- if $url -}}
+              {{- $domain := (urls.Parse $url).Host -}}
+              {{- $domains = $domains | append $domain -}}
+            {{- end -}}
+          {{- end -}}
+          {{- range $index, $domain := $domains -}}
+            {{- if $index -}}, {{- end -}}
+            "{{ $domain }}"
+          {{- end -}}
+        ]
+      }
+    });
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ $analyticsID }}"></script>
+{{ end }}

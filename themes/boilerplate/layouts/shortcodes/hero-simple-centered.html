@@ -1,0 +1,114 @@
+{{- /*
+  Usage:
+  {{< hero-simple-centered 
+    heading="Heading text" 
+    description="Description text" 
+    primaryCTAText="Primary CTA text" 
+    primaryCTAUrl="Primary CTA URL" 
+    secondaryCTAText="Secondary CTA text" 
+    secondaryCTAUrl="Secondary CTA URL" 
+    announcementEnabled="true/false" 
+    announcementText="Announcement text" 
+    announcementLinkText="Announcement link text" 
+    announcementLinkUrl="Announcement link URL"
+    imageEnabled="true/false"
+    imageSrc="Image source URL"
+    imageAlt="Image alt text"
+    imageWidth="Image width"
+    imageHeight="Image height"
+    typewriterEnabled="true/false"
+    typewriterWords="1"
+    typewriterSpeed="100"
+    typewriterDeleteSpeed="50"
+    typewriterPause="2000"
+    typewriterColor="text-indigo-600"
+  >}}
+  
+  Parameters:
+  - heading: Main heading text
+  - description: Description text below the heading
+  - primaryCTAText: Text for the primary call-to-action button
+  - primaryCTAUrl: URL for the primary call-to-action button
+  - secondaryCTAText: Text for the secondary call-to-action button
+  - secondaryCTAUrl: URL for the secondary call-to-action button
+  - announcementEnabled: Enable/disable the announcement banner (true/false)
+  - announcementText: Text for the announcement
+  - announcementLinkText: Text for the announcement link
+  - announcementLinkUrl: URL for the announcement link
+  - imageEnabled: Enable/disable the hero image (true/false)
+  - imageSrc: Image source URL - can be also url of youtube video
+  - imageAlt: Alt text for the image
+  - imageWidth: Image width (optional)
+  - imageHeight: Image height (optional)
+  - typewriterEnabled: Enable/disable typewriter effect (true/false, default: false)
+  - typewriterWords: Number of words to animate from the end (default: 1)
+  - typewriterSpeed: Typing speed in milliseconds (default: 100)
+  - typewriterDeleteSpeed: Deleting speed in milliseconds (default: 50)
+  - typewriterPause: Pause duration between word cycles in milliseconds (default: 2000)
+  - typewriterColor: Tailwind CSS color class for animated text (default: "text-indigo-600")
+*/ -}}
+
+{{/* Simple Centered Hero Shortcode */}}
+{{ $heading := .Get "heading" | default (.Get 0) | default "" }}
+{{ $description := .Get "description" | default (.Get 1) | default "" }}
+{{ $primaryCTAText := .Get "primaryCTAText" | default (.Get 2) | default "" }}
+{{ $primaryCTAUrl := .Get "primaryCTAUrl" | default (.Get 3) | default "" }}
+{{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default (i18n "learnMore") | default "" }}
+{{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default (.Get 5) | default "" }}
+{{ $announcementEnabled := (.Get "announcementEnabled") | default "true" | lower }}
+{{ $announcementText := .Get "announcementText" | default (.Get 7) | default "" }}
+{{ $announcementLinkText := .Get "announcementLinkText" | default (.Get 8) | default "" }}
+{{ $announcementLinkUrl := .Get "announcementLinkUrl" | default (.Get 9) | default "" }}
+{{ $imageSrc := .Get "imageSrc" | default "" }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
+{{ $imageWidth := .Get "imageWidth" | default "" }}
+{{ $imageHeight := .Get "imageHeight" | default "" }}
+{{ $theme := .Get "theme" | default "light" }}
+
+{{/* Typewriter parameters */}}
+{{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
+{{ $typewriterWords := .Get "typewriterWords" | default 1 }}
+{{ $typewriterSpeed := .Get "typewriterSpeed" | default 100 }}
+{{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
+{{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
+{{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
+
+{{ $announcement := dict }}
+{{ if and (eq $announcementEnabled "true") $announcementText }}
+  {{ $announcement = dict 
+    "text" $announcementText
+    "linkText" $announcementLinkText
+    "linkUrl" $announcementLinkUrl
+  }}
+{{ end }}
+
+{{ $cta := dict 
+  "primary" (dict "text" $primaryCTAText "url" $primaryCTAUrl)
+  "secondary" (dict "text" $secondaryCTAText "url" $secondaryCTAUrl)
+}}
+
+{{ $image := dict 
+  "src" $imageSrc
+  "alt" $imageAlt
+  "width" $imageWidth
+  "height" $imageHeight
+}}
+
+{{ $typewriter := dict 
+  "enabled" $typewriterEnabled
+  "words" $typewriterWords
+  "speed" $typewriterSpeed
+  "deleteSpeed" $typewriterDeleteSpeed
+  "pause" $typewriterPause
+  "color" $typewriterColor
+}}
+
+{{ partial "sections/hero/simple_centered.html" (dict 
+  "announcement" $announcement
+  "heading" $heading
+  "description" $description
+  "cta" $cta
+  "image" $image
+  "typewriter" $typewriter
+  "theme" $theme
+) }}

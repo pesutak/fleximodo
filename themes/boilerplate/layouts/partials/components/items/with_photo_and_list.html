@@ -1,0 +1,167 @@
+{{/*
+@component: Items With Photo And List
+@description: Displays a two-column layout with a photo and descriptive text on the left, and a list of items on the right. Ideal for job listings, feature lists, or testimonials.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-32")
+  - heading: Left column heading text (optional, default: "We're always looking for awesome people to join us")
+  - headingColor: Heading text color (optional, default: "text-gray-900")
+  - description: Left column description text (optional, default: "Diam nunc lacus lacus aliquam turpis enim...")
+  - descriptionColor: Description text color (optional, default: "text-gray-600")
+  - image: URL to the left column image (optional)
+  - imageAlt: Alt text for the image (optional)
+  - imageBgColor: Image background color (optional, default: "bg-gray-50")
+  - listTitle: Title for the list section, visually hidden by default (optional, default: "Job openings")
+  - items: Array of item objects (optional), each with:
+    - title: Item title (required)
+    - titleLink: URL for the title (required)
+    - description: Item description (optional)
+    - detail1: First detail text, e.g. salary (optional)
+    - detail2: Second detail text, e.g. location (optional)
+  - footerLink: URL for the footer link (optional, default: "#")
+  - footerLinkText: Text for the footer link (optional, default: "View all openings")
+  - footerLinkColor: Footer link text color (optional, default: "text-indigo-600")
+  - footerLinkHoverColor: Footer link hover color (optional, default: "hover:text-indigo-500")
+  - itemTitleColor: Item title color (optional, default: "text-gray-900")
+  - itemDescriptionColor: Item description color (optional, default: "text-gray-600")
+  - itemDetail1Color: First detail text color (optional, default: "text-gray-900")
+  - itemDetail2Color: Second detail text color (optional, default: "text-gray-500")
+  - itemDividerColor: Divider color between items (optional, default: "divide-gray-100")
+  - footerBorderColor: Footer border color (optional, default: "border-gray-100")
+  - dotColor: Color of the separator dot (optional, default: "fill-gray-300")
+@example:
+  {{ partial "components/items/with_photo_and_list.html" (dict 
+      "heading" "Join our team"
+      "description" "We're looking for passionate people to join us on our mission to build the best platform for AI workflows."
+      "image" "/images/team/office.jpg"
+      "imageAlt" "Our modern office space"
+      "listTitle" "Open positions"
+      "items" (slice 
+        (dict 
+          "title" "AI Engineer"
+          "titleLink" "/careers/ai-engineer"
+          "description" "Build and optimize machine learning models to power our AI features."
+          "detail1" "$130,000 - $160,000"
+          "detail2" "Remote (US)"
+        )
+        (dict 
+          "title" "Senior Frontend Developer" 
+          "titleLink" "/careers/frontend-developer"
+          "description" "Create intuitive and responsive interfaces for our web application."
+          "detail1" "$120,000 - $150,000" 
+          "detail2" "Remote (US/EU)"
+        )
+      )
+      "footerLinkText" "See all positions"
+      "footerLink" "/careers"
+  ) }}
+@note: This component is often used on careers or about pages to showcase job listings alongside company information and imagery.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-32" }}
+
+{{/* Left column */}}
+{{ $heading := .heading | default "We're always looking for awesome people to join us" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description | default "Diam nunc lacus lacus aliquam turpis enim. Eget hac velit est euismod lacus. Est non placerat nam arcu. Cras purus nibh cursus sit eu in id." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-600" }}
+{{ $image := .image | default "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1344&h=1104&q=80" }}
+{{ $imageAlt := .imageAlt | default "" }}
+{{ $imageBgColor := .imageBgColor | default "bg-gray-50" }}
+
+{{/* Right column */}}
+{{ $listTitle := .listTitle | default "Job openings" }}
+{{ $items := .items | default (slice 
+  (dict 
+    "title" "Full-time designer"
+    "titleLink" "#"
+    "description" "Quos sunt ad dolore ullam qui. Enim et quisquam dicta molestias. Corrupti quo voluptatum eligendi autem labore."
+    "detail1" "$75,000 USD"
+    "detail2" "San Francisco, CA"
+  )
+  (dict 
+    "title" "Laravel developer"
+    "titleLink" "#"
+    "description" "Et veniam et officia dolorum rerum. Et voluptas consequatur magni sapiente amet voluptates dolorum. Ut porro aut eveniet."
+    "detail1" "$125,000 USD"
+    "detail2" "San Francisco, CA"
+  )
+  (dict 
+    "title" "React Native developer"
+    "titleLink" "#"
+    "description" "Veniam ipsam nisi quas architecto eos non voluptatem in nemo. Est occaecati nihil omnis delectus illum est."
+    "detail1" "$105,000 USD"
+    "detail2" "San Francisco, CA"
+  )
+) }}
+{{ $footerLink := .footerLink | default "#" }}
+{{ $footerLinkText := .footerLinkText | default "View all openings" }}
+{{ $footerLinkColor := .footerLinkColor | default "text-indigo-600" }}
+{{ $footerLinkHoverColor := .footerLinkHoverColor | default "hover:text-indigo-500" }}
+
+{{/* Item styling */}}
+{{ $itemTitleColor := .itemTitleColor | default "text-gray-900" }}
+{{ $itemDescriptionColor := .itemDescriptionColor | default "text-gray-600" }}
+{{ $itemDetail1Color := .itemDetail1Color | default "text-gray-900" }}
+{{ $itemDetail2Color := .itemDetail2Color | default "text-gray-500" }}
+{{ $itemDividerColor := .itemDividerColor | default "divide-gray-100" }}
+{{ $footerBorderColor := .footerBorderColor | default "border-gray-100" }}
+{{ $dotColor := .dotColor | default "fill-gray-300" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto flex max-w-2xl flex-col items-end justify-between gap-16 lg:mx-0 lg:max-w-none lg:flex-row">
+      <div class="w-full lg:max-w-lg lg:flex-auto">
+        <h2 class="text-3xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-4xl">{{ $heading }}</h2>
+        <p class="mt-6 text-xl/8 {{ $descriptionColor }}">{{ $description }}</p>
+        {{ if $image }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $image 
+            "alt" $imageAlt
+            "class" "mt-16 aspect-6/5 w-full rounded-2xl {{ $imageBgColor }} object-cover lg:aspect-auto lg:h-[34.5rem]"
+          ) }}
+        {{ end }}
+      </div>
+      <div class="w-full lg:max-w-xl lg:flex-auto">
+        <h3 class="sr-only">{{ $listTitle }}</h3>
+        <ul class="-my-8 divide-y {{ $itemDividerColor }}">
+          {{ range $items }}
+          <li class="py-8">
+            <dl class="relative flex flex-wrap gap-x-3">
+              <dt class="sr-only">Role</dt>
+              <dd class="w-full flex-none text-lg font-semibold tracking-tight {{ $itemTitleColor }}">
+                <a href="{{ .titleLink }}">
+                  {{ .title }}
+                  <span class="absolute inset-0" aria-hidden="true"></span>
+                </a>
+              </dd>
+              <dt class="sr-only">Description</dt>
+              <dd class="mt-2 w-full flex-none text-base/7 {{ $itemDescriptionColor }}">{{ .description }}</dd>
+              {{ if .detail1 }}
+              <dt class="sr-only">Detail 1</dt>
+              <dd class="mt-4 text-base/7 font-semibold {{ $itemDetail1Color }}">{{ .detail1 }}</dd>
+              {{ end }}
+              {{ if .detail2 }}
+              <dt class="sr-only">Detail 2</dt>
+              <dd class="mt-4 flex items-center gap-x-3 text-base/7 {{ $itemDetail2Color }}">
+                <svg viewBox="0 0 2 2" class="size-0.5 flex-none {{ $dotColor }}" aria-hidden="true">
+                  <circle cx="1" cy="1" r="1" />
+                </svg>
+                {{ .detail2 }}
+              </dd>
+              {{ end }}
+            </dl>
+          </li>
+          {{ end }}
+        </ul>
+        {{ if $footerLink }}
+        <div class="mt-8 flex border-t {{ $footerBorderColor }} pt-8">
+          <a href="{{ $footerLink }}" class="text-sm/6 font-semibold {{ $footerLinkColor }} {{ $footerLinkHoverColor }}">{{ $footerLinkText }} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

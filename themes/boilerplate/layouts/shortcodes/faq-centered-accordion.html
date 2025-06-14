@@ -1,0 +1,59 @@
+{{- /*
+  Usage in markdown:
+  {{< faq-centered-accordion 
+    heading="Frequently asked questions"
+    bgColor="bg-white" 
+    headingColor="text-gray-900" 
+    questionColor="text-gray-900" 
+    answerColor="text-gray-600" 
+    dividerColor="divide-gray-900/10" 
+  >}}
+    [
+      {
+        "question": "Your first question here?",
+        "answer": "Your first answer here."
+      },
+      {
+        "question": "Your second question here?",
+        "answer": "Your second answer here."
+      }
+    ]
+  {{< /faq-centered-accordion >}}
+  
+  Parameters:
+  1. heading: Main heading text for the FAQ section
+  2. bgColor: Background color class for the section
+  3. headingColor: Text color class for the main heading
+  4. questionColor: Text color class for questions
+  5. answerColor: Text color class for answers
+  6. dividerColor: Color class for dividers between FAQ items
+  
+  Inner Content:
+  JSON array of FAQ objects with "question" and "answer" properties
+*/ -}}
+
+{{/* Centered Accordion FAQ Shortcode */}}
+{{ $heading := .Get "heading" | default (i18n "faq_heading") | default "Frequently asked questions" }}
+{{ $bgColor := .Get "bgColor" | default "bg-white" }}
+{{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
+{{ $questionColor := .Get "questionColor" | default "text-gray-900" }}
+{{ $answerColor := .Get "answerColor" | default "text-gray-600" }}
+{{ $dividerColor := .Get "dividerColor" | default "divide-gray-900/10" }}
+
+{{ $faqs := slice }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $faqs = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "sections/faq/centered_accordion.html" (dict 
+  "heading" $heading
+  "bgColor" $bgColor
+  "headingColor" $headingColor
+  "questionColor" $questionColor
+  "answerColor" $answerColor
+  "dividerColor" $dividerColor
+  "faqs" $faqs
+  "page" .Page
+) }}

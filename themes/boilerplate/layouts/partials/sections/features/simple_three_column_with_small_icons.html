@@ -1,0 +1,57 @@
+{{/* Feature Section with Simple Three Column Layout and Small Icons */}}
+{{ $tagline := .tagline | default "Deploy faster" }}
+{{ $heading := .heading | default "Everything you need to deploy your app" }}
+{{ $description := .description | default "Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum pulvinar et feugiat blandit at. In mi viverra elit nunc." }}
+{{ $features := .features | default (slice
+  (dict 
+    "icon" "arrow-down-tray"
+    "title" "Push to deploy"
+    "description" "Commodo nec sagittis tortor mauris sed. Turpis tortor quis scelerisque diam id accumsan nullam tempus. Pulvinar etiam lacus volutpat eu. Phasellus praesent ligula sit faucibus."
+    "link" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "#")
+  )
+  (dict 
+    "icon" "lock-closed"
+    "title" "SSL certificates"
+    "description" "Pellentesque enim a commodo malesuada turpis eleifend risus. Facilisis donec placerat sapien consequat tempor fermentum nibh."
+    "link" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "#")
+  )
+  (dict 
+    "icon" "circle-stack"
+    "title" "Simple queues"
+    "description" "Pellentesque sit elit congue ante nec amet. Dolor aenean curabitur viverra suspendisse iaculis eget. Nec mollis placerat ultricies euismod ut condimentum."
+    "link" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "#")
+  )
+) }}
+
+{{/* Page context for linkbuilding */}}
+{{ $page := .page }}
+
+<div class="bg-white py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:text-center">
+      <h2 class="text-base/7 font-semibold text-indigo-600">{{ $tagline }}</h2>
+      <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl lg:text-balance">{{ $heading }}</p>
+      <p class="mt-6 text-lg/8 text-gray-600">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
+    </div>
+    <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+      <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+        {{ range $features }}
+        <div class="flex flex-col">
+          <dt class="flex items-center gap-x-3 text-base/7 font-semibold text-gray-900">
+            {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+            {{ .title }}
+          </dt>
+          <dd class="mt-4 flex flex-auto flex-col text-base/7 text-gray-600">
+            <p class="flex-auto">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</p>
+            {{ if .link }}
+            <p class="mt-6">
+              <a href="{{ .link.url }}" class="text-sm/6 font-semibold text-indigo-600">{{ .link.text }} <span aria-hidden="true">→</span></a>
+            </p>
+            {{ end }}
+          </dd>
+        </div>
+        {{ end }}
+      </dl>
+    </div>
+  </div>
+</div>

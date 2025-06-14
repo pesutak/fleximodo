@@ -1,0 +1,77 @@
+{{/* 
+  Categories shortcode with preview three-column layout
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-100")
+  - heading: Main heading text (default: "Collections")
+  
+  Inner Content (optional JSON array):
+  - Array of category objects with the following structure:
+    - title: Category title
+    - description: Category description
+    - url: URL for the category link
+    - imageUrl: URL to category image
+    - imageAlt: Alt text for category image
+  
+  Example usage with custom categories:
+  {{< categories-preview-three-column heading="Featured Collections" >}}
+    [
+      {
+        "title": "Outdoor Gear",
+        "description": "Equipment for adventures",
+        "url": "/collections/outdoor",
+        "imageUrl": "/images/collections/outdoor.jpg",
+        "imageAlt": "Hiking backpack and equipment on a mountain trail"
+      },
+      {
+        "title": "Home Office",
+        "description": "Productivity essentials",
+        "url": "/collections/office",
+        "imageUrl": "/images/collections/office.jpg",
+        "imageAlt": "Modern home office setup with ergonomic chair"
+      }
+    ]
+  {{< /categories-preview-three-column >}}
+  
+  If no inner content is provided, default categories will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-100" }}
+{{ $heading := .Get "heading" | default "Collections" }}
+
+{{ $defaultCategories := slice 
+  (dict 
+    "title" "Desk and Office"
+    "description" "Work from home accessories"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg"
+    "imageAlt" "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
+  )
+  (dict 
+    "title" "Self-Improvement"
+    "description" "Journals and note-taking"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-02.jpg"
+    "imageAlt" "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant."
+  )
+  (dict 
+    "title" "Travel"
+    "description" "Daily commute essentials"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-03.jpg"
+    "imageAlt" "Collection of four insulated travel bottles on wooden shelf."
+  )
+}}
+
+{{ $categories := $defaultCategories }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $categories = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "categories/preview_three_column.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "categories" $categories
+) }}

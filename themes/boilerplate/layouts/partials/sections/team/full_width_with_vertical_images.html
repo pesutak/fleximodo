@@ -1,0 +1,134 @@
+{{/*
+@section: Team Full Width with Vertical Images
+@description: A team showcase section featuring vertical portrait images aligned with team member details, providing a more personal look with space for longer biographies arranged in a responsive grid.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Main section heading (optional, default: "Meet our leadership")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-600")
+  - nameColor: Team member name color class (optional, default: "text-gray-900")
+  - roleColor: Team member role color class (optional, default: "text-gray-600")
+  - bioColor: Team member biography color class (optional, default: "text-gray-600")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member image
+    - bio: Short biographical paragraph about the team member
+@example:
+  {{ partial "sections/team/full_width_with_vertical_images.html" (dict 
+      "heading" "Our Leadership Team" 
+      "description" "Meet the experts who drive our vision and guide our company toward continuous innovation and excellence."
+      "teamMembers" (slice
+          (dict 
+              "name" "Sarah Johnson" 
+              "role" "Chief Executive Officer"
+              "image" "/images/team/sarah-johnson.jpg"
+              "bio" "Sarah has over 20 years of experience in the industry and has successfully led our company through significant growth and transformation. Her strategic vision and commitment to excellence have established our position as a market leader."
+          )
+          (dict 
+              "name" "David Rodriguez" 
+              "role" "Chief Technology Officer"
+              "image" "/images/team/david-rodriguez.jpg"
+              "bio" "With a background in computer science and multiple technology patents, David leads our engineering teams and directs our technological innovation. His expertise has been crucial in developing our award-winning products."
+          )
+          (dict 
+              "name" "Michelle Lee" 
+              "role" "VP of Marketing"
+              "image" "/images/team/michelle-lee.jpg"
+              "bio" "Michelle brings creative vision and data-driven strategies to our marketing initiatives. Her previous experience with global brands has helped us establish a strong market presence and distinctive brand identity."
+          )
+          (dict 
+              "name" "Robert Taylor" 
+              "role" "Chief Financial Officer"
+              "image" "/images/team/robert-taylor.jpg"
+              "bio" "Robert oversees our financial operations with precision and foresight. His strategic financial planning has been instrumental in our sustainable growth and successful expansion into new markets."
+          )
+      )
+      "bgColor" "bg-gray-50"
+      "bioColor" "text-gray-700"
+  ) }}
+@note: This component provides a clean, professional presentation of team members with substantial biographical information. The layout, with vertical portrait images alongside text, creates visual interest while maintaining readability. The component is particularly well-suited for executive teams, boards of directors, or key personnel where detailed information adds value and credibility to the presentation.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Meet our leadership" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description | default "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-600" }}
+
+{{/* Team members */}}
+{{ $nameColor := .nameColor | default "text-gray-900" }}
+{{ $roleColor := .roleColor | default "text-gray-600" }}
+{{ $bioColor := .bioColor | default "text-gray-600" }}
+{{ $teamMembers := .teamMembers | default (slice 
+  (dict 
+    "name" "Leonard Krasner" 
+    "role" "Senior Designer"
+    "image" "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Quia illum aut in beatae. Possimus dolores aliquid accusantium aut in ut non assumenda. Enim iusto molestias aut deleniti eos aliquid magnam molestiae. At et non possimus ab. Magni labore molestiae nulla qui."
+  )
+  (dict 
+    "name" "Floyd Miles" 
+    "role" "Principal Designer"
+    "image" "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Consectetur adipiscing elit duis tristique sollicitudin nibh sit. Eu non diam phasellus vestibulum lorem sed risus ultricies. Massa tincidunt dui ut ornare lectus sit amet est placerat."
+  )
+  (dict 
+    "name" "Emily Selman" 
+    "role" "VP, User Experience"
+    "image" "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Enim nulla aliquet porttitor lacus luctus accumsan tortor. Diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Viverra nam libero justo laoreet sit amet cursus sit amet."
+  )
+  (dict 
+    "name" "Kristin Watson" 
+    "role" "VP, Human Resources"
+    "image" "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Nunc eget lorem dolor sed viverra ipsum nunc aliquet. Consectetur a erat nam at lectus urna duis convallis convallis. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue."
+  )
+  (dict 
+    "name" "Emma Dorsey" 
+    "role" "Senior Developer"
+    "image" "https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus."
+  )
+  (dict 
+    "name" "Michael Foster" 
+    "role" "Co-Founder / CTO"
+    "image" "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Ullam laboriosam est voluptatem maxime ut mollitia commodi. Et dignissimos suscipit perspiciatis. Id et eos maiores corporis similique voluptatem. Iure fugiat reprehenderit ea nostrum non voluptatem."
+  )
+) }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl sm:text-center">
+      <h2 class="text-4xl font-semibold tracking-tight text-balance {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+      <p class="mt-6 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+    </div>
+    <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-20 sm:grid-cols-2 lg:max-w-4xl lg:gap-x-8 xl:max-w-none">
+      {{ range $teamMembers }}
+      <li class="flex flex-col gap-6 xl:flex-row">
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" .image 
+          "alt" .name 
+          "class" "aspect-[3/4] w-full rounded-xl bg-gray-50 object-cover" 
+          "maxWidth" 400
+          "loading" "lazy" 
+          "decoding" "async"
+        ) }}
+        <div class="mt-4 flex items-start gap-x-4">
+          <h3 class="text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
+          <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>
+          <p class="mt-6 text-base/7 {{ $bioColor }}">{{ .bio }}</p>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>

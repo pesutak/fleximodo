@@ -1,0 +1,48 @@
+{{- /*
+  Usage in markdown:
+  {{< banner-privacy-notice-left-aligned 
+    message="This website uses cookies to supplement a balanced diet and provide a much deserved reward to the senses after consuming bland but nutritious meals. Accepting our cookies is optional but recommended, as they are delicious."
+    policyText="cookie policy"
+    policyUrl="#"
+    acceptText="Accept all"
+    rejectText="Reject all"
+    backgroundColor="bg-white"
+    textColor="text-gray-900"
+    linkColor="text-indigo-600"
+    acceptButtonBackgroundColor="bg-gray-900"
+    acceptButtonTextColor="text-white"
+    acceptButtonHoverColor="hover:bg-gray-700"
+    acceptButtonFocusColor="focus-visible:outline-gray-900"
+    rejectButtonTextColor="text-gray-900"
+  >}}
+*/ -}}
+
+{{- $message := .Get "message" | default "This website uses cookies to supplement a balanced diet and provide a much deserved reward to the senses after consuming bland but nutritious meals. Accepting our cookies is optional but recommended, as they are delicious." -}}
+{{- $policyText := .Get "policyText" | default "cookie policy" -}}
+{{- $policyUrl := .Get "policyUrl" | default "#" -}}
+{{- $acceptText := .Get "acceptText" | default "Accept all" -}}
+{{- $rejectText := .Get "rejectText" | default "Reject all" -}}
+{{- $backgroundColor := .Get "backgroundColor" | default "bg-white" -}}
+{{- $textColor := .Get "textColor" | default "text-gray-900" -}}
+{{- $linkColor := .Get "linkColor" | default "text-indigo-600" -}}
+{{- $acceptButtonBackgroundColor := .Get "acceptButtonBackgroundColor" | default "bg-gray-900" -}}
+{{- $acceptButtonTextColor := .Get "acceptButtonTextColor" | default "text-white" -}}
+{{- $acceptButtonHoverColor := .Get "acceptButtonHoverColor" | default "hover:bg-gray-700" -}}
+{{- $acceptButtonFocusColor := .Get "acceptButtonFocusColor" | default "focus-visible:outline-gray-900" -}}
+{{- $rejectButtonTextColor := .Get "rejectButtonTextColor" | default "text-gray-900" -}}
+
+{{ partial "sections/banners/privacy_notice_left_aligned" (dict 
+  "message" $message
+  "policyText" $policyText
+  "policyUrl" $policyUrl
+  "acceptText" $acceptText
+  "rejectText" $rejectText
+  "backgroundColor" $backgroundColor
+  "textColor" $textColor
+  "linkColor" $linkColor
+  "acceptButtonBackgroundColor" $acceptButtonBackgroundColor
+  "acceptButtonTextColor" $acceptButtonTextColor
+  "acceptButtonHoverColor" $acceptButtonHoverColor
+  "acceptButtonFocusColor" $acceptButtonFocusColor
+  "rejectButtonTextColor" $rejectButtonTextColor
+) }}

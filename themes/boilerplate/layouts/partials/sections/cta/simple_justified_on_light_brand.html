@@ -1,0 +1,48 @@
+{{/*
+@section: Simple Justified CTA on Light Brand Background
+@description: A clean, horizontally justified call-to-action section with light brand color background and two CTA buttons.
+@params:
+  - heading: Main section heading (optional, default: "Ready to dive in? <br>Start your free trial today.")
+  - primaryCta: Object with primary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - secondaryCta: Object with secondary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - brandLightColor: Background color (optional, default: "indigo-100")
+  - primaryCtaColor: Primary button color (optional, default: "indigo-600")
+  - primaryCtaHoverColor: Primary button hover color (optional, default: "indigo-500")
+@example:
+  {{ partial "sections/cta/simple_justified_on_light_brand.html" (dict 
+      "heading" "Ready to transform your workflow? <br>Try our platform today."
+      "primaryCta" (dict "text" "Start free trial" "url" "/signup") 
+      "secondaryCta" (dict "text" "Learn more" "url" "/features")
+      "brandLightColor" "blue-100"
+      "primaryCtaColor" "blue-600"
+      "primaryCtaHoverColor" "blue-500"
+  ) }}
+@note: This component uses a light brand color background that provides subtle brand presence while maintaining excellent readability. On larger screens, the heading and buttons are justified to opposite sides for a balanced layout.
+*/}}
+
+{{ $heading := .heading | default "Ready to dive in? <br>Start your free trial today." }}
+{{ $primaryCta := .primaryCta | default (dict 
+  "text" "Get started"
+  "url" "#"
+) }}
+{{ $secondaryCta := .secondaryCta | default (dict 
+  "text" ((i18n "learnMore") | default "Learn more")
+  "url" "#"
+) }}
+{{ $brandLightColor := .brandLightColor | default "indigo-100" }}
+{{ $primaryCtaColor := .primaryCtaColor | default "indigo-600" }}
+{{ $primaryCtaHoverColor := .primaryCtaHoverColor | default "indigo-500" }}
+
+<div class="bg-{{ $brandLightColor }}">
+  <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
+    <h2 class="max-w-2xl text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{ $heading | safeHTML }}</h2>
+    <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:shrink-0">
+      <a href="{{ $primaryCta.url }}" class="rounded-md bg-{{ $primaryCtaColor }} px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-{{ $primaryCtaHoverColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $primaryCtaColor }}">{{ $primaryCta.text }}</a>
+      <a href="{{ $secondaryCta.url }}" class="text-sm/6 font-semibold text-gray-900">{{ $secondaryCta.text }} <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</div>

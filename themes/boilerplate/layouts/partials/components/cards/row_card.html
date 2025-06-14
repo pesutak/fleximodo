@@ -1,0 +1,79 @@
+{{/*
+@component: Row Card with Image
+@description: Displays a blog post card with featured image on the left and content on the right. Stretches full width.
+@params:
+This component expects a page context (.) that has the following properties:
+- Title: The title of the post
+- Params.image: Featured image URL (uses a placeholder if not provided)
+- Params.description or .Description or .Summary: Post description/summary
+- Date: Publication date
+- ReadingTime: Estimated reading time in minutes
+- RelPermalink: URL to the post
+- Section: The content section (e.g., "blog")
+- Params.tags: Array of post tags (optional)
+- Params.author: Post author name (optional)
+- Params.price (optional): Price of the product (if applicable) in EUR
+- imageBgColor: Background color for the image section (optional, default: rgb(249 250 251)
+- cardHeight: Height of the card in pixels (optional, default: 180)
+- imageWidth: Width of the image section (optional, default: 200px)
+@example:
+{{ partial "components/cards/row_card.html" (dict "cardHeight" 200 "imageWidth" 250 "page" .) }}
+@note: This is a horizontal card with image on the left, stretching full width of parent.
+*/}}
+
+{{ $cardHeight := 180 }}
+{{ if (isset . "cardHeight") }}
+    {{ $cardHeight = .cardHeight }}
+{{ end }}
+
+{{ $imageWidth := 200 }}
+{{ if (isset . "imageWidth") }}
+    {{ $imageWidth = .imageWidth }}
+{{ end }}
+
+{{ $page := .page | default . }}
+{{ $image := .image }}
+{{ $title := .title }}
+
+{{/* Summary and description */}}
+{{ $description := .description }}
+{{ if and $description (gt (len $description) 160) }}
+    {{- $description = printf "%.160s..." $description -}}
+{{ end }}
+
+{{ $permalink := .url }}
+
+<article class="group relative rounded-lg flex w-full overflow-hidden border border-opacity/black-10%" style="min-height: {{ $cardHeight }}px;">
+    {{ if $image }}
+    <div class="flex-none overflow-hidden" style="width: {{ $imageWidth }}px;">
+        <a href="{{ $permalink }}" class="h-full w-full flex items-center justify-center">
+            {{ partial "components/media/lazyimg.html" (dict
+            "src" $image
+            "alt" $title
+            "class" "w-full h-full object-cover"
+            "classPicture" "w-full h-full object-cover"
+            ) }}
+        </a>
+    </div>
+    {{ end }}
+
+    <div class="flex flex-col flex-grow p-6">
+        <!-- Title and Description -->
+        <h3 class="mb-3 text-lg font-semibold group-hover:text-primary text-gray-900">
+            <a href="{{ $permalink }}" class="hover:text-primary focus:outline-none">
+                <span class="inset-0" aria-hidden="true"></span>
+                {{ $title }}
+            </a>
+        </h3>
+        <a href="{{ $permalink }}" class="mb-auto">
+            <p class="text-sm leading-6 text-gray-600 font-normal line-clamp-3 overflow-hidden">{{ $description }}</p>
+        </a>
+        {{ if .code }}
+            {{ with .code }}
+            <pre class="mt-4 bg-black text-white text-xs rounded p-4 overflow-x-auto whitespace-pre-wrap break-words" style="white-space: pre-wrap; word-break: break-word;">
+                <code>{{ . }}</code>
+            </pre>
+            {{ end }}
+        {{ end }}
+    </div>
+</article>

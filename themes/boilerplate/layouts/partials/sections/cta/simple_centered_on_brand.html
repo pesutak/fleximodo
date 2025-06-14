@@ -1,0 +1,57 @@
+{{/*
+@section: Simple Centered CTA on Brand Color
+@description: A clean, centered call-to-action section with brand color background and two CTA buttons.
+@params:
+  - heading: Main section heading (optional, default: "Boost your productivity. Start using our app today.")
+  - description: Description text below heading (optional, default: "Incididunt sint fugiat pariatur...")
+  - primaryCta: Object with primary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - secondaryCta: Object with secondary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - brandColor: Main background color (optional, default: "indigo-700")
+  - brandLightColor: Secondary text color (optional, default: "indigo-200")
+  - primaryCtaColor: Primary button text color (optional, default: "indigo-600")
+  - primaryCtaHoverColor: Primary button hover color (optional, default: "indigo-50")
+@example:
+  {{ partial "sections/cta/simple_centered_on_brand.html" (dict 
+      "heading" "Ready to get started?" 
+      "description" "Join thousands of satisfied customers who have transformed their workflow with our platform."
+      "primaryCta" (dict "text" "Start free trial" "url" "/signup") 
+      "secondaryCta" (dict "text" "Contact sales" "url" "/contact")
+      "brandColor" "blue-700"
+      "brandLightColor" "blue-200"
+      "primaryCtaColor" "blue-600"
+      "primaryCtaHoverColor" "blue-50"
+  ) }}
+@note: This component provides a strong brand presence with its vibrant background color while maintaining a clean, focused layout for the call-to-action content.
+*/}}
+
+{{ $heading := .heading | default "Boost your productivity. Start using our app today." }}
+{{ $description := .description | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
+{{ $primaryCta := .primaryCta | default (dict 
+  "text" "Get started"
+  "url" "#"
+) }}
+{{ $secondaryCta := .secondaryCta | default (dict 
+  "text" ((i18n "learnMore") | default "Learn more")
+  "url" "#"
+) }}
+{{ $brandColor := .brandColor | default "indigo-700" }}
+{{ $brandLightColor := .brandLightColor | default "indigo-200" }}
+{{ $primaryCtaColor := .primaryCtaColor | default "indigo-600" }}
+{{ $primaryCtaHoverColor := .primaryCtaHoverColor | default "indigo-50" }}
+
+<div class="bg-{{ $brandColor }}">
+  <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">{{ $heading }}</h2>
+      <p class="mx-auto mt-6 max-w-xl text-lg/8 text-pretty text-{{ $brandLightColor }}">{{ $description }}</p>
+      <div class="mt-10 flex items-center justify-center gap-x-6">
+        <a href="{{ $primaryCta.url }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-{{ $primaryCtaColor }} shadow-xs hover:bg-{{ $primaryCtaHoverColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{{ $primaryCta.text }}</a>
+        <a href="{{ $secondaryCta.url }}" class="text-sm/6 font-semibold text-white">{{ $secondaryCta.text }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</div>

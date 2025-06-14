@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "자주 묻는 질문"
+language_selector_title: "사용 가능한 언어"
+glossary_subtitle: "용어 및 정의의 종합 목록"
+glossary_title: "용어집"
+home_title: "홈"
+
+# Glossary translations
+glossary_eyebrow: "용어집"
+
+# Category page translations
+categories_title: "카테고리"
+categories_browse_all: "카테고리별로 모든 콘텐츠 찾아보기"
+category_eyebrow: "카테고리"
+category_browse_content: "%s 카테고리의 모든 콘텐츠 찾아보기"
+category_no_content_found: "이 카테고리에서 콘텐츠를 찾을 수 없음"
+category_try_browsing: "다른 카테고리를 검색하거나 콘텐츠를 검색해 보세요"
+category_other_categories: "다른 카테고리"
+
+# CTA translations
+cta_default_heading: "우리의 자원으로 지식을 확장하세요"
+cta_default_description: "주요 개념에 대한 이해를 깊게 하고 최신 개발 동향을 파악하기 위해 포괄적인 기사, 가이드 및 튜토리얼 라이브러리를 탐색하세요."
+cta_default_primary_text: "리소스 찾아보기"
+cta_default_secondary_text: "전문가에게 문의하기"
+
+# Content type translations
+content_article_singular: "기사"
+content_article_plural: "기사"
+
+# Tags page translations
+tags_title: "태그"
+tags_browse_all: "주제별로 모든 콘텐츠 찾아보기"
+tag_eyebrow: "태그"
+tag_browse_content: "%s 태그가 있는 모든 콘텐츠 찾아보기"
+tag_no_content_found: "이 태그로 찾은 콘텐츠 없음"
+tag_try_browsing: "다른 태그를 검색하거나 콘텐츠를 검색해 보세요"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "이전"
+tag_pagination_next: "다음"
+tag_other_tags: "다른 태그"
+
+# Cookie consent translations
+cookie_consent_title: "쿠키 동의"
+cookie_consent_message: "당사는 귀하의 브라우징 경험을 향상시키고 트래픽을 분석하기 위해 쿠키를 사용합니다."
+cookie_consent_accept_all: "모두 허용"
+cookie_consent_accept_necessary: "필수 항목만 허용"
+cookie_consent_settings: "쿠키 설정"
+cookie_settings_title: "쿠키 설정"
+cookie_settings_close: "닫기"
+cookie_settings_necessary_title: "필수 쿠키"
+cookie_settings_necessary_description: "이 쿠키는 웹사이트 작동에 필요하며 비활성화할 수 없습니다."
+cookie_settings_analytics_title: "분석 쿠키"
+cookie_settings_analytics_description: "이 쿠키는 방문자가 웹사이트와 상호 작용하는 방식을 이해하는 데 도움이 됩니다."
+cookie_settings_cancel: "취소"
+cookie_settings_save: "환경 설정 저장"
+
+# Pagination translations
+pagination_previous: "이전"
+pagination_next: "다음"
+pagination_showing: "표시"
+pagination_to: "에서"
+pagination_of: "중"
+pagination_results: "결과"
+pagination_browse_all: "모든 콘텐츠 찾아보기"
+
+# FAQ translations
+faq_heading: "자주 묻는 질문"
+faq_description: "이 주제에 대한 일반적인 질문에 대한 답변을 찾아보세요."
+
+no_terms_available: "사용 가능한 용어가 없습니다"
+pricing_monthly_label: "월간"
+pricing_yearly_label: "연간"
+wantMore: "더 원하십니까?"
+learnMore: "더 알아보기"
+pricing_tagline: "가격 책정"
+pricing_title: "당신과 함께 성장하는 가격 책정"
+pricing_description: "청중을 참여시키고, 고객 충성도를 창출하며, 판매를 촉진하는 최고의 기능이 담긴 저렴한 요금제를 선택하세요."
+pricing_comparison_title: "요금제 비교"
+pricing_comparison_description: "요금제 비교를 확인하고 가장 적합한 요금제를 선택하세요"
+read_more_post: "더 읽기"
+no_posts_found: "게시물을 찾을 수 없습니다"
+minutes_read: "분 읽기"
+get_started: "시작하기"
+courses.session: "세션"
+courses.you_will_learn: "학습 내용:"
+courses.or: "또는"

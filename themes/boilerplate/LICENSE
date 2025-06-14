@@ -1,0 +1,47 @@
+# CUSTOM LICENSE AGREEMENT FOR HUGO BOILERPLATE
+
+Copyright (c) 2025 QualityUnit
+
+## TERMS AND CONDITIONS
+
+1. **Definitions**
+   - "The Software" refers to the Hugo Boilerplate project including all source code, templates, configuration files, and documentation.
+   - "Tailwind CSS" refers to the CSS framework used within this project.
+   - "The Copyright Holder" refers to QualityUnit.
+
+2. **Usage Rights**
+   - You are permitted to use The Software for personal or internal business purposes.
+   - You may modify The Software to suit your needs.
+   - You may use The Software as a foundation for creating websites or web applications.
+
+3. **Redistribution Restrictions**
+   - Redistribution of The Software, in whole or in part, is not permitted without explicit written permission from The Copyright Holder.
+   - This restriction is in place partly due to the inclusion of Tailwind CSS, for which The Copyright Holder has purchased a license that may not permit unrestricted redistribution.
+   - To request permission for redistribution, please contact The Copyright Holder.
+
+4. **Derivative Works**
+   - Creation of derivative works is permitted for personal or internal business use only.
+   - Public distribution of derivative works is not permitted without explicit written permission from The Copyright Holder.
+
+5. **No Warranty**
+   - The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement.
+   - In no event shall The Copyright Holder be liable for any claim, damages, or other liability arising from the use of The Software.
+
+6. **Third-Party Components**
+   - This license does not grant any rights to third-party components included in The Software, including but not limited to Tailwind CSS.
+   - Users must ensure they comply with the licenses of all third-party components.
+
+7. **License for Tailwind CSS**
+   - Tailwind CSS is included in this project under a license purchased by The Copyright Holder.
+   - This license does not transfer any rights to Tailwind CSS beyond what is permitted by the Tailwind CSS license.
+   - For more information about Tailwind CSS licensing, please visit: https://tailwindcss.com/license
+
+8. **Termination**
+   - This license automatically terminates if you fail to comply with any of its terms and conditions.
+   - Upon termination, you must cease all use of The Software and destroy all copies.
+
+9. **Governing Law**
+   - This license shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law provisions.
+
+For permission requests or questions about this license, please contact:
+[Your Contact Information]

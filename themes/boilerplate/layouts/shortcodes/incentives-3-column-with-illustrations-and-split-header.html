@@ -1,0 +1,92 @@
+{{/* 
+  Example usage:
+  {{< incentives-3-column-with-illustrations-and-split-header 
+      backgroundColor="bg-white" 
+      title="Why choose us?" 
+      description="Discover the benefits of shopping with us." 
+      imageUrl="https://example.com/header-image.jpg" 
+      imageAlt="Header image description" 
+  >}}
+    [
+      {
+        "title": "Free shipping",
+        "description": "Free worldwide shipping on all orders over $100.",
+        "iconUrl": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-shipping-simple.svg",
+        "iconAlt": "Shipping icon"
+      },
+      {
+        "title": "10-year warranty",
+        "description": "If it breaks in the first 10 years we'll replace it.",
+        "iconUrl": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-simple.svg",
+        "iconAlt": "Warranty icon"
+      },
+      {
+        "title": "Exchanges",
+        "description": "Easy returns within 30 days of purchase.",
+        "iconUrl": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-exchange-simple.svg",
+        "iconAlt": "Exchange icon"
+      }
+    ]
+  {{< /incentives-3-column-with-illustrations-and-split-header >}}
+
+  3-column incentives shortcode with illustrations and split header
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - title: Main heading text (default: from partial)
+  - description: Supporting text below the heading (default: from partial)
+  - imageUrl: URL for the header image (default: from partial)
+  - imageAlt: Alt text for the header image (default: from partial)
+  
+  Inner Content:
+  JSON array of incentive objects with the following structure:
+  - title: Incentive title
+  - description: Incentive description
+  - iconUrl: URL to the incentive icon
+  - iconAlt: Alt text for the icon
+  
+  If no inner content is provided, default incentives will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $title := .Get "title" | default "" }}
+{{ $description := .Get "description" | default "" }}
+{{ $imageUrl := .Get "imageUrl" | default "" }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
+
+{{ $defaultIncentives := slice 
+  (dict 
+    "title" "Free shipping" 
+    "description" "It's not actually free we just price it into the products. Someone's paying for it, and it's not us." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-shipping-simple.svg"
+    "iconAlt" "Shipping icon"
+  )
+  (dict 
+    "title" "10-year warranty" 
+    "description" "If it breaks in the first 10 years we'll replace it. After that you're on your own though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-simple.svg"
+    "iconAlt" "Warranty icon"
+  )
+  (dict 
+    "title" "Exchanges" 
+    "description" "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-exchange-simple.svg"
+    "iconAlt" "Exchange icon"
+  )
+}}
+
+{{ $incentives := $defaultIncentives }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $incentives = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "incentives/3-column_with_illustrations_and_split_header.html" (dict 
+  "backgroundColor" $backgroundColor
+  "title" $title
+  "description" $description
+  "imageUrl" $imageUrl
+  "imageAlt" $imageAlt
+  "incentives" $incentives
+) }}

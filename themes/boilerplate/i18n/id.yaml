@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Pertanyaan yang Sering Diajukan"
+language_selector_title: "Bahasa yang Tersedia"
+glossary_subtitle: "Daftar lengkap istilah dan definisi"
+glossary_title: "Glosarium"
+home_title: "Beranda"
+
+# Glossary translations
+glossary_eyebrow: "Glosarium"
+
+# Category page translations
+categories_title: "Kategori"
+categories_browse_all: "Telusuri semua konten berdasarkan kategori"
+category_eyebrow: "Kategori"
+category_browse_content: "Telusuri semua konten dalam kategori %s"
+category_no_content_found: "Tidak ada konten yang ditemukan dalam kategori ini"
+category_try_browsing: "Coba telusuri kategori lain atau cari konten"
+category_other_categories: "Kategori Lainnya"
+
+# CTA translations
+cta_default_heading: "Perluas pengetahuan Anda dengan sumber daya kami"
+cta_default_description: "Jelajahi perpustakaan komprehensif kami yang berisi artikel, panduan, dan tutorial untuk memperdalam pemahaman Anda tentang konsep-konsep utama dan tetap mengikuti perkembangan terbaru."
+cta_default_primary_text: "Telusuri sumber daya"
+cta_default_secondary_text: "Hubungi ahli kami"
+
+# Content type translations
+content_article_singular: "artikel"
+content_article_plural: "artikel"
+
+# Tags page translations
+tags_title: "Tag"
+tags_browse_all: "Telusuri semua konten berdasarkan topik"
+tag_eyebrow: "Tag"
+tag_browse_content: "Telusuri semua konten yang ditandai dengan %s"
+tag_no_content_found: "Tidak ada konten yang ditemukan dengan tag ini"
+tag_try_browsing: "Coba telusuri tag lain atau cari konten"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Sebelumnya"
+tag_pagination_next: "Selanjutnya"
+tag_other_tags: "Tag Lainnya"
+
+# Cookie consent translations
+cookie_consent_title: "Persetujuan Cookie"
+cookie_consent_message: "Kami menggunakan cookie untuk meningkatkan pengalaman berselancar Anda dan menganalisis lalu lintas kami."
+cookie_consent_accept_all: "Terima Semua"
+cookie_consent_accept_necessary: "Terima yang Diperlukan Saja"
+cookie_consent_settings: "Pengaturan Cookie"
+cookie_settings_title: "Pengaturan Cookie"
+cookie_settings_close: "Tutup"
+cookie_settings_necessary_title: "Cookie yang Diperlukan"
+cookie_settings_necessary_description: "Cookie ini diperlukan agar situs web berfungsi dan tidak dapat dinonaktifkan."
+cookie_settings_analytics_title: "Cookie Analitik"
+cookie_settings_analytics_description: "Cookie ini membantu kami memahami bagaimana pengunjung berinteraksi dengan situs web kami."
+cookie_settings_cancel: "Batalkan"
+cookie_settings_save: "Simpan Preferensi"
+
+# Pagination translations
+pagination_previous: "Sebelumnya"
+pagination_next: "Selanjutnya"
+pagination_showing: "Menampilkan"
+pagination_to: "hingga"
+pagination_of: "dari"
+pagination_results: "hasil"
+pagination_browse_all: "Telusuri semua konten di"
+
+# FAQ translations
+faq_heading: "Pertanyaan yang sering diajukan"
+faq_description: "Temukan jawaban atas pertanyaan umum tentang topik ini."
+
+no_terms_available: "Tidak ada istilah yang tersedia"
+pricing_monthly_label: "Bulanan"
+pricing_yearly_label: "Tahunan"
+wantMore: "Ingin lebih banyak?"
+learnMore: "Pelajari lebih lanjut"
+pricing_tagline: "Harga"
+pricing_title: "Harga yang tumbuh bersama Anda"
+pricing_description: "Pilih paket terjangkau yang dilengkapi dengan fitur terbaik untuk melibatkan audiens Anda, menciptakan loyalitas pelanggan, dan mendorong penjualan."
+pricing_comparison_title: "Bandingkan Paket"
+pricing_comparison_description: "Lihat perbandingan paket kami dan pilih yang terbaik untuk Anda"
+read_more_post: "Baca selengkapnya"
+no_posts_found: "Tidak ada postingan yang ditemukan"
+minutes_read: "menit baca"
+get_started: "Mulai"
+courses.session: "Sesi"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

@@ -1,0 +1,63 @@
+{{/* Simple Logos with Heading Shortcode */}}
+{{- /*
+  Usage in markdown:
+  {{< logos-with-heading 
+    heading="Trusted by leading companies" 
+    bgColor="bg-gray-50" 
+    padding="py-16 sm:py-24" 
+    headingColor="text-gray-800" 
+    logoColor="gray-700" 
+    logos="data.partner_logos"
+  >}}
+
+  Parameters:
+  - heading: Heading text (default: "Trusted by the world's most innovative teams")
+  - bgColor: Background color class (default: "bg-white")
+  - padding: CSS padding classes (default: "py-24 sm:py-32")
+  - headingColor: Text color for the heading (default: "text-gray-900")
+  - logoColor: Color of the logos (default: "gray-900")
+  - logos: Reference to data file containing logo information (e.g., "data.partner_logos")
+  
+  Logo data structure example (in data file):
+  partner_logos:
+    - name: "Company Name"
+      url: "/images/logos/company-logo.svg"
+      width: "158"
+      height: "48"
+    - name: "Another Company"
+      url: "/images/logos/another-logo.svg"
+      width: "158"
+      height: "48"
+*/ -}}
+
+{{ $heading := .Get "heading" | default (.Get 0) | default "Trusted by the world's most innovative teams" }}
+{{ $bgColor := .Get "bgColor" | default (.Get 1) | default "bg-white" }}
+{{ $padding := .Get "padding" | default (.Get 2) | default "py-24 sm:py-32" }}
+{{ $headingColor := .Get "headingColor" | default (.Get 3) | default "text-gray-900" }}
+{{ $logoColor := .Get "logoColor" | default (.Get 4) | default "gray-900" }}
+{{ $logosReference := .Get "logos" | default (.Get 5) | default "" }}
+
+{{ $params := dict 
+  "heading" $heading
+  "bgColor" $bgColor
+  "padding" $padding
+  "headingColor" $headingColor
+  "logoColor" $logoColor
+}}
+
+{{/* Add logos parameter if provided */}}
+{{ if ne $logosReference "" }}
+  {{ if hasPrefix $logosReference "data." }}
+    {{ $dataPath := strings.TrimPrefix "data." $logosReference }}
+    {{ $dataPathParts := split $dataPath "." }}
+    {{ $dataValue := index site.Data (index $dataPathParts 0) }}
+    
+    {{ range $i, $part := after 1 $dataPathParts }}
+      {{ $dataValue = index $dataValue $part }}
+    {{ end }}
+    
+    {{ $params = merge $params (dict "logos" $dataValue) }}
+  {{ end }}
+{{ end }}
+
+{{ partial "logos/simple_with_heading.html" $params }}

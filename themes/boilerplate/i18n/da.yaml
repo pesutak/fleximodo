@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Ofte Stillede Spørgsmål"
+language_selector_title: "Tilgængelige Sprog"
+glossary_subtitle: "En omfattende liste over udtryk og definitioner"
+glossary_title: "Ordliste"
+home_title: "Hjem"
+
+# Glossary translations
+glossary_eyebrow: "Ordliste"
+
+# Category page translations
+categories_title: "Kategorier"
+categories_browse_all: "Gennemse alt indhold efter kategori"
+category_eyebrow: "Kategori"
+category_browse_content: "Gennemse alt indhold i kategorien %s"
+category_no_content_found: "Intet indhold fundet i denne kategori"
+category_try_browsing: "Prøv at gennemse andre kategorier eller søge efter indhold"
+category_other_categories: "Andre Kategorier"
+
+# CTA translations
+cta_default_heading: "Udvid din viden med vores ressourcer"
+cta_default_description: "Udforsk vores omfattende bibliotek af artikler, guider og vejledninger for at uddybe din forståelse af nøglebegreber og holde dig opdateret med de seneste udviklinger."
+cta_default_primary_text: "Gennemse ressourcer"
+cta_default_secondary_text: "Kontakt vores eksperter"
+
+# Content type translations
+content_article_singular: "artikel"
+content_article_plural: "artikler"
+
+# Tags page translations
+tags_title: "Emneord"
+tags_browse_all: "Gennemse alt indhold efter emne"
+tag_eyebrow: "Emneord"
+tag_browse_content: "Gennemse alt indhold mærket med %s"
+tag_no_content_found: "Ingen indhold fundet med dette emneord"
+tag_try_browsing: "Prøv at gennemse andre emneord eller søge efter indhold"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Forrige"
+tag_pagination_next: "Næste"
+tag_other_tags: "Andre Emneord"
+
+# Cookie consent translations
+cookie_consent_title: "Cookie Samtykke"
+cookie_consent_message: "Vi bruger cookies til at forbedre din browsingoplevelse og analysere vores trafik."
+cookie_consent_accept_all: "Accepter Alle"
+cookie_consent_accept_necessary: "Accepter Kun Nødvendige"
+cookie_consent_settings: "Cookie Indstillinger"
+cookie_settings_title: "Cookie Indstillinger"
+cookie_settings_close: "Luk"
+cookie_settings_necessary_title: "Nødvendige Cookies"
+cookie_settings_necessary_description: "Disse cookies er nødvendige for, at hjemmesiden fungerer og kan ikke deaktiveres."
+cookie_settings_analytics_title: "Analysecookies"
+cookie_settings_analytics_description: "Disse cookies hjælper os med at forstå, hvordan besøgende interagerer med vores hjemmeside."
+cookie_settings_cancel: "Annuller"
+cookie_settings_save: "Gem Indstillinger"
+
+# Pagination translations
+pagination_previous: "Forrige"
+pagination_next: "Næste"
+pagination_showing: "Viser"
+pagination_to: "til"
+pagination_of: "af"
+pagination_results: "resultater"
+pagination_browse_all: "Gennemse alt indhold i"
+
+# FAQ translations
+faq_heading: "Ofte stillede spørgsmål"
+faq_description: "Find svar på almindelige spørgsmål om dette emne."
+
+no_terms_available: "Ingen termer tilgængelige"
+pricing_monthly_label: "Månedligt"
+pricing_yearly_label: "Årligt"
+wantMore: "Vil du have mere?"
+learnMore: "Lær mere"
+pricing_tagline: "Priser"
+pricing_title: "Priser der vokser med dig"
+pricing_description: "Vælg en overkommelig plan, der er fyldt med de bedste funktioner til at engagere dit publikum, skabe kundeloyalitet og øge salget."
+pricing_comparison_title: "Sammenlign planer"
+pricing_comparison_description: "Tjek vores plansammenligninger og vælg den bedste til dig"
+read_more_post: "Læs mere"
+no_posts_found: "Ingen indlæg fundet"
+minutes_read: "min læsning"
+get_started: "Kom i gang"
+courses.session: "Session"
+courses.you_will_learn: "Du vil lære:"
+courses.or: "eller"

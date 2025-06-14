@@ -1,0 +1,74 @@
+{{/*
+@section: Simple Stats
+@description: A clean, minimalist statistics section displaying key metrics in a three-column layout.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: The numerical value or metric to display
+    - label: Description of what the value represents
+  - valueColor: Color class for statistic values (optional, default: "text-gray-900")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-600")
+@example:
+  {{ partial "sections/stats/simple.html" (dict 
+      "stats" (slice 
+          (dict 
+              "value" "99.9%" 
+              "label" "Uptime guarantee"
+          )
+          (dict 
+              "value" "24/7" 
+              "label" "Customer support"
+          )
+          (dict 
+              "value" "100K+" 
+              "label" "Active users"
+          )
+      )
+      "bgColor" "bg-gray-50"
+      "valueColor" "text-indigo-600"
+  ) }}
+@note: This section presents statistics with the label below the value for visual emphasis on the numbers.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Stats */}}
+{{ $stats := .stats | default slice }}
+
+{{/* Default stats if none provided */}}
+{{ if eq (len $stats) 0 }}
+  {{ $stats = slice 
+    (dict 
+      "value" "44 million"
+      "label" "Transactions every 24 hours"
+    )
+    (dict 
+      "value" "$119 trillion"
+      "label" "Assets under holding"
+    )
+    (dict 
+      "value" "46,000"
+      "label" "New users annually"
+    )
+  }}
+{{ end }}
+
+{{/* Text colors */}}
+{{ $valueColor := .valueColor | default "text-gray-900" }}
+{{ $labelColor := .labelColor | default "text-gray-600" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+      {{ range $stat := $stats }}
+      <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+        <dt class="text-base/7 {{ $labelColor }}">{{ $stat.label }}</dt>
+        <dd class="order-first text-3xl font-semibold tracking-tight {{ $valueColor }} sm:text-5xl">{{ $stat.value }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</div>

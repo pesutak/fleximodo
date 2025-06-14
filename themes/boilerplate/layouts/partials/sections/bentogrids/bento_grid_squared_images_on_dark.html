@@ -1,0 +1,189 @@
+{{/*
+@section: Bento Grid for Squared images on Dark Background
+@description: A visually striking layout with a flexible grid of content cards arranged in multiple rows on a dark background, ideal for showcasing features or categories with images and descriptions.
+@params:
+  - tagline: Short text displayed above the main heading (optional, default: "Deploy faster")
+  - heading: Main section heading (optional, default: "Everything you need to deploy your app")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-400")
+  - backgroundColor: Background color class for the section (optional, default: "gray-900")
+  - cards: Array of card objects with content (required)
+    - title: Card title text
+    - category: Category label displayed above the title
+    - description: Card description text
+    - image: URL to card image
+    - imageAlt: Alt text for the image
+    - url: URL for the card link (optional)
+@example:
+  {{ partial "sections/bentogrids/two_row_bento_grid_on_dark.html" (dict 
+      "tagline" "Our Solutions" 
+      "heading" "Advanced tools for modern businesses"
+      "backgroundColor" "black"
+      "taglineColor" "blue-400"
+      "cards" (slice
+          (dict
+              "title" "Automated Workflows" 
+              "category" "Productivity"
+              "description" "Streamline your business processes with intelligent automation tools that reduce manual work."
+              "image" "/images/solutions/automation.jpg"
+              "imageAlt" "Workflow automation diagram"
+              "url" "/solutions/automation"  
+          )
+          (dict
+              "title" "Advanced Analytics" 
+              "category" "Insights"
+              "description" "Powerful analytics tools to track and visualize your business performance."
+              "image" "/images/solutions/analytics.jpg"
+              "imageAlt" "Analytics dashboard"
+              "url" "/solutions/analytics"  
+          )
+          (dict
+              "title" "Enterprise Security" 
+              "category" "Protection"
+              "description" "Keep your data safe with our enterprise-grade security solutions."
+              "image" "/images/solutions/security.jpg"
+              "imageAlt" "Security interface"
+          )
+          (dict
+              "title" "Scalable Infrastructure" 
+              "category" "Technology"
+              "description" "Build on a foundation that grows with your business, from startup to enterprise scale."
+              "image" "/images/solutions/infrastructure.jpg"
+              "imageAlt" "Server infrastructure"
+          )
+      )
+  ) }}
+@note: This is the dark variant of the Bento Grid section, featuring cards with dark backgrounds and light text. The grid layout adapts responsively, with distinct rounded corners that create a visually appealing bento box effect. The positions of cards are calculated automatically based on their index.
+*/}}
+
+{{/* Dynamic Bento Grid Section on Dark Background */}}
+{{ $tagline := .tagline | default "Deploy faster" }}
+{{ $heading := .heading | default "Everything you need to deploy your app" }}
+{{ $taglineColor := .taglineColor | default "indigo-400" }}
+{{ $backgroundColor := .backgroundColor | default "gray-900" }}
+
+{{ $cards := .cards | default (slice
+  (dict
+    "title" "Push to deploy"
+    "category" "Releases"
+    "description" "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-02-releases.png"
+    "imageAlt" "Releases dashboard"
+    "url" "/releases"
+  )
+  (dict
+    "title" "Connect your favorite tools"
+    "category" "Integrations"
+    "description" "Curabitur auctor, ex quis auctor venenatis, eros arcu rhoncus massa."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-02-integrations.png"
+    "imageAlt" "Integrations panel"
+  )
+  (dict
+    "title" "Advanced access control"
+    "category" "Security"
+    "description" "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-02-security.png"
+    "imageAlt" "Security panel"
+  )
+  (dict
+    "title" "Lightning-fast builds"
+    "category" "Performance"
+    "description" "Sed congue eros non finibus molestie. Vestibulum euismod augue vel commodo vulputate. Maecenas at augue sed elit dictum vulputate."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-02-performance.png"
+    "imageAlt" "Performance metrics"
+  )
+) }}
+
+<div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
+  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+    <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+    <p class="mt-2 max-w-lg text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">{{ $heading }}</p>
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6">
+      {{ range $index, $card := $cards }}
+        {{ $totalCards := len $cards }}
+        {{ $isFirst := eq $index 0 }}
+        {{ $isLast := eq $index (sub $totalCards 1) }}
+        {{ $modulo := mod $index 4 }}
+        
+        {{ if or (eq $modulo 0) (eq $modulo 3) }}
+          {{/* Large cards (4 columns) - at positions 0, 3, 4, 7, 8, 11, etc. */}}
+          <div class="flex p-px lg:col-span-4">
+            <div class="overflow-hidden rounded-lg bg-gray-800 ring-1 ring-white/15 w-full
+              {{ if and $isFirst (eq $modulo 0) }}max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]{{ end }}
+              {{ if and $isLast (eq $modulo 3) }}max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]{{ end }}
+              {{ if and (not $isFirst) (not $isLast) (eq $modulo 0) }}lg:rounded-l-lg{{ end }}
+              {{ if and (not $isFirst) (not $isLast) (eq $modulo 3) }}lg:rounded-r-lg{{ end }}">
+              {{ if $card.url }}
+              <a href="{{ $card.url }}" class="block h-full hover:opacity-90 transition-opacity">
+              {{ end }}
+              <div class="aspect-square w-full overflow-hidden">
+                {{ partial "components/media/lazyimg.html" (dict 
+                  "src" $card.image
+                  "alt" $card.imageAlt
+                  "class" "w-full h-full object-cover"
+                  "maxWidth" 800
+                ) }}
+              </div>
+              <div class="p-10">
+                <h3 class="text-sm/4 font-semibold text-gray-400">{{ $card.category }}</h3>
+                <p class="mt-2 text-lg font-medium tracking-tight text-white">{{ $card.title }}</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-gray-400">{{ $card.description }}</p>
+                {{ if $card.url }}
+                <div class="mt-4">
+                  <span class="inline-flex items-center text-sm font-medium text-{{ $taglineColor }} group">
+                    <span>{{ ((i18n "learnMore") | default "Learn more") }}</span>
+                    <svg class="ml-1 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </div>
+                {{ end }}
+              </div>
+              {{ if $card.url }}
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        {{ else }}
+          {{/* Small cards (2 columns) - at positions 1, 2, 5, 6, 9, 10, etc. */}}
+          <div class="flex p-px lg:col-span-2">
+            <div class="overflow-hidden rounded-lg bg-gray-800 ring-1 ring-white/15 w-full
+              {{ if and $isFirst (eq $modulo 1) }}max-lg:rounded-t-[2rem] lg:rounded-tr-[2rem]{{ end }}
+              {{ if and $isLast (eq $modulo 2) }}max-lg:rounded-b-[2rem] lg:rounded-bl-[2rem]{{ end }}
+              {{ if and (eq $modulo 1) (not $isFirst) }}lg:rounded-r-lg{{ end }}
+              {{ if and (eq $modulo 2) (not $isLast) }}lg:rounded-l-lg{{ end }}">
+              {{ if $card.url }}
+              <a href="{{ $card.url }}" class="block h-full hover:opacity-90 transition-opacity">
+              {{ end }}
+              <div class="aspect-square w-full overflow-hidden">
+                {{ partial "components/media/lazyimg.html" (dict 
+                  "src" $card.image
+                  "alt" $card.imageAlt
+                  "class" "w-full h-full object-cover"
+                  "maxWidth" 400
+                ) }}
+              </div>
+              <div class="p-10">
+                <h3 class="text-sm/4 font-semibold text-gray-400">{{ $card.category }}</h3>
+                <p class="mt-2 text-lg font-medium tracking-tight text-white">{{ $card.title }}</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-gray-400">{{ $card.description }}</p>
+                {{ if $card.url }}
+                <div class="mt-4">
+                  <span class="inline-flex items-center text-sm font-medium text-{{ $taglineColor }} group">
+                    <span>{{ ((i18n "learnMore") | default "Learn more") }}</span>
+                    <svg class="ml-1 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </div>
+                {{ end }}
+              </div>
+              {{ if $card.url }}
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>

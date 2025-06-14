@@ -1,0 +1,60 @@
+{{/*
+@component: Label
+@description: A flexible label/badge component with customizable text, colors, and styles
+@params:
+  - text: Text content for the label (required)
+  - bgColor: Background color class (default: "bg-gray-100")
+  - textColor: Text color class (default: "text-gray-500")
+  - borderColor: Border color class (default: none)
+  - rounded: Rounded corners style (default: "rounded-md")
+  - size: Size variant (default: "text-xs")
+  - padding: Padding classes (default: "px-2.5 py-1.5")
+  - fontWeight: Font weight class (default: "font-semibold")
+  - icon: Icon name to display before text (optional)
+  - iconClass: Classes for the icon (default: "mr-1.5 h-2 w-2")
+  - classes: Additional CSS classes to add (optional)
+@example:
+  {{ partial "components/label/label.html" (dict 
+      "text" "New Feature" 
+      "bgColor" "bg-blue-100" 
+      "textColor" "text-blue-700"
+  ) }}
+
+  {{ partial "components/label/label.html" (dict 
+      "text" "Premium" 
+      "bgColor" "bg-amber-100" 
+      "textColor" "text-amber-800"
+      "icon" "star"
+  ) }}
+*/}}
+
+{{/* Set default values if not provided */}}
+{{ $text := .text | default "Badge" }}
+{{ $bgColor := .bgColor | default "bg-gray-100" }}
+{{ $textColor := .textColor | default "text-gray-500" }}
+{{ $borderColor := .borderColor | default "" }}
+{{ $rounded := .rounded | default "rounded-md" }}
+{{ $size := .size | default "text-xs" }}
+{{ $padding := .padding | default "px-2 py-0.5" }}
+{{ $fontWeight := .fontWeight | default "font-semibold" }}
+{{ $icon := .icon | default "" }}
+{{ $iconClass := .iconClass | default "mr-1.5 h-2 w-2" }}
+{{ $classes := .classes | default "" }}
+
+{{/* Border classes */}}
+{{ $border := "" }}
+{{ if $borderColor }}
+  {{ $border = printf "border %s" $borderColor }}
+{{ end }}
+
+<span class="inline-flex items-center {{ $rounded }} {{ $bgColor }} {{ $textColor }} {{ $padding }} {{ $size }} {{ $fontWeight }} {{ $border }} {{ $classes }}">
+  {{/* Icon rendering if specified */}}
+  {{ if $icon }}
+    {{ $iconPath := printf "themes/boilerplate/layouts/partials/icons/%s.html" $icon }}
+    {{ if fileExists $iconPath }}
+      {{ partial (printf "icons/%s" $icon) $iconClass }}
+    {{ end }}
+  {{ end }}
+  {{/* Label text content */}}
+  {{ $text }}
+</span>

@@ -1,0 +1,94 @@
+{{/* 
+@section: Categories Product List With Tall Images
+@description: A responsive grid layout showcasing products with tall images, product titles, variants, and prices. Features a subtle hover effect on images.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - heading: Main heading text (optional, default: "Products", sr-only by default)
+  - products: Array of product objects (optional, includes defaults)
+    - title: Product title
+    - variant: Product variant text (e.g., "3 sizes available")
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - price: Product price
+@example:
+  {{ partial "sections/categories/product_list_with_tall_images.html" (dict 
+      "backgroundColor" "bg-gray-50"
+      "heading" "Featured Products"
+      "products" (slice
+          (dict 
+              "title" "Focus Paper Refill"
+              "variant" "3 sizes available"
+              "url" "/products/focus-paper-refill"
+              "imageUrl" "/images/products/focus-paper-refill.jpg"
+              "imageAlt" "Person using a pen to cross a task off a productivity paper card."
+              "price" "$13"
+          )
+          (dict 
+              "title" "Focus Card Holder"
+              "variant" "Walnut"
+              "url" "/products/focus-card-holder"
+              "imageUrl" "/images/products/focus-card-holder.jpg"
+              "imageAlt" "Paper card sitting upright in walnut card holder on desk."
+              "price" "$64"
+          )
+      )
+  ) }}
+@note: This component displays products in a responsive grid - one column on mobile, two columns on tablets, and three columns on desktop displays. Images have a subtle opacity change on hover.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Products" }}
+
+{{ $products := .products | default (slice 
+  (dict 
+    "title" "Focus Paper Refill"
+    "variant" "3 sizes available"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-01-image-card-01.jpg"
+    "imageAlt" "Person using a pen to cross a task off a productivity paper card."
+    "price" "$13"
+  )
+  (dict 
+    "title" "Focus Card Holder"
+    "variant" "Walnut"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-01-image-card-02.jpg"
+    "imageAlt" "Paper card sitting upright in walnut card holder on desk."
+    "price" "$64"
+  )
+  (dict 
+    "title" "Focus Carry Case"
+    "variant" "Heather Gray"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-01-image-card-03.jpg"
+    "imageAlt" "Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop."
+    "price" "$32"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 id="products-heading" class="sr-only">{{ $heading }}</h2>
+
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+      {{ range $products }}
+      <a href="{{ .url }}" class="group">
+        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" .imageUrl
+            "alt" .imageAlt
+            "class" "h-full w-full object-cover object-center group-hover:opacity-75"
+            "maxWidth" 400
+          ) }}
+        </div>
+        <div class="mt-4 flex items-center justify-between text-base font-medium text-gray-900">
+          <h3>{{ .title }}</h3>
+          <p>{{ .price }}</p>
+        </div>
+        <p class="mt-1 text-sm text-gray-500 italic">{{ .variant }}</p>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</div>

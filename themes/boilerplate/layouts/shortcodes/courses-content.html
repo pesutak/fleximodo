@@ -1,0 +1,172 @@
+{{/*
+@shortcode: courses-content
+@description: Shortcode for displaying course content, pricing options, features, and promotional banners
+@params:
+  - title: Main section title (optional, defaults to page title)
+  - description: Section description text (optional, defaults to page description)
+  - ctaText: Text for the call-to-action button (optional)
+  - ctaUrl: URL for the call-to-action button (optional)
+  - bannerText: Text for the bottom banner, supports HTML (optional)
+  - bannerImage: Path to banner image (optional)
+  - bannerImageAlt: Alt text for banner image (optional)
+  - sectionClass: CSS classes for the main section (optional)
+  - bgColor: Background color class (optional)
+  - padding: Padding classes (optional)
+
+  Course data should be provided as JSON content between shortcode tags:
+  {
+    "icons": Array of icon objects with image path and alt text,
+    "sessions": Array of session objects with pricing information,
+    "labels": Array of label objects with promotional text,
+    "features": Array of feature objects with title and items array
+  }
+
+@example:
+  {{< courses-content 
+    title="Microsoft Copilot Training Course"
+    description="Ensuring teams get the most value from the integrated Microsoft Copilot is crucial any company using Microsoft products. Our mentored learning sessions help teams work smarter and use integrated generative AI tools to enhance everyday workflows."
+    ctaText="Book Now"
+    ctaUrl="/booking/"
+    bannerText="Showcase Your Expertise<br><b>With Our Certificate!</b>"
+    comment="Main AI training course details"
+    sectionClass="mx-auto max-w-7xl mb-0"
+    >}}
+    {
+    "icons": [
+        {"image": "/images/landing-pages/microsoft-copilot.svg"}
+    ],
+    "sessions": [
+        {
+        "title": "2 x 2.5 hour",
+        "subtitle": "online sessions",
+        "count": "2",
+        "countLabel": "sessions in bundle",
+        "smallGroupTitle": "1-6 people:",
+        "smallGroupPrice": "€900",
+        "largeGroupTitle": "7-12 people:",
+        "largeGroupPrice": "€1100"
+        },
+        {
+        "title": "5 x 1 hour",
+        "subtitle": "online sessions",
+        "count": "5",
+        "countLabel": "sessions in bundle",
+        "smallGroupTitle": "1-6 people:",
+        "smallGroupPrice": "€1000",
+        "largeGroupTitle": "7-12 people:",
+        "largeGroupPrice": "€1200"
+        }
+    ],
+    "labels": [
+        {"text": "10% Discount for further bookings over 5 sessions", "bgColor": "bg-green-600", "textColor": "text-white"}
+    ],
+    "features": [
+        {
+        "title": "Introduction to Microsoft Copilot for Companies",
+        "items": [
+            "From AI to Generative AI",
+            "What is an LLM?",
+            "Tackling AI hallucination"
+        ]
+        },
+        {
+        "title": "Practical Use Cases for M365 Applications",
+        "items": [
+            "AI-assisted writing in MS Word",
+            "Presentations with Copilot in MS PowerPoint",
+            "Email workflows in MS Outlook",
+        ]
+        }
+    ]
+    }
+    {{< /courses-content >}}
+*/}}
+
+{{/* Content variables */}}
+{{ $title := .Get "title" | default .Page.Title }}
+{{ $description := .Get "description" | default .Page.Params.description }}
+{{ $ctaText := .Get "ctaText" | default nil }}
+{{ $ctaUrl := .Get "ctaUrl" | default nil }}
+{{ $comment := .Get "comment" | default "" }}
+
+{{/* Layout & styling options */}}
+{{ $sectionClass := .Get "sectionClass" | default nil }}
+{{ $bgColor := .Get "bgColor" | default nil }}
+{{ $padding := .Get "padding" | default nil }}
+{{ $iconClass := .Get "iconClass" | default nil }}
+{{ $titleColor := .Get "titleColor" | default nil }}
+{{ $titleClass := .Get "titleClass" | default nil }}
+{{ $descriptionColor := .Get "descriptionColor" | default nil }}
+{{ $descriptionClass := .Get "descriptionClass" | default nil }}
+
+{{/* Session styling options */}}
+{{ $pricingContainerClass := .Get "pricingContainerClass" | default nil }}
+{{ $sessionCardClass := .Get "sessionCardClass" | default nil }}
+{{ $sessionHeaderClass := .Get "sessionHeaderClass" | default nil }}
+{{ $sessionNumberClass := .Get "sessionNumberClass" | default nil }}
+{{ $sessionTitleClass := .Get "sessionTitleClass" | default nil }}
+{{ $sessionContentClass := .Get "sessionContentClass" | default nil }}
+{{ $sessionListClass := .Get "sessionListClass" | default nil }}
+{{ $sessionFeaturesEnabled := .Get "sessionFeaturesEnabled" | default true }}
+
+{{/* Banner configuration - HTML is supported in text */}}
+{{ $bannerText := .Get "bannerText" | default nil }}
+{{ $bannerImage := .Get "bannerImage" | default nil }}
+{{ $bannerImageAlt := .Get "bannerImageAlt" | default nil }}
+{{ $bannerTextColor := .Get "bannerTextColor" | default nil }}
+{{ $bannerBackgroundColor := .Get "bannerBackgroundColor" | default nil }}
+
+{{/* Legacy session configuration */}}
+{{ $session1 := .Get "session1" | default nil }}
+{{ $session2 := .Get "session2" | default nil }}
+{{ $labels := .Get "labels" | default nil }}
+
+{{/* Parse course data from inner content */}}
+{{ $course_data := .Get "course_data" | default dict }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $course_data = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{/* Get data from parsed content */}}
+{{ $icons := cond (isset $course_data "icons") (index $course_data "icons") (.Get "icons") | default nil }}
+{{ $sessions := cond (isset $course_data "sessions") (index $course_data "sessions") (.Get "sessions") | default nil }}
+{{ $labels := cond (isset $course_data "labels") (index $course_data "labels") $labels | default nil }}
+{{ $features := cond (isset $course_data "features") (index $course_data "features") (or (.Get "courseFeatures") (.Get "sessionFeatures")) | default nil }}
+
+{{/* Render the courses content section using the partial */}}
+{{ partial "sections/courses/courses-content.html" (dict 
+    "title" $title
+    "description" $description
+    "icons" $icons
+    "sessions" $sessions
+    "labels" $labels
+    "ctaText" $ctaText
+    "ctaUrl" $ctaUrl
+    "sessionFeatures" $features
+    "bannerText" $bannerText
+    "comment" $comment
+    "sectionClass" $sectionClass
+    "bgColor" $bgColor
+    "padding" $padding
+    "iconClass" $iconClass
+    "titleColor" $titleColor
+    "titleClass" $titleClass
+    "descriptionColor" $descriptionColor
+    "descriptionClass" $descriptionClass
+    "pricingContainerClass" $pricingContainerClass
+    "sessionCardClass" $sessionCardClass
+    "sessionHeaderClass" $sessionHeaderClass
+    "sessionNumberClass" $sessionNumberClass
+    "sessionTitleClass" $sessionTitleClass
+    "sessionContentClass" $sessionContentClass
+    "sessionListClass" $sessionListClass
+    "sessionFeaturesEnabled" $sessionFeaturesEnabled
+    "bannerImage" $bannerImage
+    "bannerImageAlt" $bannerImageAlt
+    "bannerTextColor" $bannerTextColor
+    "bannerBackgroundColor" $bannerBackgroundColor
+    "session1" $session1
+    "session2" $session2
+) }}

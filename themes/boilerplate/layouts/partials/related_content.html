@@ -1,0 +1,74 @@
+{{/*
+@component: Related Content
+@description: Displays related content articles based on configuration in data/related_content/[lang].yaml.
+@params:
+  This component expects a page context (.) and looks up related content based on the page's section and slug.
+@example:
+  {{ partial "related_content.html" . }}
+@note: If no related content is defined for the current page in the YAML file, nothing will be displayed.
+*/}}
+
+{{ $currentPage := . }}
+{{ if $currentPage.File }}
+  {{ $section := $currentPage.Section }}
+  {{ $slug := $currentPage.File.ContentBaseName }}
+  {{ $lang := $currentPage.Language.Lang }}
+
+  {{ $relatedContentData := index site.Data.related_content $lang }}
+  {{ $sectionData := index $relatedContentData $section | default dict }}
+  {{ $pageRelatedContent := index $sectionData $slug | default slice }}
+
+  {{ if gt (len $pageRelatedContent) 0 }}
+
+      {{ $relatedPages := slice }}
+
+      {{ range $pageRelatedContent }}
+        {{ $relatedPath := .file }}
+        {{ $relatedPage := site.GetPage $relatedPath }}
+        
+        {{ if $relatedPage }}
+          {{ $relatedPages = $relatedPages | append $relatedPage }}
+        {{ end }}
+      {{ end }}
+      
+      {{ if gt (len $relatedPages) 0 }}
+        <div class="bg-white py-16">
+          <div class="wrapper">
+              <div class="text-center mb-8"></div>
+              <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center mb-4 pb-2">
+                {{ i18n "learnMore" | default "Want to know more?" }}
+              </h2>
+          </div>
+          
+          <div class="wrapper">
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {{ $validPages := 0 }}
+
+            <!-- Check if any of the related pages have images -->
+            {{ $hasImages := false }}
+            {{ range $relatedPages }}
+              {{ if .Params.image }}
+                {{ $hasImages = true }}
+              {{ end }}
+            {{ end }}
+
+            {{ range first 3 $relatedPages }}
+              {{ if . }}
+                {{ partial "components/cards/post_card_with_image.html" (dict "cardHeight" 500 "showImages" $hasImages "page" .) }}
+                {{ $validPages = add $validPages 1 }}
+              {{ end }}
+            {{ end }}
+            
+            {{ if eq $validPages 0 }}
+              <!-- If we got here but no valid pages were rendered, hide the entire section -->
+              <style>
+                .text-center.mb-8 { display: none; }
+              </style>
+            {{ end }}
+            </div>
+          </div>
+        </div>
+          
+        {{ end }}
+  {{ end }}
+{{ end }}

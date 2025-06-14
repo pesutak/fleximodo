@@ -1,0 +1,78 @@
+{{/*
+@component: Lazy Video
+@description: Displays videos with lazy loading. Uses YouTube component for YouTube URLs and HTML5 video for other video sources.
+@params:
+  - src: Video URL (required)
+  - title: Video title for accessibility (optional)
+  - alt: Alternative text for accessibility (optional, defaults to title)
+  - class: Additional CSS classes (optional)
+  - width: Video width (optional, default: "100%")
+  - height: Video height (optional, default: "auto")
+  - id: Optional ID attribute (optional)
+  - autoplay: Enable autoplay (optional, default: false)
+  - loop: Enable loop (optional, default: false)
+  - muted: Enable muted (optional, default: false)
+  - controls: Show video controls (optional, default: true)
+  - poster: Poster image URL for HTML5 video (optional)
+@example:
+  {{ partial "components/media/lazyvideo.html" (dict 
+      "src" "https://example.com/video.mp4" 
+      "title" "Demo Video" 
+      "class" "my-8 rounded-xl shadow-lg"
+      "autoplay" true
+      "loop" true
+      "muted" true
+  ) }}
+@note: Automatically detects YouTube URLs and uses the YouTube component. For other videos, uses HTML5 video with lazy loading.
+*/}}
+
+{{ $src := .src }}
+{{ $title := .title | default "Video" }}
+{{ $alt := .alt | default $title }}
+{{ $class := .class | default "" }}
+{{ $width := .width | default "" }}
+{{ $height := .height | default "" }}
+{{ $id := .id }}
+{{ $autoplay := .autoplay | default true }}
+{{ $loop := .loop | default true }}
+{{ $muted := .muted | default true }}
+{{ $controls := .controls | default false }}
+{{ $poster := .poster }}
+
+{{ if $src }}
+  {{ if or (hasPrefix $src "https://www.youtube.com/") (hasPrefix $src "https://youtu.be/") }}
+    {{/* Handle YouTube URLs */}}
+    {{ $videoID := $src }}
+    {{ if hasPrefix $src "https://www.youtube.com/watch?v=" }}
+      {{ $videoID = replaceRE "^https://www.youtube.com/watch\\?v=([a-zA-Z0-9_-]+).*$" "$1" $src }}
+    {{ else if hasPrefix $src "https://youtu.be/" }}
+      {{ $videoID = replaceRE "^https://youtu.be/([a-zA-Z0-9_-]+).*$" "$1" $src }}
+    {{ end }}
+    {{ partial "components/media/youtubevideo.html" (dict 
+        "videoID" $videoID 
+        "title" $title
+        "class" $class
+        "width" $width
+        "height" $height
+        "id" $id
+    ) }}
+  {{ else }}
+    <div class="lazy-video-wrapper {{ with $class }}{{ . }}{{ end }}" {{ with $id }}id="{{ . }}"{{ end }} style="position: relative;">
+      <video 
+        {{ if $autoplay }}autoplay{{ end }}
+        {{ if $loop }}loop{{ end }}
+        {{ if $muted }}muted{{ end }}
+        {{ if $controls }}controls{{ end }}
+        {{ with $poster }}poster="{{ . }}"{{ end }}
+        {{ with $width }}width="{{ . }}"{{ end }}
+        {{ with $height }}height="{{ . }}"{{ end }}
+        preload="metadata"
+        aria-label="{{ $alt }}"
+        data-lazy-video-src="{{ $src }}"
+        style="width: 100%; height: auto; display: block;"
+        class="lazy-video-element"
+      >
+      </video>
+    </div>
+  {{ end }}
+{{ end }}

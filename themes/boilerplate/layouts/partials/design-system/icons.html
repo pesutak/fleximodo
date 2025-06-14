@@ -1,0 +1,245 @@
+<!-- Icons library overview -->
+<div class="space-y-6">
+  <p class="text-base text-gray-600">
+    Complete collection of icons available in the boilerplate theme.
+    Icons can be used by including them as partials using this syntax:
+  </p>
+
+  <div class="bg-gray-100 p-4 rounded-md">
+    <pre class="text-sm text-gray-800">{{ "{{ partial \"icons/icon-name\" . }}" }}</pre>
+    <p class="mt-2 text-sm text-gray-600">or with custom classes:</p>
+    <pre class="text-sm text-gray-800">{{ "{{ partial \"icons/icon-name\" \"w-8 h-8 text-blue-600\" }}" }}</pre>
+  </div>
+
+  <!-- Icon style toggle and search -->
+  <div class="flex flex-wrap items-center gap-4 bg-gray-50 p-3 rounded-md">
+    <div class="flex items-center">
+      <label class="text-sm font-medium text-gray-700 mr-2">Style:</label>
+      <div class="flex bg-white rounded-md shadow-sm p-1 border border-gray-200">
+        <button type="button" id="outline-toggle"
+          class="px-3 py-1 text-sm font-medium rounded-md bg-blue-100 text-blue-700">Outline</button>
+        <button type="button" id="solid-toggle"
+          class="px-3 py-1 text-sm font-medium rounded-md text-gray-700">Solid</button>
+      </div>
+    </div>
+    <div class="flex-grow">
+      <input type="text" id="icon-search" placeholder="Search icons..."
+        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm">
+    </div>
+  </div>
+
+  <div id="icons-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {{ $iconsDir := "themes/boilerplate/layouts/partials/icons/" }}
+    {{ $files := readDir $iconsDir }}
+    {{ $allIcons := slice }}
+
+    <!-- Process direct files in icons directory -->
+    {{ range $files }}
+      {{ if not .IsDir }}
+        {{ $iconName := replace .Name ".html" "" }}
+        {{ $allIcons = $allIcons | append (dict "name" $iconName "path" (printf "icons/%s" $iconName)) }}
+      {{ end }}
+    {{ end }}
+
+    <!-- Process subdirectories -->
+    {{ range $files }}
+      {{ if .IsDir }}
+        {{ $subDir := .Name }}
+        {{ $subFiles := readDir (printf "%s%s/" $iconsDir $subDir) }}
+        
+        {{ range $subFiles }}
+          {{ if not .IsDir }}
+            {{ $subIconName := replace .Name ".html" "" }}
+            {{ $fullIconName := printf "%s/%s" $subDir $subIconName }}
+            {{ $partialPath := printf "icons/%s/%s" $subDir $subIconName }}
+            {{ $allIcons = $allIcons | append (dict "name" $fullIconName "path" $partialPath) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    <!-- Render all icons -->
+    {{ range $allIcons }}
+      {{ $iconName := .name }}
+      {{ $partialPath := .path }}
+      {{ $isSolid := findRE "-solid$" $iconName }}
+
+      <div
+        class="flex flex-col items-center p-4 rounded-lg bg-white shadow border border-gray-100 hover:border-gray-300 transition-colors icon-card cursor-pointer {{ if $isSolid }}solid-icon hidden{{ else }}outline-icon{{ end }}"
+        data-icon-name="{{ $iconName }}">
+        <div class="flex items-center justify-center w-12 h-12 bg-gray-50 rounded-md mb-2">
+          {{ partial $partialPath "w-6 h-6 text-gray-500" }}
+        </div>
+        <div class="text-xs text-center text-gray-600 break-all mt-2">{{ $iconName }}</div>
+      </div>
+    {{ end }}
+  </div>
+
+  <div id="copy-notification"
+    class="fixed bottom-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-3 rounded-md shadow-lg opacity-0 transition-all duration-300"
+    style="z-index: 50; transform: translateY(100%);">
+    <div class="flex items-center">
+      {{ partial "icons/check" "w-5 h-5 text-green-500 mr-2" }}
+      <p>Icon name copied to clipboard!</p>
+    </div>
+  </div>
+
+  <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
+    <div class="flex">
+      {{ partial "icons/information-circle" "w-5 h-5 text-blue-500 mr-2" }}
+      <p class="text-sm text-blue-700">
+        Icons are based on Heroicons collection. Outline icons have no suffix (e.g. "check"), while solid icons have
+        "-solid" suffix (e.g. "check-solid"). Click on an icon to copy its name.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const solidToggle = document.getElementById('solid-toggle');
+      const outlineToggle = document.getElementById('outline-toggle');
+      const iconSearch = document.getElementById('icon-search');
+      const iconsGrid = document.getElementById('icons-grid');
+      const iconCards = document.querySelectorAll('.icon-card');
+      const copyNotification = document.getElementById('copy-notification');
+
+      // Toggle between solid and outline icons
+      solidToggle.addEventListener('click', function () {
+        solidToggle.classList.add('bg-blue-100', 'text-blue-700');
+        outlineToggle.classList.remove('bg-blue-100', 'text-blue-700');
+
+        document.querySelectorAll('.solid-icon').forEach(icon => {
+          icon.classList.remove('hidden');
+        });
+
+        document.querySelectorAll('.outline-icon').forEach(icon => {
+          icon.classList.add('hidden');
+        });
+
+        filterIcons();
+      });
+
+      outlineToggle.addEventListener('click', function () {
+        outlineToggle.classList.add('bg-blue-100', 'text-blue-700');
+        solidToggle.classList.remove('bg-blue-100', 'text-blue-700');
+
+        document.querySelectorAll('.outline-icon').forEach(icon => {
+          icon.classList.remove('hidden');
+        });
+
+        document.querySelectorAll('.solid-icon').forEach(icon => {
+          icon.classList.add('hidden');
+        });
+
+        filterIcons();
+      });
+
+      // Search functionality
+      iconSearch.addEventListener('input', filterIcons);
+
+      function filterIcons() {
+        const searchTerm = iconSearch.value.toLowerCase();
+        let visibleCount = 0;
+
+        iconCards.forEach(card => {
+          const iconName = card.getAttribute('data-icon-name').toLowerCase();
+          const isVisibleType = !card.classList.contains('hidden');
+
+          if (isVisibleType && iconName.includes(searchTerm)) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (visibleCount === 0) {
+          let message = document.getElementById('no-results-message');
+          if (!message) {
+            message = document.createElement('div');
+            message.id = 'no-results-message';
+            message.className = 'col-span-full text-center p-4 text-gray-500';
+            message.textContent = 'No icons found matching your search.';
+            iconsGrid.appendChild(message);
+          }
+        } else {
+          const message = document.getElementById('no-results-message');
+          if (message) {
+            message.remove();
+          }
+        }
+      }
+
+      // Copy icon name to clipboard when clicking on an icon card
+      iconCards.forEach(card => {
+        card.addEventListener('click', function () {
+          const iconName = card.getAttribute('data-icon-name');
+
+          // Use the modern clipboard API if available
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(iconName)
+              .then(() => showCopyNotification())
+              .catch(err => {
+                console.error('Could not copy text: ', err);
+                // Fallback to the older method
+                copyUsingExecCommand(iconName);
+              });
+          } else {
+            // Fallback for browsers that don't support the Clipboard API
+            copyUsingExecCommand(iconName);
+          }
+
+          // Visual feedback on the card itself
+          const originalBorderColor = card.style.borderColor;
+          card.style.borderColor = '#3b82f6';
+          card.style.borderWidth = '2px';
+
+          setTimeout(() => {
+            card.style.borderColor = originalBorderColor;
+            card.style.borderWidth = '';
+          }, 500);
+        });
+      });
+
+      function copyUsingExecCommand(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed'; // Prevent scrolling to the element
+        document.body.appendChild(textarea);
+        textarea.select();
+
+        try {
+          const successful = document.execCommand('copy');
+          if (successful) {
+            showCopyNotification();
+          } else {
+            console.error('Fallback copy failed');
+          }
+        } catch (err) {
+          console.error('Fallback copy error:', err);
+        } finally {
+          document.body.removeChild(textarea);
+        }
+      }
+
+      function showCopyNotification() {
+        // Reset any previous transition
+        copyNotification.style.transition = 'none';
+        copyNotification.style.transform = 'translateY(100%)';
+
+        // Force reflow
+        void copyNotification.offsetWidth;
+
+        // Restore transition and show
+        copyNotification.style.transition = 'all 0.3s ease-out';
+        copyNotification.style.transform = 'translateY(0)';
+        copyNotification.style.opacity = '1';
+
+        setTimeout(() => {
+          copyNotification.style.transform = 'translateY(100%)';
+          copyNotification.style.opacity = '0';
+        }, 2000);
+      }
+    });
+  </script>
+</div>

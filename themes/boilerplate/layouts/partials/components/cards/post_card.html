@@ -1,0 +1,74 @@
+{{/*
+@component: Post Card
+@description: Displays a blog post card with title, description, date, section, tags, author, and reading time.
+@params:
+  This component expects a page context (.) that has the following properties:
+  - Title: The title of the post
+  - Params.image: Featured image URL (optional)
+  - Params.description or .Description or .Summary: Post description/summary
+  - Date: Publication date
+  - ReadingTime: Estimated reading time in minutes
+  - RelPermalink: URL to the post
+  - Section: The content section (e.g., "blog")
+  - Params.tags: Array of post tags (optional)
+  - Params.author: Post author name (optional)
+@example:
+  {{ partial "components/cards/post_card.html" . }}
+@note: This component should be used in a loop over a collection of pages, typically in a list or section template.
+*/}}
+
+{{ $image := .Params.image }}
+{{ $title := .Title }}
+{{ $description := .Params.description | default .Description | default .Summary }}
+{{ $date := .Date.Format "Jan 2, 2006" }}
+{{ $readingTime := .ReadingTime }}
+{{ $permalink := .RelPermalink }}
+{{ $section := .Section }}
+
+<article class="group relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
+  {{ if .Date }}
+  <!-- Date and Section -->
+  <div class="flex items-center gap-x-4 text-xs mb-3">
+    <time datetime="{{ .Date.Format "2006-01-02" }}" class="text-gray-500">{{ $date }}</time>
+    {{ if $section }}
+      <a href="{{ print "/" $section "/" | relLangURL }}" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{ humanize $section }}</a>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <!-- Title and Description -->
+  <h3 class="text-lg font-semibold text-gray-900 group-hover:text-indigo-600">
+    <a href="{{ $permalink }}" class="hover:text-indigo-600 focus:outline-none">
+      <span class="absolute inset-0" aria-hidden="true"></span>
+      {{ $title }}
+    </a>
+  </h3>
+  <p class="mt-2 text-sm text-gray-500 line-clamp-3 flex-grow">{{ $description }}</p>
+  
+  <!-- Tags -->
+  {{ if .Params.tags }}
+    <div class="mt-4 flex flex-wrap gap-2">
+      {{ range first 3 .Params.tags }}
+        <a href="{{ print "/tags/" (. | urlize) | relLangURL }}/" class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 hover:bg-gray-200">
+          {{ . }}
+        </a>
+      {{ end }}
+      {{ if gt (len .Params.tags) 3 }}
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
+          +{{ sub (len .Params.tags) 3 }}
+        </span>
+      {{ end }}
+    </div>
+  {{ end }}
+  
+  <!-- Author and Reading Time -->
+  <div class="mt-4 flex items-center text-sm text-gray-500">
+    {{ if .Params.author }}
+      <span class="mr-2">{{ .Params.author }}</span>
+      <span class="mx-2">•</span>
+    {{ else }}
+      <span class="mx-2">•</span>
+    {{ end }}
+    <span>{{ $readingTime }} min read</span>
+  </div>
+</article>

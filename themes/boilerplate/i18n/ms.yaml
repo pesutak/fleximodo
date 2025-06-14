@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Soalan Lazim"
+language_selector_title: "Bahasa yang Tersedia"
+glossary_subtitle: "Senarai istilah dan definisi yang komprehensif"
+glossary_title: "Glosari"
+home_title: "Utama"
+
+# Glossary translations
+glossary_eyebrow: "Glosari"
+
+# Category page translations
+categories_title: "Kategori"
+categories_browse_all: "Lihat semua kandungan mengikut kategori"
+category_eyebrow: "Kategori"
+category_browse_content: "Lihat semua kandungan dalam kategori %s"
+category_no_content_found: "Tiada kandungan dijumpai dalam kategori ini"
+category_try_browsing: "Cuba lihat kategori lain atau cari kandungan"
+category_other_categories: "Kategori Lain"
+
+# CTA translations
+cta_default_heading: "Perluas pengetahuan anda dengan sumber kami"
+cta_default_description: "Terokai perpustakaan kami yang komprehensif dengan artikel, panduan, dan tutorial untuk memperdalam pemahaman anda tentang konsep utama dan sentiasa dikemas kini dengan perkembangan terkini."
+cta_default_primary_text: "Lihat sumber"
+cta_default_secondary_text: "Hubungi pakar kami"
+
+# Content type translations
+content_article_singular: "artikel"
+content_article_plural: "artikel"
+
+# Tags page translations
+tags_title: "Tag"
+tags_browse_all: "Lihat semua kandungan mengikut topik"
+tag_eyebrow: "Tag"
+tag_browse_content: "Lihat semua kandungan yang ditandai dengan %s"
+tag_no_content_found: "Tiada kandungan dijumpai dengan tag ini"
+tag_try_browsing: "Cuba lihat tag lain atau cari kandungan"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Sebelumnya"
+tag_pagination_next: "Seterusnya"
+tag_other_tags: "Tag Lain"
+
+# Cookie consent translations
+cookie_consent_title: "Kebenaran Kuki"
+cookie_consent_message: "Kami menggunakan kuki untuk meningkatkan pengalaman melayari anda dan menganalisis trafik kami."
+cookie_consent_accept_all: "Terima Semua"
+cookie_consent_accept_necessary: "Terima Yang Diperlukan Sahaja"
+cookie_consent_settings: "Tetapan Kuki"
+cookie_settings_title: "Tetapan Kuki"
+cookie_settings_close: "Tutup"
+cookie_settings_necessary_title: "Kuki Yang Diperlukan"
+cookie_settings_necessary_description: "Kuki ini diperlukan untuk fungsi laman web dan tidak boleh dinyahdayakan."
+cookie_settings_analytics_title: "Kuki Analitis"
+cookie_settings_analytics_description: "Kuki ini membantu kami memahami bagaimana pelawat berinteraksi dengan laman web kami."
+cookie_settings_cancel: "Batal"
+cookie_settings_save: "Simpan Keutamaan"
+
+# Pagination translations
+pagination_previous: "Sebelumnya"
+pagination_next: "Seterusnya"
+pagination_showing: "Memaparkan"
+pagination_to: "hingga"
+pagination_of: "daripada"
+pagination_results: "keputusan"
+pagination_browse_all: "Lihat semua kandungan dalam"
+
+# FAQ translations
+faq_heading: "Soalan lazim"
+faq_description: "Dapatkan jawapan untuk soalan umum tentang topik ini."
+
+no_terms_available: "Tiada istilah tersedia"
+pricing_monthly_label: "Bulanan"
+pricing_yearly_label: "Tahunan"
+wantMore: "Want more?"
+learnMore: "Learn more"
+pricing_tagline: "Pricing"
+pricing_title: "Pricing that grows with you"
+pricing_description: "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales."
+pricing_comparison_title: "Compare Plans"
+pricing_comparison_description: "Check out our plan comparisons and select the best one for you"
+read_more_post: "Read more"
+no_posts_found: "No posts found"
+minutes_read: "min read"
+get_started: "Get started"
+courses.session: "Session"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

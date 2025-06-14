@@ -1,0 +1,113 @@
+{{/*
+@component: Simple Logos With Heading on Dark
+@description: Displays a grid of client/partner logos with a heading text above the logos on a dark background.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Heading text displayed above the logos (optional, default: "Trusted by the world's most innovative teams")
+  - headingColor: Heading text color (optional, default: "text-white")
+  - logoColor: Color of the logos (optional, default: "white")
+  - logos: Array of logo objects, each with:
+    - name: Company/brand name
+    - url: URL to the logo image
+    - width: Logo width
+    - height: Logo height
+@example:
+  {{ partial "components/logos/simple_with_heading_on_dark.html" (dict 
+      "bgColor" "bg-indigo-950"
+      "heading" "Our Partners"
+      "logos" (slice 
+        (dict 
+          "name" "Company A" 
+          "url" "/images/logos/company-a-white.svg"
+          "width" "158"
+          "height" "48"
+        )
+        (dict 
+          "name" "Company B" 
+          "url" "/images/logos/company-b-white.svg"
+          "width" "158"
+          "height" "48"
+        )
+      )
+  ) }}
+@note: This is the dark mode variant of the Simple Logos With Heading component. The component will use default placeholder logos in white if none are provided, suitable for dark backgrounds.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Trusted by the world's most innovative teams" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+
+{{/* Logos */}}
+{{ $logoColor := .logoColor | default "white" }}
+{{ $logos := .logos | default (slice 
+  (dict 
+    "name" "Transistor" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-white.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "Reform" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-white.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "Tuple" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-white.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "SavvyCal" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-white.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "Statamic" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-white.svg"
+    "width" "158"
+    "height" "48"
+  )
+) }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h2 class="text-center text-lg/8 font-semibold {{ $headingColor }}">{{ $heading }}</h2>
+    <div class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+      {{ range $index, $logo := $logos }}
+        {{ if eq $index 3 }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $logo.url 
+            "alt" $logo.name 
+            "class" "col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
+        {{ else if eq $index 4 }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $logo.url 
+            "alt" $logo.name 
+            "class" "col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
+        {{ else }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $logo.url 
+            "alt" $logo.name 
+            "class" "col-span-2 max-h-12 w-full object-contain lg:col-span-1" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>

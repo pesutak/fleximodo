@@ -1,0 +1,33 @@
+
+[en]
+  languageName = "English"
+  title = "Fleximodo | Global Leader in IoT Smart Parking Solutions & Infrastructure"
+  weight = 1
+  contentDir = "content/en"
+  baseURL = "https://fleximodo.com"
+  [en.params]
+    bcp47Lang = "en-us"
+    description = "Explore Fleximodo's end-to-end IoT smart parking ecosystem—hardware, software, analytics, and consulting. Over 99% detection accuracy, global deployments in 50+ countries. Get a Demo-Kit today!"
+    gaMeasurementID = "G-PROD7890123"
+
+[de]
+  languageName = "Deutsch"
+  title = "Fleximodo | Global Leader in IoT Smart Parking Solutions & Infrastructure"
+  weight = 2
+  contentDir = "content/de"
+  baseURL = "https://fleximodo.com"
+  [de.params]
+    bcp47Lang = "de"
+    description = "Entdecken Sie Fleximodos IoT-Smart-Parking-Ökosystem – Hardware, Software, Analysen und Beratung. Über 99% Erkennungsgenauigkeit, globale Installationen in über 50 Ländern. Holen Sie sich noch heute ein Demo-Kit!"
+    gaMeasurementID = "G-GERMAN12345"
+
+[sk]
+  languageName = "Slovenčina"
+  title = "Fleximodo | Global Leader in IoT Smart Parking Solutions & Infrastructure"
+  weight = 3
+  contentDir = "content/sk"
+  baseURL = "https://fleximodo.com"
+  [sk.params]
+    bcp47Lang = "sk"
+    description = "Fleximodo je globálny vedecký a technologický partner pre smart parkingové riešenia. Viac ako 99% presnosti detekcie, globálne nasadenie v 50+ krajinách. Získajte Demo-Kit ešte dnes!"
+    gaMeasurementID = "G-SLOVAK67890"

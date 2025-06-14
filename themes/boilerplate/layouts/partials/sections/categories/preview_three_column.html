@@ -1,0 +1,97 @@
+{{/*
+@section: Categories Preview Three Column
+@description: A responsive grid layout displaying category previews in three columns, each with an image, title, and description. Categories are clickable and feature a subtle hover effect.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-gray-100")
+  - heading: Main section heading (optional, default: "Collections")
+  - categories: Array of category objects (optional, includes defaults)
+    - title: Category title (appears as smaller text above description)
+    - description: Category description (appears as larger text below title)
+    - url: URL for the category link
+    - imageUrl: URL to category image
+    - imageAlt: Alt text for category image
+@example:
+  {{ partial "sections/categories/preview_three_column.html" (dict 
+      "heading" "Browse Categories" 
+      "backgroundColor" "bg-white"
+      "categories" (slice
+          (dict 
+              "title" "Software Development" 
+              "description" "Tools and resources for developers"
+              "url" "/categories/development"
+              "imageUrl" "/images/categories/development.jpg"
+              "imageAlt" "Developer working on code at a desk with multiple monitors."
+          )
+          (dict 
+              "title" "Design Resources" 
+              "description" "UI kits, templates and assets"
+              "url" "/categories/design"
+              "imageUrl" "/images/categories/design.jpg"
+              "imageAlt" "Design workspace with tablet, stylus and color palettes."
+          )
+          (dict 
+              "title" "Productivity" 
+              "description" "Boost your workflow efficiency"
+              "url" "/categories/productivity"
+              "imageUrl" "/images/categories/productivity.jpg"
+              "imageAlt" "Organized workspace with notebook, calendar and productivity tools."
+          )
+      )
+  ) }}
+@note: This section's layout changes responsively - on mobile, categories stack vertically, while on desktop they display in a three-column grid.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-gray-100" }}
+{{ $heading := .heading | default "Collections" }}
+
+{{ $categories := .categories | default (slice 
+  (dict 
+    "title" "Desk and Office"
+    "description" "Work from home accessories"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg"
+    "imageAlt" "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
+  )
+  (dict 
+    "title" "Self-Improvement"
+    "description" "Journals and note-taking"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-02.jpg"
+    "imageAlt" "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant."
+  )
+  (dict 
+    "title" "Travel"
+    "description" "Daily commute essentials"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-03.jpg"
+    "imageAlt" "Collection of four insulated travel bottles on wooden shelf."
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
+      <h2 class="text-2xl font-bold text-gray-900">{{ $heading }}</h2>
+
+      <div class="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
+        {{ range $categories }}
+        <div class="group relative">
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" .imageUrl
+            "alt" .imageAlt
+            "class" "w-full rounded-lg bg-white object-cover group-hover:opacity-75 max-sm:h-80 sm:aspect-2/1 lg:aspect-square"
+            "maxWidth" 400
+          ) }}
+          <h3 class="mt-6 text-sm text-gray-500">
+            <a href="{{ .url }}">
+              <span class="absolute inset-0"></span>
+              {{ .title }}
+            </a>
+          </h3>
+          <p class="text-base font-semibold text-gray-900">{{ .description }}</p>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

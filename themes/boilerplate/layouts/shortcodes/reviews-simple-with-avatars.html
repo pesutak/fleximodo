@@ -1,0 +1,67 @@
+{{/* 
+  Simple reviews with avatars shortcode
+  
+  Usage:
+  {{< reviews-simple-with-avatars 
+      backgroundColor="bg-gray-100" 
+      title="Our Happy Customers" 
+      reviews="
+        [
+          (dict 
+            \"name\" \"Emily Selman\" 
+            \"date\" \"July 16, 2021\" 
+            \"dateISO\" \"2021-07-16\" 
+            \"rating\" 5 
+            \"text\" \"This icon pack is just what I need for my latest project. There's an icon for just about anything I could ever need. Love the playful look!\" 
+            \"imageUrl\" \"https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80\" 
+            \"imageAlt\" \"Emily Selman.\"
+          ),
+          (dict 
+            \"name\" \"Hector Gibbons\" 
+            \"date\" \"July 12, 2021\" 
+            \"dateISO\" \"2021-07-12\" 
+            \"rating\" 5 
+            \"text\" \"Blown away by how polished this icon pack is. Everything looks so consistent and each SVG is optimized out of the box so I can use it directly with confidence. It would take me several hours to create a single icon this good, so it's a steal at this price.\" 
+            \"imageUrl\" \"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80\" 
+            \"imageAlt\" \"Hector Gibbons.\"
+          )
+        ]
+      "
+  >}}
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - title: Screen reader title (default: "Customer Reviews")
+  - reviews: List of dictionaries
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $title := .Get "title" | default "Customer Reviews" }}
+{{ $reviewsParam := .Get "reviews" }}
+{{ $reviews := cond $reviewsParam (apply (slice) "dict" $reviewsParam) (slice 
+  (dict 
+    "name" "Emily Selman" 
+    "date" "July 16, 2021"
+    "dateISO" "2021-07-16"
+    "rating" 5
+    "text" "This icon pack is just what I need for my latest project. There's an icon for just about anything I could ever need. Love the playful look!"
+    "imageUrl" "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+    "imageAlt" "Emily Selman."
+  )
+  (dict 
+    "name" "Hector Gibbons" 
+    "date" "July 12, 2021"
+    "dateISO" "2021-07-12"
+    "rating" 5
+    "text" "Blown away by how polished this icon pack is. Everything looks so consistent and each SVG is optimized out of the box so I can use it directly with confidence. It would take me several hours to create a single icon this good, so it's a steal at this price."
+    "imageUrl" "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+    "imageAlt" "Hector Gibbons."
+  )
+)
+}}
+
+{{ partial "sections/reviews/simple_with_avatars.html" (dict 
+  "backgroundColor" $backgroundColor
+  "title" $title
+  "reviews" $reviews
+) }}

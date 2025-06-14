@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Často kladené otázky"
+language_selector_title: "Dostupné jazyky"
+glossary_subtitle: "Komplexní seznam termínů a definic"
+glossary_title: "Slovník"
+home_title: "Domů"
+
+# Glossary translations
+glossary_eyebrow: "Slovník"
+
+# Category page translations
+categories_title: "Kategorie"
+categories_browse_all: "Procházet veškerý obsah podle kategorie"
+category_eyebrow: "Kategorie"
+category_browse_content: "Procházet veškerý obsah v kategorii %s"
+category_no_content_found: "V této kategorii nebyl nalezen žádný obsah"
+category_try_browsing: "Zkuste procházet jiné kategorie nebo vyhledávat obsah"
+category_other_categories: "Další kategorie"
+
+# CTA translations
+cta_default_heading: "Rozšiřte své znalosti s našimi zdroji"
+cta_default_description: "Prozkoumejte naši rozsáhlou knihovnu článků, průvodců a tutoriálů, abyste prohloubili své porozumění klíčovým konceptům a zůstali informováni o nejnovějším vývoji."
+cta_default_primary_text: "Procházet zdroje"
+cta_default_secondary_text: "Kontaktovat naše experty"
+
+# Content type translations
+content_article_singular: "článek"
+content_article_plural: "články"
+
+# Tags page translations
+tags_title: "Štítky"
+tags_browse_all: "Procházet veškerý obsah podle tématu"
+tag_eyebrow: "Štítek"
+tag_browse_content: "Procházet veškerý obsah označený %s"
+tag_no_content_found: "Žádný obsah s tímto štítkem nebyl nalezen"
+tag_try_browsing: "Zkuste procházet jiné štítky nebo vyhledávat obsah"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Předchozí"
+tag_pagination_next: "Další"
+tag_other_tags: "Další štítky"
+
+# Cookie consent translations
+cookie_consent_title: "Souhlas s cookies"
+cookie_consent_message: "Používáme cookies ke zlepšení vašeho prohlížení a analýze naší návštěvnosti."
+cookie_consent_accept_all: "Přijmout vše"
+cookie_consent_accept_necessary: "Přijmout pouze nezbytné"
+cookie_consent_settings: "Nastavení cookies"
+cookie_settings_title: "Nastavení cookies"
+cookie_settings_close: "Zavřít"
+cookie_settings_necessary_title: "Nezbytné cookies"
+cookie_settings_necessary_description: "Tyto cookies jsou potřebné pro fungování webu a nelze je zakázat."
+cookie_settings_analytics_title: "Analytické cookies"
+cookie_settings_analytics_description: "Tyto cookies nám pomáhají porozumět, jak návštěvníci interagují s naším webem."
+cookie_settings_cancel: "Zrušit"
+cookie_settings_save: "Uložit preference"
+
+# Pagination translations
+pagination_previous: "Předchozí"
+pagination_next: "Další"
+pagination_showing: "Zobrazeno"
+pagination_to: "až"
+pagination_of: "z"
+pagination_results: "výsledků"
+pagination_browse_all: "Procházet veškerý obsah v"
+
+# FAQ translations
+faq_heading: "Často kladené otázky"
+faq_description: "Najděte odpovědi na běžné otázky o tomto tématu."
+
+no_terms_available: "Žádné termíny nejsou k dispozici"
+pricing_monthly_label: "Měsíčně"
+pricing_yearly_label: "Ročně"
+wantMore: "Chcete více?"
+learnMore: "Zjistit více"
+pricing_tagline: "Ceník"
+pricing_title: "Ceny, které rostou s vámi"
+pricing_description: "Vyberte si cenově dostupný plán, který je nabitý nejlepšími funkcemi pro zapojení vašeho publika, vytvoření věrnosti zákazníků a zvýšení prodeje."
+pricing_comparison_title: "Porovnání plánů"
+pricing_comparison_description: "Prohlédněte si naše srovnání plánů a vyberte si ten nejlepší pro vás"
+read_more_post: "Číst více"
+no_posts_found: "Žádné příspěvky nenalezeny"
+minutes_read: "min čtení"
+get_started: "Začít"
+courses.session: "Lekce"
+courses.you_will_learn: "Naučíte se:"
+courses.or: "nebo"

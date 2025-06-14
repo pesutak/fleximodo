@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Често задавани въпроси"
+language_selector_title: "Налични езици"
+glossary_subtitle: "Изчерпателен списък на термини и определения"
+glossary_title: "Речник"
+home_title: "Начало"
+
+# Glossary translations
+glossary_eyebrow: "Речник"
+no_terms_available: "Няма налични термини"
+
+# Category page translations
+categories_title: "Категории"
+categories_browse_all: "Разгледайте цялото съдържание по категория"
+category_eyebrow: "Категория"
+category_browse_content: "Разгледайте цялото съдържание в категория %s"
+category_no_content_found: "Не е намерено съдържание в тази категория"
+category_try_browsing: "Опитайте да разгледате други категории или да потърсите съдържание"
+category_other_categories: "Други категории"
+
+# CTA translations
+cta_default_heading: "Разширете знанията си с нашите ресурси"
+cta_default_description: "Разгледайте нашата изчерпателна библиотека от статии, ръководства и уроци, за да задълбочите разбирането си за ключови концепции и да бъдете в крак с най-новите разработки."
+cta_default_primary_text: "Разгледайте ресурсите"
+cta_default_secondary_text: "Свържете се с нашите експерти"
+
+# Content type translations
+content_article_singular: "статия"
+content_article_plural: "статии"
+
+# Tags page translations
+tags_title: "Етикети"
+tags_browse_all: "Разгледайте цялото съдържание по тема"
+tag_eyebrow: "Етикет"
+tag_browse_content: "Разгледайте цялото съдържание с етикет %s"
+tag_no_content_found: "Няма намерено съдържание с този етикет"
+tag_try_browsing: "Опитайте да разгледате други етикети или да търсите съдържание"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Предишна"
+tag_pagination_next: "Следваща"
+tag_other_tags: "Други етикети"
+
+# Cookie consent translations
+cookie_consent_title: "Съгласие за бисквитки"
+cookie_consent_message: "Използваме бисквитки, за да подобрим вашето сърфиране и да анализираме нашия трафик."
+cookie_consent_accept_all: "Приемете всички"
+cookie_consent_accept_necessary: "Приемете само необходимите"
+cookie_consent_settings: "Настройки на бисквитките"
+cookie_settings_title: "Настройки на бисквитките"
+cookie_settings_close: "Затвори"
+cookie_settings_necessary_title: "Необходими бисквитки"
+cookie_settings_necessary_description: "Тези бисквитки са необходими за функционирането на уебсайта и не могат да бъдат деактивирани."
+cookie_settings_analytics_title: "Аналитични бисквитки"
+cookie_settings_analytics_description: "Тези бисквитки ни помагат да разберем как посетителите взаимодействат с нашия уебсайт."
+cookie_settings_cancel: "Отказ"
+cookie_settings_save: "Запазете предпочитанията"
+
+# Pagination translations
+pagination_previous: "Предишна"
+pagination_next: "Следваща"
+pagination_showing: "Показване"
+pagination_to: "до"
+pagination_of: "от"
+pagination_results: "резултати"
+pagination_browse_all: "Разгледайте цялото съдържание в"
+
+# FAQ translations
+faq_heading: "Често задавани въпроси"
+faq_description: "Намерете отговори на често задавани въпроси по тази тема."
+
+pricing_monthly_label: "Месечно"
+pricing_yearly_label: "Годишно"
+wantMore: "Искате повече?"
+learnMore: "Научете повече"
+pricing_tagline: "Ценообразуване"
+pricing_title: "Ценообразуване, което расте заедно с вас"
+pricing_description: "Изберете достъпен план, изпълнен с най-добрите функции за ангажиране на аудиторията ви, създаване на лоялност на клиентите и стимулиране на продажбите."
+pricing_comparison_title: "Сравнение на плановете"
+pricing_comparison_description: "Вижте нашите сравнения на планове и изберете най-добрия за вас"
+read_more_post: "Прочети повече"
+no_posts_found: "Не са намерени публикации"
+minutes_read: "мин четене"
+get_started: "Започни"
+courses.session: "Сесия"
+courses.you_will_learn: "Ще научите:"
+courses.or: "или"

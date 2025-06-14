@@ -1,0 +1,240 @@
+{{/*
+@component: YouTube Video
+@description: Displays YouTube videos with optimized lazy-loading functionality and thumbnail images that load only when displayed on screen.
+@params:
+  - videoID: YouTube video ID (required)
+  - title: Video title for better accessibility (required)
+  - class: Additional CSS classes (optional)
+  - width: Video width (optional, default: "100%")
+  - height: Video height (optional, default: "auto")
+  - id: Optional ID attribute (optional, default: "youtube-{videoID}")
+@example:
+  {{ partial "components/media/youtubevideo.html" (dict 
+      "videoID" "dQw4w9WgXcQ" 
+      "title" "Rick Astley - Never Gonna Give You Up" 
+      "class" "my-8 rounded-xl shadow-lg"
+  ) }}
+@note: The component automatically finds the highest quality available thumbnail image and implements lazy-loading for better page performance.
+*/}}
+
+{{ $videoID := .videoID }}
+{{ $title := .title | default "YouTube Video" }}
+{{ $class := .class | default "" }}
+{{ $width := .width | default "100%" }}
+{{ $height := .height | default "auto" }}
+{{ $id := .id | default (print "youtube-" $videoID) }}
+{{ $description := .description | default $title }}
+{{ $uploadDate := .uploadDate | default (now.Format "2006-01-02T15:04:05Z07:00") }}
+{{ $duration := .duration | default "PT0M0S" }}
+
+<!-- Schema.org VideoObject metadata -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": {{ $title }},
+  "description": {{ $description }},
+  "thumbnailUrl": "https://img.youtube.com/vi/{{ $videoID }}/maxresdefault.jpg",
+  "uploadDate": {{ $uploadDate }},
+  "duration": {{ $duration }},
+  "contentUrl": "https://www.youtube.com/watch?v={{ $videoID }}",
+  "embedUrl": "https://www.youtube.com/embed/{{ $videoID }}"
+}
+</script>
+
+<div 
+  class="lazy-video-container {{ with $class }}{{ . }}{{ end }}"
+  data-video-id="{{ $videoID }}"
+  data-video-title="{{ $title }}"
+  data-video-width="{{ $width }}"
+  data-video-height="{{ $height }}"
+  {{ with $id }}id="{{ . }}"{{ end }}
+  style="position: relative; width: 100%; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"
+>
+  <div class="lazy-video-thumbnail" style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; overflow: hidden; cursor: pointer;">
+    <img 
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3C/svg%3E"
+      data-src="https://img.youtube.com/vi/{{ $videoID }}/hqdefault.jpg" 
+      alt="Thumbnail for {{ $title }}"
+      class="lazy-video-thumb-img lazy-image"
+      data-video-id="{{ $videoID }}"
+      loading="lazy"
+      decoding="async"
+      width="{{ $width }}"
+      height="{{ $height }}"
+      onload="this.onload=null; if(this.dataset.src === this.src) findBestThumbnail(this);"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
+    />
+    <div class="lazy-video-play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 68px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 10;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px; fill: #fff; filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.6));">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </div>
+  </div>
+  <div class="lazy-video-iframe-container" style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; display: none;">
+    <!-- YouTube iframe will be inserted here when clicked -->
+  </div>
+</div>
+
+<script>
+  // Function to find the best available thumbnail quality
+  function findBestThumbnail(img) {
+    const videoId = img.getAttribute('data-video-id');
+    if (!videoId) return;
+    
+    // List of thumbnail qualities to try, from highest to lowest
+    const qualities = [
+      { name: 'maxresdefault', minWidth: 1280, minHeight: 720 },
+      { name: 'sddefault', minWidth: 640, minHeight: 480 },
+      { name: 'hqdefault', minWidth: 480, minHeight: 360 },
+      { name: 'mqdefault', minWidth: 320, minHeight: 180 }
+    ];
+    
+    // Start with the highest quality and work down
+    tryNextQuality(img, videoId, qualities, 0);
+  }
+  
+  function tryNextQuality(img, videoId, qualities, index) {
+    // If we've tried all qualities, stop
+    if (index >= qualities.length) return;
+    
+    const quality = qualities[index];
+    const testUrl = `https://img.youtube.com/vi/${videoId}/${quality.name}.jpg`;
+    
+    const testImg = new Image();
+    
+    testImg.onload = function() {
+
+      // For maxresdefault, some videos return a 120x90 or 320x180 placeholder
+      // Special handling for maxresdefault if dimensions are too small
+      if (quality.name === 'maxresdefault' && (testImg.width < quality.minWidth || testImg.height < quality.minHeight)) {
+        tryNextQuality(img, videoId, qualities, index + 1);
+        return;
+      }
+
+      // YouTube sometimes returns valid thumbnails with slightly different dimensions than expected
+      // Allow a margin of error (e.g., 90% of expected dimensions)
+      const marginFactor = 0.9;
+      const isAcceptableSize = testImg.width >= quality.minWidth * marginFactor &&
+                             testImg.height >= quality.minHeight * marginFactor;
+
+      // Check if the image meets the minimum dimensions
+      // This helps filter out placeholder images
+      if (isAcceptableSize) {
+        // This quality is good, use it
+        img.src = testUrl;
+      } else {
+        // Try the next quality
+        tryNextQuality(img, videoId, qualities, index + 1);
+      }
+    };
+    
+    testImg.onerror = function() {
+      // Error loading this quality, try the next one
+      tryNextQuality(img, videoId, qualities, index + 1);
+    };
+    
+    // Start loading the test image
+    testImg.src = testUrl;
+  }
+  
+  // Initialize lazy loading for images if not already done
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add click event listeners to all video thumbnails
+    const videoThumbnails = document.querySelectorAll('.lazy-video-thumbnail');
+    videoThumbnails.forEach(function(thumbnail) {
+      thumbnail.addEventListener('click', function() {
+        const container = thumbnail.closest('.lazy-video-container');
+        const videoId = container.getAttribute('data-video-id');
+        const iframeContainer = container.querySelector('.lazy-video-iframe-container');
+        const videoWidth = container.getAttribute('data-video-width');
+        const videoHeight = container.getAttribute('data-video-height');
+        
+        // Set fixed dimensions on the container
+        iframeContainer.style.width = videoWidth;
+        iframeContainer.style.height = videoHeight !== "auto" ? videoHeight : "0";
+        iframeContainer.style.paddingBottom = videoHeight === "auto" ? "56.25%" : "0";
+        
+        // Remove the default positioning styles to use natural dimensions
+        iframeContainer.style.position = "relative";
+        
+        // Get the thumbnail image to match exact dimensions
+        const thumbImg = thumbnail.querySelector('img');
+        const thumbWidth = thumbImg ? thumbImg.offsetWidth : null;
+        const thumbHeight = thumbImg ? thumbImg.offsetHeight : null;
+          
+        if (thumbWidth && thumbHeight) {
+            // Use the actual rendered dimensions of the thumbnail
+            iframeContainer.style.width = thumbWidth + 'px';
+            iframeContainer.style.height = thumbHeight + 'px';
+            iframeContainer.style.paddingBottom = '0';
+        }
+        
+        // Create and insert the iframe
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        iframe.title = container.getAttribute('data-video-title');
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.className = 'lazy-video-iframe';
+        
+        iframe.style.position = "absolute";
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        
+        // Clear the container and add the iframe
+        iframeContainer.innerHTML = '';
+        iframeContainer.appendChild(iframe);
+        
+        // Show the iframe container and hide the thumbnail
+        iframeContainer.style.display = 'block';
+        thumbnail.style.display = 'none';
+      });
+    });
+
+    if (typeof initLazyImages !== 'function') {
+      // Define the lazy loading function if it doesn't exist yet
+      window.initLazyImages = function() {
+        const lazyImages = document.querySelectorAll('img.lazy-image');
+        
+        if ('IntersectionObserver' in window) {
+          const imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                const image = entry.target;
+                if (image.dataset.src) {
+                  image.src = image.dataset.src;
+                  
+                  // For YouTube thumbnails, find the best quality after loading the initial image
+                  if (image.classList.contains('lazy-video-thumb-img') && image.dataset.videoId) {
+                    image.addEventListener('load', function() {
+                      findBestThumbnail(image);
+                    }, { once: true });
+                  }
+                }
+                
+                imageObserver.unobserve(image);
+              }
+            });
+          });
+          
+          lazyImages.forEach(function(image) {
+            imageObserver.observe(image);
+          });
+        } else {
+          // Fallback for browsers that don't support IntersectionObserver
+          lazyImages.forEach(function(image) {
+            image.src = image.dataset.src || image.src;
+          });
+        }
+      };
+      
+      // Initialize lazy loading
+      initLazyImages();
+      
+      // Re-check on window resize and orientation change
+      window.addEventListener('resize', initLazyImages);
+      window.addEventListener('orientationchange', initLazyImages);
+    }
+  });
+</script>

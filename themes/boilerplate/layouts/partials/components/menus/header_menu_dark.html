@@ -1,0 +1,244 @@
+{{- /*
+  Header Menu Dark
+  
+  A responsive header menu with dark background, logo, navigation items with dropdown menus, and call-to-action buttons.
+  
+  @param {string} logoUrl - URL for the company logo
+  @param {string} logoAlt - Alt text for the company logo
+  @param {string} logoHeight - Height class for the logo
+  @param {string} siteTitle - Title of the site (used for screen readers)
+  @param {string} ctaText - Text for the call-to-action button
+  @param {string} ctaUrl - URL for the call-to-action button
+  @param {string} ctaBgColor - Background color class for the CTA button
+  @param {string} ctaHoverBgColor - Hover background color class for the CTA button
+  @param {string} ctaTextColor - Text color class for the CTA button
+  @param {string} loginText - Text for the login link
+  @param {string} loginUrl - URL for the login link
+  @param {array} menuItems - Array of menu items with title, url, and dropdown type
+*/ -}}
+
+{{- $logoUrl := .logoUrl | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=white&shade=500" -}}
+{{- $logoAlt := .logoAlt | default "Company Logo" -}}
+{{- $logoHeight := .logoHeight | default "h-8" -}}
+{{- $siteTitle := .siteTitle | default "Your Company" -}}
+{{- $ctaText := .ctaText | default "Sign up" -}}
+{{- $ctaUrl := .ctaUrl | default "#" -}}
+{{- $ctaBgColor := .ctaBgColor | default "bg-indigo-500" -}}
+{{- $ctaHoverBgColor := .ctaHoverBgColor | default "hover:bg-indigo-400" -}}
+{{- $ctaTextColor := .ctaTextColor | default "text-white" -}}
+{{- $loginText := .loginText | default "Log in" -}}
+{{- $loginUrl := .loginUrl | default "#" -}}
+
+{{- $menuItems := .menuItems | default (slice 
+  (dict 
+    "title" "Products" 
+    "url" "#" 
+    "dropdown" "flyout_menu_two_column"
+    "buttonText" "Products"
+    "menuItems" (slice 
+      (dict "title" "Analytics" "description" "Get a better understanding of your traffic" "url" "#" "icon" "chart-pie")
+      (dict "title" "Engagement" "description" "Speak directly to your customers" "url" "#" "icon" "sparkles")
+      (dict "title" "Security" "description" "Your customers' data will be safe and secure" "url" "#" "icon" "fingerprint")
+      (dict "title" "Integrations" "description" "Connect with third-party tools" "url" "#" "icon" "squares-2x2")
+      (dict "title" "Automations" "description" "Build strategic funnels that will convert" "url" "#" "icon" "arrows-rotate")
+      (dict "title" "Reports" "description" "Edit and manage your data" "url" "#" "icon" "document")
+    )
+    "footerTitle" "Enterprise"
+    "footerTag" "New"
+    "footerDescription" "Empower your entire team with even more advanced tools."
+  )
+  (dict 
+    "title" "Solutions" 
+    "url" "#" 
+    "dropdown" "flyout_menu_simple_with_descriptions"
+    "buttonText" "Solutions"
+    "menuItems" (slice 
+      (dict "title" "Blog" "description" "Learn about tips, product updates and company culture" "url" "#")
+      (dict "title" "Help center" "description" "Get all of your questions answered" "url" "#")
+      (dict "title" "Guides" "description" "Learn how to maximize our platform" "url" "#")
+      (dict "title" "Events" "description" "Check out webinars with experts" "url" "#")
+      (dict "title" "Security" "description" "Understand how we take your privacy seriously" "url" "#")
+    )
+  )
+  (dict 
+    "title" "Resources" 
+    "url" "#" 
+    "dropdown" "flyout_menu_stacked_with_footer_actions"
+    "buttonText" "Resources"
+    "menuItems" (slice 
+      (dict "title" "Blog" "description" "Learn about tips, product updates and company culture" "url" "/blog/" "icon" "book-open")
+      (dict "title" "Glossary" "description" "Learn about key terms and concepts" "url" "/glossary/" "icon" "code-bracket")
+      (dict "title" "Playground" "description" "Test our products in our playground" "url" "#" "icon" "beaker")
+      (dict "title" "Pricing" "description" "View our pricing plans for all products" "url" "#" "icon" "currency-dollar")
+    )
+    "footerActions" (slice 
+      (dict "text" "Watch demo" "url" "#" "icon" "play")
+      (dict "text" "Contact sales" "url" "#" "icon" "phone")
+    )
+  )
+  (dict 
+    "title" "Company" 
+    "url" "#" 
+    "dropdown" "flyout_menu_full_width"
+    "buttonText" "Company"
+    "menuItems" (slice 
+      (dict "title" "About" "description" "Learn about our story and our mission statement" "url" "#" "icon" "information-circle")
+      (dict "title" "Customers" "description" "See how our customers are succeeding with our products" "url" "#" "icon" "users")
+      (dict "title" "Press" "description" "Read the latest press releases and news coverage" "url" "#" "icon" "newspaper")
+      (dict "title" "Careers" "description" "Join our team and help us build a better future" "url" "#" "icon" "briefcase")
+    )
+    "footerLinks" (slice 
+      (dict "text" "Meet our leadership" "url" "#" "icon" "user-group")
+      (dict "text" "Values" "url" "#" "icon" "heart")
+      (dict "text" "Investor relations" "url" "#" "icon" "chart-bar")
+    )
+  )
+) -}}
+
+{{- $headerId := printf "header-menu-%d" (now.UnixNano) -}}
+{{- $mobileMenuId := printf "mobile-menu-%d" (now.UnixNano) -}}
+
+<header class="bg-gray-900">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8" aria-label="Global">
+    <div class="flex lg:flex-1">
+      <a href="{{ "/" | relLangURL }}" class="-m-1.5 p-1.5">
+        <span class="sr-only">{{ $siteTitle }}</span>
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" $logoUrl 
+          "alt" $logoAlt
+          "class" (printf "%s w-auto" $logoHeight)
+        ) }}
+      </a>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      {{- range $index, $item := $menuItems -}}
+        {{- if .dropdown -}}
+          <div class="relative">
+            {{ partial (printf "components/menus/%s" .dropdown) (dict 
+              "buttonText" .buttonText
+              "menuItems" .menuItems
+              "footerTitle" .footerTitle
+              "footerTag" .footerTag
+              "footerDescription" .footerDescription
+              "footerActions" .footerActions
+              "footerLinks" .footerLinks
+              "engagementLinks" .engagementLinks
+              "resourceLinks" .resourceLinks
+              "blogPosts" .blogPosts
+              "buttonTextColor" "text-white"
+              "buttonHoverTextColor" "hover:text-white"
+            ) }}
+          </div>
+        {{- else -}}
+          <a href="{{ .url }}" class="text-sm/6 font-semibold text-white hover:text-white">{{ .title }}</a>
+        {{- end -}}
+      {{- end -}}
+    </div>
+    <div class="flex flex-1 items-center justify-end gap-x-6">
+      <a href="{{ $loginUrl }}" class="hidden text-sm/6 font-semibold text-white hover:text-white lg:block">{{ $loginText }}</a>
+      <a href="{{ $ctaUrl }}" class="rounded-md {{ $ctaBgColor }} px-3 py-2 text-sm font-semibold {{ $ctaTextColor }} shadow-xs {{ $ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">{{ $ctaText }}</a>
+    </div>
+    <div class="flex lg:hidden">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white" aria-expanded="false" aria-controls="{{ $mobileMenuId }}">
+        <span class="sr-only">Open main menu</span>
+        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+  
+  <!-- Mobile menu, hidden by default -->
+  <div id="{{ $mobileMenuId }}" class="lg:hidden hidden" role="dialog" aria-modal="true">
+    <!-- Background backdrop, show/hide based on slide-over state. -->
+    <div class="fixed inset-0 z-10 bg-black bg-opacity-50"></div>
+    <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-700 transform transition-transform duration-300 ease-in-out translate-x-full">
+      <div class="flex items-center gap-x-6">
+        <a href="{{ "/" | relLangURL }}" class="-m-1.5 p-1.5">
+          <span class="sr-only">{{ $siteTitle }}</span>
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $logoUrl 
+            "alt" $logoAlt
+            "class" (printf "%s w-auto" $logoHeight)
+          ) }}
+        </a>
+        <a href="{{ $ctaUrl }}" class="ml-auto rounded-md {{ $ctaBgColor }} px-3 py-2 text-sm font-semibold {{ $ctaTextColor }} shadow-xs {{ $ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">{{ $ctaText }}</a>
+        <button type="button" class="-m-2.5 rounded-md p-2.5 text-white close-mobile-menu">
+          <span class="sr-only">Close menu</span>
+          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="mt-6 flow-root">
+        <div class="-my-6 divide-y divide-gray-700">
+          <div class="space-y-2 py-6">
+            {{- range $menuItems -}}
+              <a href="{{ .url }}" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 hover:text-white">{{ .title }}</a>
+            {{- end -}}
+          </div>
+          <div class="py-6">
+            <a href="{{ $loginUrl }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-gray-800 hover:text-white">{{ $loginText }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.querySelector('[aria-controls="{{ $mobileMenuId }}"]');
+    const mobileMenu = document.getElementById('{{ $mobileMenuId }}');
+    const closeButtons = document.querySelectorAll('.close-mobile-menu');
+    const mobileMenuContent = mobileMenu.querySelector('.fixed.inset-y-0');
+    
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', function() {
+        openMobileMenu();
+      });
+      
+      closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          closeMobileMenu();
+        });
+      });
+      
+      // Close when clicking outside the menu
+      mobileMenu.addEventListener('click', function(event) {
+        if (event.target === mobileMenu) {
+          closeMobileMenu();
+        }
+      });
+      
+      // Close on escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+          closeMobileMenu();
+        }
+      });
+      
+      function openMobileMenu() {
+        mobileMenu.classList.remove('hidden');
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        
+        // Animate in
+        setTimeout(() => {
+          mobileMenuContent.classList.remove('translate-x-full');
+        }, 10);
+      }
+      
+      function closeMobileMenu() {
+        mobileMenuContent.classList.add('translate-x-full');
+        
+        // Wait for animation to finish before hiding
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }, 300);
+      }
+    }
+  });
+</script>

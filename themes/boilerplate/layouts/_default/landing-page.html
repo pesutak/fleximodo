@@ -1,0 +1,29 @@
+{{ define "main" }}
+
+{{ $image := .Params.image }}
+
+{{ if ne .Params.showBreadcrumbs false }}
+  {{ partial "breadcrumbs_default.html" . }}
+{{ end }}
+
+<!-- Main Content -->
+<div class="bg-white dark:bg-gray-900">
+  <div>
+    {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
+  </div>
+</div>
+
+<!-- FAQ Section if available -->
+{{ if .Params.faq }}
+{{ partial "sections/faq/side-by-side" (dict
+"title" (i18n "faq_heading")
+"description" (i18n "faq_description")
+"items" .Params.faq
+) }}
+{{ end }}
+
+{{ partial "cta.html" . }}
+
+{{ partial "related_content.html" . }}
+
+{{ end }}

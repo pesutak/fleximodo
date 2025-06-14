@@ -1,0 +1,100 @@
+{{/*
+@section: Preview with Image Backgrounds
+@description: A category preview section featuring categories displayed with full-width image backgrounds and prominent titles.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - heading: Main section heading (optional, default: "Shop by Category")
+  - subheading: Optional subheading text (optional, default: "")
+  - categories: Array of category objects (optional, includes defaults)
+    - title: Category title
+    - url: URL for the category link
+    - imageUrl: URL to category background image
+    - imageAlt: Alt text for category image
+@example:
+  {{ partial "sections/categories/preview_with_image_backgrounds.html" (dict 
+      "backgroundColor" "bg-gray-50"
+      "heading" "Explore Our Collections" 
+      "subheading" "Find products tailored to your needs"
+      "categories" (slice
+          (dict 
+              "title" "Home Office" 
+              "url" "/categories/home-office"
+              "imageUrl" "/images/categories/home-office.jpg"
+              "imageAlt" "Modern home office setup with desk, chair, and accessories."
+          )
+          (dict 
+              "title" "Kitchen Essentials" 
+              "url" "/categories/kitchen"
+              "imageUrl" "/images/categories/kitchen.jpg"
+              "imageAlt" "Contemporary kitchen with cooking utensils and appliances."
+          )
+          (dict 
+              "title" "Outdoor Living" 
+              "url" "/categories/outdoor"
+              "imageUrl" "/images/categories/outdoor.jpg"
+              "imageAlt" "Patio furniture set with plants and outdoor decor."
+          )
+      )
+  ) }}
+@note: This component creates a visually striking section where each category is represented by a full-width image background with an overlay title. The design draws attention to the category imagery while maintaining readability of the titles through careful contrast.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Shop by Category" }}
+{{ $subheading := .subheading | default "" }}
+
+{{ $categories := .categories | default (slice
+  (dict
+    "title" "Desk and Office"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg"
+    "imageAlt" "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
+  )
+  (dict
+    "title" "Accessories"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-category-01.jpg"
+    "imageAlt" "Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters."
+  )
+  (dict
+    "title" "Workspace"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-category-02.jpg"
+    "imageAlt" "Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="sm:flex sm:items-baseline sm:justify-between">
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ $heading }}</h2>
+      {{ if $subheading }}
+        <p class="mt-2 text-sm text-gray-500">{{ $subheading }}</p>
+      {{ end }}
+    </div>
+
+    <div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 lg:gap-8">
+      {{ range $categories }}
+        <div class="group relative aspect-2/1 overflow-hidden rounded-lg">
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" .imageUrl
+            "alt" .imageAlt
+            "class" "absolute size-full object-cover group-hover:opacity-75"
+            "maxWidth" 400
+          ) }}
+          <div aria-hidden="true" class="absolute inset-0 bg-linear-to-b from-transparent to-black opacity-50"></div>
+          <div class="absolute inset-0 flex items-end p-6">
+            <div>
+              <h3 class="font-semibold text-white">
+                <a href="{{ .url }}">
+                  <span class="absolute inset-0"></span>
+                  {{ .title }}
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

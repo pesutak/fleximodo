@@ -1,0 +1,10 @@
+[ROBOTS]
+  mediaType = "text/plain"
+  baseName = "robots"
+  isPlainText = true
+
+[SITEMAP]
+  mediaType = "application/xml"
+  baseName = "sitemap"
+  isHTML = false
+  rel = "sitemap"

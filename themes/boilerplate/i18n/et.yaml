@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Korduma Kippuvad Küsimused"
+language_selector_title: "Saadaolevad Keeled"
+glossary_subtitle: "Põhjalik terminite ja definitsioonide loend"
+glossary_title: "Sõnastik"
+home_title: "Avaleht"
+
+# Glossary translations
+glossary_eyebrow: "Sõnastik"
+
+# Category page translations
+categories_title: "Kategooriad"
+categories_browse_all: "Sirvi kogu sisu kategooria järgi"
+category_eyebrow: "Kategooria"
+category_browse_content: "Sirvi kogu sisu kategoorias %s"
+category_no_content_found: "Selles kategoorias sisu ei leitud"
+category_try_browsing: "Proovi sirvida teisi kategooriaid või otsida sisu"
+category_other_categories: "Muud Kategooriad"
+
+# CTA translations
+cta_default_heading: "Laienda oma teadmisi meie ressurssidega"
+cta_default_description: "Uuri meie põhjalikku artiklite, juhendite ja õpetuste kogu, et süvendada oma arusaamist põhimõistetest ja hoida end kursis viimaste arengutega."
+cta_default_primary_text: "Sirvi ressursse"
+cta_default_secondary_text: "Võta ühendust meie ekspertidega"
+
+# Content type translations
+content_article_singular: "artikkel"
+content_article_plural: "artiklid"
+
+# Tags page translations
+tags_title: "Sildid"
+tags_browse_all: "Sirvi kogu sisu teema järgi"
+tag_eyebrow: "Silt"
+tag_browse_content: "Sirvi kõiki sildiga %s märgitud sisu"
+tag_no_content_found: "Selle sildiga sisu ei leitud"
+tag_try_browsing: "Proovi sirvida teisi silte või otsida sisu"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Eelmine"
+tag_pagination_next: "Järgmine"
+tag_other_tags: "Muud Sildid"
+
+# Cookie consent translations
+cookie_consent_title: "Küpsiste Nõusolek"
+cookie_consent_message: "Kasutame küpsiseid teie sirvimiskogemuse parandamiseks ja liikluse analüüsimiseks."
+cookie_consent_accept_all: "Nõustu Kõigiga"
+cookie_consent_accept_necessary: "Nõustu Ainult Vajalikuga"
+cookie_consent_settings: "Küpsiste Seaded"
+cookie_settings_title: "Küpsiste Seaded"
+cookie_settings_close: "Sulge"
+cookie_settings_necessary_title: "Vajalikud Küpsised"
+cookie_settings_necessary_description: "Need küpsised on vajalikud veebisaidi toimimiseks ja neid ei saa keelata."
+cookie_settings_analytics_title: "Analüütilised Küpsised"
+cookie_settings_analytics_description: "Need küpsised aitavad meil mõista, kuidas külastajad meie veebisaidiga suhtlevad."
+cookie_settings_cancel: "Tühista"
+cookie_settings_save: "Salvesta Eelistused"
+
+# Pagination translations
+pagination_previous: "Eelmine"
+pagination_next: "Järgmine"
+pagination_showing: "Näitab"
+pagination_to: "kuni"
+pagination_of: "/"
+pagination_results: "tulemused"
+pagination_browse_all: "Sirvi kogu sisu kohas"
+
+# FAQ translations
+faq_heading: "Korduma kippuvad küsimused"
+faq_description: "Leia vastused selle teema kohta käivatele levinud küsimustele."
+
+no_terms_available: "Ühtegi terminit pole saadaval"
+pricing_monthly_label: "Kuupõhine"
+pricing_yearly_label: "Aastapõhine"
+wantMore: "Soovid rohkem?"
+learnMore: "Loe lähemalt"
+pricing_tagline: "Hinnastamine"
+pricing_title: "Hinnastamine, mis kasvab koos sinuga"
+pricing_description: "Vali taskukohane pakett, mis on täidetud parimate funktsioonidega sinu publiku kaasamiseks, kliendi lojaalsuse loomiseks ja müügi edendamiseks."
+pricing_comparison_title: "Võrdle pakette"
+pricing_comparison_description: "Tutvu meie pakettide võrdlustega ja vali endale sobivaim"
+read_more_post: "Loe rohkem"
+no_posts_found: "Postitusi ei leitud"
+minutes_read: "min lugemist"
+get_started: "Alusta"
+courses.session: "Sessioon"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

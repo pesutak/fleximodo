@@ -1,0 +1,102 @@
+{{/* Split Hero with Code Example Shortcode */}}
+{{- /*
+  Usage in markdown:
+  {{< hero-split-with-code 
+    logo="https://example.com/logo.svg"
+    heading="Build Modern Web Applications" 
+    description="Our platform helps you create scalable web applications with ease." 
+    primaryCtaText="Get Started" 
+    primaryCtaUrl="/docs/start" 
+    secondaryCtaText="View Demo" 
+    secondaryCtaUrl="/demo" 
+    badgeText="New Release" 
+    badgeVersion="v2.0 Available Now"
+    activeFile="Example.jsx"
+    inactiveFile="Config.jsx"
+    codeContent="// Your custom code example here
+const greeting = 'Hello, world!';
+console.log(greeting);"
+    typewriterEnabled="true"
+    typewriterWords="2"
+    typewriterSpeed="120"
+    typewriterDeleteSpeed="60"
+    typewriterPause="2500"
+    typewriterColor="text-indigo-600"
+  >}}
+
+  Parameters:
+  - logo: URL of the logo image
+  - heading: Main heading text
+  - description: Description text below the heading
+  - primaryCtaText: Text for the primary call-to-action button
+  - primaryCtaUrl: URL for the primary call-to-action button
+  - secondaryCtaText: Text for the secondary call-to-action button
+  - secondaryCtaUrl: URL for the secondary call-to-action button
+  - badgeText: Text for the badge
+  - badgeVersion: Version text for the badge
+  - activeFile: Name of the active file tab
+  - inactiveFile: Name of the inactive file tab
+  - codeContent: The code content to display
+  - typewriterEnabled: Enable/disable typewriter effect (true/false, default: false)
+  - typewriterWords: Number of words to animate from the end (default: 1)
+  - typewriterSpeed: Typing speed in milliseconds (default: 100)
+  - typewriterDeleteSpeed: Deleting speed in milliseconds (default: 50)
+  - typewriterPause: Pause duration between word cycles in milliseconds (default: 2000)
+  - typewriterColor: Tailwind CSS color class for animated text (default: "text-indigo-600")
+*/ -}}
+
+{{ $logo := .Get "logo" | default (.Get 0) | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $heading := .Get "heading" | default (.Get 1) | default "Supercharge your web app" }}
+{{ $description := .Get "description" | default (.Get 2) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo." }}
+{{ $primaryCtaText := .Get "primaryCtaText" | default (.Get 3) | default "Documentation" }}
+{{ $primaryCtaUrl := .Get "primaryCtaUrl" | default (.Get 4) | default "#" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default (.Get 5) | default "View on GitHub" }}
+{{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default (.Get 6) | default "#" }}
+{{ $badgeText := .Get "badgeText" | default (.Get 7) | default "What's new" }}
+{{ $badgeVersion := .Get "badgeVersion" | default (.Get 8) | default "Just shipped v0.1.0" }}
+{{ $activeFile := .Get "activeFile" | default "NotificationSetting.jsx" }}
+{{ $inactiveFile := .Get "inactiveFile" | default "App.jsx" }}
+{{ $codeContent := .Get "codeContent" | default "// Add your code example here" }}
+
+{{/* Typewriter parameters */}}
+{{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
+{{ $typewriterWords := .Get "typewriterWords" | default 1 }}
+{{ $typewriterSpeed := .Get "typewriterSpeed" | default 100 }}
+{{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
+{{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
+{{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
+
+{{ $badge := dict
+  "text" $badgeText
+  "version" $badgeVersion
+}}
+
+{{ $cta := dict 
+  "primary" (dict "text" $primaryCtaText "url" $primaryCtaUrl)
+  "secondary" (dict "text" $secondaryCtaText "url" $secondaryCtaUrl)
+}}
+
+{{ $code := dict
+  "activeFile" $activeFile
+  "inactiveFile" $inactiveFile
+  "content" $codeContent
+}}
+
+{{ $typewriter := dict
+  "enabled" (eq $typewriterEnabled "true")
+  "words" $typewriterWords
+  "speed" $typewriterSpeed
+  "deleteSpeed" $typewriterDeleteSpeed
+  "pause" $typewriterPause
+  "color" $typewriterColor
+}}
+
+{{ partial "sections/hero/split_with_code_example.html" (dict 
+  "logo" $logo
+  "heading" $heading
+  "description" $description
+  "cta" $cta
+  "badge" $badge
+  "code" $code
+  "typewriter" $typewriter
+) }}

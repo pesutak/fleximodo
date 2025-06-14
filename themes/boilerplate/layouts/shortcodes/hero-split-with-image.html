@@ -1,0 +1,109 @@
+{{/* 
+Example usage of Split Hero with Image Shortcode:
+{{< hero-split-with-image 
+  "heading"="Empower Your Business" 
+  "description"="Discover tools and insights to drive growth and success." 
+  "imageUrl"="https://example.com/hero-image.jpg" 
+  "imageAlt"="An inspiring hero image" 
+  "primaryCTAText"="Start Now" 
+  "primaryCTAUrl"="/get-started" 
+  "secondaryCTAText"="Learn More" 
+  "secondaryCTAUrl"="/learn-more" 
+  "logo"="https://example.com/logo.svg" 
+  "announcementEnabled"="true" 
+  "announcementText"="Special announcement for our users." 
+  "announcementLinkText"="Find out more" 
+  "announcementLinkUrl"="/announcement-link"
+  "typewriterEnabled"="true"
+  "typewriterWords"="2"
+  "typewriterSpeed"="120"
+  "typewriterDeleteSpeed"="60"
+  "typewriterPause"="2500"
+  "typewriterColor"="text-blue-600"
+>}}
+
+Parameters:
+- heading: Main heading text
+- description: Description text below the heading
+- imageUrl: URL of the hero image
+- imageAlt: Alt text for the hero image
+- primaryCTAText: Text for the primary call-to-action button
+- primaryCTAUrl: URL for the primary call-to-action button
+- secondaryCTAText: Text for the secondary call-to-action button
+- secondaryCTAUrl: URL for the secondary call-to-action button
+- logo: URL of the logo image
+- announcementEnabled: Enable/disable announcement banner (true/false)
+- announcementText: Text for the announcement banner
+- announcementLinkText: Text for the announcement link
+- announcementLinkUrl: URL for the announcement link
+- typewriterEnabled: Enable/disable typewriter effect (true/false, default: false)
+- typewriterWords: Number of words to animate from the end (default: 1)
+- typewriterSpeed: Typing speed in milliseconds (default: 100)
+- typewriterDeleteSpeed: Deleting speed in milliseconds (default: 50)
+- typewriterPause: Pause duration between word cycles in milliseconds (default: 2000)
+- typewriterColor: Tailwind CSS color class for animated text (default: "text-indigo-600")
+*/}}
+
+{{/* Split Hero with Image Shortcode */}}
+{{ $heading := .Get "heading" | default "Data to enrich your business" }}
+{{ $description := .Get "description" | default "" }}
+{{ $imageUrl := .Get "imageUrl" | default "" }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
+{{ $primaryCTAText := .Get "primaryCTAText" }}
+{{ $primaryCTAUrl := .Get "primaryCTAUrl" }}
+{{ $secondaryCTAText := .Get "secondaryCTAText" }}
+{{ $secondaryCTAUrl := .Get "secondaryCTAUrl" }}
+{{ $logo := .Get "logo" }}
+{{ $announcementEnabled := .Get "announcementEnabled" | default "false" }}
+{{ $announcementText := .Get "announcementText" | default "" }}
+{{ $announcementLinkText := .Get "announcementLinkText" | default "Read more" }}
+{{ $announcementLinkUrl := .Get "announcementLinkUrl" | default "#" }}
+
+{{/* Typewriter parameters */}}
+{{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
+{{ $typewriterWords := .Get "typewriterWords" | default 1 }}
+{{ $typewriterSpeed := .Get "typewriterSpeed" | default 100 }}
+{{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
+{{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
+{{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
+
+{{ $announcement := dict 
+  "enabled" (eq $announcementEnabled "true")
+  "text" $announcementText
+  "linkText" $announcementLinkText
+  "linkUrl" $announcementLinkUrl
+}}
+
+{{ $cta := dict }}
+
+{{ if $primaryCTAText }}
+  {{ $cta = merge $cta (dict "primary" (dict "text" $primaryCTAText "url" $primaryCTAUrl)) }}
+{{ end }}
+
+{{ if $secondaryCTAText }}
+  {{ $cta = merge $cta (dict "secondary" (dict "text" $secondaryCTAText "url" $secondaryCTAUrl)) }}
+{{ end }}
+
+{{ $image := dict
+  "url" $imageUrl
+  "alt" $imageAlt
+}}
+
+{{ $typewriter := dict
+  "enabled" (eq $typewriterEnabled "true")
+  "words" $typewriterWords
+  "speed" $typewriterSpeed
+  "deleteSpeed" $typewriterDeleteSpeed
+  "pause" $typewriterPause
+  "color" $typewriterColor
+}}
+
+{{ partial "sections/hero/split_with_image.html" (dict 
+  "logo" $logo
+  "announcement" $announcement
+  "heading" $heading
+  "description" ( $description | markdownify )
+  "cta" $cta
+  "image" $image
+  "typewriter" $typewriter
+) }}

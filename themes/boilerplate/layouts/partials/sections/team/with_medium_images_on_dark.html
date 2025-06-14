@@ -1,0 +1,142 @@
+{{/*
+@section: Team with Medium Images on Dark Background
+@description: A sophisticated, dark-themed team showcase featuring medium-sized profile images in a responsive grid layout, with each team member displayed with their name, role, and location.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the section (optional, default: "py-24 sm:py-32")
+  - heading: Main heading text (optional, default: "Our team")
+  - headingColor: Color class for the heading text (optional, default: "text-white")
+  - description: Descriptive text below the heading (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Color class for the description text (optional, default: "text-gray-300")
+  - nameColor: Color class for team member names (optional, default: "text-white")
+  - roleColor: Color class for team member roles (optional, default: "text-gray-300")
+  - locationColor: Color class for team member locations (optional, default: "text-gray-500")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Name of the team member
+    - role: Position or role of the team member
+    - location: Geographic location of the team member
+    - image: URL to the team member's profile image
+@example:
+  {{ partial "sections/team/with_medium_images_on_dark.html" (dict 
+      "heading" "Meet Our Creative Team"
+      "description" "Our talented team brings together diverse perspectives and expertise to create innovative solutions for our clients worldwide."
+      "teamMembers" (slice
+          (dict
+              "name" "James Wilson"
+              "role" "Creative Director"
+              "location" "Los Angeles, USA"
+              "image" "/images/team/james-wilson.jpg"
+          )
+          (dict
+              "name" "Sophia Chen"
+              "role" "UI/UX Designer"
+              "location" "Singapore"
+              "image" "/images/team/sophia-chen.jpg"
+          )
+          (dict
+              "name" "Carlos Mendez"
+              "role" "Senior Developer"
+              "location" "Barcelona, Spain"
+              "image" "/images/team/carlos-mendez.jpg"
+          )
+          (dict
+              "name" "Amara Okafor"
+              "role" "Product Manager"
+              "location" "Lagos, Nigeria"
+              "image" "/images/team/amara-okafor.jpg"
+          )
+      )
+      "bgColor" "bg-indigo-950"
+  ) }}
+@note: This is the dark-themed version of the team grid with medium images. The dark background creates an elegant, premium feel that works well for creative agencies, tech companies, and modern brands. The rectangular images provide a clean, contemporary aesthetic that highlights team members effectively.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Our team" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $description := .description | default "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-300" }}
+
+{{/* Team members */}}
+{{ $nameColor := .nameColor | default "text-white" }}
+{{ $roleColor := .roleColor | default "text-gray-300" }}
+{{ $locationColor := .locationColor | default "text-gray-500" }}
+{{ $teamMembers := .teamMembers | default (slice 
+  (dict 
+    "name" "Leslie Alexander" 
+    "role" "Co-Founder / CEO"
+    "location" "Toronto, Canada"
+    "image" "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Michael Foster" 
+    "role" "Co-Founder / CTO"
+    "location" "New York, USA"
+    "image" "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Dries Vincent" 
+    "role" "Business Relations"
+    "location" "London, UK"
+    "image" "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Lindsay Walton" 
+    "role" "Front-end Developer"
+    "location" "Berlin, Germany"
+    "image" "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Courtney Henry" 
+    "role" "Designer"
+    "location" "Sydney, Australia"
+    "image" "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Tom Cook" 
+    "role" "Director of Product"
+    "location" "San Francisco, USA"
+    "image" "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Emma Dorsey" 
+    "role" "Senior Developer"
+    "location" "Tokyo, Japan"
+    "image" "https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Whitney Francis" 
+    "role" "Copywriter"
+    "location" "Paris, France"
+    "image" "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+) }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      <h2 class="text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+      <p class="mt-6 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+    </div>
+    <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
+      {{ range $teamMembers }}
+      <li>
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" .image 
+          "alt" .name 
+          "class" "aspect-14/13 w-full rounded-2xl object-cover" 
+          "loading" "lazy" 
+          "decoding" "async"
+        ) }}
+        <h3 class="mt-6 text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
+        <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>
+        <p class="text-sm/6 {{ $locationColor }}">{{ .location }}</p>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>

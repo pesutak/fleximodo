@@ -1,0 +1,36 @@
+{{/*
+@component: Lazy SVG
+@description: Displays SVG files with lazy-loading for performance optimization.
+@params:
+  - src: Path to the SVG file (required)
+  - alt: Alternative text for accessibility (required)
+  - class: Additional CSS classes (optional)
+  - width: SVG width (optional)
+  - height: SVG height (optional)
+  - id: Optional ID attribute (optional)
+@example:
+  {{ partial "components/media/lazysvg.html" (dict 
+      "src" "/images/icons/featured-icon.svg" 
+      "alt" "Featured icon" 
+      "class" "w-6 h-6 text-indigo-600"
+  ) }}
+@note: For proper lazy-loading functionality, the corresponding JavaScript must also be loaded.
+*/}}
+
+{{ $src := .src }}
+{{ $alt := .alt | default "" }}
+{{ $class := .class | default "" }}
+{{ $width := .width | default "" }}
+{{ $height := .height | default "" }}
+{{ $id := .id | default "" }}
+
+<object 
+  class="lazy-svg {{ with $class }}{{ . }}{{ end }}"
+  data-src="{{ $src }}"
+  type="image/svg+xml"
+  {{ with $width }}width="{{ . }}"{{ end }}
+  {{ with $height }}height="{{ . }}"{{ end }}
+  {{ with $id }}id="{{ . }}"{{ end }}
+>
+  <span class="fallback-text">{{ $alt }}</span>
+</object>

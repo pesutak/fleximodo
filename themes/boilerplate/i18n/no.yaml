@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Vanlige spørsmål"
+language_selector_title: "Tilgjengelige språk"
+glossary_subtitle: "En omfattende liste over termer og definisjoner"
+glossary_title: "Ordliste"
+home_title: "Hjem"
+
+# Glossary translations
+glossary_eyebrow: "Ordliste"
+
+# Category page translations
+categories_title: "Kategorier"
+categories_browse_all: "Bla gjennom alt innhold etter kategori"
+category_eyebrow: "Kategori"
+category_browse_content: "Bla gjennom alt innhold i kategorien %s"
+category_no_content_found: "Ingen innhold funnet i denne kategorien"
+category_try_browsing: "Prøv å bla gjennom andre kategorier eller søk etter innhold"
+category_other_categories: "Andre kategorier"
+
+# CTA translations
+cta_default_heading: "Utvid kunnskapen din med våre ressurser"
+cta_default_description: "Utforsk vårt omfattende bibliotek av artikler, guider og veiledninger for å fordype forståelsen din av nøkkelkonsepter og holde deg oppdatert med de nyeste utviklingene."
+cta_default_primary_text: "Bla gjennom ressurser"
+cta_default_secondary_text: "Kontakt våre eksperter"
+
+# Content type translations
+content_article_singular: "artikkel"
+content_article_plural: "artikler"
+
+# Tags page translations
+tags_title: "Tags"
+tags_browse_all: "Bla gjennom alt innhold etter tema"
+tag_eyebrow: "Tagg"
+tag_browse_content: "Bla gjennom alt innhold merket med %s"
+tag_no_content_found: "Ingen innhold funnet med denne taggen"
+tag_try_browsing: "Prøv å bla gjennom andre tagger eller søk etter innhold"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Forrige"
+tag_pagination_next: "Neste"
+tag_other_tags: "Andre tags"
+
+# Cookie consent translations
+cookie_consent_title: "Informasjonskapselsamtykke"
+cookie_consent_message: "Vi bruker informasjonskapsler for å forbedre din surfeopplevelse og analysere vår trafikk."
+cookie_consent_accept_all: "Godta alle"
+cookie_consent_accept_necessary: "Godta kun nødvendige"
+cookie_consent_settings: "Innstillinger for informasjonskapsler"
+cookie_settings_title: "Innstillinger for informasjonskapsler"
+cookie_settings_close: "Lukk"
+cookie_settings_necessary_title: "Nødvendige informasjonskapsler"
+cookie_settings_necessary_description: "Disse informasjonskapslene er nødvendige for at nettsiden skal fungere og kan ikke deaktiveres."
+cookie_settings_analytics_title: "Analyse-informasjonskapsler"
+cookie_settings_analytics_description: "Disse informasjonskapslene hjelper oss med å forstå hvordan besøkende interagerer med vår nettside."
+cookie_settings_cancel: "Avbryt"
+cookie_settings_save: "Lagre preferanser"
+
+# Pagination translations
+pagination_previous: "Forrige"
+pagination_next: "Neste"
+pagination_showing: "Viser"
+pagination_to: "til"
+pagination_of: "av"
+pagination_results: "resultater"
+pagination_browse_all: "Bla gjennom alt innhold i"
+
+# FAQ translations
+faq_heading: "Vanlige spørsmål"
+faq_description: "Finn svar på vanlige spørsmål om dette emnet."
+
+no_terms_available: "Ingen termer tilgjengelig"
+pricing_monthly_label: "Månedlig"
+pricing_yearly_label: "Årlig"
+wantMore: "Vil du ha mer?"
+learnMore: "Lær mer"
+pricing_tagline: "Priser"
+pricing_title: "Priser som vokser med deg"
+pricing_description: "Velg en rimelig plan som er pakket med de beste funksjonene for å engasjere publikummet ditt, skape kundelojalitet og øke salget."
+pricing_comparison_title: "Sammenlign planer"
+pricing_comparison_description: "Sjekk ut plansammenligningene våre og velg den beste for deg"
+read_more_post: "Les mer"
+no_posts_found: "Ingen innlegg funnet"
+minutes_read: "min lesing"
+get_started: "Kom i gang"
+courses.session: "Økt"
+courses.you_will_learn: "Du vil lære:"
+courses.or: "eller"

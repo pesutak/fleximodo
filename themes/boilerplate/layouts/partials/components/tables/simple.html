@@ -1,0 +1,38 @@
+{{ $columnTitles := .columnTitles | default (slice)}}
+{{ $rows := .rows | default slice }}
+{{ $classFirstRows := .classFirstRows | default "py-4 px-6" }}
+{{ $classSecondRows := .classSecondRows | default "py-4 px-6 bg-gray-50" }}
+{{ $classTable := .classTable | default "w-full text-left rounded-lg overflow-hidden" }}
+{{ $classTitleRow := .classTitleRow | default "bg-gray-100 text-gray-700 font-semibold" }}
+
+
+<div class="table-responsive">
+    <table class="{{ $classTable }}">
+        {{ if gt (len $columnTitles) 0 }}
+            <thead>
+                <tr class="{{ $classTitleRow }}">
+                    {{ range $columnTitles }}
+                        <th class="py-3 px-6">{{ . | markdownify }}</th>
+                    {{ end }}
+                </tr>
+            </thead>
+        {{ end }}
+        
+        <tbody>
+            {{ range $index, $row := $rows }}
+                <tr class="border-b hover:bg-gray-50 transition-colors {{ if eq (mod $index 2) 0 }}{{ else }}bg-gray-50{{ end }}">
+                    {{ if reflect.IsMap $row }}
+                        {{ range $colIndex, $title := $columnTitles }}
+                            {{ $columnIndex := printf "%d" $colIndex }}
+                            {{ if isset $row $columnIndex }}
+                                <td class="{{ if eq (mod $index 2) 0 }}{{ $classFirstRows }}{{ else }}{{ $classSecondRows }}{{ end }}">
+                                    {{ index $row $columnIndex | markdownify }}
+                                </td>
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
+                </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>

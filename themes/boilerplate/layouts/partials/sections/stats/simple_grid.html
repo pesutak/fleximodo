@@ -1,0 +1,101 @@
+{{/*
+@section: Simple Grid Stats
+@description: A clean, grid-based statistics section displaying key metrics in a responsive grid layout with optional background colors for each stat card.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-white")
+  - padding: Padding classes for the section (optional, default: "py-24 sm:py-32")
+  - statBgColor: Background color for individual stat items (optional, default: "bg-gray-400/5")
+  - statPadding: Padding for individual stat items (optional, default: "p-8")
+  - columns: Number of columns on large screens (optional, default: 3)
+  - mobileColumns: Number of columns on small screens (optional, default: 1)
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - heading: Main section heading
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - description: Section description text
+  - descriptionColor: Description color class (optional, default: "text-gray-600")
+  - stats: Array of statistic objects (required)
+    - value: The statistic value to display
+    - label: Description of what the value represents
+  - valueColor: Color class for statistic values (optional, default: "text-gray-900")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-600")
+@example:
+  {{ partial "sections/stats/simple_grid.html" (dict 
+      "heading" "Our Company in Numbers" 
+      "description" "Key metrics that showcase our growth and performance over the past year."
+      "stats" (slice
+          (dict 
+              "value" "2.7M+" 
+              "label" "Active users worldwide"
+          )
+          (dict 
+              "value" "98%" 
+              "label" "Customer satisfaction"
+          )
+          (dict 
+              "value" "24/7" 
+              "label" "Customer support"
+          )
+          (dict 
+              "value" "$120M" 
+              "label" "Annual revenue"
+          )
+      )
+      "columns" 3
+      "mobileColumns" 1
+      "statBgColor" "bg-blue-50"
+      "valueColor" "text-blue-700"
+  ) }}
+@note: This component presents statistics in a modern grid layout with each stat in its own card. The design is clean and minimalist, ideal for highlighting important metrics in an organized, visually consistent way. The grid automatically adjusts based on screen size - from a single column on mobile to a 4-column layout on larger screens.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+{{ $statBgColor := .statBgColor | default "bg-gray-400/5" }}
+{{ $statPadding := .statPadding | default "p-8" }}
+{{ $columns := .columns | default 3 }}
+{{ $mobileColumns := .mobileColumns | default 1 }}
+
+{{/* Heading */}}
+{{ $showHeading := .showHeading | default true }}
+{{ $heading := .heading }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-600" }}
+
+{{/* Stats */}}
+{{ $stats := .stats | default slice }}
+
+{{/* Text colors */}}
+{{ $valueColor := .valueColor | default "text-gray-900" }}
+{{ $labelColor := .labelColor | default "text-gray-600" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="wrapper">
+  
+      {{ if $showHeading }}
+      <div class="text-center">
+        {{ if $heading }}
+        <h2 class="text-4xl font-semibold tracking-tight text-balance {{ $headingColor }} sm:text-5xl">
+          {{ $heading }}
+        </h2>
+        {{ end }}
+        {{ if $description }}
+        <p class="mt-4 text-lg/8 {{ $descriptionColor }}">
+          {{ $description }}
+        </p>
+        {{ end }}
+      </div>
+      {{ end }}
+      <dl class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-{{ $mobileColumns }} lg:grid-cols-{{ $columns }}">
+        {{ range $stat := $stats }}
+        <div class="flex flex-col {{ $statBgColor }} {{ $statPadding }}">
+          <dt class="text-sm/6 font-semibold {{ $labelColor }}">
+            {{ $stat.label }}
+          </dt>
+          <dd class="order-first pl-0 text-3xl font-semibold tracking-tight {{ $valueColor }}">{{ $stat.value }}</dd>
+        </div>
+        {{ end }}
+      </dl>
+  </div>
+</div>

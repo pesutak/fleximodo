@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Bieži Uzdotie Jautājumi"
+language_selector_title: "Pieejamās Valodas"
+glossary_subtitle: "Visaptverošs terminu un definīciju saraksts"
+glossary_title: "Glosārijs"
+home_title: "Sākums"
+
+# Glossary translations
+glossary_eyebrow: "Glosārijs"
+
+# Category page translations
+categories_title: "Kategorijas"
+categories_browse_all: "Pārlūkojiet visu saturu pēc kategorijas"
+category_eyebrow: "Kategorija"
+category_browse_content: "Pārlūkojiet visu saturu kategorijā %s"
+category_no_content_found: "Šajā kategorijā saturs nav atrasts"
+category_try_browsing: "Mēģiniet pārlūkot citas kategorijas vai meklēt saturu"
+category_other_categories: "Citas Kategorijas"
+
+# CTA translations
+cta_default_heading: "Paplašiniet savas zināšanas ar mūsu resursiem"
+cta_default_description: "Izpētiet mūsu visaptverošo rakstu, ceļvežu un apmācību bibliotēku, lai padziļinātu savu izpratni par galvenajiem jēdzieniem un sekotu līdzi jaunākajiem notikumiem."
+cta_default_primary_text: "Pārlūkot resursus"
+cta_default_secondary_text: "Sazināties ar mūsu ekspertiem"
+
+# Content type translations
+content_article_singular: "raksts"
+content_article_plural: "raksti"
+
+# Tags page translations
+tags_title: "Tagi"
+tags_browse_all: "Pārlūkojiet visu saturu pēc tēmas"
+tag_eyebrow: "Tags"
+tag_browse_content: "Pārlūkojiet visu saturu ar atzīmi %s"
+tag_no_content_found: "Nav atrasts saturs ar šo tagu"
+tag_try_browsing: "Mēģiniet pārlūkot citus tagus vai meklēt saturu"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Iepriekšējais"
+tag_pagination_next: "Nākamais"
+tag_other_tags: "Citi Tagi"
+
+# Cookie consent translations
+cookie_consent_title: "Sīkdatņu Piekrišana"
+cookie_consent_message: "Mēs izmantojam sīkdatnes, lai uzlabotu jūsu pārlūkošanas pieredzi un analizētu mūsu trafiku."
+cookie_consent_accept_all: "Pieņemt Visas"
+cookie_consent_accept_necessary: "Pieņemt Tikai Nepieciešamās"
+cookie_consent_settings: "Sīkdatņu Iestatījumi"
+cookie_settings_title: "Sīkdatņu Iestatījumi"
+cookie_settings_close: "Aizvērt"
+cookie_settings_necessary_title: "Nepieciešamās Sīkdatnes"
+cookie_settings_necessary_description: "Šīs sīkdatnes ir nepieciešamas vietnes darbībai un nevar tikt atspējotas."
+cookie_settings_analytics_title: "Analītiskās Sīkdatnes"
+cookie_settings_analytics_description: "Šīs sīkdatnes palīdz mums saprast, kā apmeklētāji mijiedarbojas ar mūsu vietni."
+cookie_settings_cancel: "Atcelt"
+cookie_settings_save: "Saglabāt Preferences"
+
+# Pagination translations
+pagination_previous: "Iepriekšējais"
+pagination_next: "Nākamais"
+pagination_showing: "Rāda"
+pagination_to: "līdz"
+pagination_of: "no"
+pagination_results: "rezultātiem"
+pagination_browse_all: "Pārlūkot visu saturu iekš"
+
+# FAQ translations
+faq_heading: "Bieži uzdotie jautājumi"
+faq_description: "Atrodiet atbildes uz biežiem jautājumiem par šo tēmu."
+
+no_terms_available: "Nav pieejamu terminu"
+pricing_monthly_label: "Mēnesī"
+pricing_yearly_label: "Gadā"
+wantMore: "Vēlies vairāk?"
+learnMore: "Uzzināt vairāk"
+pricing_tagline: "Cenas"
+pricing_title: "Cenas, kas aug kopā ar jums"
+pricing_description: "Izvēlieties pieejamu plānu, kas ir pildīts ar labākajām funkcijām jūsu auditorijas piesaistīšanai, klientu lojalitātes veidošanai un pārdošanas veicināšanai."
+pricing_comparison_title: "Salīdzināt plānus"
+pricing_comparison_description: "Apskatiet mūsu plānu salīdzinājumus un izvēlieties sev piemērotāko"
+read_more_post: "Lasīt vairāk"
+no_posts_found: "Ieraksti nav atrasti"
+minutes_read: "min lasīšana"
+get_started: "Sākt"
+courses.session: "Sesija"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

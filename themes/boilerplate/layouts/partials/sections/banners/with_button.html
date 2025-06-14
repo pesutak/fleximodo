@@ -1,0 +1,78 @@
+{{/*
+@section: Banner with Button
+@description: A promotional banner with a button call-to-action and optional dismissal option, featuring a subtle gradient background effect.
+@params:
+  - title: Banner title text (optional, default: "GeneriCon 2023")
+  - message: Main message text (optional, default: "Join us in Denver from June 7 – 9 to see what's coming next.")
+  - buttonText: Text for the CTA button (optional, default: "Register now")
+  - buttonUrl: URL for the button link (optional, default: "#")
+  - isDismissable: Whether the banner can be dismissed (optional, default: true)
+  - backgroundColor: Background color class (optional, default: "bg-gray-50")
+  - textColor: Text color class (optional, default: "text-gray-900")
+  - buttonBackgroundColor: Button background color class (optional, default: "bg-gray-900")
+  - buttonTextColor: Button text color class (optional, default: "text-white")
+  - buttonHoverColor: Button hover effect class (optional, default: "hover:bg-gray-700")
+  - buttonFocusColor: Button focus outline color class (optional, default: "focus-visible:outline-gray-900")
+  - dismissButtonColor: Dismiss button color class (optional, default: "text-gray-900")
+  - gradientFromColor: Starting color for background gradient (optional, default: "from-[#ff80b5]")
+  - gradientToColor: Ending color for background gradient (optional, default: "to-[#9089fc]")
+  - id: Custom ID for the banner (optional, default: auto-generated from title and message)
+@example:
+  {{ partial "sections/banners/with_button.html" (dict 
+      "title" "New Product Launch"
+      "message" "Our latest features are now available for all customers."
+      "buttonText" "See what's new"
+      "buttonUrl" "/features"
+      "isDismissable" true
+      "backgroundColor" "bg-indigo-50"
+      "textColor" "text-indigo-900"
+      "buttonBackgroundColor" "bg-indigo-600"
+      "buttonTextColor" "text-white"
+      "buttonHoverColor" "hover:bg-indigo-500"
+      "buttonFocusColor" "focus-visible:outline-indigo-600"
+      "dismissButtonColor" "text-indigo-900"
+  ) }}
+@note: The banner includes a gradient background effect and a dismiss button that can be toggled with the isDismissable parameter.
+*/}}
+
+
+{{- $title := .title | default "GeneriCon 2023" -}}
+{{- $message := .message | default "Join us in Denver from June 7 – 9 to see what's coming next." -}}
+{{- $buttonText := .buttonText | default "Register now" -}}
+{{- $buttonUrl := .buttonUrl | default "#" -}}
+{{- $isDismissable := .isDismissable | default true -}}
+{{- $backgroundColor := .backgroundColor | default "bg-gray-50" -}}
+{{- $textColor := .textColor | default "text-gray-900" -}}
+{{- $buttonBackgroundColor := .buttonBackgroundColor | default "bg-gray-900" -}}
+{{- $buttonTextColor := .buttonTextColor | default "text-white" -}}
+{{- $buttonHoverColor := .buttonHoverColor | default "hover:bg-gray-700" -}}
+{{- $buttonFocusColor := .buttonFocusColor | default "focus-visible:outline-gray-900" -}}
+{{- $dismissButtonColor := .dismissButtonColor | default "text-gray-900" -}}
+{{- $gradientFromColor := .gradientFromColor | default "from-[#ff80b5]" -}}
+{{- $gradientToColor := .gradientToColor | default "to-[#9089fc]" -}}
+{{- $bannerId := .id | default (printf "banner-%s" (substr (md5 (printf "%s%s" $title $message)) 0 8)) -}}
+
+<div id="{{ $bannerId }}" data-banner class="relative isolate flex items-center gap-x-6 overflow-hidden {{ $backgroundColor }} px-6 py-2.5 sm:px-3.5 sm:before:flex-1 z-50">
+  <div class="absolute top-1/2 left-[max(-7rem,calc(50%-52rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl" aria-hidden="true">
+    <div class="aspect-577/310 w-[36.0625rem] bg-gradient-to-r {{ $gradientFromColor }} {{ $gradientToColor }} opacity-30" style="clip-path: polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)"></div>
+  </div>
+  <div class="absolute top-1/2 left-[max(45rem,calc(50%+8rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl" aria-hidden="true">
+    <div class="aspect-577/310 w-[36.0625rem] bg-gradient-to-r {{ $gradientFromColor }} {{ $gradientToColor }} opacity-30" style="clip-path: polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)"></div>
+  </div>
+  <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+    <p class="text-sm/6 {{ $textColor }}">
+      <strong class="font-semibold">{{ $title }}</strong><svg viewBox="0 0 2 2" class="mx-2 inline size-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>{{ $message }}
+    </p>
+    <a href="{{ $buttonUrl }}" class="flex-none rounded-full {{ $buttonBackgroundColor }} px-3.5 py-1 text-sm font-semibold {{ $buttonTextColor }} shadow-xs {{ $buttonHoverColor }} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 {{ $buttonFocusColor }}">{{ $buttonText }} <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  {{ if $isDismissable }}
+  <div class="flex flex-1 justify-end">
+    <button type="button" class="-m-3 p-3 focus-visible:outline-offset-[-4px]" data-dismiss-banner>
+      <span class="sr-only">Dismiss</span>
+      <svg class="size-5 {{ $dismissButtonColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+        <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+      </svg>
+    </button>
+  </div>
+  {{ end }}
+</div>

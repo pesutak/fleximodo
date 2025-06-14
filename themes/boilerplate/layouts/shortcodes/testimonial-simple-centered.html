@@ -1,0 +1,45 @@
+{{/* Simple Centered Testimonial Shortcode */}}
+{{/*
+Usage:
+{{< testimonial-simple-centered 
+  quote="This is an amazing service that has completely transformed our online presence!"
+  personName="Jane Smith" 
+  personRole="CEO of Example Corp" 
+  personImage="/images/testimonials/jane-smith.jpg"
+  personImageAlt="Jane Smith portrait"
+  logo="/images/logos/example-corp.svg" 
+  logoAlt="Example Corp logo" 
+  logoHeight="h-10" 
+  bgColor="bg-gray-100" 
+  quoteColor="text-blue-900" 
+  personNameColor="text-blue-800" 
+  personRoleColor="text-blue-600" 
+>}}
+*/}}
+{{ $quote := .Get "quote" | default "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis." }}
+{{ $personName := .Get "personName" | default "Judith Black" }}
+{{ $personRole := .Get "personRole" | default "CEO of Workcation" }}
+{{ $personImage := .Get "personImage" | default "/images/testimonials/default-person.jpg" }}
+{{ $personImageAlt := .Get "personImageAlt" | default "Person portrait" }}
+{{ $logo := .Get "logo" | default "/images/logos/default-logo.svg" }}
+{{ $logoAlt := .Get "logoAlt" | default "Company logo" }}
+{{ $logoHeight := .Get "logoHeight" | default "h-8" }}
+{{ $bgColor := .Get "bgColor" | default "bg-gray-100" }}
+{{ $quoteColor := .Get "quoteColor" | default "text-gray-900" }}
+{{ $personNameColor := .Get "personNameColor" | default "text-gray-800" }}
+{{ $personRoleColor := .Get "personRoleColor" | default "text-gray-600" }}
+
+{{ partial "sections/testimonials/simple_centered.html" (dict 
+  "quote" $quote
+  "personName" $personName
+  "personRole" $personRole
+  "personImage" $personImage
+  "personImageAlt" $personImageAlt
+  "logo" $logo
+  "logoAlt" $logoAlt
+  "logoHeight" $logoHeight
+  "bgColor" $bgColor
+  "quoteColor" $quoteColor
+  "personNameColor" $personNameColor
+  "personRoleColor" $personRoleColor
+) }}

@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Algengar Spurningar"
+language_selector_title: "Tiltæk Tungumál"
+glossary_subtitle: "Yfirgripsmikill listi af hugtökum og skilgreiningum"
+glossary_title: "Hugtakasafn"
+home_title: "Heim"
+
+# Glossary translations
+glossary_eyebrow: "Hugtakasafn"
+
+# Category page translations
+categories_title: "Flokkar"
+categories_browse_all: "Skoða allt efni eftir flokki"
+category_eyebrow: "Flokkur"
+category_browse_content: "Skoða allt efni í flokknum %s"
+category_no_content_found: "Ekkert efni fannst í þessum flokki"
+category_try_browsing: "Prófaðu að skoða aðra flokka eða leita að efni"
+category_other_categories: "Aðrir Flokkar"
+
+# CTA translations
+cta_default_heading: "Útvíkkaðu þekkingu þína með úrræðum okkar"
+cta_default_description: "Kannaðu yfirgripsmikið safn greina, leiðbeininga og kennsluefnis til að dýpka skilning þinn á lykilhugtökum og fylgjast með nýjustu þróun."
+cta_default_primary_text: "Skoða úrræði"
+cta_default_secondary_text: "Hafa samband við sérfræðinga okkar"
+
+# Content type translations
+content_article_singular: "grein"
+content_article_plural: "greinar"
+
+# Tags page translations
+tags_title: "Tags"
+tags_browse_all: "Skoða allt efni eftir efnisflokki"
+tag_eyebrow: "Tag"
+tag_browse_content: "Skoða allan efni merkt með %s"
+tag_no_content_found: "Engin efni fundin með þessu tagi"
+tag_try_browsing: "Prófaðu að skoða önnur tags eða leita eftir efni"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Fyrri"
+tag_pagination_next: "Næsta"
+tag_other_tags: "Önnur Tags"
+
+# Cookie consent translations
+cookie_consent_title: "Vafraköku Samþykki"
+cookie_consent_message: "Við notum kökur til að bæta vafraupplifun þína og greina umferð okkar."
+cookie_consent_accept_all: "Samþykkja Allt"
+cookie_consent_accept_necessary: "Samþykkja Aðeins Nauðsynlegt"
+cookie_consent_settings: "Köku Stillingar"
+cookie_settings_title: "Köku Stillingar"
+cookie_settings_close: "Loka"
+cookie_settings_necessary_title: "Nauðsynlegar Kökur"
+cookie_settings_necessary_description: "Þessar kökur eru nauðsynlegar fyrir virkni vefsins og geta ekki verið gerðar óvirkar."
+cookie_settings_analytics_title: "Greiningar Kökur"
+cookie_settings_analytics_description: "Þessar kökur hjálpa okkur að skilja hvernig gestir hafa samskipti við vefsíðu okkar."
+cookie_settings_cancel: "Hætta við"
+cookie_settings_save: "Vista Stillingar"
+
+# Pagination translations
+pagination_previous: "Fyrri"
+pagination_next: "Næsta"
+pagination_showing: "Sýni"
+pagination_to: "til"
+pagination_of: "af"
+pagination_results: "niðurstöður"
+pagination_browse_all: "Skoða allt efni í"
+
+# FAQ translations
+faq_heading: "Algengar spurningar"
+faq_description: "Finndu svör við algengum spurningum um þetta efni."
+
+no_terms_available: "Engin hugtök tiltæk"
+pricing_monthly_label: "Mánaðarlega"
+pricing_yearly_label: "Árlega"
+wantMore: "Want more?"
+learnMore: "Learn more"
+pricing_tagline: "Pricing"
+pricing_title: "Pricing that grows with you"
+pricing_description: "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales."
+pricing_comparison_title: "Compare Plans"
+pricing_comparison_description: "Check out our plan comparisons and select the best one for you"
+read_more_post: "Read more"
+no_posts_found: "No posts found"
+minutes_read: "min read"
+get_started: "Get started"
+courses.session: "Session"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

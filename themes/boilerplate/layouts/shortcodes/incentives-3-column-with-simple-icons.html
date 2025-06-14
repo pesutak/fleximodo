@@ -1,0 +1,77 @@
+{{/* 
+  Example usage:
+  {{< incentives-3-column-with-simple-icons 
+      backgroundColor="bg-white" 
+      title="The Fine Print" 
+      description="We stand behind our products with these features" 
+  >}}
+    [
+      {
+        "name": "Free shipping",
+        "imageSrc": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-delivery-dark.svg",
+        "description": "Free shipping on all orders over $50"
+      },
+      {
+        "name": "10-year warranty",
+        "imageSrc": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-dark.svg", 
+        "description": "If it breaks in the first 10 years we'll replace it"
+      },
+      {
+        "name": "Exchanges",
+        "imageSrc": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-returns-dark.svg",
+        "description": "30 day return policy with no questions asked"
+      }
+    ]
+  {{< /incentives-3-column-with-simple-icons >}}
+
+  3-column incentives shortcode with simple icons
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - title: Main heading text (default: "The Fine Print")
+  - description: Supporting text below the heading (default: "We stand behind our products with these features")
+  
+  Inner Content:
+  JSON array of incentive objects with the following structure:
+  - name: Incentive name
+  - imageSrc: URL to the incentive icon/image
+  - description: Incentive description
+  
+  If no inner content is provided, default incentives will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $title := .Get "title" | default "The Fine Print" }}
+{{ $description := .Get "description" | default "We stand behind our products with these features" }}
+
+{{ $defaultIncentives := slice 
+  (dict 
+    "name" "Free shipping" 
+    "imageSrc" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-delivery-dark.svg"
+    "description" "Free shipping on all continental US orders."
+  )
+  (dict 
+    "name" "10-year warranty" 
+    "imageSrc" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-dark.svg"
+    "description" "If it breaks in the first 10 years we'll replace it. After that you're on your own."
+  )
+  (dict 
+    "name" "Exchanges" 
+    "imageSrc" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-returns-dark.svg"
+    "description" "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though."
+  )
+}}
+
+{{ $incentives := $defaultIncentives }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $incentives = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "incentives/3-column_with_simple_icons.html" (dict 
+  "backgroundColor" $backgroundColor
+  "title" $title
+  "description" $description
+  "incentives" $incentives
+) }}

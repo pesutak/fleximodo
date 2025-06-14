@@ -1,0 +1,131 @@
+{{/*
+@shortcode: courses-video
+@description: Shortcode for displaying course videos with thumbnails and play buttons
+@params:
+  - title: Main section title (optional, defaults to page title)
+  - description: Section description text (optional, defaults to page description)
+  - bannerText: Text for the bottom banner, supports HTML (optional)
+  - bannerImage: Path to banner image (optional)
+  - bannerImageAlt: Alt text for banner image (optional)
+  - sectionClass: CSS classes for the main section (optional)
+  - bgColor: Background color class (optional)
+  - padding: Padding classes (optional)
+
+  Course data should be provided as JSON content between shortcode tags:
+  {{< courses-video ... >}}
+  {
+    "icons": [
+      {"image": "/path/to/icon.svg", "alt": "Icon description"}
+    ],
+    "videoSessions": [
+      {
+        "sessionNumber": "Video session 1:", 
+        "title": "Introduction to AI",
+        "videoURL": "https://www.youtube.com/watch?v=videoId",
+        "posterImage": "/images/thumbnails/intro.jpg"
+      }
+    ]
+  }
+  {{< /courses-video >}}
+@styling:
+  Additional styling parameters:
+  - iconClass: CSS classes for icons
+  - titleColor, titleClass: Styling for the title
+  - descriptionColor, descriptionClass: Styling for the description
+  - bannerTextColor, bannerBackgroundColor: Styling for the banner
+
+@example:
+  {{< courses-video 
+    title="Video Training Sessions"
+    description="Learn through our comprehensive video training series"
+    bannerText="Earn a Certificate of Completion"
+    sectionClass="mx-auto max-w-7xl mb-0"
+    >}}
+    {
+    "icons": [
+        {"image": "/images/landing-pages/company-logo.svg", "alt": "Company Logo"}
+    ],
+    "videoSessions": [
+        {
+            "sessionNumber": "Video session 1:", 
+            "title": "Introduction to Generative AI",
+            "videoURL": "https://www.youtube.com/watch?v=exampleId1",
+            "posterImage": "/images/video-thumbnails/ai-intro.jpg"
+        },
+        {
+            "sessionNumber": "Video session 2:", 
+            "title": "Deep Dive Training Videos",
+            "videoURL": "https://www.youtube.com/watch?v=exampleId2",
+            "posterImage": "/images/video-thumbnails/deep-dive.jpg"
+        },
+        {
+            "sessionNumber": "Video session 3:", 
+            "title": "Compliance & Governance Videos",
+            "videoURL": "https://www.youtube.com/watch?v=exampleId3",
+            "posterImage": "/images/video-thumbnails/governance.jpg"
+        },
+        {
+            "sessionNumber": "Video session 4:", 
+            "title": "Bespoke Training Sessions",
+            "videoURL": "https://www.youtube.com/watch?v=exampleId4",
+            "posterImage": "/images/video-thumbnails/training.jpg"
+        }
+    ]
+  }
+  {{< /courses-video >}}
+*/}}
+
+{{/* Content variables */}}
+{{ $title := .Get "title" | default .Page.Title }}
+{{ $description := .Get "description" | default .Page.Params.description }}
+{{ $comment := .Get "comment" | default "" }}
+
+{{/* Layout & styling options */}}
+{{ $sectionClass := .Get "sectionClass" | default nil }}
+{{ $bgColor := .Get "bgColor" | default nil }}
+{{ $padding := .Get "padding" | default nil }}
+{{ $iconClass := .Get "iconClass" | default nil }}
+{{ $titleColor := .Get "titleColor" | default nil }}
+{{ $titleClass := .Get "titleClass" | default nil }}
+{{ $descriptionColor := .Get "descriptionColor" | default nil }}
+{{ $descriptionClass := .Get "descriptionClass" | default nil }}
+
+{{/* Banner configuration - HTML is supported in text */}}
+{{ $bannerText := .Get "bannerText" | default nil }}
+{{ $bannerImage := .Get "bannerImage" | default nil }}
+{{ $bannerImageAlt := .Get "bannerImageAlt" | default nil }}
+{{ $bannerTextColor := .Get "bannerTextColor" | default nil }}
+{{ $bannerBackgroundColor := .Get "bannerBackgroundColor" | default nil }}
+
+{{/* Parse course data from inner content */}}
+{{ $course_data := .Get "course_data" | default dict }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $course_data = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{/* Get data from parsed content */}}
+{{ $icons := cond (isset $course_data "icons") (index $course_data "icons") (.Get "icons") | default nil }}
+{{ $videoSessions := cond (isset $course_data "videoSessions") (index $course_data "videoSessions") (.Get "videoSessions") | default nil }}
+
+{{/* Render the video section using the partial */}}
+{{ partial "sections/courses/courses-video.html" (dict 
+    "title" $title
+    "description" $description
+    "icons" $icons
+    "videoSessions" $videoSessions
+    "bannerText" $bannerText
+    "bannerImage" $bannerImage
+    "bannerImageAlt" $bannerImageAlt
+    "bannerTextColor" $bannerTextColor
+    "bannerBackgroundColor" $bannerBackgroundColor
+    "sectionClass" $sectionClass
+    "bgColor" $bgColor
+    "padding" $padding
+    "iconClass" $iconClass
+    "titleColor" $titleColor
+    "titleClass" $titleClass
+    "descriptionColor" $descriptionColor
+    "descriptionClass" $descriptionClass
+) }}

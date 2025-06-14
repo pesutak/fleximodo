@@ -1,0 +1,23 @@
+{{/*
+@component: Header
+@description: Standard page header with logo, navigation menu, and optional CTA buttons.
+@params:
+  None - all parameters are preset and passed to the components/menus/header_menu component
+@example:
+  {{ partial "header.html" . }}
+@note: This is a basic header implementation that uses the menu/header_menu component with default values.
+*/}}
+
+{{ partial "components/menus/header_menu" (dict 
+    "logoUrl" "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+    "logoAlt" "Company Logo"
+    "logoHeight" "h-8"
+    "siteTitle" "Your Company"
+    "ctaText" "Get started"
+    "ctaUrl" "#"
+    "ctaBgColor" "bg-indigo-600"
+    "ctaHoverBgColor" "hover:bg-indigo-500"
+    "ctaTextColor" "text-white"
+    "loginText" "Log in"
+    "loginUrl" "#"
+) }}

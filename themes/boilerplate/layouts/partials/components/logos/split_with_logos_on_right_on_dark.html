@@ -1,0 +1,138 @@
+{{/*
+@component: Split with Logos on Right on Dark
+@description: Section component displaying heading, description, and CTA buttons on the left side with a grid of client/partner logos on the right, designed for dark backgrounds.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Heading text (optional, default: "Trusted by the most innovative teams")
+  - headingColor: Color class for heading (optional, default: "text-white")
+  - description: Description text (optional, default: lorem ipsum text)
+  - descriptionColor: Color class for description (optional, default: "text-gray-300")
+  - primaryButtonText: Text for primary button (optional, default: "Create account")
+  - primaryButtonUrl: URL for primary button (optional, default: "#")
+  - primaryButtonBgColor: Background color for primary button (optional, default: "bg-indigo-500")
+  - primaryButtonHoverColor: Hover color for primary button (optional, default: "hover:bg-indigo-400")
+  - primaryButtonTextColor: Text color for primary button (optional, default: "text-white")
+  - secondaryButtonText: Text for secondary button (optional, default: "Contact us")
+  - secondaryButtonUrl: URL for secondary button (optional, default: "#")
+  - secondaryButtonColor: Color for secondary button (optional, default: "text-white")
+  - logoColor: Color identifier for logos (optional, default: "white")
+  - logos: Array of logo objects, each with:
+    - name: Company/brand name
+    - url: URL to the logo image
+    - width: Logo width
+    - height: Logo height
+@example:
+  {{ partial "components/logos/split_with_logos_on_right_on_dark.html" (dict 
+      "bgColor" "bg-indigo-950"
+      "heading" "Trusted by industry leaders"
+      "description" "Join thousands of companies who trust our platform for their business needs."
+      "primaryButtonText" "Get started"
+      "primaryButtonUrl" "/signup"
+      "secondaryButtonText" {{ ((i18n "learnMore") | default "Learn more") }}
+      "secondaryButtonUrl" "/about"
+      "logos" (slice 
+        (dict 
+          "name" "Company A" 
+          "url" "/images/logos/company-a-white.svg"
+          "width" "120"
+          "height" "48"
+        )
+        (dict 
+          "name" "Company B" 
+          "url" "/images/logos/company-b-white.svg"
+          "width" "120"
+          "height" "48"
+        )
+      )
+  ) }}
+@note: This is the dark mode variant of the Split with Logos on Right component. It uses white logos and adjusted colors for better visibility and contrast on dark backgrounds.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Trusted by the most innovative teams" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $description := .description | default "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas tempus tellus etiam sed. Quam a scelerisque amet ullamcorper eu enim et fermentum, augue." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-300" }}
+
+{{/* CTA Buttons */}}
+{{ $primaryButtonText := .primaryButtonText | default "Create account" }}
+{{ $primaryButtonUrl := .primaryButtonUrl | default "#" }}
+{{ $primaryButtonBgColor := .primaryButtonBgColor | default "bg-indigo-500" }}
+{{ $primaryButtonHoverColor := .primaryButtonHoverColor | default "hover:bg-indigo-400" }}
+{{ $primaryButtonTextColor := .primaryButtonTextColor | default "text-white" }}
+
+{{ $secondaryButtonText := .secondaryButtonText | default "Contact us" }}
+{{ $secondaryButtonUrl := .secondaryButtonUrl | default "#" }}
+{{ $secondaryButtonColor := .secondaryButtonColor | default "text-white" }}
+
+{{/* Logos */}}
+{{ $logoColor := .logoColor | default "white" }}
+{{ $logos := .logos | default (slice 
+  (dict 
+    "name" "Tuple" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/tuple-logo-white.svg"
+    "width" "105"
+    "height" "48"
+  )
+  (dict 
+    "name" "Reform" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/reform-logo-white.svg"
+    "width" "104"
+    "height" "48"
+  )
+  (dict 
+    "name" "SavvyCal" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/savvycal-logo-white.svg"
+    "width" "140"
+    "height" "48"
+  )
+  (dict 
+    "name" "Laravel" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/laravel-logo-white.svg"
+    "width" "136"
+    "height" "48"
+  )
+  (dict 
+    "name" "Transistor" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/transistor-logo-white.svg"
+    "width" "158"
+    "height" "48"
+  )
+  (dict 
+    "name" "Statamic" 
+    "url" "https://tailwindcss.com/plus-assets/img/logos/statamic-logo-white.svg"
+    "width" "147"
+    "height" "48"
+  )
+) }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="grid grid-cols-1 items-center gap-x-8 gap-y-16 lg:grid-cols-2">
+      <div class="mx-auto w-full max-w-xl lg:mx-0">
+        <h2 class="text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+        <p class="mt-6 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+        <div class="mt-8 flex items-center gap-x-6">
+          <a href="{{ $primaryButtonUrl }}" class="rounded-md {{ $primaryButtonBgColor }} px-3.5 py-2.5 text-sm font-semibold {{ $primaryButtonTextColor }} shadow-xs {{ $primaryButtonHoverColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">{{ $primaryButtonText }}</a>
+          <a href="{{ $secondaryButtonUrl }}" class="text-sm font-semibold {{ $secondaryButtonColor }}">{{ $secondaryButtonText }} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="mx-auto grid w-full max-w-xl grid-cols-2 items-center gap-y-12 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:pl-8">
+        {{ range $logos }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" .url 
+            "alt" .name 
+            "class" "max-h-12 w-full object-contain object-left" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+{{/*
+@section: Team Grid with Round Images on Dark Background
+@description: A compact team showcase section with a dark background featuring small circular profile images in a multi-column grid layout, ideal for displaying larger teams with basic information.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Main section heading (optional, default: "Our team")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-300")
+  - nameColor: Team member name color class (optional, default: "text-white")
+  - roleColor: Team member role color class (optional, default: "text-gray-300")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member profile image
+@example:
+  {{ partial "sections/team/grid_with_round_images_on_dark.html" (dict 
+      "heading" "Meet Our Team" 
+      "description" "Our diverse and talented team works collaboratively across the globe to deliver exceptional results and innovative solutions."
+      "teamMembers" (slice
+          (dict 
+              "name" "Jennifer Park" 
+              "role" "Head of Operations"
+              "image" "/images/team/jennifer-park.jpg"
+          )
+          (dict 
+              "name" "Miguel Santos" 
+              "role" "Frontend Developer"
+              "image" "/images/team/miguel-santos.jpg"
+          )
+          (dict 
+              "name" "Naomi Wright" 
+              "role" "Marketing Specialist"
+              "image" "/images/team/naomi-wright.jpg"
+          )
+          (dict 
+              "name" "Alex Johnson" 
+              "role" "Data Analyst"
+              "image" "/images/team/alex-johnson.jpg"
+          )
+          (dict 
+              "name" "Raj Patel" 
+              "role" "Customer Success"
+              "image" "/images/team/raj-patel.jpg"
+          )
+      )
+      "bgColor" "bg-indigo-950"
+      "descriptionColor" "text-indigo-200"
+  ) }}
+@note: This is the dark-themed version of the team grid with round images component. The dark background creates a sophisticated, modern look that makes the profile images stand out. The highly responsive grid layout (2 columns on mobile to 6 columns on extra-large screens) makes this component perfect for showcasing larger teams in a space-efficient way. The simplified presentation with just names and roles creates a unified team appearance without overwhelming the viewer with too much detail.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Our team" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $description := .description | default "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-300" }}
+
+{{/* Team members */}}
+{{ $nameColor := .nameColor | default "text-white" }}
+{{ $roleColor := .roleColor | default "text-gray-300" }}
+{{ $teamMembers := .teamMembers | default (slice 
+  (dict 
+    "name" "Michael Foster" 
+    "role" "Co-Founder / CTO"
+    "image" "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Lindsay Walton" 
+    "role" "Front-end Developer"
+    "image" "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Dries Vincent" 
+    "role" "Business Relations"
+    "image" "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Leslie Alexander" 
+    "role" "Co-Founder / CEO"
+    "image" "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Courtney Henry" 
+    "role" "Designer"
+    "image" "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Tom Cook" 
+    "role" "Director of Product"
+    "image" "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Emma Johnson" 
+    "role" "Marketing Manager"
+    "image" "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "David Wilson" 
+    "role" "UX Researcher"
+    "image" "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Sarah Chen" 
+    "role" "Back-end Developer"
+    "image" "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "James Rodriguez" 
+    "role" "Customer Success"
+    "image" "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Olivia Martinez" 
+    "role" "Content Strategist"
+    "image" "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+  (dict 
+    "name" "Robert Taylor" 
+    "role" "Sales Director"
+    "image" "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+  )
+) }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      <h2 class="text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+      <p class="mt-6 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+    </div>
+    <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
+      {{ range $teamMembers }}
+      <li>
+        {{ partial "components/media/lazyimg.html" (dict 
+          "src" .image 
+          "alt" .name 
+          "class" "mx-auto h-24 w-24 rounded-full" 
+          "maxWidth" 96
+          "loading" "lazy" 
+          "decoding" "async"
+        ) }}
+        <h3 class="mt-6 text-base/6 font-semibold {{ $nameColor }}">{{ .name }}</h3>
+        <p class="text-sm/6 {{ $roleColor }}">{{ .role }}</p>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>

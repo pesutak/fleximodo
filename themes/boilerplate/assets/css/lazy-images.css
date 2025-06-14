@@ -1,0 +1,24 @@
+/* Lazy loading image styles */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+/* Lazy loading SVG styles */
+.lazy-svg {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-svg.loaded {
+  opacity: 1;
+}
+
+/* Fallback text for SVGs */
+.fallback-text {
+  display: none;
+}

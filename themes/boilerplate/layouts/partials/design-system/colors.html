@@ -1,0 +1,43 @@
+<div class="space-y-8">
+  <!-- Primary Colors -->
+  <div>
+    <h3 class="text-xl font-semibold mb-3">Primary</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="rounded overflow-hidden">
+        <div class="h-24 bg-primary"></div>
+        <div class="p-3 border border-t-0">
+          <p class="font-mono text-sm">primary</p>
+          <p class="text-text-light text-sm">var(--color-primary)</p>
+          <p class="font-mono text-sm text-text-muted">
+            {{ with .Site.Params.theme.colors.primary }}{{ . }}{{ else }}#1a73e8{{ end }}
+          </p>
+        </div>
+      </div>
+      
+      <div class="rounded overflow-hidden">
+        <div class="h-24 bg-primary-light"></div>
+        <div class="p-3 border border-t-0">
+          <p class="font-mono text-sm">primary-light</p>
+          <p class="text-text-light text-sm">var(--color-primary-light)</p>
+          <p class="font-mono text-sm text-text-muted">
+            {{ with .Site.Params.theme.colors.primaryLight }}{{ . }}{{ else }}#4285f4{{ end }}
+          </p>
+        </div>
+      </div>
+      
+      <div class="rounded overflow-hidden">
+        <div class="h-24 bg-primary-dark"></div>
+        <div class="p-3 border border-t-0">
+          <p class="font-mono text-sm">primary-dark</p>
+          <p class="text-text-light text-sm">var(--color-primary-dark)</p>
+          <p class="font-mono text-sm text-text-muted">
+            {{ with .Site.Params.theme.colors.primaryDark }}{{ . }}{{ else }}#1557b0{{ end }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repeat similar blocks for Secondary, Accent, Text and Background colors -->
+  <!-- ... -->
+</div>

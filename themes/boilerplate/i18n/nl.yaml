@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Veelgestelde Vragen"
+language_selector_title: "Beschikbare Talen"
+glossary_subtitle: "Een uitgebreide lijst van termen en definities"
+glossary_title: "Woordenlijst"
+home_title: "Home"
+
+# Glossary translations
+glossary_eyebrow: "Woordenlijst"
+
+# Category page translations
+categories_title: "Categorieën"
+categories_browse_all: "Bekijk alle inhoud per categorie"
+category_eyebrow: "Categorie"
+category_browse_content: "Bekijk alle inhoud in de categorie %s"
+category_no_content_found: "Geen inhoud gevonden in deze categorie"
+category_try_browsing: "Probeer andere categorieën te bekijken of zoek naar inhoud"
+category_other_categories: "Andere Categorieën"
+
+# CTA translations
+cta_default_heading: "Breid uw kennis uit met onze bronnen"
+cta_default_description: "Verken onze uitgebreide bibliotheek van artikelen, gidsen en tutorials om uw begrip van sleutelconcepten te verdiepen en op de hoogte te blijven van de nieuwste ontwikkelingen."
+cta_default_primary_text: "Bronnen verkennen"
+cta_default_secondary_text: "Contact opnemen met onze experts"
+
+# Content type translations
+content_article_singular: "artikel"
+content_article_plural: "artikelen"
+
+# Tags page translations
+tags_title: "Tags"
+tags_browse_all: "Bekijk alle inhoud per onderwerp"
+tag_eyebrow: "Tag"
+tag_browse_content: "Bekijk alle inhoud met de tag %s"
+tag_no_content_found: "Geen inhoud gevonden met deze tag"
+tag_try_browsing: "Probeer andere tags te bekijken of zoek naar inhoud"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Vorige"
+tag_pagination_next: "Volgende"
+tag_other_tags: "Andere Tags"
+
+# Cookie consent translations
+cookie_consent_title: "Cookie Toestemming"
+cookie_consent_message: "We gebruiken cookies om uw browse-ervaring te verbeteren en ons verkeer te analyseren."
+cookie_consent_accept_all: "Alles Accepteren"
+cookie_consent_accept_necessary: "Alleen Noodzakelijke Accepteren"
+cookie_consent_settings: "Cookie Instellingen"
+cookie_settings_title: "Cookie Instellingen"
+cookie_settings_close: "Sluiten"
+cookie_settings_necessary_title: "Noodzakelijke Cookies"
+cookie_settings_necessary_description: "Deze cookies zijn vereist voor de werking van de website en kunnen niet worden uitgeschakeld."
+cookie_settings_analytics_title: "Analytics Cookies"
+cookie_settings_analytics_description: "Deze cookies helpen ons te begrijpen hoe bezoekers onze website gebruiken."
+cookie_settings_cancel: "Annuleren"
+cookie_settings_save: "Voorkeuren Opslaan"
+
+# Pagination translations
+pagination_previous: "Vorige"
+pagination_next: "Volgende"
+pagination_showing: "Tonen"
+pagination_to: "tot"
+pagination_of: "van"
+pagination_results: "resultaten"
+pagination_browse_all: "Bekijk alle inhoud in"
+
+# FAQ translations
+faq_heading: "Veelgestelde vragen"
+faq_description: "Vind antwoorden op veelvoorkomende vragen over dit onderwerp."
+
+no_terms_available: "Geen termen beschikbaar"
+pricing_monthly_label: "Maandelijks"
+pricing_yearly_label: "Jaarlijks"
+wantMore: "Wil je meer?"
+learnMore: "Meer informatie"
+pricing_tagline: "Prijzen"
+pricing_title: "Prijzen die met je meegroeien"
+pricing_description: "Kies een betaalbaar abonnement met de beste functies om je publiek te betrekken, klantloyaliteit te creëren en de verkoop te stimuleren."
+pricing_comparison_title: "Abonnementen vergelijken"
+pricing_comparison_description: "Bekijk onze abonnementsvergelijkingen en kies het beste voor jou"
+read_more_post: "Lees meer"
+no_posts_found: "Geen berichten gevonden"
+minutes_read: "min lezen"
+get_started: "Aan de slag"
+courses.session: "Sessie"
+courses.you_will_learn: "Je zult leren:"
+courses.or: "of"

@@ -1,0 +1,140 @@
+baseURL = 'http://localhost:1313/'
+languageCode = 'en-us'
+title = 'Hugo Boilerplate'
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+theme = 'boilerplate'
+
+# Output formats configuration
+[outputs]
+  home = ["HTML", "RSS", "SITEMAP"]
+
+[mediaTypes]
+  [mediaTypes."text/plain"]
+    suffixes = ["txt"]
+  [mediaTypes."application/xml"]
+    suffixes = ["xml"]
+
+[outputFormats]
+  [outputFormats.ROBOTS]
+    mediaType = "text/plain"
+    baseName = "robots"
+    isPlainText = true
+    notAlternative = true
+    permalinkable = true
+  [outputFormats.SITEMAP]
+    mediaType = "application/xml"
+    baseName = "sitemap"
+    isPlainText = false
+    isHTML = false
+    noUgly = true
+    rel = "sitemap"
+
+# Site parameters
+[params]
+  description = "A clean Hugo boilerplate"
+  author = "Your Name"
+  mainSections = ["blog"]
+  dateFormat = "January 2, 2006"
+  
+  # Image processing configuration
+  [params.imaging]
+    # Default resample filter used for resizing. Default is Box,
+    # a simple and fast averaging filter appropriate for downscaling.
+    # See https://github.com/disintegration/imaging
+    resampleFilter = "Lanczos"
+    
+    # Default JPEG quality setting. Default is 75.
+    quality = 85
+    
+    # Anchor used when cropping pictures.
+    # Default is "smart" which does Smart Cropping, using https://github.com/muesli/smartcrop
+    anchor = "smart"
+    
+    # Default background color.
+    # Hugo will preserve transparency for target formats that support it,
+    # but will fall back to this color for JPEG.
+    # Expects a standard HEX color string with 3 or 6 digits.
+    # See https://www.google.com/search?q=color+picker
+    bgColor = "#ffffff"
+
+    # Default WebP quality setting. Default is 75.
+    webpQuality = 85
+
+# Language configuration
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "English Site Title"
+    weight = 1
+    contentDir = "content/en"
+    baseURL = "https://example.com"
+    [languages.en.params]
+      bcp47Lang = "en-us"
+      description = "English site description"
+      gaMeasurementID = "G-PROD7890123"
+    [[languages.en.menu.main]]
+      identifier = "home"
+      name = "Home"
+      url = "/"
+      weight = 1
+    [[languages.en.menu.main]]
+      identifier = "blog"
+      name = "Blog"
+      url = "/blog/"
+      weight = 2
+
+  [languages.de]
+    languageName = "Deutsch"
+    title = "Deutsche Site Title"
+    weight = 2
+    contentDir = "content/de"
+    baseURL = "https://example.de"
+    [languages.de.params]
+      bcp47Lang = "de"
+      description = "Deutsche Seitenbeschreibung"
+      gaMeasurementID = "G-GERMAN12345"
+    [[languages.de.menu.main]]
+      identifier = "home"
+      name = "Startseite"
+      url = "/"
+      weight = 1
+    [[languages.de.menu.main]]
+      identifier = "blog"
+      name = "Blog"
+      url = "/blog/"
+      weight = 2
+
+  [languages.sk]
+    languageName = "Slovenčina"
+    title = "Slovenský Názov Stránky"
+    weight = 3
+    contentDir = "content/sk"
+    baseURL = "https://example.sk"
+    [languages.sk.params]
+      bcp47Lang = "sk"
+      description = "Slovenský popis stránky"
+      gaMeasurementID = "G-SLOVAK67890"
+    [[languages.sk.menu.main]]
+      identifier = "home"
+      name = "Domov"
+      url = "/"
+      weight = 1
+    [[languages.sk.menu.main]]
+      identifier = "blog"
+      name = "Blog"
+      url = "/blog/"
+      weight = 2
+
+# Taxonomies
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+# Build settings
+[build]
+  writeStats = true
+
+# Multilingual settings
+[sitemap]
+  filename = "sitemap.xml"

@@ -1,0 +1,49 @@
+{{- /*
+  Usage in markdown:
+  {{< dynamic-bento-grid 
+    tagline="Feature Tagline" 
+    heading="Main Feature Heading" 
+    backgroundColor="gray-900" 
+    taglineColor="indigo-400" 
+  >}}
+  
+  Parameters:
+  1. tagline: Short text displayed above the main heading (default: "Deploy faster")
+  2. heading: Main section heading (default: "Everything you need to deploy your app")
+  3. backgroundColor: Background color class for the section (default: "gray-900")
+  4. taglineColor: Color class for the tagline (default: "indigo-400")
+  
+  Note: This shortcode uses cards defined in the data file at data/bento_grid_cards.yaml
+  Structure should be:
+  
+  cards:
+    - title: "Card Title 1"
+      category: "Category 1"
+      description: "Card description 1"
+      image: "/path/to/image1.jpg"
+      imageAlt: "Image 1 alt text"
+    - title: "Card Title 2"
+      category: "Category 2"
+      description: "Card description 2"
+      image: "/path/to/image2.jpg"
+      imageAlt: "Image 2 alt text"
+    ...
+*/ -}}
+
+{{/* Dynamic Bento Grid Shortcode */}}
+{{ $tagline := .Get "tagline" | default "Deploy faster" }}
+{{ $heading := .Get "heading" | default "Everything you need to deploy your app" }}
+{{ $backgroundColor := .Get "backgroundColor" | default "gray-900" }}
+{{ $taglineColor := .Get "taglineColor" | default "indigo-400" }}
+
+{{/* Get cards from data file */}}
+{{ $cardsData := index .Site.Data "bento_grid_cards" }}
+{{ $cards := $cardsData.cards }}
+
+{{ partial "sections/bentogrids/dynamic_bento_grid_on_dark.html" (dict 
+  "tagline" $tagline
+  "heading" $heading
+  "backgroundColor" $backgroundColor
+  "taglineColor" $taglineColor
+  "cards" $cards
+) }}

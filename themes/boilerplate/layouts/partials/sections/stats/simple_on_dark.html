@@ -1,0 +1,79 @@
+{{/*
+@section: Simple Stats on Dark
+@description: A minimalist statistics section displaying up to three key metrics on a dark background with subtle grid pattern and glow effects.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: The numerical value or metric to display
+    - label: Description of what the value represents
+  - valueColor: Color class for statistic values (optional, default: "text-white")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-400")
+@example:
+  {{ partial "sections/stats/simple_on_dark.html" (dict 
+      "stats" (slice
+          (dict 
+              "value" "99.9%" 
+              "label" "Platform uptime"
+          )
+          (dict 
+              "value" "24/7" 
+              "label" "Global support"
+          )
+          (dict 
+              "value" "150+" 
+              "label" "Countries served"
+          )
+      )
+      "valueColor" "text-indigo-300"
+      "labelColor" "text-indigo-100"
+      "bgColor" "bg-indigo-950"
+  ) }}
+@note: This component presents a clean, horizontal arrangement of key statistics on a dark background with subtle visual effects. The design features a background grid pattern and a soft colored glow, creating a modern tech aesthetic while keeping the focus on the important metrics.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Stats */}}
+{{ $stats := .stats | default slice }}
+
+{{/* Default stats if none provided */}}
+{{ if eq (len $stats) 0 }}
+  {{ $stats = slice 
+    (dict 
+      "value" "44 million"
+      "label" "Transactions every 24 hours"
+    )
+    (dict 
+      "value" "$119 trillion"
+      "label" "Assets under holding"
+    )
+    (dict 
+      "value" "46,000"
+      "label" "New users annually"
+    )
+  }}
+{{ end }}
+
+{{/* Text colors */}}
+{{ $valueColor := .valueColor | default "text-white" }}
+{{ $labelColor := .labelColor | default "text-gray-400" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[60%] w-[90%] rounded-full bg-indigo-500 opacity-10 blur-[100px]"></div>
+  
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+      {{ range $stat := $stats }}
+      <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+        <dt class="text-base/7 {{ $labelColor }}">{{ $stat.label }}</dt>
+        <dd class="order-first text-3xl font-semibold tracking-tight {{ $valueColor }} sm:text-5xl">{{ $stat.value }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</div>

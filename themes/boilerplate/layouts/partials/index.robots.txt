@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+{{ $domain := .Site.BaseURL | replaceRE "^https?://([^/]+).*" "$1" }}
+Sitemap: {{ .Site.BaseURL }}sitemap.xml

@@ -1,0 +1,140 @@
+{{/*
+@component: Linkbuilding
+@description: Processes HTML content to add links based on keywords defined in data/linkbuilding/[lang].yaml.
+@params:
+  a dict with:
+    - content: The HTML content to process
+    - page: The page context for tracking processed links
+@example:
+  {{ $processedContent := partial "utils/linkbuilding" (dict "content" .Content "page" .) }}
+
+  @note: This utility enhances content by adding contextual links based on defined keywords. It prevents duplicate links and ensures proper HTML structure.
+
+
+Example structure of /data/linkbuilding/[lang].yaml:
+keywords:
+  - keyword: "mcp"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+  - keyword: "mcp server"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+  - keyword: "mcp servers"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+
+*/}}
+
+{{ $maxSameKeywordReplacementsInPage := 5 }}
+{{ $maxSameUrlReplacementsInPage := 3 }}
+{{ $maxKeywordUrlReplacementsInPage := 1 }}
+{{ $charactersPerLinkInParagraphDensity := 100 }}{{/* Maximum characters per link density, used to prevent too many links in a short text */}}
+{{ $maxAutomaticLinksInPage := 50 }}{{/* Maximum links in a page, used to prevent too many links in a page */}}
+{{ $maxAutomaticLinksInParagraph := 3 }}{{/* Maximum links in a paragraph, used to prevent too many links in a paragraph */}}
+{{ $minParagraphLength := 30 }}
+
+{{ $content := .content }}
+{{ $page := .page }}
+
+{{/* Load linkbuilding data for current language */}}
+{{ $lang := $page.Lang | default "en" }}
+{{ $linkbuildingData := index site.Data.linkbuilding $lang }}
+{{ $keywords := $linkbuildingData.keywords | default slice }}
+
+{{/* Initialize scratch for tracking link counts */}}
+{{ $scratch := newScratch }}
+{{ $scratch.Set "totalLinksInPage" 0 }}
+{{ $scratch.Set "keywordCounts" dict }}
+{{ $scratch.Set "urlCounts" dict }}
+{{ $scratch.Set "keywordUrlCounts" dict }}
+
+{{/* Get current page URL for comparison */}}
+{{ $currentPageURL := $page.RelPermalink }}
+
+{{/* Sort keywords by priority (higher priority first) and then by length (longer first) */}}
+{{ $sortedKeywords := sort $keywords "priority" "desc" }}
+
+{{/* Process content if we have keywords */}}
+{{ if $keywords }}
+  {{ $processedContent := $content }}
+  
+  {{/* Process each keyword */}}
+  {{ range $sortedKeywords }}
+    {{ $keyword := .keyword }}
+    {{ $url := .url }}
+    {{ $exact := .exact | default false }}
+    {{ $title := .title | default "" }}
+    
+    {{/* Escape title for HTML attribute */}}
+    {{ $escapedTitle := $title | htmlEscape }}
+    
+    {{/* Skip if target URL is same as current page */}}
+    {{ if ne $url $currentPageURL }}
+      {{/* Get current counts */}}
+      {{ $totalLinks := $scratch.Get "totalLinksInPage" }}
+      {{ $keywordCounts := $scratch.Get "keywordCounts" }}
+      {{ $urlCounts := $scratch.Get "urlCounts" }}
+      {{ $keywordUrlCounts := $scratch.Get "keywordUrlCounts" }}
+      
+      {{ $keywordCount := index $keywordCounts $keyword | default 0 }}
+      {{ $urlCount := index $urlCounts $url | default 0 }}
+      {{ $keywordUrlKey := printf "%s-%s" $keyword $url }}
+      {{ $keywordUrlCount := index $keywordUrlCounts $keywordUrlKey | default 0 }}
+      
+      {{/* Check if we can add more links */}}
+      {{ if and (lt $totalLinks $maxAutomaticLinksInPage) (lt $keywordCount $maxSameKeywordReplacementsInPage) (lt $urlCount $maxSameUrlReplacementsInPage) (lt $keywordUrlCount $maxKeywordUrlReplacementsInPage) }}
+        
+        {{/* Escape keyword for regex */}}
+        {{ $escapedKeyword := replaceRE `([.*+?^${}()|[\]\\])` `\$1` $keyword }}
+        {{ $pattern := $escapedKeyword }}
+        {{ if $exact }}
+          {{ $pattern = printf `\b%s\b` $escapedKeyword }}
+        {{ end }}
+        
+        {{/* Case insensitive pattern */}}
+        {{ $regexPattern := printf `(?i)%s` $pattern }}          {{/* Check if keyword exists in content */}}
+          {{ if findRE $regexPattern $processedContent 1 }}
+            
+            {{/* Check if it's not already inside a link */}}
+            {{ $keywordInLinkPattern := printf `(?i)<a\b[^>]*>[^<]*%s[^<]*</a>` $pattern }}
+            {{ $keywordAlreadyLinked := findRE $keywordInLinkPattern $processedContent 1 }}
+            
+            {{/* Check if it's not inside heading tags */}}
+            {{ $keywordInHeadingPattern := printf `(?i)<h[1-6]\b[^>]*>[^<]*%s[^<]*</h[1-6]>` $pattern }}
+            {{ $keywordInHeading := findRE $keywordInHeadingPattern $processedContent 1 }}
+            
+            {{/* Check if keyword is inside any HTML tag attributes */}}
+            {{ $keywordInTagPattern := printf `(?i)<[^>]*\b%s\b[^>]*>` $pattern }}
+            {{ $keywordInTag := findRE $keywordInTagPattern $processedContent 1 }}
+            
+            {{ if not (or $keywordAlreadyLinked $keywordInHeading $keywordInTag) }}
+            {{/* Create the replacement link with proper escaping */}}
+            {{ $linkHtml := printf `<a href="%s" title="%s">%s</a>` $url $escapedTitle $keyword }}
+            
+            {{/* Replace only the first occurrence that matches exactly */}}
+            {{ $processedContent = replaceRE $regexPattern $linkHtml $processedContent 1 }}
+            
+            {{/* Update counters */}}
+            {{ $scratch.Set "totalLinksInPage" (add $totalLinks 1) }}
+            {{ $keywordCounts = merge $keywordCounts (dict $keyword (add $keywordCount 1)) }}
+            {{ $scratch.Set "keywordCounts" $keywordCounts }}
+            {{ $urlCounts = merge $urlCounts (dict $url (add $urlCount 1)) }}
+            {{ $scratch.Set "urlCounts" $urlCounts }}
+            {{ $keywordUrlCounts = merge $keywordUrlCounts (dict $keywordUrlKey (add $keywordUrlCount 1)) }}
+            {{ $scratch.Set "keywordUrlCounts" $keywordUrlCounts }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  
+  {{ $content = $processedContent }}
+{{ end }}
+
+{{ return $content }}

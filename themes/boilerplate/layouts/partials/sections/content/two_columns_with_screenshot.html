@@ -1,0 +1,67 @@
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $eyebrow := .eyebrow | default "Deploy faster" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
+{{ $heading := .heading | default "A better workflow" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+
+{{/* Content section */}}
+{{ $contentColor := .contentColor | default "text-gray-700" }}
+{{ $column1Text1 := .column1Text1 | default "Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id." }}
+{{ $column1Text2 := .column1Text2 | default "Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas." }}
+{{ $column2Text1 := .column2Text1 | default "Erat pellentesque dictumst ligula porttitor risus eget et eget. Ultricies tellus felis id dignissim eget. Est augue maecenas risus nulla ultrices congue nunc tortor." }}
+{{ $column2Text2 := .column2Text2 | default "Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci." }}
+
+{{/* Button */}}
+{{ $buttonText := .buttonText | default "Get started" }}
+{{ $buttonUrl := .buttonUrl | default "#" }}
+{{ $buttonBgColor := .buttonBgColor | default "bg-indigo-600" }}
+{{ $buttonHoverBgColor := .buttonHoverBgColor | default "hover:bg-indigo-500" }}
+{{ $buttonTextColor := .buttonTextColor | default "text-white" }}
+{{ $buttonFocusColor := .buttonFocusColor | default "focus-visible:outline-indigo-600" }}
+{{ $showButton := .showButton | default true }}
+
+{{/* Screenshot */}}
+{{ $screenshot := .screenshot | default "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png" }}
+{{ $screenshotAlt := .screenshotAlt | default "Product screenshot" }}
+{{ $screenshotBorderColor := .screenshotBorderColor | default "ring-gray-900/10" }}
+{{ $fadeColor := .fadeColor | default "from-white" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+      <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
+      <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h1>
+      <div class="mt-10 grid max-w-xl grid-cols-1 gap-8 text-base/7 {{ $contentColor }} lg:max-w-none lg:grid-cols-2">
+        <div>
+          <p>{{ $column1Text1 }}</p>
+          <p class="mt-8">{{ $column1Text2 }}</p>
+        </div>
+        <div>
+          <p>{{ $column2Text1 }}</p>
+          <p class="mt-8">{{ $column2Text2 }}</p>
+        </div>
+      </div>
+      {{ if $showButton }}
+      <div class="mt-10 flex">
+        <a href="{{ $buttonUrl }}" class="rounded-md {{ $buttonBgColor }} px-3.5 py-2.5 text-sm font-semibold {{ $buttonTextColor }} shadow-xs {{ $buttonHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 {{ $buttonFocusColor }}">{{ $buttonText }}</a>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  <div class="relative overflow-hidden pt-16 lg:pt-20">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      {{ partial "components/media/lazyimg.html" (dict 
+        "src" $screenshot 
+        "alt" $screenshotAlt
+        "class" "mb-[-12%] rounded-xl ring-1 shadow-2xl {{ $screenshotBorderColor }}"
+      ) }}
+      <div class="relative" aria-hidden="true">
+        <div class="absolute -inset-x-20 bottom-0 bg-linear-to-t {{ $fadeColor }} pt-[7%]"></div>
+      </div>
+    </div>
+  </div>
+</div>

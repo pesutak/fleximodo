@@ -1,0 +1,477 @@
+{{/*
+@section: Three-Tier Pricing with Feature Comparison
+@description: A comprehensive pricing section featuring three pricing tiers with a toggle between monthly and annual billing, and a detailed feature comparison table. Includes a dark-themed pricing card section with a centered highlighted tier.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - bgColor: Background color class for the top section (optional, default: "bg-gray-900")
+  - bgColorLight: Background color class for the comparison table section (optional, default: "bg-gray-50")
+  - monthlyLabel: Label for monthly toggle option (optional, default: "Monthly")
+  - annuallyLabel: Label for annual toggle option (optional, default: "Annually")
+  - toggleBgColor: Background color class for the toggle container (optional, default: "bg-white/5")
+  - toggleActiveBgColor: Background color class for the active toggle state (optional, default: "bg-indigo-500")
+  - toggleTextColor: Text color class for the toggle (optional, default: "text-white")
+  - tier1: Object with tier 1 settings (optional, includes defaults)
+    - name: Name of the tier (default: "Starter")
+    - id: ID for accessibility (default: "tier-starter")
+    - monthlyPrice: Price for monthly billing (default: "$19")
+    - annualPrice: Price for annual billing (default: "$15")
+    - interval: Billing frequency text (default: "/month")
+    - currency: Currency code (default: "USD")
+    - billingText: Billing description for monthly (default: "Billed monthly")
+    - billingTextAnnual: Billing description for annual (default: "Billed annually")
+    - buttonText: Button text (default: "Buy this plan")
+    - buttonUrl: Button URL (default: "#")
+    - description: Short description of the tier (default: "Everything you need to get started.")
+    - features: Array of features included in this tier
+  - tier2: Object with tier 2 settings (optional, includes defaults)
+    - Similar structure to tier1, featured/highlighted tier
+  - tier3: Object with tier 3 settings (optional, includes defaults)
+    - Similar structure to tier1
+  - featureCategories: Dictionary of feature categories for comparison table (optional, includes defaults)
+    - Keys are category names
+    - Values are arrays of feature objects with tier-specific values
+      - name: Feature name
+      - tier1: Boolean, string or number value for tier 1
+      - tier2: Boolean, string or number value for tier 2
+      - tier3: Boolean, string or number value for tier 3
+@example:
+  {{ partial "sections/pricing/three_tiers_with_feature_comparison.html" (dict 
+      "heading" "Professional pricing for teams of all sizes"
+      "description" "Choose the plan that best meets your needs. All plans include a 30-day free trial."
+      "tier1" (dict
+          "name" "Basic"
+          "monthlyPrice" "$29"
+          "annualPrice" "$24"
+          "description" "Perfect for individuals and small projects."
+          "features" (slice
+              "5 projects"
+              "10GB storage"
+              "Basic analytics"
+              "24-hour support"
+          )
+          "buttonText" "Start free trial"
+          "buttonUrl" "/signup/basic"
+      )
+      "tier2" (dict
+          "name" "Pro"
+          "monthlyPrice" "$79"
+          "annualPrice" "$69"
+          "description" "Best for growing teams and businesses."
+          "features" (slice
+              "Unlimited projects"
+              "50GB storage"
+              "Advanced analytics"
+              "Priority support"
+              "Team collaboration"
+              "Custom reporting"
+          )
+          "buttonText" "Start free trial"
+          "buttonUrl" "/signup/pro"
+      )
+      "tier3" (dict
+          "name" "Enterprise"
+          "monthlyPrice" "$129"
+          "annualPrice" "$109"
+          "description" "Advanced features for large organizations."
+          "features" (slice
+              "Unlimited everything"
+              "Advanced security"
+              "Custom integrations"
+              "Dedicated account manager"
+          )
+          "buttonText" "Contact sales"
+          "buttonUrl" "/contact/sales"
+      )
+      "featureCategories" (dict
+          "Core Features" (slice
+              (dict "name" "Storage" "tier1" "10GB" "tier2" "50GB" "tier3" "Unlimited")
+              (dict "name" "Users" "tier1" "3" "tier2" "20" "tier3" "Unlimited")
+              (dict "name" "API Access" "tier1" false "tier2" true "tier3" true)
+          )
+          "Security" (slice
+              (dict "name" "Two-factor authentication" "tier1" true "tier2" true "tier3" true)
+              (dict "name" "Advanced permissions" "tier1" false "tier2" true "tier3" true)
+              (dict "name" "SSO" "tier1" false "tier2" false "tier3" true)
+          )
+      )
+      "toggleActiveBgColor" "bg-blue-500"
+  ) }}
+@note: This component features interactive monthly/annual pricing toggle functionality powered by JavaScript. The top section displays the pricing cards with a highlighted center card, while the bottom section shows a detailed feature comparison table organized by categories.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $tagline := .tagline | default "Pricing" }}
+{{ $heading := .heading | default "Pricing that grows with you" }}
+{{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $bgColorLight := .bgColorLight | default "bg-gray-50" }}
+
+{{/* Toggle configuration */}}
+{{ $monthlyLabel := .monthlyLabel | default "Monthly" }}
+{{ $annuallyLabel := .annuallyLabel | default "Annually" }}
+{{ $toggleBgColor := .toggleBgColor | default "bg-white/5" }}
+{{ $toggleActiveBgColor := .toggleActiveBgColor | default "bg-indigo-500" }}
+{{ $toggleTextColor := .toggleTextColor | default "text-white" }}
+
+{{/* Tier 1: Starter */}}
+{{ $tier1Name := .tier1.name | default "Starter" }}
+{{ $tier1Id := .tier1.id | default "tier-starter" }}
+{{ $tier1MonthlyPrice := .tier1.monthlyPrice | default "$19" }}
+{{ $tier1AnnualPrice := .tier1.annualPrice | default "$15" }}
+{{ $tier1Interval := .tier1.interval | default "/month" }}
+{{ $tier1Currency := .tier1.currency | default "USD" }}
+{{ $tier1BillingText := .tier1.billingText | default "Billed monthly" }}
+{{ $tier1BillingTextAnnual := .tier1.billingTextAnnual | default "Billed annually" }}
+{{ $tier1ButtonText := .tier1.buttonText | default "Buy this plan" }}
+{{ $tier1ButtonUrl := .tier1.buttonUrl | default "#" }}
+{{ $tier1Description := .tier1.description | default "Everything you need to get started." }}
+{{ $tier1Features := .tier1.features | default (slice "Custom domains" "Edge content delivery" "Advanced analytics") }}
+
+{{/* Tier 2: Scale (Featured) */}}
+{{ $tier2Name := .tier2.name | default "Scale" }}
+{{ $tier2Id := .tier2.id | default "tier-scale" }}
+{{ $tier2MonthlyPrice := .tier2.monthlyPrice | default "$99" }}
+{{ $tier2AnnualPrice := .tier2.annualPrice | default "$79" }}
+{{ $tier2Interval := .tier2.interval | default "/month" }}
+{{ $tier2Currency := .tier2.currency | default "USD" }}
+{{ $tier2BillingText := .tier2.billingText | default "Billed monthly" }}
+{{ $tier2BillingTextAnnual := .tier2.billingTextAnnual | default "Billed annually" }}
+{{ $tier2ButtonText := .tier2.buttonText | default "Buy this plan" }}
+{{ $tier2ButtonUrl := .tier2.buttonUrl | default "#" }}
+{{ $tier2Description := .tier2.description | default "Added flexibility at scale." }}
+{{ $tier2Features := .tier2.features | default (slice "Custom domains" "Edge content delivery" "Advanced analytics" "Quarterly workshops" "Single sign-on (SSO)" "Priority phone support") }}
+
+{{/* Tier 3: Growth */}}
+{{ $tier3Name := .tier3.name | default "Growth" }}
+{{ $tier3Id := .tier3.id | default "tier-growth" }}
+{{ $tier3MonthlyPrice := .tier3.monthlyPrice | default "$49" }}
+{{ $tier3AnnualPrice := .tier3.annualPrice | default "$39" }}
+{{ $tier3Interval := .tier3.interval | default "/month" }}
+{{ $tier3Currency := .tier3.currency | default "USD" }}
+{{ $tier3BillingText := .tier3.billingText | default "Billed monthly" }}
+{{ $tier3BillingTextAnnual := .tier3.billingTextAnnual | default "Billed annually" }}
+{{ $tier3ButtonText := .tier3.buttonText | default "Buy this plan" }}
+{{ $tier3ButtonUrl := .tier3.buttonUrl | default "#" }}
+{{ $tier3Description := .tier3.description | default "All the extras for your growing team." }}
+{{ $tier3Features := .tier3.features | default (slice "Custom domains" "Edge content delivery" "Advanced analytics" "Quarterly workshops") }}
+
+{{/* Feature comparison configuration */}}
+{{ $featureCategories := .featureCategories | default (dict 
+  "Features" (slice 
+    (dict "name" "Edge content delivery" "tier1" true "tier2" true "tier3" true)
+    (dict "name" "Custom domains" "tier1" "1" "tier2" "Unlimited" "tier3" "3")
+    (dict "name" "Team members" "tier1" "3" "tier2" "Unlimited" "tier3" "20")
+    (dict "name" "Single sign-on (SSO)" "tier1" false "tier2" true "tier3" false)
+  )
+  "Reporting" (slice 
+    (dict "name" "Advanced analytics" "tier1" true "tier2" true "tier3" true)
+    (dict "name" "Basic reports" "tier1" false "tier2" true "tier3" true)
+    (dict "name" "Professional reports" "tier1" false "tier2" true "tier3" false)
+    (dict "name" "Custom report builder" "tier1" false "tier2" true "tier3" false)
+  )
+  "Support" (slice 
+    (dict "name" "24/7 online support" "tier1" true "tier2" true "tier3" true)
+    (dict "name" "Quarterly workshops" "tier1" false "tier2" true "tier3" true)
+    (dict "name" "Priority phone support" "tier1" false "tier2" true "tier3" false)
+    (dict "name" "1:1 onboarding tour" "tier1" false "tier2" true "tier3" false)
+  )
+) }}
+
+<div class="isolate overflow-hidden">
+    <div class="flow-root bg-gray-900 pt-24 pb-16 sm:pt-32 lg:pb-0">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="relative z-10">
+          <h2 class="mx-auto max-w-4xl text-center text-5xl font-semibold tracking-tight text-balance text-white sm:text-6xl">{{ $heading }}</h2>
+          <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">{{ $description }}</p>
+          <div class="mt-16 flex justify-center">
+            <fieldset aria-label="Payment frequency">
+              <div class="grid grid-cols-2 gap-x-1 rounded-full {{ $toggleBgColor }} p-1 text-center text-xs/5 font-semibold {{ $toggleTextColor }}">
+                <!-- Checked: "bg-indigo-500" -->
+                <label class="cursor-pointer rounded-full px-2.5 py-1 frequency-option" data-frequency="monthly">
+                  <input type="radio" name="frequency" value="monthly" class="sr-only">
+                  <span>{{ $monthlyLabel }}</span>
+                </label>
+                <!-- Checked: "bg-indigo-500" -->
+                <label class="cursor-pointer rounded-full px-2.5 py-1 frequency-option" data-frequency="annually">
+                  <input type="radio" name="frequency" value="annually" class="sr-only">
+                  <span>{{ $annuallyLabel }}</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="relative mx-auto mt-10 grid max-w-md grid-cols-1 gap-y-8 lg:mx-0 lg:-mb-14 lg:max-w-none lg:grid-cols-3">
+          <svg viewBox="0 0 1208 1024" aria-hidden="true" class="absolute -bottom-48 left-1/2 h-[64rem] -translate-x-1/2 translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] lg:-top-48 lg:bottom-auto lg:translate-y-0">
+            <ellipse cx="604" cy="512" fill="url(#d25c25d4-6d43-4bf9-b9ac-1842a30a4867)" rx="604" ry="512" />
+            <defs>
+              <radialGradient id="d25c25d4-6d43-4bf9-b9ac-1842a30a4867">
+                <stop stop-color="#7775D6" />
+                <stop offset="1" stop-color="#E935C1" />
+              </radialGradient>
+            </defs>
+          </svg>
+          <div class="hidden lg:absolute lg:inset-x-px lg:top-4 lg:bottom-0 lg:block lg:rounded-t-2xl lg:bg-gray-800/80 lg:ring-1 lg:ring-white/10" aria-hidden="true"></div>
+          
+          <!-- Tier 1: Starter -->
+          <div class="relative rounded-2xl bg-gray-800/80 ring-1 ring-white/10 lg:bg-transparent lg:pb-14 lg:ring-0">
+            <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+              <h3 id="{{ $tier1Id }}" class="text-sm/6 font-semibold text-white">{{ $tier1Name }}</h3>
+              <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                <div class="mt-2 flex items-center gap-x-4">
+                  <p class="text-4xl font-semibold tracking-tight text-white price-monthly">{{ $tier1MonthlyPrice }}</p>
+                  <p class="text-4xl font-semibold tracking-tight text-white price-annually hidden">{{ $tier1AnnualPrice }}</p>
+                  <div class="text-sm">
+                    <p class="text-white">{{ $tier1Currency }}</p>
+                    <p class="text-gray-400 billing-text-monthly">{{ $tier1BillingText }}</p>
+                    <p class="text-gray-400 billing-text-annually hidden">{{ $tier1BillingTextAnnual }}</p>
+                  </div>
+                </div>
+                <a href="{{ $tier1ButtonUrl }}" aria-describedby="{{ $tier1Id }}" class="rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{{ $tier1ButtonText }}</a>
+              </div>
+              <div class="mt-8 flow-root sm:mt-10">
+                <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white lg:border-t-0">
+                  {{ range $tier1Features }}
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    {{ . }}
+                  </li>
+                  {{ end }}
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tier 2: Scale (Featured) -->
+          <div class="relative z-10 rounded-2xl bg-white ring-1 shadow-xl ring-gray-900/10">
+            <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+              <h3 id="{{ $tier2Id }}" class="text-sm/6 font-semibold text-gray-900">{{ $tier2Name }}</h3>
+              <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                <div class="mt-2 flex items-center gap-x-4">
+                  <p class="text-4xl font-semibold tracking-tight text-gray-900 price-monthly">{{ $tier2MonthlyPrice }}</p>
+                  <p class="text-4xl font-semibold tracking-tight text-gray-900 price-annually hidden">{{ $tier2AnnualPrice }}</p>
+                  <div class="text-sm">
+                    <p class="text-gray-900">{{ $tier2Currency }}</p>
+                    <p class="text-gray-500 billing-text-monthly">{{ $tier2BillingText }}</p>
+                    <p class="text-gray-500 billing-text-annually hidden">{{ $tier2BillingTextAnnual }}</p>
+                  </div>
+                </div>
+                <a href="{{ $tier2ButtonUrl }}" aria-describedby="{{ $tier2Id }}" class="rounded-md bg-indigo-600 px-3 py-2 text-center text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier2ButtonText }}</a>
+              </div>
+              <div class="mt-8 flow-root sm:mt-10">
+                <ul role="list" class="-my-2 divide-y divide-gray-900/5 border-t border-gray-900/5 text-sm/6 text-gray-600 lg:border-t-0">
+                  {{ range $tier2Features }}
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    {{ . }}
+                  </li>
+                  {{ end }}
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tier 3: Growth -->
+          <div class="relative rounded-2xl bg-gray-800/80 ring-1 ring-white/10 lg:bg-transparent lg:pb-14 lg:ring-0">
+            <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+              <h3 id="{{ $tier3Id }}" class="text-sm/6 font-semibold text-white">{{ $tier3Name }}</h3>
+              <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                <div class="mt-2 flex items-center gap-x-4">
+                  <p class="text-4xl font-semibold tracking-tight text-white price-monthly">{{ $tier3MonthlyPrice }}</p>
+                  <p class="text-4xl font-semibold tracking-tight text-white price-annually hidden">{{ $tier3AnnualPrice }}</p>
+                  <div class="text-sm">
+                    <p class="text-white">{{ $tier3Currency }}</p>
+                    <p class="text-gray-400 billing-text-monthly">{{ $tier3BillingText }}</p>
+                    <p class="text-gray-400 billing-text-annually hidden">{{ $tier3BillingTextAnnual }}</p>
+                  </div>
+                </div>
+                <a href="{{ $tier3ButtonUrl }}" aria-describedby="{{ $tier3Id }}" class="rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{{ $tier3ButtonText }}</a>
+              </div>
+              <div class="mt-8 flow-root sm:mt-10">
+                <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white lg:border-t-0">
+                  {{ range $tier3Features }}
+                  <li class="flex gap-x-3 py-2">
+                    <svg class="h-6 w-5 flex-none text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
+                    {{ . }}
+                  </li>
+                  {{ end }}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="{{ $bgColorLight }} py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-4xl text-center">
+          <h2 class="text-base font-semibold leading-7 text-indigo-600">Compare plans</h2>
+          <p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Find the right plan for your team</p>
+        </div>
+        <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600">Compare our pricing plans and find the one that best fits your needs.</p>
+        
+        <div class="isolate mt-10">
+          <div class="relative -mx-8">
+            <div class="absolute inset-x-4 inset-y-0 -z-10 ring-1 ring-gray-900/10"></div>
+            <div class="mx-auto max-w-7xl p-8">
+              <table class="w-full border-separate border-spacing-x-8 border-spacing-y-0 text-left">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      <span class="sr-only">Feature</span>
+                    </th>
+                    <th scope="col">
+                      <span class="block text-center text-sm font-semibold leading-6 text-gray-900">{{ $tier1Name }}</span>
+                    </th>
+                    <th scope="col">
+                      <span class="block text-center text-sm font-semibold leading-6 text-gray-900">{{ $tier2Name }}</span>
+                    </th>
+                    <th scope="col">
+                      <span class="block text-center text-sm font-semibold leading-6 text-gray-900">{{ $tier3Name }}</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" colspan="4" class="pb-4 pt-14 text-sm font-semibold leading-6 text-gray-900">
+                      Pricing
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="py-4 text-sm font-normal leading-6 text-gray-900">
+                      Monthly subscription
+                    </th>
+                    <td class="py-4 text-center text-sm leading-6 text-gray-900">{{ $tier1MonthlyPrice }}<span class="text-gray-500">/mo</span></td>
+                    <td class="py-4 text-center text-sm leading-6 text-gray-900">{{ $tier2MonthlyPrice }}<span class="text-gray-500">/mo</span></td>
+                    <td class="py-4 text-center text-sm leading-6 text-gray-900">{{ $tier3MonthlyPrice }}<span class="text-gray-500">/mo</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="py-4 text-sm font-normal leading-6 text-gray-900">
+                      Annual subscription
+                    </th>
+                    <td class="py-4 text-center text-sm leading-6 text-gray-900">{{ $tier1AnnualPrice }}<span class="text-gray-500">/mo</span></td>
+                    <td class="py-4 text-center text-sm leading-6 text-gray-900">{{ $tier2AnnualPrice }}<span class="text-gray-500">/mo</span></td>
+                    <td class="py-4 text-center text-sm leading-6 text-gray-900">{{ $tier3AnnualPrice }}<span class="text-gray-500">/mo</span></td>
+                  </tr>
+                  
+                  {{ range $category, $features := $featureCategories }}
+                  <tr>
+                    <th scope="row" colspan="4" class="pb-4 pt-14 text-sm font-semibold leading-6 text-gray-900">
+                      {{ $category }}
+                    </th>
+                  </tr>
+                  {{ range $feature := $features }}
+                  <tr>
+                    <th scope="row" class="py-4 text-sm font-normal leading-6 text-gray-900">
+                      {{ $feature.name }}
+                    </th>
+                    <td class="relative w-1/4 px-4 py-0 text-center">
+                      <span class="relative size-full py-3">
+                        {{ if eq $feature.tier1 true }}
+                        <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                          <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">Yes</span>
+                        {{ else if eq $feature.tier1 false }}
+                        <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                          <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                        </svg>
+                        <span class="sr-only">No</span>
+                        {{ else }}
+                        <span class="text-sm text-gray-900">{{ $feature.tier1 }}</span>
+                        {{ end }}
+                      </span>
+                    </td>
+                    <td class="relative w-1/4 px-4 py-0 text-center">
+                      <span class="relative size-full py-3">
+                        {{ if eq $feature.tier2 true }}
+                        <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                          <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">Yes</span>
+                        {{ else if eq $feature.tier2 false }}
+                        <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                          <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                        </svg>
+                        <span class="sr-only">No</span>
+                        {{ else }}
+                        <span class="text-sm text-gray-900">{{ $feature.tier2 }}</span>
+                        {{ end }}
+                      </span>
+                    </td>
+                    <td class="relative w-1/4 px-4 py-0 text-center">
+                      <span class="relative size-full py-3">
+                        {{ if eq $feature.tier3 true }}
+                        <svg class="mx-auto size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                          <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="sr-only">Yes</span>
+                        {{ else if eq $feature.tier3 false }}
+                        <svg class="mx-auto size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                          <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                        </svg>
+                        <span class="sr-only">No</span>
+                        {{ else }}
+                        <span class="text-sm text-gray-900">{{ $feature.tier3 }}</span>
+                        {{ end }}
+                      </span>
+                    </td>
+                  </tr>
+                  {{ end }}
+                  {{ end }}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const frequencyOptions = document.querySelectorAll('.frequency-option');
+      const monthlyPrices = document.querySelectorAll('.price-monthly');
+      const annuallyPrices = document.querySelectorAll('.price-annually');
+      const monthlyBillingTexts = document.querySelectorAll('.billing-text-monthly');
+      const annuallyBillingTexts = document.querySelectorAll('.billing-text-annually');
+      
+      // Set default to monthly
+      document.querySelector('[data-frequency="monthly"]').classList.add('{{ $toggleActiveBgColor }}');
+      
+      frequencyOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          // Remove active class from all options
+          frequencyOptions.forEach(opt => {
+            opt.classList.remove('{{ $toggleActiveBgColor }}');
+          });
+          
+          // Add active class to clicked option
+          this.classList.add('{{ $toggleActiveBgColor }}');
+          
+          const frequency = this.getAttribute('data-frequency');
+          
+          if (frequency === 'monthly') {
+            // Show monthly prices, hide annual prices
+            monthlyPrices.forEach(price => price.classList.remove('hidden'));
+            annuallyPrices.forEach(price => price.classList.add('hidden'));
+            monthlyBillingTexts.forEach(text => text.classList.remove('hidden'));
+            annuallyBillingTexts.forEach(text => text.classList.add('hidden'));
+          } else {
+            // Show annual prices, hide monthly prices
+            monthlyPrices.forEach(price => price.classList.add('hidden'));
+            annuallyPrices.forEach(price => price.classList.remove('hidden'));
+            monthlyBillingTexts.forEach(text => text.classList.add('hidden'));
+            annuallyBillingTexts.forEach(text => text.classList.remove('hidden'));
+          }
+        });
+      });
+    });
+  </script>

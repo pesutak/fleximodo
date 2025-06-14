@@ -1,0 +1,96 @@
+{{/* 
+  Features shortcode with alternating sections
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Protect your device")
+  - description: Description text below the main heading
+  - layoutSize: Layout ratio between content and image ("small-text" for current layout, "balanced" for 50/50, "wide-text" for wider text)
+  
+  Inner Content (optional JSON array):
+  - Array of feature objects with the following structure:
+    - title: Feature title
+    - description: Feature description
+    - listItems: Optional array of list items for this feature
+    - ctaText: Optional CTA button text for this feature
+    - ctaUrl: Optional CTA button URL for this feature
+    - ctaStyle: Optional CTA button style class (default: "bg-indigo-600 hover:bg-indigo-700 text-white")
+    - secondaryCta: Optional secondary CTA button text for this feature
+    - secondaryCtaUrl: Optional secondary CTA button URL for this feature
+    - secondaryCtaStyle: Optional secondary CTA button style class (default: "border border-gray-300 text-gray-700 hover:bg-gray-50")
+    - imageUrl: URL to feature image
+    - imageAlt: Alt text for feature image
+    - imagePosition: Position of the image ("left" or "right")
+  
+  Example usage with custom features:
+  {{< features-with-alternating-sections 
+      heading="Our Product Features" 
+      description="Discover the thoughtful design and functionality of our products."
+      layoutSize="balanced"
+  >}}
+    [
+      {
+        "title": "Advanced Sensor Technology",
+        "description": "Our cameras use cutting-edge sensor technology that captures crisp, clear images even in low light conditions.",
+        "listItems": ["4K Ultra HD resolution", "Low-light performance", "Auto-focus technology"],
+        "ctaText": "Learn More",
+        "ctaUrl": "/features/sensors",
+        "imageUrl": "/images/features/advanced-sensor.jpg",
+        "imageAlt": "Close-up of the advanced sensor technology inside the camera",
+        "imagePosition": "right"
+      },
+      {
+        "title": "Weather-Resistant Design",
+        "description": "Built to withstand harsh outdoor conditions with a fully weatherproof enclosure that protects against rain, snow, and extreme temperatures.",
+        "listItems": ["IP67 waterproof rating", "Temperature range -20°C to 60°C", "Corrosion-resistant materials"],
+        "ctaText": "View Specs",
+        "ctaUrl": "/specifications",
+        "secondaryCta": "Get Quote",
+        "secondaryCtaUrl": "/quote",
+        "imageUrl": "/images/features/weather-resistant.jpg",
+        "imageAlt": "Camera being tested under simulated rain conditions",
+        "imagePosition": "left"
+      }
+    ]
+  {{< /features-with-alternating-sections >}}
+  
+  If no inner content is provided, default features will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
+{{ $layoutSize := .Get "layoutSize" | default "small-text" }}
+
+{{ $defaultFeatures := slice 
+  (dict 
+    "title" ""
+    "description" ""
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-07-detail-01.jpg"
+    "imageAlt" ""
+    "imagePosition" "right"
+  )
+  (dict 
+    "title" ""
+    "description" ""
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-07-detail-02.jpg"
+    "imageAlt" ""
+    "imagePosition" "left"
+  )
+}}
+
+{{ $features := $defaultFeatures }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $features = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "sections/features/with_alternating_sections.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "layoutSize" $layoutSize
+  "features" $features
+  "page" $.Page
+) }}

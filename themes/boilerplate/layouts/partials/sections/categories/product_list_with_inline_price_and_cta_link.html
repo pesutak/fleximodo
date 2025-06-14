@@ -1,0 +1,123 @@
+{{/*
+@section: Product List with Inline Price and CTA Link
+@description: A clean product listing layout featuring products with inline pricing and call-to-action links, ideal for category or collection pages.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - heading: Main section heading (optional, default: "Trending products")
+  - ctaText: Text for the call-to-action link (optional, default: "Shop now")
+  - products: Array of product objects (optional, includes defaults)
+    - title: Product title
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - price: Product price
+@example:
+  {{ partial "sections/categories/product_list_with_inline_price_and_cta_link.html" (dict 
+      "backgroundColor" "bg-gray-50"
+      "heading" "Best Sellers" 
+      "ctaText" "View details"
+      "products" (slice
+          (dict 
+              "title" "Minimalist Backpack" 
+              "url" "/products/backpack"
+              "imageUrl" "/images/products/backpack.jpg"
+              "imageAlt" "Water-resistant minimalist backpack in black with padded laptop compartment."
+              "price" "$89"
+          )
+          (dict 
+              "title" "Ceramic Coffee Mug" 
+              "url" "/products/coffee-mug"
+              "imageUrl" "/images/products/coffee-mug.jpg"
+              "imageAlt" "Handmade ceramic coffee mug in matte finish."
+              "price" "$24"
+          )
+          (dict 
+              "title" "Bluetooth Speaker" 
+              "url" "/products/speaker"
+              "imageUrl" "/images/products/speaker.jpg"
+              "imageAlt" "Portable Bluetooth speaker with 20-hour battery life."
+              "price" "$129"
+          )
+          (dict 
+              "title" "Fitness Tracker" 
+              "url" "/products/fitness-tracker"
+              "imageUrl" "/images/products/fitness-tracker.jpg"
+              "imageAlt" "Smart fitness tracker with heart rate monitoring and sleep tracking."
+              "price" "$79"
+          )
+      )
+  ) }}
+@note: This component offers a straightforward product listing with a balanced visual hierarchy. The clean design puts equal emphasis on product images and essential text information, making it suitable for a wide range of product types.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Trending products" }}
+{{ $ctaText := .ctaText | default "Shop now" }}
+
+{{ $products := .products | default (slice 
+  (dict 
+    "title" "Earthen Bottle"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg"
+    "imageAlt" "Tall slender porcelain bottle with natural clay textured body and cork stopper."
+    "price" "$48"
+  )
+  (dict 
+    "title" "Nomad Tumbler"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-02.jpg"
+    "imageAlt" "Olive drab green insulated tumbler with lid and handle."
+    "price" "$35"
+  )
+  (dict 
+    "title" "Focus Paper Refill"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-03.jpg"
+    "imageAlt" "Stack of three refill paper pads with gray and white focus notes design."
+    "price" "$19"
+  )
+  (dict 
+    "title" "Machined Mechanical Pencil"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-04.jpg"
+    "imageAlt" "Black machined steel mechanical pencil with brass tip and eraser."
+    "price" "$35"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div class="flex items-center justify-between space-x-4">
+      <h2 class="text-lg font-medium text-gray-900">{{ $heading }}</h2>
+    </div>
+    <div class="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
+      {{ range $products }}
+      <div class="group relative">
+        <div class="relative">
+          <div class="aspect-w-4 aspect-h-3 overflow-hidden rounded-lg bg-gray-100">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" .imageUrl
+              "alt" .imageAlt
+              "class" "h-full w-full object-cover object-center group-hover:opacity-75"
+              "maxWidth" 400
+            ) }}
+          </div>
+          <div class="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100" aria-hidden="true">
+            <div class="w-full rounded-md bg-white/75 px-4 py-2 text-center text-sm font-medium text-gray-900 backdrop-blur-sm backdrop-filter">{{ $ctaText }}</div>
+          </div>
+        </div>
+        <div class="mt-4 flex items-center justify-between space-x-8 text-base font-medium text-gray-900">
+          <h3>
+            <a href="{{ .url }}">
+              <span aria-hidden="true" class="absolute inset-0"></span>
+              {{ .title }}
+            </a>
+          </h3>
+          <p>{{ .price }}</p>
+        </div>
+        <p class="mt-1 text-sm text-gray-500">{{ .category }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

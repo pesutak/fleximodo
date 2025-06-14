@@ -1,0 +1,80 @@
+{{/*
+@section: Split CTA with Image
+@description: A two-column call-to-action section with a colorful image on one side and content with tagline, heading, description, and CTA button on the other.
+@params:
+  - tagline: Short text displayed above heading (optional, default: "Award winning support")
+  - heading: Main section heading (optional, default: "We're here to help")
+  - description: Descriptive text below heading (optional, default: "Lorem ipsum dolor sit amet...")
+  - cta: Object with CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - image: Object with image configuration (optional)
+    - url: Image URL
+    - alt: Alt text for the image
+  - taglineColor: Color class for the tagline text (optional, default: "indigo-400")
+  - gradientStartColor: Starting color for the gradient overlay (optional, default: "#776FFF")
+  - gradientEndColor: Ending color for the gradient overlay (optional, default: "#FF4694")
+  - gradientId: Unique ID for the gradient definition (optional, default: auto-generated)
+@example:
+  {{ partial "sections/cta/split_with_image.html" (dict 
+      "tagline" "24/7 Customer Support" 
+      "heading" "We're always here when you need us"
+      "description" "Our dedicated support team is available around the clock to answer your questions and help solve any issues you might encounter."
+      "cta" (dict "text" "Contact support" "url" "/support") 
+      "image" (dict 
+          "url" "/images/support-team.jpg"
+          "alt" "Our customer support team"
+      )
+      "taglineColor" "blue-400"
+      "gradientStartColor" "#4F46E5"
+      "gradientEndColor" "#EC4899"
+  ) }}
+@note: This component creates visual interest with a split layout and gradient overlay effect, drawing attention to both the image and the call-to-action message.
+*/}}
+
+{{/* Split CTA Section with Image */}}
+{{ $tagline := .tagline | default "Award winning support" }}
+{{ $heading := .heading | default "We're here to help" }}
+{{ $description := .description | default "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas tempus tellus etiam sed. Quam a scelerisque amet ullamcorper eu enim et fermentum, augue. Aliquet amet volutpat quisque ut interdum tincidunt duis." }}
+{{ $cta := .cta | default (dict 
+  "text" "Visit the help center"
+  "url" "#"
+) }}
+{{ $image := .image | default (dict 
+  "url" "https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&blend=6366F1&sat=-100&blend-mode=multiply"
+  "alt" ""
+) }}
+{{ $taglineColor := .taglineColor | default "indigo-400" }}
+{{ $gradientStartColor := .gradientStartColor | default "#776FFF" }}
+{{ $gradientEndColor := .gradientEndColor | default "#FF4694" }}
+{{ $gradientId := .gradientId | default "60c3c621-93e0-4a09-a0e6-4c228a0116d8" }}
+
+<div class="relative bg-gray-900">
+  <div class="relative h-80 overflow-hidden bg-indigo-600 md:absolute md:left-0 md:h-full md:w-1/3 lg:w-1/2">
+    {{ partial "components/media/lazyimg.html" (dict 
+      "src" $image.url 
+      "alt" $image.alt 
+      "class" "size-full object-cover"
+      "maxWidth" 800
+    ) }}
+    <svg viewBox="0 0 926 676" aria-hidden="true" class="absolute -bottom-24 left-24 w-[57.875rem] transform-gpu blur-[118px]">
+      <path fill="url(#{{ $gradientId }})" fill-opacity=".4" d="m254.325 516.708-90.89 158.331L0 436.427l254.325 80.281 163.691-285.15c1.048 131.759 36.144 345.144 168.149 144.613C751.171 125.508 707.17-93.823 826.603 41.15c95.546 107.978 104.766 294.048 97.432 373.585L685.481 297.694l16.974 360.474-448.13-141.46Z" />
+      <defs>
+        <linearGradient id="{{ $gradientId }}" x1="926.392" x2="-109.635" y1=".176" y2="321.024" gradientUnits="userSpaceOnUse">
+          <stop stop-color="{{ $gradientStartColor }}" />
+          <stop offset="1" stop-color="{{ $gradientEndColor }}" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <div class="relative mx-auto max-w-7xl py-24 sm:py-32 lg:px-8 lg:py-40">
+    <div class="pr-6 pl-6 md:ml-auto md:w-2/3 md:pl-16 lg:w-1/2 lg:pr-0 lg:pl-24 xl:pl-32">
+      <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+      <p class="mt-2 text-4xl font-semibold tracking-tight text-white sm:text-5xl">{{ $heading }}</p>
+      <p class="mt-6 text-base/7 text-gray-300">{{ $description }}</p>
+      <div class="mt-8">
+        <a href="{{ $cta.url }}" class="inline-flex rounded-md bg-white/10 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{{ $cta.text }}</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+{{/*
+@component: Simple Centered Footer
+@description: A minimalist footer with centered navigation links, optional social media icons, and copyright text.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - linkColor: Text color for navigation links (optional, default: "text-gray-600")
+  - linkHoverColor: Hover text color for navigation links (optional, default: "text-gray-900")
+  - navLinks: Array of link objects for navigation, each with:
+    - text: Link text
+    - url: Link URL
+  - showSocial: Boolean to show/hide social media links (optional, default: true)
+  - socialLinkColor: Color for social media icons (optional, default: "text-gray-500")
+  - socialLinkHoverColor: Hover color for social media icons (optional, default: "text-gray-700")
+  - socialLinks: Array of social media objects, each with:
+    - name: Platform name
+    - url: Social media profile URL
+    - icon: Icon identifier (facebook, instagram, x, github, youtube)
+  - copyrightText: Copyright text (optional, default: "&copy; 2025 Your Company, Inc. All rights reserved.")
+  - copyrightColor: Color for copyright text (optional, default: "text-gray-500")
+@example:
+  {{ partial "layout/footers/simple_centered.html" (dict 
+      "navLinks" (slice 
+        (dict "text" "About" "url" "/about")
+        (dict "text" "Blog" "url" "/blog")
+        (dict "text" "Contact" "url" "/contact")
+      )
+      "socialLinks" (slice 
+        (dict "name" "Twitter" "url" "https://twitter.com/youraccount" "icon" "x")
+        (dict "name" "GitHub" "url" "https://github.com/youraccount" "icon" "github")
+      )
+      "copyrightText" "&copy; 2025 FlowHunt. All rights reserved."
+  ) }}
+@note: The component has a clean, centered layout with navigation links in a row, social media icons below (if enabled), and copyright text at the bottom.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+
+{{/* Navigation links */}}
+{{ $linkColor := .linkColor | default "text-gray-600" }}
+{{ $linkHoverColor := .linkHoverColor | default "text-gray-900" }}
+{{ $navLinks := .navLinks | default (slice 
+  (dict "text" "About" "url" "#")
+  (dict "text" "Blog" "url" "#")
+  (dict "text" "Jobs" "url" "#")
+  (dict "text" "Press" "url" "#")
+  (dict "text" "Accessibility" "url" "#")
+  (dict "text" "Partners" "url" "#")
+) }}
+
+{{/* Social media */}}
+{{ $socialLinkColor := .socialLinkColor | default "text-gray-500" }}
+{{ $socialLinkHoverColor := .socialLinkHoverColor | default "text-gray-700" }}
+{{ $showSocial := .showSocial | default true }}
+{{ $socialLinks := .socialLinks | default (slice 
+  (dict "name" "Facebook" "url" "#" "icon" "facebook")
+  (dict "name" "Instagram" "url" "#" "icon" "instagram")
+  (dict "name" "X" "url" "#" "icon" "x")
+  (dict "name" "GitHub" "url" "#" "icon" "github")
+  (dict "name" "YouTube" "url" "#" "icon" "youtube")
+) }}
+
+{{/* Copyright */}}
+{{ $copyrightText := .copyrightText | default "&copy; 2025 Your Company, Inc. All rights reserved." }}
+{{ $copyrightColor := .copyrightColor | default "text-gray-500" }}
+
+<footer class="{{ $bgColor }}">
+  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+    <nav class="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6" aria-label="Footer">
+      {{ range $navLinks }}
+      <a href="{{ .url }}" class="{{ $linkColor }} hover:{{ $linkHoverColor }}">{{ .text }}</a>
+      {{ end }}
+    </nav>
+    
+    {{ if $showSocial }}
+    <div class="mt-16 flex justify-center gap-x-10">
+      {{ range $socialLinks }}
+      <a href="{{ .url }}" class="{{ $socialLinkColor }} hover:{{ $socialLinkHoverColor }}">
+        <span class="sr-only">{{ .name }}</span>
+        {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+    
+    <p class="mt-10 text-center text-sm/6 {{ $copyrightColor }}">{{ $copyrightText | safeHTML }}</p>
+  </div>
+</footer>

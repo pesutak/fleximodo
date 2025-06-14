@@ -1,0 +1,20 @@
+{
+  "name": "your-hugo-project",
+  "version": "1.0.0",
+  "description": "A Hugo project using the Boilerplate theme",
+  "scripts": {
+    "dev": "hugo server",
+    "build": "hugo --minify",
+    "start": "hugo server",
+    "clean": "rm -rf public resources"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.3.5"
+  }
+}

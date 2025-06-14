@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Întrebări frecvente"
+language_selector_title: "Limbi disponibile"
+glossary_subtitle: "O listă cuprinzătoare de termeni și definiții"
+glossary_title: "Glosar"
+home_title: "Acasă"
+
+# Glossary translations
+glossary_eyebrow: "Glosar"
+
+# Category page translations
+categories_title: "Categorii"
+categories_browse_all: "Răsfoiți tot conținutul după categorie"
+category_eyebrow: "Categorie"
+category_browse_content: "Răsfoiți tot conținutul din categoria %s"
+category_no_content_found: "Nu a fost găsit niciun conținut în această categorie"
+category_try_browsing: "Încercați să răsfoiți alte categorii sau să căutați conținut"
+category_other_categories: "Alte categorii"
+
+# CTA translations
+cta_default_heading: "Extindeți-vă cunoștințele cu resursele noastre"
+cta_default_description: "Explorați biblioteca noastră cuprinzătoare de articole, ghiduri și tutoriale pentru a vă aprofunda înțelegerea conceptelor cheie și pentru a fi la curent cu cele mai recente evoluții."
+cta_default_primary_text: "Răsfoiți resursele"
+cta_default_secondary_text: "Contactați experții noștri"
+
+# Content type translations
+content_article_singular: "articol"
+content_article_plural: "articole"
+
+# Tags page translations
+tags_title: "Etichete"
+tags_browse_all: "Răsfoiți tot conținutul după subiect"
+tag_eyebrow: "Etichetă"
+tag_browse_content: "Parcurgeți tot conținutul etichetat cu %s"
+tag_no_content_found: "Nu a fost găsit niciun conținut cu această etichetă"
+tag_try_browsing: "Încercați să răsfoiți alte etichete sau să căutați conținut"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Anterior"
+tag_pagination_next: "Următor"
+tag_other_tags: "Alte etichete"
+
+# Cookie consent translations
+cookie_consent_title: "Consimțământ Cookie"
+cookie_consent_message: "Folosim cookie-uri pentru a vă îmbunătăți experiența de navigare și a analiza traficul nostru."
+cookie_consent_accept_all: "Acceptă toate"
+cookie_consent_accept_necessary: "Acceptă doar necesare"
+cookie_consent_settings: "Setări Cookie"
+cookie_settings_title: "Setări Cookie"
+cookie_settings_close: "Închide"
+cookie_settings_necessary_title: "Cookie-uri necesare"
+cookie_settings_necessary_description: "Aceste cookie-uri sunt necesare pentru funcționarea site-ului și nu pot fi dezactivate."
+cookie_settings_analytics_title: "Cookie-uri de analiză"
+cookie_settings_analytics_description: "Aceste cookie-uri ne ajută să înțelegem cum interacționează vizitatorii cu site-ul nostru."
+cookie_settings_cancel: "Anulează"
+cookie_settings_save: "Salvează preferințele"
+
+# Pagination translations
+pagination_previous: "Anterior"
+pagination_next: "Următor"
+pagination_showing: "Se afișează"
+pagination_to: "până la"
+pagination_of: "din"
+pagination_results: "rezultate"
+pagination_browse_all: "Răsfoiți tot conținutul din"
+
+# FAQ translations
+faq_heading: "Întrebări frecvente"
+faq_description: "Găsiți răspunsuri la întrebările comune despre acest subiect."
+
+no_terms_available: "Niciun termen disponibil"
+pricing_monthly_label: "Lunar"
+pricing_yearly_label: "Anual"
+wantMore: "Vrei mai mult?"
+learnMore: "Află mai multe"
+pricing_tagline: "Prețuri"
+pricing_title: "Prețuri care cresc odată cu tine"
+pricing_description: "Alege un plan accesibil care este plin cu cele mai bune funcționalități pentru a-ți implica audiența, a crea loialitate din partea clienților și a stimula vânzările."
+pricing_comparison_title: "Compară planurile"
+pricing_comparison_description: "Verifică comparațiile noastre de planuri și selectează-l pe cel mai bun pentru tine"
+read_more_post: "Citește mai mult"
+no_posts_found: "Nu s-au găsit postări"
+minutes_read: "min citire"
+get_started: "Începe"
+courses.session: "Session"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

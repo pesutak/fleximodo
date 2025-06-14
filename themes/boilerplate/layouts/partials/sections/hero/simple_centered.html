@@ -1,0 +1,147 @@
+{{/*
+@section: Simple Centered Hero
+@description: A simple centered hero section with optional announcement, heading, description, two CTA buttons, an optional image, and optional typewriter effect.
+@params:
+  - theme: "light" (default) or "dark" — add class="dark" for section
+  - announcement: Object with announcement information (optional)
+    - text: Announcement text
+    - linkText: Text for the announcement link
+    - linkUrl: URL for the announcement link
+  - heading: Main section heading (optional)
+  - description: Description below the heading (optional)
+  - cta: Object with CTA buttons information (optional)
+    - primary: Primary CTA button (text, url)
+    - secondary: Secondary CTA button (text, url)
+  - image: Object with image information (optional)
+    - src: Image source URL
+    - alt: Alt text for accessibility
+    - width: Image width (optional)
+    - height: Image height (optional)
+  - typewriter: Object with typewriter effect configuration (optional)
+    - enabled: Boolean to enable/disable the effect (default: false)
+    - words: Number of words to animate (default: 1)
+    - speed: Typing speed in ms (default: 100)
+    - deleteSpeed: Deleting speed in ms (default: 50)
+    - pause: Pause duration in ms (default: 2000)
+    - color: Color class for animated text (default: "text-indigo-600")
+@example:
+  {{ partial "sections/hero/simple_centered.html" (dict 
+      "announcement" (dict 
+          "text" "We've just launched a new version!" 
+          "linkText" "Read more" 
+          "linkUrl" "/blog/new-product"
+      )
+      "heading" "Data analysis for your online business" 
+      "description" "Our solution helps you better understand your customers and optimize your business."
+      "cta" (dict 
+          "primary" (dict "text" "Get started" "url" "/signup") 
+          "secondary" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "/features")
+      )
+      "image" (dict
+          "src" "/images/dashboard-screenshot.png"
+          "alt" "Dashboard screenshot"
+          "width" "2432"
+          "height" "1442"
+      )
+      "typewriter" (dict
+          "enabled" true
+          "words" 2
+          "speed" 150
+          "deleteSpeed" 75
+          "pause" 3000
+          "color" "text-blue-600"
+      )
+  ) }}
+*/}}
+
+
+{{ $theme := .theme | default "light" }}
+{{ $isDark := eq $theme "dark" }}
+{{ $darkClass := cond $isDark "dark" "" }}
+
+{{ $announcement := .announcement | default dict }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
+{{ $cta := .cta | default dict }}
+{{ $image := .image | default (dict 
+  "src" ""
+  "alt" ""
+  "width" ""
+  "height" ""
+) }}
+{{ $typewriter := .typewriter | default dict }}
+{{ $typewriter := merge (dict "enabled" false) $typewriter }}
+{{ $typewriter := merge (dict "words" 1) $typewriter }}
+{{ $typewriter := merge (dict "speed" 100) $typewriter }}
+{{ $typewriter := merge (dict "deleteSpeed" 50) $typewriter }}
+{{ $typewriter := merge (dict "pause" 2000) $typewriter }}
+{{ $typewriter := merge (dict "color" "text-indigo-600") $typewriter }}
+{{ $typewriter := merge (dict "wordAlternatives" "") $typewriter }}{{/* comma separated words to alternate with */}}
+
+<div class="{{ $darkClass }}">
+  <div class="section-bg-light dark:section-bg-dark">
+    <div class="relative isolate lg:pt-14">
+        <div class="wrapper py-24 sm:py-32 lg:py-40">
+          <div class="mx-auto max-w-2xl text-center">
+            {{ if $announcement.text }}
+              <div class="hidden sm:mb-8 sm:flex sm:justify-center">
+                <div class="relative rounded-full px-3 py-1 text-sm/6 text-muted ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                  {{ $announcement.text }}
+                  {{ if $announcement.linkUrl }}
+                    <a href="{{ $announcement.linkUrl }}" class="font-semibold text-primary hover:text-primary-600">
+                      <span class="absolute inset-0" aria-hidden="true"></span>
+                      {{ $announcement.linkText }} <span aria-hidden="true">→</span>
+                    </a>
+                  {{ end }}
+                </div>
+              </div>
+            {{ end }}
+
+            {{ if $heading }}
+              <h1 class="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl"{{ if $typewriter.enabled }} data-typewriter data-typewriter-words="{{ $typewriter.words }}" data-typewriter-word-alternatives="{{$typewriter.wordAlternatives}}" data-typewriter-speed="{{ $typewriter.speed }}" data-typewriter-delete-speed="{{ $typewriter.deleteSpeed }}" data-typewriter-pause="{{ $typewriter.pause }}" data-typewriter-color="{{ $typewriter.color }}"{{ end }}>{{ $heading }}</h1>
+            {{ end }}
+            {{ if $description }}
+              <p class="mt-8 text-lg font-medium text-pretty text-body sm:text-xl/8">{{ $description }}</p>
+            {{ end }}
+
+            {{ $primaryCTA := $cta.primary | default dict }}
+            {{ $secondaryCTA := $cta.secondary | default dict }}
+            {{ $primaryVariant := $primaryCTA.variant | default "primary" }}
+            {{ $secondaryVariant := $secondaryCTA.variant | default "text" }}
+
+
+            {{ if or $primaryCTA.text $secondaryCTA.text }}
+              <div class="mt-10 flex items-center justify-center gap-x-6">   
+                  {{ if $primaryCTA.text }}
+                    {{ partial "components/buttons/buttons.html" (dict
+                      "text" $primaryCTA.text
+                      "url" $primaryCTA.url
+                      "variant" $primaryVariant
+                    ) }}
+                  {{ end }}
+                  {{ if $secondaryCTA.text }}
+                    {{ partial "components/buttons/buttons.html" (dict
+                      "text" $secondaryCTA.text
+                      "url" $secondaryCTA.url
+                      "variant" $secondaryVariant
+                    ) }}
+                  {{ end }}
+              </div>
+            {{ end }}
+          </div>
+
+          {{ if $image.src }}
+            <div class="mt-16 flow-root sm:mt-24">
+              <div class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 dark:bg-white/5 dark:ring-white/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+                {{ partial "components/media/lazyimg.html" (dict 
+                  "src" $image.src
+                  "alt" $image.alt
+                  "class" "w-full rounded-xl bg-gray-900/5 object-cover shadow-lg ring-1 ring-inset ring-gray-900/10 dark:bg-white/5 dark:ring-white/10"
+                ) }}
+              </div>
+            </div>
+          {{ end }}
+        </div>
+    </div>
+  </div>
+</div>

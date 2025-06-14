@@ -1,0 +1,50 @@
+{{/*
+CONTACT SPLIT PATTERN SHORTCODE
+------------------------------
+This shortcode renders a contact section with a split layout and pattern background.
+
+BASIC USAGE:
+{{< contact-split-pattern >}}{{< /contact-split-pattern >}}
+
+WITH CUSTOM PARAMETERS:
+{{< contact-split-pattern
+  title="Contact Our Team"
+  description="Have questions about our services? Our team is ready to help you get started."
+  address="123 Tech Drive<br>San Francisco, CA 94103"
+  phone="+1 (800) 555-1234"
+  email="contact@example.com"
+  buttonText="Send Message"
+  buttonColor="blue"
+  formAction="/api/contact-form"
+>}}{{< /contact-split-pattern >}}
+
+WITH MARKDOWN CONTENT:
+{{< contact-split-pattern title="Get Support" >}}
+## Request a Demo
+
+Fill out the form to schedule a personalized demo with our team.
+
+Available time slots:
+- Monday: 9am - 11am PST
+- Wednesday: 1pm - 3pm PST
+- Friday: 10am - 12pm PST
+{{< /contact-split-pattern >}}
+*/}}
+
+{{ $title := .Get "title" | default "Get in touch" }}
+{{ $description := .Get "description" | default "" }}
+
+{{ $address := .Get "address" | default "" }}
+{{ $phone := .Get "phone" | default "" }}
+{{ $email := .Get "email" | default "" }}
+
+{{ $markdownContent := .Inner }}
+
+{{ partial "sections/contact/split-with-pattern.html" (dict
+  "title" $title
+  "description" $description
+  "address" $address
+  "phone" $phone
+  "email" $email
+  "markdownContent" $markdownContent
+) }}

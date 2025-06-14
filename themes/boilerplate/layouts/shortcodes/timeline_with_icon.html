@@ -1,0 +1,8 @@
+{{ $timeline := slice }}
+{{ with .Inner }}
+    {{ if . }}
+        {{ $timeline = . | unmarshal }}
+    {{ end }}
+{{ end }}
+
+{{ partial "components/timeline/with_icon.html" (dict "timeline" $timeline) }}

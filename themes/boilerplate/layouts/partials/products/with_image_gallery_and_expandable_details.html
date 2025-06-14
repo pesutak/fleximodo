@@ -1,0 +1,255 @@
+{{/* 
+  Products partial with image gallery and expandable details
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - product: Product object with the following structure:
+    - title: Product title (default: "Zip Tote Basket")
+    - price: Product price (default: "$140")
+    - rating: Product rating out of 5 (default: 4)
+    - description: Product description
+    - colors: Array of color objects with name and class
+    - features: Array of feature items
+    - images: Array of image objects with url, alt, and thumbnail
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+
+{{ $product := .product | default (dict 
+  "title" "Zip Tote Basket"
+  "price" "$140"
+  "rating" 4
+  "description" "The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use."
+
+  "features" (slice 
+    "Multiple strap configurations"
+    "Spacious interior with top zip"
+    "Leather handle and tabs"
+    "Interior dividers"
+    "Stainless strap loops"
+    "Double stitched construction"
+    "Water-resistant"
+  )
+  "images" (slice 
+    (dict 
+      "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-01.jpg"
+      "alt" "Angled front view with bag zipped and handles upright."
+    )
+    (dict 
+      "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-02.jpg"
+      "alt" "Side view with bag open showing interior organization."
+    )
+    (dict 
+      "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-03.jpg"
+      "alt" "Top down view of bag with straps extended out."
+    )
+    (dict 
+      "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-04.jpg"
+      "alt" "Close up view of front zipper and pulls."
+    )
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
+      <!-- Image gallery -->
+      <div class="flex flex-col-reverse">
+        <!-- Image selector -->
+        <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+          <div class="grid grid-cols-4 gap-6" aria-orientation="horizontal" role="tablist">
+            {{ range $index, $image := $product.images }}
+                <button id="tabs-1-tab-{{ add $index 1 }}" class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium text-gray-900 uppercase hover:bg-gray-50 focus:ring-3 focus:ring-indigo-500/50 focus:ring-offset-4 focus:outline-hidden product-thumbnail-btn" aria-controls="tabs-1-panel-{{ add $index 1 }}" role="tab" type="button" data-index="{{ $index }}">
+                  <span class="sr-only">{{ $image.alt }}</span>
+                  <span class="absolute inset-0 overflow-hidden rounded-md">
+                    {{ partial "components/media/lazyimg.html" (dict 
+                      "src" $image.url
+                      "alt" $image.alt
+                      "class" "size-full object-cover"
+                    ) }}
+                  </span>
+                  <!-- Selected: "ring-indigo-500", Not Selected: "ring-transparent" -->
+                  <span class="pointer-events-none absolute inset-0 rounded-md ring-2 {{ if eq $index 0 }}ring-indigo-500{{ else }}ring-transparent{{ end }} ring-offset-2" aria-hidden="true"></span>
+                </button>
+            {{ end }}
+          </div>
+        </div>
+
+        <div id="product-main-images">
+          {{ range $index, $image := $product.images }}
+            <!-- Tab panel, show/hide based on tab state. -->
+            <div id="tabs-1-panel-{{ add $index 1 }}" aria-labelledby="tabs-1-tab-{{ add $index 1 }}" role="tabpanel" tabindex="0" class="{{ if ne $index 0 }}hidden{{ end }} product-main-image-panel">
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" $image.url
+                "alt" $image.alt
+                "class" "aspect-square w-full object-cover sm:rounded-lg"
+              ) }}
+            </div>
+          {{ end }}
+        </div>
+        <script>
+        // Simple vanilla JS for switching main image on thumbnail click
+        document.addEventListener('DOMContentLoaded', function() {
+          const thumbnails = document.querySelectorAll('.product-thumbnail-btn');
+          const panels = document.querySelectorAll('.product-main-image-panel');
+          const rings = document.querySelectorAll('.product-thumbnail-btn .pointer-events-none');
+          thumbnails.forEach((btn, idx) => {
+            btn.addEventListener('click', function() {
+              // Hide all panels
+              panels.forEach(panel => panel.classList.add('hidden'));
+              // Remove ring from all
+              rings.forEach(ring => ring.classList.remove('ring-indigo-500'));
+              rings.forEach(ring => ring.classList.add('ring-transparent'));
+              // Show selected panel
+              document.getElementById('tabs-1-panel-' + (idx + 1)).classList.remove('hidden');
+              // Add ring to selected
+              rings[idx].classList.remove('ring-transparent');
+              rings[idx].classList.add('ring-indigo-500');
+            });
+          });
+        });
+        </script>
+      </div>
+
+      <!-- Product info -->
+      <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $product.title }}</h1>
+
+        <div class="mt-3">
+          <h2 class="sr-only">Product information</h2>
+          <p class="text-3xl tracking-tight text-gray-900">{{ $product.price }}</p>
+        </div>
+
+        <!-- Reviews -->
+        <div class="mt-3">
+          <h3 class="sr-only">Reviews</h3>
+          <div class="flex items-center">
+            <div class="flex items-center">
+              {{ range $i := (seq 1 5) }}
+                {{ if le $i $product.rating }}
+                  <svg class="size-5 shrink-0 text-indigo-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                  </svg>
+                {{ else }}
+                  <svg class="size-5 shrink-0 text-gray-300" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                  </svg>
+                {{ end }}
+              {{ end }}
+            </div>
+            <p class="sr-only">{{ $product.rating }} out of 5 stars</p>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <h3 class="sr-only">Description</h3>
+
+          <div class="space-y-6 text-base text-gray-700">
+            <p>{{ $product.description }}</p>
+          </div>
+        </div>
+        
+        <form class="mt-6">
+          {{ if $product.colors }}
+          <!-- Colors -->
+          <div>
+            <h3 class="text-sm font-medium text-gray-600">Color</h3>
+
+            <fieldset aria-label="Choose a color" class="mt-2">
+              <div class="flex items-center gap-x-3">
+                {{ range $index, $color := $product.colors }}
+                  <!-- Active and Checked: "ring-3 ring-offset-1" -->
+                  <label aria-label="{{ $color.name }}" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-{{ $color.class }} focus:outline-hidden">
+                    <input type="radio" name="color-choice" value="{{ $color.name }}" {{ if eq $index 0 }}checked{{ end }} class="sr-only">
+                    <span aria-hidden="true" class="size-8 rounded-full border border-black/10 {{ $color.class }}"></span>
+                  </label>
+                {{ end }}
+              </div>
+            </fieldset>
+          </div>
+          {{ end }}
+
+          <div class="mt-10 flex">
+            <a href="{{ .buttonUrl | default "#" }}" class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden sm:w-full">
+              {{ .buttonText | default "Buy now" }}
+            </a>
+
+          </div>
+        </form>
+        
+        {{ if $product.brands }}
+          <div class="mt-6 flex items-center gap-x-4">
+            <ul role="list" class="flex flex-wrap gap-x-2 gap-y-1">
+              {{ range $brand := $product.brands }}
+                <li>
+                  <a href="/brands/{{ $brand | urlize }}" class="inline-block rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200">{{ $brand }}</a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+
+
+        {{ if $product.tags }}
+          <div class="mt-6 flex items-center gap-x-4">
+            <ul role="list" class="flex flex-wrap gap-x-2 gap-y-1">
+              {{ range $tag := $product.tags }}
+                <li>
+                  <a href="/tags/{{ $tag | urlize }}/" class="inline-block rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200">{{ $tag }}</a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+
+
+        {{ if $product.categories }}
+          <div class="mt-6 flex items-center gap-x-4">
+            <ul role="list" class="flex flex-wrap gap-x-2 gap-y-1">
+              {{ range $category := $product.categories }}
+                <li>
+                  <a href="/categories/{{ $category | urlize }}/" class="inline-block rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200">{{ $category }}</a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+
+        <section aria-labelledby="details-heading" class="mt-12">
+          <h2 id="details-heading" class="sr-only">Additional details</h2>
+
+          <div class="divide-y divide-gray-200 border-t">
+            <div>
+              <h3>
+                <!-- Expand/collapse question button -->
+                <button type="button" class="group relative flex w-full items-center justify-between py-6 text-left" aria-controls="disclosure-1" aria-expanded="false">
+                  <!-- Open: "text-indigo-600", Closed: "text-gray-900" -->
+                  <span class="text-sm font-medium text-gray-900">Features</span>
+                  <span class="ml-6 flex items-center">
+                    <!-- Open: "hidden", Closed: "block" -->
+                    <svg class="block size-6 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    <!-- Open: "block", Closed: "hidden" -->
+                    <svg class="hidden size-6 text-indigo-400 group-hover:text-indigo-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+              </h3>
+              <div class="pb-6" id="disclosure-1">
+                <ul role="list" class="list-disc space-y-1 pl-5 text-sm/6 text-gray-700 marker:text-gray-300">
+                  {{ range $feature := $product.features }}
+                    <li class="pl-2">{{ $feature }}</li>
+                  {{ end }}
+                </ul>
+              </div>
+            </div>
+
+            <!-- More sections... -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

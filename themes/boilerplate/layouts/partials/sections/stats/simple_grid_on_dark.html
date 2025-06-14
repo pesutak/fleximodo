@@ -1,0 +1,112 @@
+{{/*
+@section: Simple Grid Stats on Dark
+@description: A grid-based statistics section displaying key metrics in a dark-themed environment with subtle background effects and optional heading.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - statBgColor: Background color for individual stat items (optional, default: "bg-white/5")
+  - statPadding: Padding for individual stat items (optional, default: "p-8")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - heading: Main section heading (optional, default: "Trusted by creators worldwide")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional, default: "Lorem ipsum dolor sit amet consect adipisicing possimus.")
+  - descriptionColor: Description color class (optional, default: "text-gray-400")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: The statistic value to display
+    - label: Description of what the value represents
+  - valueColor: Color class for statistic values (optional, default: "text-white")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-400")
+@example:
+  {{ partial "sections/stats/simple_grid_on_dark.html" (dict 
+      "heading" "Our Platform's Growth" 
+      "description" "Key performance indicators showcasing our platform's impact and reach."
+      "stats" (slice
+          (dict 
+              "value" "10M+" 
+              "label" "Monthly active users"
+          )
+          (dict 
+              "value" "99.9%" 
+              "label" "Service uptime"
+          )
+          (dict 
+              "value" "200+" 
+              "label" "Countries reached"
+          )
+          (dict 
+              "value" "$250M" 
+              "label" "Revenue processed"
+          )
+      )
+      "statBgColor" "bg-indigo-900/30"
+      "valueColor" "text-indigo-300"
+  ) }}
+@note: This component features a dark background with subtle grid pattern and glow effects, creating a modern, tech-forward aesthetic. The stats are presented in a connected grid layout with semi-transparent backgrounds for each stat card, enhancing the visual appeal while maintaining readability on dark backgrounds.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+{{ $statBgColor := .statBgColor | default "bg-white/5" }}
+{{ $statPadding := .statPadding | default "p-8" }}
+
+{{/* Heading */}}
+{{ $showHeading := .showHeading | default true }}
+{{ $heading := .heading | default "Trusted by creators worldwide" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $description := .description | default "Lorem ipsum dolor sit amet consect adipisicing possimus." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-400" }}
+
+{{/* Stats */}}
+{{ $stats := .stats | default slice }}
+
+{{/* Default stats if none provided */}}
+{{ if eq (len $stats) 0 }}
+  {{ $stats = slice 
+    (dict 
+      "value" "8,000+"
+      "label" "Creators on the platform"
+    )
+    (dict 
+      "value" "3%"
+      "label" "Flat platform fee"
+    )
+    (dict 
+      "value" "99.9%"
+      "label" "Uptime guarantee"
+    )
+    (dict 
+      "value" "$70M"
+      "label" "Paid out to creators"
+    )
+  }}
+{{ end }}
+
+{{/* Text colors */}}
+{{ $valueColor := .valueColor | default "text-white" }}
+{{ $labelColor := .labelColor | default "text-gray-400" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[60%] w-[90%] rounded-full bg-indigo-500 opacity-10 blur-[100px]"></div>
+  
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:max-w-none">
+      {{ if $showHeading }}
+      <div class="text-center">
+        <h2 class="text-4xl font-semibold tracking-tight text-balance {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+        <p class="mt-4 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+      </div>
+      {{ end }}
+      <dl class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
+        {{ range $stat := $stats }}
+        <div class="flex flex-col {{ $statBgColor }} {{ $statPadding }}">
+          <dt class="text-sm/6 font-semibold {{ $labelColor }}">{{ $stat.label }}</dt>
+          <dd class="order-first text-3xl font-semibold tracking-tight {{ $valueColor }}">{{ $stat.value }}</dd>
+        </div>
+        {{ end }}
+      </dl>
+    </div>
+  </div>
+</div>

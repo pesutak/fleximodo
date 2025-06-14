@@ -1,0 +1,56 @@
+{{/* 
+  Features partial with header, images, and descriptions
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - heading: Main heading text (default: "The Fine Details")
+  - description: Subheading text below the main heading (default: "Our patented padded snack sleeve construction protects your favorite treats from getting smooshed during all-day adventures, long shifts at work, and tough travel schedules.")
+  - features: Array of feature objects with the following structure:
+    - imageUrl: URL to feature image
+    - imageAlt: Alt text for feature image
+    - text: Feature description text
+  - page: Page context for linkbuilding
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-gray-50" }}
+{{ $heading := .heading | default "The Fine Details" }}
+{{ $description := .description | default "Our patented padded snack sleeve construction protects your favorite treats from getting smooshed during all-day adventures, long shifts at work, and tough travel schedules." }}
+{{ $page := .page }}
+
+{{ $features := .features | default (slice 
+  (dict 
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg"
+    "imageAlt" "Drawstring top with elastic loop closure and textured interior padding."
+    "text" "The 20L model has enough space for 370 candy bars, 6 cylinders of chips, 1220 standard gumballs, or any combination of on-the-go treats that your heart desires. Yes, we did the math."
+  )
+  (dict 
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-02.jpg"
+    "imageAlt" "Front zipper pouch with included key ring."
+    "text" "Up your snack organization game with multiple compartment options. The quick-access stash pouch is ready for even the most unexpected snack attacks and sharing needs."
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
+    <!-- Details section -->
+    <section aria-labelledby="details-heading">
+      <div class="flex flex-col items-center text-center">
+        <h2 id="details-heading" class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ $heading }}</h2>
+        <p class="mt-3 max-w-3xl text-lg text-gray-600">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:gap-x-8">
+        {{ range $features }}
+        <div>
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" .imageUrl
+            "alt" .imageAlt
+            "class" "aspect-3/2 w-full rounded-lg object-cover"
+          ) }}
+          <p class="mt-8 text-base text-gray-500">{{ partial "utils/linkbuilding" (dict "content" .text "page" $page) | safeHTML }}</p>
+        </div>
+        {{ end }}
+      </div>
+    </section>
+  </div>
+</div>

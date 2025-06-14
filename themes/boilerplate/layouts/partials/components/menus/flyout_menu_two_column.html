@@ -1,0 +1,196 @@
+{{/*
+@component: Flyout Menu - Two Column
+@description: A two-column flyout menu with icons, descriptions, and a footer section featuring a tag and promotional text.
+@params:
+  - buttonText: Text displayed on the dropdown button (optional, default: "Solutions")
+  - buttonTextColor: Text color class for button (optional, default: "text-gray-900")
+  - menuWidth: Width class for the menu (optional, default: "w-screen")
+  - menuMaxWidth: Max width class for the menu (optional, default: "max-w-md lg:max-w-3xl")
+  - menuBgColor: Background color class for the menu (optional, default: "bg-white")
+  - menuRingColor: Ring color class for the menu (optional, default: "ring-gray-900/5")
+  - menuShadowColor: Shadow class for the menu (optional, default: "shadow-lg")
+  - itemHoverBgColor: Hover background for menu items (optional, default: "hover:bg-gray-50")
+  - iconBgColor: Background color for icons (optional, default: "bg-gray-50")
+  - iconColor: Color for icons (optional, default: "text-gray-600")
+  - iconHoverColor: Hover color for icons (optional, default: "text-indigo-600")
+  - titleColor: Text color for item titles (optional, default: "text-gray-900")
+  - descriptionColor: Text color for item descriptions (optional, default: "text-gray-600")
+  - footerBgColor: Background color for footer (optional, default: "bg-gray-50")
+  - footerTitleColor: Text color for footer title (optional, default: "text-gray-900")
+  - footerTagBgColor: Background color for footer tag (optional, default: "bg-indigo-600/10")
+  - footerTagTextColor: Text color for footer tag (optional, default: "text-indigo-600")
+  - footerDescriptionColor: Text color for footer description (optional, default: "text-gray-600")
+  - footerTitle: Title text for footer section (optional, default: "Enterprise")
+  - footerTag: Tag text for footer section (optional, default: "New")
+  - footerDescription: Description text for footer (optional, default: provided text)
+  - menuItems: Array of menu item objects, each with:
+    - title: Item title
+    - description: Item description
+    - url: URL for the item link
+    - icon: Icon identifier (chart-pie, squares-2x2, sparkles, etc.)
+@example:
+  {{ partial "components/menus/flyout_menu_two_column.html" (dict 
+      "buttonText" "Products"
+      "menuItems" (slice 
+        (dict 
+          "title" "AI Assistant" 
+          "description" "Our flagship intelligent virtual assistant" 
+          "url" "/products/ai-assistant" 
+          "icon" "sparkles"
+        )
+        (dict 
+          "title" "Analytics Platform" 
+          "description" "Advanced metrics and insights for your business" 
+          "url" "/products/analytics" 
+          "icon" "chart-pie"
+        )
+      )
+      "footerTitle" "Enterprise Solutions"
+      "footerTag" "Premium"
+      "footerDescription" "Tailored solutions for large organizations with advanced needs."
+  ) }}
+@note: This component arranges menu items in two columns on larger screens and includes JavaScript for toggling the menu visibility.
+*/}}
+
+{{- $buttonText := .buttonText | default "Solutions" -}}
+{{- $buttonTextColor := .buttonTextColor | default "text-gray-900" -}}
+{{- $menuWidth := .menuWidth | default "w-screen" -}}
+{{- $menuMaxWidth := .menuMaxWidth | default "max-w-md lg:max-w-3xl" -}}
+{{- $menuBgColor := .menuBgColor | default "bg-white" -}}
+{{- $menuRingColor := .menuRingColor | default "ring-gray-900/5" -}}
+{{- $menuShadowColor := .menuShadowColor | default "shadow-lg" -}}
+{{- $itemHoverBgColor := .itemHoverBgColor | default "hover:bg-gray-50" -}}
+{{- $iconBgColor := .iconBgColor | default "bg-gray-50" -}}
+{{- $iconColor := .iconColor | default "text-gray-600" -}}
+{{- $iconHoverColor := .iconHoverColor | default "text-indigo-600" -}}
+{{- $titleColor := .titleColor | default "text-gray-900" -}}
+{{- $descriptionColor := .descriptionColor | default "text-gray-600" -}}
+{{- $footerBgColor := .footerBgColor | default "bg-gray-50" -}}
+{{- $footerTitleColor := .footerTitleColor | default "text-gray-900" -}}
+{{- $footerTagBgColor := .footerTagBgColor | default "bg-indigo-600/10" -}}
+{{- $footerTagTextColor := .footerTagTextColor | default "text-indigo-600" -}}
+{{- $footerDescriptionColor := .footerDescriptionColor | default "text-gray-600" -}}
+{{- $footerTitle := .footerTitle | default "Enterprise" -}}
+{{- $footerTag := .footerTag | default "New" -}}
+{{- $footerDescription := .footerDescription | default "Empower your entire team with even more advanced tools." -}}
+
+{{- $menuItems := .menuItems | default (slice 
+  (dict 
+    "title" "Analytics" 
+    "description" "Get a better understanding of your traffic" 
+    "url" "#" 
+    "icon" "chart-pie"
+  )
+  (dict 
+    "title" "Integrations" 
+    "description" "Connect with third-party tools and find out expectations" 
+    "url" "#" 
+    "icon" "squares-2x2"
+  )
+  (dict 
+    "title" "Engagement" 
+    "description" "Speak directly to your customers with our engagement tool" 
+    "url" "#" 
+    "icon" "sparkles"
+  )
+  (dict 
+    "title" "Automations" 
+    "description" "Build strategic funnels that will convert" 
+    "url" "#" 
+    "icon" "arrows-rotate"
+  )
+  (dict 
+    "title" "Security" 
+    "description" "Your customers' data will be safe and secure" 
+    "url" "#" 
+    "icon" "fingerprint"
+  )
+  (dict 
+    "title" "Reports" 
+    "description" "Edit, manage and create newly informed decisions" 
+    "url" "#" 
+    "icon" "document"
+  )
+) -}}
+
+{{- $menuId := printf "flyout-menu-%d" (now.UnixNano) -}}
+
+<div class="relative">
+  <button type="button" class="inline-flex items-center gap-x-1 text-sm/6 font-semibold {{ $buttonTextColor }}" aria-expanded="false" aria-controls="{{ $menuId }}">
+    <span>{{ $buttonText }}</span>
+    <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+      <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <!-- Flyout menu content, hidden by default -->
+  <div id="{{ $menuId }}" class="absolute left-1/2 z-10 mt-5 flex {{ $menuWidth }} {{ $menuMaxWidth }} -translate-x-1/2 px-4 opacity-0 translate-y-1 transition-all duration-200 ease-in hidden">
+    <div class="{{ $menuWidth }} {{ $menuMaxWidth }} flex-auto overflow-hidden rounded-3xl {{ $menuBgColor }} text-sm/6 ring-1 {{ $menuShadowColor }} {{ $menuRingColor }}">
+      <div class="grid grid-cols-1 gap-x-6 gap-y-1 p-4 lg:grid-cols-2">
+        {{- range $menuItems -}}
+        <div class="group relative flex gap-x-6 rounded-lg p-4 {{ $itemHoverBgColor }}">
+          <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg {{ $iconBgColor }} group-hover:bg-white">
+            {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+          </div>
+          <div>
+            <a href="{{ .url }}" class="font-semibold {{ $titleColor }}">
+              {{ .title }}
+              <span class="absolute inset-0"></span>
+            </a>
+            <p class="mt-1 {{ $descriptionColor }}">{{ .description }}</p>
+          </div>
+        </div>
+        {{- end -}}
+      </div>
+      <div class="{{ $footerBgColor }} px-8 py-6">
+        <div class="flex items-center gap-x-3">
+          <h3 class="text-sm/6 font-semibold {{ $footerTitleColor }}">{{ $footerTitle }}</h3>
+          <p class="rounded-full {{ $footerTagBgColor }} px-2.5 py-1.5 text-xs font-semibold {{ $footerTagTextColor }}">{{ $footerTag }}</p>
+        </div>
+        <p class="mt-2 text-sm/6 {{ $footerDescriptionColor }}">{{ $footerDescription }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const button = document.querySelector('[aria-controls="{{ $menuId }}"]');
+    const menu = document.getElementById('{{ $menuId }}');
+    
+    if (button && menu) {
+      button.addEventListener('click', function() {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        
+        if (expanded) {
+          // Close menu
+          button.setAttribute('aria-expanded', 'false');
+          menu.classList.add('opacity-0', 'translate-y-1');
+          menu.classList.remove('opacity-100', 'translate-y-0');
+          
+          // Hide after transition completes
+          setTimeout(() => {
+            menu.classList.add('hidden');
+          }, 150);
+        } else {
+          // Open menu
+          button.setAttribute('aria-expanded', 'true');
+          menu.classList.remove('hidden');
+          
+          // Trigger reflow to ensure transition works
+          menu.offsetHeight;
+          
+          menu.classList.add('opacity-100', 'translate-y-0');
+          menu.classList.remove('opacity-0', 'translate-y-1');
+        }
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!menu.contains(event.target) && !button.contains(event.target) && button.getAttribute('aria-expanded') === 'true') {
+          button.click();
+        }
+      });
+    }
+  });
+</script>

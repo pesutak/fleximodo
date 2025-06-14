@@ -1,0 +1,31 @@
+{{ $timeline := .timeline }}
+{{ $sourceCodeTitle := .sourceCodeTitle }}
+
+<div class="flex w-full flex-col items-start">
+  {{ range $index, $item := $timeline }}
+    <div class="group flex gap-x-6 items-stretch w-full">
+      <div class="relative">
+        {{ if ne $index (sub (len $timeline) 1) }}
+          <div class="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-slate-200"></div>
+        {{ end }}
+        <span class="relative z-10 grid h-10 w-10 place-items-center rounded-full bg-slate-200 text-slate-800">
+            {{ if $item.icon }}
+                {{ partial "components/media/icon.html" (dict "icon" $item.icon "class" "h-6 w-6") }}
+            {{ else }}
+                {{ partial "components/media/icon.html" (dict "icon" "check" "class" "h-6 w-6") }}
+            {{ end }}
+        </span>
+      </div>
+      <div class="-translate-y-1.5 pb-8 text-slate-600 w-full overflow-hidden break-words">
+        <p class="font-sans text-base font-bold text-slate-800 antialiased dark:text-white">{{ $item.title }}</p>
+        {{ if $item.description }}<small class="mt-2 font-sans text-sm text-slate-600 antialiased">{{ $item.description }}</small>{{end}}
+        {{ if $item.code }}
+          <p class="mt-2 font-bold font-sans text-sm text-slate-600 antialiased">{{ $sourceCodeTitle | default (i18n "source_code") | default "Code:" }}</p>
+          <pre class="mt-2 rounded-md bg-gray-800 p-4 text-sm text-white dark:bg-slate-800 w-full whitespace-pre-line break-words">
+            <code class="block w-full text-white whitespace-pre-line break-words">{{ $item.code }}</code>
+          </pre>
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+</div>

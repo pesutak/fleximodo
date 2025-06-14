@@ -1,0 +1,80 @@
+{{/* 
+  Example usage:
+  {{< incentives-2x2-grid-with-illustrations 
+      backgroundColor="bg-blue-100" 
+      srTitle="Why choose us?" 
+  >}}
+    [
+      {
+        "title": "Free delivery",
+        "description": "Order now and you'll get delivery absolutely free.",
+        "iconUrl": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-delivery-light.svg",
+        "iconAlt": "Delivery icon"
+      },
+      {
+        "title": "10-year warranty",
+        "description": "We have a 10 year warranty with every product that you purchase.",
+        "iconUrl": "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-light.svg",
+        "iconAlt": "Warranty icon"
+      }
+    ]
+  {{< /incentives-2x2-grid-with-illustrations >}}
+
+  2x2 grid incentives shortcode with illustrations
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - srTitle: Screen reader title (default: "Our perks")
+  
+  Inner Content:
+  JSON array of incentive objects with the following structure:
+  - title: Incentive title
+  - description: Incentive description
+  - iconUrl: URL to the incentive icon
+  - iconAlt: Alt text for the icon
+  
+  If no inner content is provided, default incentives will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $srTitle := .Get "srTitle" | default "Our perks" }}
+
+{{ $defaultIncentives := slice 
+  (dict 
+    "title" "Free delivery" 
+    "description" "Order now and you'll get delivery absolutely free. Well, it's not actually free, we just price it into the products. Someone's paying for it, and it's not us." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-delivery-light.svg"
+    "iconAlt" "Delivery icon"
+  )
+  (dict 
+    "title" "10-year warranty" 
+    "description" "We have a 10 year warranty with every product that you purchase, whether thats a new pen or organizer, you can be sure we'll stand behind it." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-light.svg"
+    "iconAlt" "Warranty icon"
+  )
+  (dict 
+    "title" "Exchanges" 
+    "description" "We understand that when your product arrives you might not particularly like it, or you ordered the wrong thing. Conditions apply here." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-returns-light.svg"
+    "iconAlt" "Returns icon"
+  )
+  (dict 
+    "title" "For the planet" 
+    "description" "Like you, we love the planet, and so we've pledged 1% of all sales to the preservation and restoration of the natural environment." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-planet-light.svg"
+    "iconAlt" "Planet icon"
+  )
+}}
+
+{{ $incentives := $defaultIncentives }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $incentives = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "incentives/2x2_grid_with_illustrations.html" (dict 
+  "backgroundColor" $backgroundColor
+  "srTitle" $srTitle
+  "incentives" $incentives
+) }}

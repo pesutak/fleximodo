@@ -1,0 +1,74 @@
+{{- /*
+  Usage in markdown:
+  {{< content-split-with-image 
+    eyebrow="Innovative Solutions" 
+    heading="Transform Your Workflow" 
+    markdownContent="Discover how our tools can help you streamline your processes and achieve better results." 
+    image="https://example.com/image.jpg" 
+    imageAlt="Descriptive alt text for the image" 
+    bgColor="bg-gray-100" 
+    eyebrowColor="text-primary"
+    headingColor="text-black" 
+    descriptionColor="text-gray-600" 
+    contentColor="text-gray-800" 
+    imageBgColor="bg-white" 
+  >}}
+  
+  Parameters:
+  1. eyebrow: Small text displayed above the main heading
+  2. heading: Main heading text
+  3. description: Description text below the main heading
+  4. image: URL of the image to display
+  5. imageAlt: Alt text for the image
+  6. bgColor: Background color class for the section
+  7. eyebrowColor: Text color class for the eyebrow text
+  8. headingColor: Text color class for the main heading
+  9. descriptionColor: Text color class for the description text
+  10. contentColor: Text color class for the main content
+  11. imageBgColor: Background color class for the image container
+  12. features: Optional array of feature objects to display in the content section
+*/ -}}
+
+{{/* Split with Image Content Shortcode */}}
+{{ $eyebrow := .Get "eyebrow" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
+{{ $featuresParam := .Get "features" }}
+{{ $features := slice }}
+{{ if $featuresParam }}
+  {{ if eq $featuresParam "features" }}
+    {{ $features = .Page.Params.features }}
+  {{ else }}
+    {{ $features = $featuresParam }}
+  {{ end }}
+{{ end }}
+{{ $image := .Get "image" | default "" }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
+{{ $bgColor := .Get "bgColor" | default "bg-white" }}
+{{ $eyebrowColor := .Get "eyebrowColor" | default "text-primary" }}
+{{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
+{{ $descriptionColor := .Get "descriptionColor" | default "text-gray-700" }}
+{{ $contentColor := .Get "contentColor" | default "text-gray-700" }}
+{{ $imageBgColor := .Get "imageBgColor" | default "bg-gray-50" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default paragraphs from the partial.
+  In a real-world implementation, you might want to allow passing in custom content
+  through a structured data file or inner content.
+*/}}
+
+{{ partial "sections/content/split_with_image.html" (dict 
+  "eyebrow" $eyebrow
+  "heading" $heading
+  "description" $description
+  "image" $image
+  "imageAlt" $imageAlt
+  "bgColor" $bgColor
+  "eyebrowColor" $eyebrowColor
+  "headingColor" $headingColor
+  "descriptionColor" $descriptionColor
+  "contentColor" $contentColor
+  "imageBgColor" $imageBgColor
+  "markdownContent" (.Inner )
+  "features" $features
+) }}

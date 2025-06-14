@@ -1,0 +1,119 @@
+{{/* 
+  Products shortcode with split layout and image
+  
+  Usage:
+  {{< products-split-with-image
+      backgroundColor="bg-gray-50"
+      title="Adventure Backpack Pro"
+      price="$189.99"
+      rating="5"
+      reviewCount="843"
+      inStock="true"
+      description="High-quality backpack perfect for your adventures."
+  >}}
+    {
+      "breadcrumbs": [
+        {
+          "name": "Outdoor",
+          "href": "#outdoor"
+        },
+        {
+          "name": "Backpacks",
+          "href": "#backpacks"
+        }
+      ],
+      "sizes": [
+        {
+          "name": "25L",
+          "description": "Perfect for day hikes and short trips."
+        },
+        {
+          "name": "35L",
+          "description": "Ideal for weekend adventures and longer journeys."
+        }
+      ],
+      "image": {
+        "url": "/images/backpack-pro.jpg",
+        "alt": "Adventure Backpack Pro shown from the front with all compartments visible."
+      }
+    }
+  {{< /products-split-with-image >}}
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - title: Product title (default: "Everyday Ruck Snack")
+  - price: Product price (default: "$220")
+  - rating: Product rating out of 5 (default: 4)
+  - reviewCount: Number of reviews (default: 1624)
+  - inStock: Whether the product is in stock (default: true)
+  - description: Product description text
+  
+  Inner Content (optional JSON object):
+  - breadcrumbs: Array of breadcrumb objects with name and href properties
+  - sizes: Array of size objects with name and description properties
+  - image: Object with url and alt properties for the product image
+  
+  If any parameter is not provided, default values will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $title := .Get "title" | default "Everyday Ruck Snack" }}
+{{ $price := .Get "price" | default "$220" }}
+{{ $rating := .Get "rating" | default 4 }}
+{{ $reviewCount := .Get "reviewCount" | default 1624 }}
+{{ $inStock := .Get "inStock" | default true }}
+{{ $description := .Get "description" | default "Don't compromise on snack-carrying capacity with this lightweight and spacious bag. The drawstring top keeps all your favorite chips, crisps, fries, biscuits, crackers, and cookies secure." }}
+
+{{ $defaultBreadcrumbs := slice 
+  (dict "name" "Travel" "href" "#")
+  (dict "name" "Bags" "href" "#")
+}}
+
+{{ $defaultSizes := slice 
+  (dict "name" "18L" "description" "Perfect for a reasonable amount of snacks.")
+  (dict "name" "20L" "description" "Enough room for a serious amount of snacks.")
+}}
+
+{{ $defaultImage := dict 
+  "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-featured-product-shot.jpg"
+  "alt" "Model wearing light green backpack with black canvas straps and front zipper pouch."
+}}
+
+{{ $customData := dict }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $customData = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ $breadcrumbs := $defaultBreadcrumbs }}
+{{ if isset $customData "breadcrumbs" }}
+  {{ $breadcrumbs = index $customData "breadcrumbs" }}
+{{ end }}
+
+{{ $sizes := $defaultSizes }}
+{{ if isset $customData "sizes" }}
+  {{ $sizes = index $customData "sizes" }}
+{{ end }}
+
+{{ $image := $defaultImage }}
+{{ if isset $customData "image" }}
+  {{ $image = index $customData "image" }}
+{{ end }}
+
+{{ $product := dict 
+  "title" $title
+  "price" $price
+  "rating" $rating
+  "reviewCount" $reviewCount
+  "inStock" $inStock
+  "description" $description
+  "breadcrumbs" $breadcrumbs
+  "sizes" $sizes
+  "image" $image
+}}
+
+{{ partial "sections/products/split_with_image.html" (dict 
+  "backgroundColor" $backgroundColor
+  "product" $product
+) }}

@@ -1,0 +1,138 @@
+{{/* 
+  Features shortcode with 4 images grid
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Technical Specifications")
+  - description: Subheading text below the main heading
+  
+  Inner Content (optional JSON object):
+  - Object containing specifications and images arrays:
+    - specifications: Array of specification objects with:
+      - title: Specification title
+      - description: Specification description
+    - images: Array of image objects with:
+      - url: Image URL
+      - alt: Alt text for the image
+  
+  Example usage with custom specifications and images:
+  {{< features-with-4-images-grid 
+      heading="Product Specifications" 
+      description="Our product is crafted with precision and care."
+  >}}
+    {
+      "specifications": [
+        {
+          "title": "Manufacturer",
+          "description": "Made by Wildlife Tech Inc."
+        },
+        {
+          "title": "Material",
+          "description": "Weatherproof composite with reinforced casing"
+        },
+        {
+          "title": "Dimensions",
+          "description": "4.5\" x 3.2\" x 2.1\""
+        },
+        {
+          "title": "Battery Life",
+          "description": "Up to 12 months on a single charge"
+        }
+      ],
+      "images": [
+        {
+          "url": "/images/product/front-view.jpg",
+          "alt": "Front view of the product showing the lens and sensor array"
+        },
+        {
+          "url": "/images/product/side-view.jpg",
+          "alt": "Side view showing the slim profile and mounting bracket"
+        },
+        {
+          "url": "/images/product/back-view.jpg",
+          "alt": "Back view with battery compartment open"
+        },
+        {
+          "url": "/images/product/installed-view.jpg",
+          "alt": "Product installed in outdoor setting on a tree"
+        }
+      ]
+    }
+  {{< /features-with-4-images-grid >}}
+  
+  If no inner content is provided, default specifications and images will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Technical Specifications" }}
+{{ $description := .Get "description" | default "The walnut wood card tray is precision milled to perfectly fit a stack of Focus cards. The powder coated steel divider separates active cards from new ones, or can be used to archive important task lists." }}
+
+{{ $defaultSpecifications := slice 
+  (dict 
+    "title" "Origin"
+    "description" "Designed by Good Goods, Inc."
+  )
+  (dict 
+    "title" "Material"
+    "description" "Solid walnut base with rare earth magnets and powder coated steel card cover"
+  )
+  (dict 
+    "title" "Dimensions"
+    "description" "6.25\" x 3.55\" x 1.15\""
+  )
+  (dict 
+    "title" "Finish"
+    "description" "Hand sanded and finished with natural oil"
+  )
+  (dict 
+    "title" "Includes"
+    "description" "Wood card tray and 3 refill packs"
+  )
+  (dict 
+    "title" "Considerations"
+    "description" "Made from natural materials. Grain and color vary with each item."
+  )
+}}
+
+{{ $defaultImages := slice 
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-01.jpg"
+    "alt" "Walnut card tray with white powder coated steel divider and 3 punchout holes."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-02.jpg"
+    "alt" "Top down view of walnut card tray with embedded magnets and card groove."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-03.jpg"
+    "alt" "Side of walnut card tray with card groove and recessed card area."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-04.jpg"
+    "alt" "Walnut card tray filled with cards and card angled in dedicated groove."
+  )
+}}
+
+{{ $specifications := $defaultSpecifications }}
+{{ $images := $defaultImages }}
+
+{{ with .Inner }}
+  {{ if . }}
+    {{ $customContent := . | unmarshal }}
+    {{ with $customContent.specifications }}
+      {{ $specifications = . }}
+    {{ end }}
+    {{ with $customContent.images }}
+      {{ $images = . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ partial "sections/features/with_4_images_grid.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "specifications" $specifications
+  "images" $images
+  "page" $.Page
+) }}

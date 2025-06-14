@@ -1,0 +1,12 @@
+{{- /* 
+ 
+    Example:
+    {{ partial "sections/features/features_simple_table.html" (dict "features" (slice
+      (dict "title" "Battery Life" "description" "How long the battery lasts on a single charge." "value" "10 hours")
+      (dict "title" "Weight" "description" "Total weight of the product." "value" "1.2 kg")
+      (dict "title" "Warranty" "description" "Length of included warranty." "value" "2 years")
+    )) }}
+    
+*/ -}}
+
+{{ partial "sections/features/features_simple_table.html" (dict "features" .features ) }}

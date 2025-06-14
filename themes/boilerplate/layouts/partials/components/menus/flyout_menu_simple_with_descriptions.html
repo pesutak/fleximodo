@@ -1,0 +1,143 @@
+{{/*
+@component: Flyout Menu - Simple with Descriptions
+@description: A simple dropdown flyout menu with a list of items that each have a title and description.
+@params:
+  - buttonText: Text displayed on the dropdown button (optional, default: "Solutions")
+  - buttonTextColor: Text color class for button (optional, default: "text-gray-900")
+  - menuWidth: Width class for the menu (optional, default: "w-screen")
+  - menuMaxWidth: Max width class for the menu (optional, default: "max-w-sm")
+  - menuBgColor: Background color class for the menu (optional, default: "bg-white")
+  - menuRingColor: Ring color class for the menu (optional, default: "ring-gray-900/5")
+  - menuShadowColor: Shadow color class for the menu (optional, default: "shadow-lg")
+  - itemHoverBgColor: Hover background color for menu items (optional, default: "hover:bg-gray-50")
+  - titleColor: Text color for item titles (optional, default: "text-gray-900")
+  - descriptionColor: Text color for item descriptions (optional, default: "text-gray-600")
+  - menuItems: Array of menu item objects, each with:
+    - title: Item title
+    - description: Item description
+    - url: URL for the item link
+@example:
+  {{ partial "components/menus/flyout_menu_simple_with_descriptions.html" (dict 
+      "buttonText" "Resources"
+      "menuItems" (slice 
+        (dict 
+          "title" "Documentation" 
+          "description" "Learn how to integrate our tools with your app" 
+          "url" "/docs"
+        )
+        (dict 
+          "title" "API Reference" 
+          "description" "Detailed API documentation for developers" 
+          "url" "/api"
+        )
+      )
+  ) }}
+@note: This component includes JavaScript for toggling the menu visibility and automatically closes when clicking outside the menu area.
+*/}}
+
+{{- $buttonText := .buttonText | default "Solutions" -}}
+{{- $buttonTextColor := .buttonTextColor | default "text-gray-900" -}}
+{{- $menuWidth := .menuWidth | default "w-screen" -}}
+{{- $menuMaxWidth := .menuMaxWidth | default "max-w-sm" -}}
+{{- $menuBgColor := .menuBgColor | default "bg-white" -}}
+{{- $menuRingColor := .menuRingColor | default "ring-gray-900/5" -}}
+{{- $menuShadowColor := .menuShadowColor | default "shadow-lg" -}}
+{{- $itemHoverBgColor := .itemHoverBgColor | default "hover:bg-gray-50" -}}
+{{- $titleColor := .titleColor | default "text-gray-900" -}}
+{{- $descriptionColor := .descriptionColor | default "text-gray-600" -}}
+
+{{- $menuItems := .menuItems | default (slice 
+  (dict 
+    "title" "Blog" 
+    "description" "Learn about tips, product updates and company culture" 
+    "url" "#"
+  )
+  (dict 
+    "title" "Help center" 
+    "description" "Get all of your questions answered in our forums or contact support" 
+    "url" "#"
+  )
+  (dict 
+    "title" "Guides" 
+    "description" "Learn how to maximize our platform to get the most out of it" 
+    "url" "#"
+  )
+  (dict 
+    "title" "Events" 
+    "description" "Check out webinars with experts and learn about our annual conference" 
+    "url" "#"
+  )
+  (dict 
+    "title" "Security" 
+    "description" "Understand how we take your privacy seriously" 
+    "url" "#"
+  )
+) -}}
+
+{{- $menuId := printf "flyout-menu-%d" (now.UnixNano) -}}
+
+<div class="relative">
+  <button type="button" class="inline-flex items-center gap-x-1 text-sm/6 font-semibold {{ $buttonTextColor }}" aria-expanded="false" aria-controls="{{ $menuId }}">
+    <span>{{ $buttonText }}</span>
+    <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+      <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <!-- Flyout menu content, hidden by default -->
+  <div id="{{ $menuId }}" class="absolute left-1/2 z-10 mt-5 flex {{ $menuWidth }} {{ $menuMaxWidth }} -translate-x-1/2 px-4 opacity-0 translate-y-1 transition-all duration-200 ease-in hidden">
+    <div class="{{ $menuWidth }} {{ $menuMaxWidth }} flex-auto rounded-3xl {{ $menuBgColor }} p-4 text-sm/6 ring-1 {{ $menuShadowColor }} {{ $menuRingColor }}">
+      {{- range $menuItems -}}
+      <div class="relative rounded-lg p-4 {{ $itemHoverBgColor }}">
+        <a href="{{ .url }}" class="font-semibold {{ $titleColor }}">
+          {{ .title }}
+          <span class="absolute inset-0"></span>
+        </a>
+        <p class="mt-1 {{ $descriptionColor }}">{{ .description }}</p>
+      </div>
+      {{- end -}}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const button = document.querySelector('[aria-controls="{{ $menuId }}"]');
+    const menu = document.getElementById('{{ $menuId }}');
+    
+    if (button && menu) {
+      button.addEventListener('click', function() {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        
+        if (expanded) {
+          // Close menu
+          button.setAttribute('aria-expanded', 'false');
+          menu.classList.add('opacity-0', 'translate-y-1');
+          menu.classList.remove('opacity-100', 'translate-y-0');
+          
+          // Hide after transition completes
+          setTimeout(() => {
+            menu.classList.add('hidden');
+          }, 150);
+        } else {
+          // Open menu
+          button.setAttribute('aria-expanded', 'true');
+          menu.classList.remove('hidden');
+          
+          // Trigger reflow to ensure transition works
+          menu.offsetHeight;
+          
+          menu.classList.add('opacity-100', 'translate-y-0');
+          menu.classList.remove('opacity-0', 'translate-y-1');
+        }
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!menu.contains(event.target) && !button.contains(event.target) && button.getAttribute('aria-expanded') === 'true') {
+          button.click();
+        }
+      });
+    }
+  });
+</script>

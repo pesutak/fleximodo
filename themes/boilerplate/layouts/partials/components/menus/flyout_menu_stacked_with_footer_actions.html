@@ -1,0 +1,161 @@
+{{/*
+@component: Flyout Menu - Stacked with Footer Actions
+@description: A dropdown flyout menu with stacked items that have icons, titles, and descriptions, plus a footer with action buttons.
+@params:
+  - buttonText: Text displayed on the dropdown button (optional, default: "Solutions")
+  - buttonTextColor: Text color class for button (optional, default: "text-gray-900")
+  - menuWidth: Width class for the menu (optional, default: "max-w-md")
+  - hoverBackgroundColor: Hover background color for menu items (optional, default: "hover:bg-gray-50")
+  - iconBackgroundColor: Background color for icons (optional, default: "bg-gray-50")
+  - iconColor: Color for icons (optional, default: "text-gray-600")
+  - iconHoverColor: Hover color for icons (optional, default: "text-indigo-600")
+  - titleColor: Text color for item titles (optional, default: "text-gray-900")
+  - descriptionColor: Text color for item descriptions (optional, default: "text-gray-600")
+  - footerBackgroundColor: Background color for footer (optional, default: "bg-gray-50")
+  - footerTextColor: Text color for footer items (optional, default: "text-gray-900")
+  - footerIconColor: Color for footer icons (optional, default: "text-gray-400")
+  - footerHoverColor: Hover color for footer items (optional, default: "hover:bg-gray-100")
+  - menuItems: Array of menu item objects, each with:
+    - title: Item title
+    - description: Item description
+    - url: URL for the item link
+    - icon: Icon identifier (chart-pie, cursor-arrow-rays, fingerprint, etc.)
+  - footerActions: Array of footer action objects, each with:
+    - text: Action text
+    - url: Action URL
+    - icon: Icon identifier (play-circle, phone, play, etc.)
+@example:
+  {{ partial "components/menus/flyout_menu_stacked_with_footer_actions.html" (dict 
+      "buttonText" "Resources"
+      "menuItems" (slice 
+        (dict 
+          "title" "Documentation" 
+          "description" "Technical guides and API references" 
+          "url" "/docs" 
+          "icon" "book-open"
+        )
+        (dict 
+          "title" "Tutorials" 
+          "description" "Step-by-step guides to get started" 
+          "url" "/tutorials" 
+          "icon" "code-bracket"
+        )
+      )
+      "footerActions" (slice 
+        (dict 
+          "text" "Watch demo" 
+          "url" "/demo" 
+          "icon" "play"
+        )
+        (dict 
+          "text" "Contact support" 
+          "url" "/contact" 
+          "icon" "phone"
+        )
+      )
+  ) }}
+@note: This component includes JavaScript for toggling the menu visibility and automatically closes when clicking outside the menu area.
+*/}}
+
+{{- $buttonText := .buttonText | default "Solutions" -}}
+{{- $menuItems := .menuItems | default slice -}}
+{{- $footerActions := .footerActions | default slice -}}
+{{- $buttonTextColor := .buttonTextColor | default "text-gray-900" -}}
+{{- $menuWidth := .menuWidth | default "max-w-md" -}}
+{{- $hoverBackgroundColor := .hoverBackgroundColor | default "hover:bg-gray-50" -}}
+{{- $iconBackgroundColor := .iconBackgroundColor | default "bg-gray-50" -}}
+{{- $iconColor := .iconColor | default "text-gray-600" -}}
+{{- $iconHoverColor := .iconHoverColor | default "text-indigo-600" -}}
+{{- $titleColor := .titleColor | default "text-gray-900" -}}
+{{- $descriptionColor := .descriptionColor | default "text-gray-600" -}}
+{{- $footerBackgroundColor := .footerBackgroundColor | default "bg-gray-50" -}}
+{{- $footerTextColor := .footerTextColor | default "text-gray-900" -}}
+{{- $footerIconColor := .footerIconColor | default "text-gray-400" -}}
+{{- $footerHoverColor := .footerHoverColor | default "hover:bg-gray-100" -}}
+
+{{- $menuId := printf "flyout-menu-%d" (now.UnixNano) -}}
+
+<div class="relative">
+  <button type="button" class="inline-flex items-center gap-x-1 text-sm/6 font-semibold {{ $buttonTextColor }}" aria-expanded="false" aria-controls="{{ $menuId }}">
+    <span>{{ $buttonText }}</span>
+    <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+      <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <!-- Flyout menu, hidden by default -->
+  <div id="{{ $menuId }}" class="absolute left-1/2 z-10 mt-5 flex w-screen {{ $menuWidth }} -translate-x-1/2 px-4 opacity-0 translate-y-1 transition-all duration-200 ease-in hidden">
+    <div class="w-screen {{ $menuWidth }} flex-auto overflow-hidden rounded-3xl bg-white text-sm/6 ring-1 shadow-lg ring-gray-900/5">
+      <div class="p-4">
+        {{ range $menuItems }}
+        <div class="group relative flex gap-x-6 rounded-lg p-4 {{ $hoverBackgroundColor }}">
+          {{ if .icon }}
+          <div class="mt-1 flex size-11 flex-none items-center justify-center rounded-lg {{ $iconBackgroundColor }} group-hover:bg-white">
+            {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+          </div>
+          {{ end }}
+          <div>
+            <a href="{{ .url }}" class="font-semibold {{ $titleColor }}">
+              {{ .title }}
+              <span class="absolute inset-0"></span>
+            </a>
+            <p class="mt-1 {{ $descriptionColor }}">{{ .description }}</p>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ if and $footerActions (gt (len $footerActions) 0) }}
+      <div class="grid grid-cols-{{ len $footerActions }} divide-x divide-gray-900/5 {{ $footerBackgroundColor }}">
+        {{ range $footerActions }}
+        <a href="{{ .url }}" class="flex items-center justify-center gap-x-2.5 p-3 font-semibold {{ $footerTextColor }} {{ $footerHoverColor }}">
+          {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+          {{ .text }}
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const button = document.querySelector('[aria-controls="{{ $menuId }}"]');
+    const menu = document.getElementById('{{ $menuId }}');
+    
+    if (button && menu) {
+      button.addEventListener('click', function() {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        
+        if (expanded) {
+          // Close menu
+          button.setAttribute('aria-expanded', 'false');
+          menu.classList.add('opacity-0', 'translate-y-1');
+          menu.classList.remove('opacity-100', 'translate-y-0');
+          
+          // Hide after transition completes
+          setTimeout(() => {
+            menu.classList.add('hidden');
+          }, 150);
+        } else {
+          // Open menu
+          button.setAttribute('aria-expanded', 'true');
+          menu.classList.remove('hidden');
+          
+          // Trigger reflow to ensure transition works
+          menu.offsetHeight;
+          
+          menu.classList.add('opacity-100', 'translate-y-0');
+          menu.classList.remove('opacity-0', 'translate-y-1');
+        }
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!menu.contains(event.target) && !button.contains(event.target) && button.getAttribute('aria-expanded') === 'true') {
+          button.click();
+        }
+      });
+    }
+  });
+</script>

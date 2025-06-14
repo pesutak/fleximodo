@@ -1,0 +1,153 @@
+{{/* 
+  Products shortcode with image gallery and expandable details
+  
+  Usage:
+  {{< products-with-image-gallery-and-expandable-details
+      backgroundColor="bg-gray-50"
+      title="Convertible Canvas Tote"
+      price="$129.99"
+      rating="5"
+      description="Product description here"
+  >}}
+    {
+      "colors": [
+        {
+          "name": "Forest Green",
+          "class": "bg-green-700"
+        },
+        {
+          "name": "Navy Blue",
+          "class": "bg-blue-800"
+        },
+        {
+          "name": "Burgundy",
+          "class": "bg-red-800"
+        }
+      ],
+      "features": [
+        "Adjustable shoulder strap",
+        "Water-resistant material",
+        "Multiple interior pockets",
+        "Reinforced bottom panel",
+        "Leather trim accents"
+      ],
+      "images": [
+        {
+          "url": "/images/product-01.jpg",
+          "alt": "Front view of product",
+          "thumbnail": true
+        },
+        {
+          "url": "/images/product-02.jpg",
+          "alt": "Side view of product",
+          "thumbnail": true
+        }
+      ]
+    }
+  {{< /products-with-image-gallery-and-expandable-details >}}
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - title: Product title (default: "Zip Tote Basket")
+  - price: Product price (default: "$140")
+  - rating: Product rating out of 5 (default: 4)
+  - description: Product description text
+  
+  Inner Content (optional JSON object):
+  - colors: Array of color objects with name and class properties
+  - features: Array of feature strings
+  - images: Array of image objects with url, alt, and thumbnail properties
+  
+  If any parameter is not provided, default values will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $title := .Get "title" | default "Zip Tote Basket" }}
+{{ $price := .Get "price" | default "$140" }}
+{{ $rating := .Get "rating" | default 4 }}
+{{ $description := .Get "description" | default "The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use." }}
+
+{{ $defaultColors := slice 
+  (dict 
+    "name" "Washed Black"
+    "class" "bg-gray-700"
+  )
+  (dict 
+    "name" "White"
+    "class" "bg-white"
+  )
+  (dict 
+    "name" "Washed Gray"
+    "class" "bg-gray-500"
+  )
+}}
+
+{{ $defaultFeatures := slice 
+  "Multiple strap configurations"
+  "Spacious interior with top zip"
+  "Leather handle and tabs"
+  "Interior dividers"
+  "Stainless strap loops"
+  "Double stitched construction"
+  "Water-resistant"
+}}
+
+{{ $defaultImages := slice 
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-01.jpg"
+    "alt" "Angled front view with bag zipped and handles upright."
+    "thumbnail" true
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-02.jpg"
+    "alt" "Side view with bag open showing interior organization."
+    "thumbnail" true
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-03.jpg"
+    "alt" "Top down view of bag with straps extended out."
+    "thumbnail" true
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-04.jpg"
+    "alt" "Close up view of front zipper and pulls."
+    "thumbnail" true
+  )
+}}
+
+{{ $customData := dict }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $customData = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ $colors := $defaultColors }}
+{{ if isset $customData "colors" }}
+  {{ $colors = index $customData "colors" }}
+{{ end }}
+
+{{ $features := $defaultFeatures }}
+{{ if isset $customData "features" }}
+  {{ $features = index $customData "features" }}
+{{ end }}
+
+{{ $images := $defaultImages }}
+{{ if isset $customData "images" }}
+  {{ $images = index $customData "images" }}
+{{ end }}
+
+{{ $product := dict 
+  "title" $title
+  "price" $price
+  "rating" $rating
+  "description" $description
+  "colors" $colors
+  "features" $features
+  "images" $images
+}}
+
+{{ partial "sections/products/with_image_gallery_and_expandable_details.html" (dict 
+  "backgroundColor" $backgroundColor
+  "product" $product
+) }}

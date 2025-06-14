@@ -1,0 +1,144 @@
+{{/* 
+  Products shortcode with tiered images
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - title: Product title (default: "Basic Tee")
+  - price: Product price (default: "$35")
+  - rating: Product rating out of 5 (default: "3.9")
+  - reviewCount: Number of reviews (default: "512")
+  - description: Comma-separated list of description paragraphs
+  - fabricCare: Comma-separated list of fabric care instructions
+  - policies: Comma-separated list in format "icon|title|description" for product policies
+  - colors: Comma-separated list in format "name|class" for color options
+  - sizes: Comma-separated list in format "value|label|disabled" for size options (disabled should be "true" or "false")
+  - breadcrumbs: Comma-separated list in format "name|url|current" for breadcrumb navigation
+  - images: Comma-separated list in format "url|alt|class" for product images
+  
+  Example usage:
+  {{< products-with-tiered-images 
+      backgroundColor="bg-gray-50"
+      title="Premium Cotton Hoodie"
+      price="$65"
+      rating="4.7"
+      reviewCount="328"
+      description="Our premium hoodie is crafted from 100% organic cotton for ultimate comfort and durability.,Each hoodie is individually dyed using eco-friendly processes, making each piece slightly unique."
+      fabricCare="Machine wash cold,Tumble dry low,No bleach,Pre-washed for minimal shrinkage"
+      colors="Navy|bg-blue-900,Gray|bg-gray-400,Black|bg-gray-900"
+      sizes="S|Small|false,M|Medium|false,L|Large|false,XL|Extra Large|false,XXL|2XL|true"
+      breadcrumbs="Home|/|false,Men|/men|false,Hoodies|/men/hoodies|false,Premium Cotton Hoodie|#|true"
+      images="https://example.com/hoodie-front.jpg|Front view of Premium Cotton Hoodie in navy blue|rounded-lg lg:col-span-2 lg:row-span-2,https://example.com/hoodie-side.jpg|Side view of Premium Cotton Hoodie in navy blue|hidden rounded-lg lg:block,https://example.com/hoodie-back.jpg|Back view of Premium Cotton Hoodie in navy blue|hidden rounded-lg lg:block"
+  >}}
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $title := .Get "title" | default "Basic Tee" }}
+{{ $price := .Get "price" | default "$35" }}
+{{ $rating := .Get "rating" | default "3.9" }}
+{{ $reviewCount := .Get "reviewCount" | default "512" }}
+
+<!-- Process description -->
+{{ $descriptionString := .Get "description" | default "The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.,Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount." }}
+{{ $descriptionArray := split $descriptionString "," }}
+
+<!-- Process fabric care -->
+{{ $fabricCareString := .Get "fabricCare" | default "Only the best materials,Ethically and locally made,Pre-washed and pre-shrunk,Machine wash cold with similar colors" }}
+{{ $fabricCareArray := split $fabricCareString "," }}
+
+<!-- Process policies -->
+{{ $policiesString := .Get "policies" | default "<svg class=\"mx-auto size-6 shrink-0 text-gray-400\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m6.115 5.19.319 1.913A6 6 0 0 0 8.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 0 0 2.288-4.042 1.087 1.087 0 0 0-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 0 1-.98-.314l-.295-.295a1.125 1.125 0 0 1 0-1.591l.13-.132a1.125 1.125 0 0 1 1.3-.21l.603.302a.809.809 0 0 0 1.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 0 0 1.528-1.732l.146-.292M6.115 5.19A9 9 0 1 0 17.18 4.64M6.115 5.19A8.965 8.965 0 0 1 12 3c1.929 0 3.716.607 5.18 1.64\"|International delivery|Get your order in 2 years,<svg class=\"mx-auto size-6 shrink-0 text-gray-400\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"|Loyalty rewards|Don't look at other tees" }}
+{{ $policiesItems := split $policiesString "," }}
+{{ $policies := slice }}
+{{ range $policyItem := $policiesItems }}
+  {{ $policyParts := split $policyItem "|" }}
+  {{ $policy := dict 
+    "icon" (index $policyParts 0)
+    "title" (index $policyParts 1)
+    "description" (index $policyParts 2)
+  }}
+  {{ $policies = $policies | append $policy }}
+{{ end }}
+
+<!-- Process colors -->
+{{ $colorsString := .Get "colors" | default "Black|bg-gray-900,Heather Grey|bg-gray-400" }}
+{{ $colorsItems := split $colorsString "," }}
+{{ $colors := slice }}
+{{ range $colorItem := $colorsItems }}
+  {{ $colorParts := split $colorItem "|" }}
+  {{ $color := dict 
+    "name" (index $colorParts 0)
+    "class" (index $colorParts 1)
+  }}
+  {{ $colors = $colors | append $color }}
+{{ end }}
+
+<!-- Process sizes -->
+{{ $sizesString := .Get "sizes" | default "XXS|XXS|false,XS|XS|false,S|S|false,M|M|false,L|L|false,XL|XL|true" }}
+{{ $sizesItems := split $sizesString "," }}
+{{ $sizes := slice }}
+{{ range $sizeItem := $sizesItems }}
+  {{ $sizeParts := split $sizeItem "|" }}
+  {{ $disabled := false }}
+  {{ if eq (index $sizeParts 2) "true" }}
+    {{ $disabled = true }}
+  {{ end }}
+  {{ $size := dict 
+    "value" (index $sizeParts 0)
+    "label" (index $sizeParts 1)
+    "disabled" $disabled
+  }}
+  {{ $sizes = $sizes | append $size }}
+{{ end }}
+
+<!-- Process breadcrumbs -->
+{{ $breadcrumbsString := .Get "breadcrumbs" | default (printf "Women|#|false,Clothing|#|false,%s|#|true" $title) }}
+{{ $breadcrumbsItems := split $breadcrumbsString "," }}
+{{ $breadcrumbs := slice }}
+{{ range $breadcrumbItem := $breadcrumbsItems }}
+  {{ $breadcrumbParts := split $breadcrumbItem "|" }}
+  {{ $current := false }}
+  {{ if eq (index $breadcrumbParts 2) "true" }}
+    {{ $current = true }}
+  {{ end }}
+  {{ $breadcrumb := dict 
+    "name" (index $breadcrumbParts 0)
+    "url" (index $breadcrumbParts 1)
+    "current" $current
+  }}
+  {{ $breadcrumbs = $breadcrumbs | append $breadcrumb }}
+{{ end }}
+
+<!-- Process images -->
+{{ $imagesString := .Get "images" | default "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-featured-product-shot.jpg|Back of women's Basic Tee in black.|rounded-lg lg:col-span-2 lg:row-span-2,https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-product-shot-01.jpg|Side profile of women's Basic Tee in black.|hidden rounded-lg lg:block,https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-01-product-shot-02.jpg|Front of women's Basic Tee in black.|hidden rounded-lg lg:block" }}
+{{ $imagesItems := split $imagesString "," }}
+{{ $images := slice }}
+{{ range $imageItem := $imagesItems }}
+  {{ $imageParts := split $imageItem "|" }}
+  {{ $image := dict 
+    "url" (index $imageParts 0)
+    "alt" (index $imageParts 1)
+    "class" (index $imageParts 2)
+  }}
+  {{ $images = $images | append $image }}
+{{ end }}
+
+<!-- Create product object -->
+{{ $product := dict 
+  "title" $title
+  "price" $price
+  "rating" $rating
+  "reviewCount" $reviewCount
+  "description" $descriptionArray
+  "fabricCare" $fabricCareArray
+  "policies" $policies
+  "colors" $colors
+  "sizes" $sizes
+  "breadcrumbs" $breadcrumbs
+  "images" $images
+}}
+
+<!-- Pass all parameters to the partial -->
+{{ partial "sections/products/with_tiered_images.html" (dict 
+  "backgroundColor" $backgroundColor
+  "product" $product
+) }}

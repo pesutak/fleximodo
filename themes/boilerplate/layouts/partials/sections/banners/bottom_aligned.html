@@ -1,0 +1,59 @@
+{{/*
+@section: Bottom Aligned Banner
+@description: A fixed banner that appears at the bottom of the viewport, ideal for announcements, promotions, or notifications with optional dismissal functionality.
+@params:
+  - title: Banner title text (optional, default: "GeneriCon 2023")
+  - message: Main message text (optional, default: "Join us in Denver from June 7 – 9 to see what's coming next")
+  - url: URL for the entire banner link (optional, default: "#")
+  - isDismissable: Whether the banner can be dismissed (optional, default: true)
+  - backgroundColor: Background color class (optional, default: "bg-gray-900")
+  - textColor: Text color class (optional, default: "text-white")
+  - dismissButtonColor: Dismiss button color class (optional, default: "text-white")
+  - paddingClass: Padding class to add to your content container to prevent overlap (optional)
+  - id: Custom ID for the banner (optional, default: auto-generated from title and message)
+@example:
+  {{ partial "sections/banners/bottom_aligned.html" (dict 
+      "title" "Summer Sale" 
+      "message" "Get 20% off all products until July 31"
+      "url" "/sale"
+      "isDismissable" true
+      "backgroundColor" "bg-blue-600"
+      "textColor" "text-white"
+      "dismissButtonColor" "text-white"
+  ) }}
+@note: Make sure to add some bottom padding to pages that include this banner to prevent your content from being obscured when the user scrolls to the bottom of the page. You can use the paddingClass parameter or add padding to your layout.
+*/}}
+
+
+{{- $title := .title | default "GeneriCon 2023" -}}
+{{- $message := .message | default "Join us in Denver from June 7 – 9 to see what's coming next" -}}
+{{- $url := .url | default "#" -}}
+{{- $isDismissable := .isDismissable | default true -}}
+{{- $backgroundColor := .backgroundColor | default "bg-gray-900" -}}
+{{- $textColor := .textColor | default "text-white" -}}
+{{- $dismissButtonColor := .dismissButtonColor | default "text-white" -}}
+{{- $bannerId := .id | default (printf "banner-%s" (substr (md5 (printf "%s%s" $title $message)) 0 8)) -}}
+
+<!-- 
+  Make sure you add some bottom padding to pages that include a sticky banner like this to prevent
+  your content from being obscured when the user scrolls to the bottom of the page.
+-->
+<div id="{{ $bannerId }}" data-banner class="fixed inset-x-0 bottom-0 z-50">
+  <div class="flex items-center gap-x-6 {{ $backgroundColor }} px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+    <p class="text-sm/6 {{ $textColor }}">
+      <a href="{{ $url }}">
+        <strong class="font-semibold">{{ $title }}</strong><svg viewBox="0 0 2 2" class="mx-2 inline size-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>{{ $message }}&nbsp;<span aria-hidden="true">&rarr;</span>
+      </a>
+    </p>
+    {{ if $isDismissable }}
+    <div class="flex flex-1 justify-end">
+      <button type="button" class="-m-3 p-3 focus-visible:outline-offset-[-4px]" data-dismiss-banner>
+        <span class="sr-only">Dismiss</span>
+        <svg class="size-5 {{ $dismissButtonColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+          <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+        </svg>
+      </button>
+    </div>
+    {{ end }}
+  </div>
+</div>

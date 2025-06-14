@@ -1,0 +1,86 @@
+{{/*
+@section: Split Hero with Image
+@description: A responsive hero section split into two columns - one with text content and CTAs, the other with a featured image.
+@params:
+  - logo: URL to logo image (optional)
+  - announcement: Announcement object (optional)
+    - enabled: Whether to show the announcement (default: false)
+    - text: Announcement text (default: "Anim aute id magna aliqua ad ad non deserunt sunt.")
+    - linkText: Link text for the announcement (default: "Read more")
+    - linkUrl: URL for the announcement link (default: "#")
+  - heading: Main heading text (default: "Data to enrich your business")
+  - description: Description text (default: "Anim aute id magna aliqua ad ad non deserunt sunt...")
+  - cta: Call-to-action buttons (optional)
+    - primary: Primary button (text, url)
+    - secondary: Secondary button (text, url)
+  - tags: Array of tags (optional), will create tag links to /tags/[tag-name]/
+  - categories: Array of categories (optional), will create category links to /categories/[category-name]
+  - image: Image URL string or object with url and alt properties (optional)
+  - typewriter: Object with typewriter effect configuration (optional)
+    - enabled: Boolean to enable/disable the effect (default: false)
+    - words: Number of words to animate (default: 1)
+    - speed: Typing speed in ms (default: 100)
+    - deleteSpeed: Deleting speed in ms (default: 50)
+    - pause: Pause duration in ms (default: 2000)
+    - color: Color class for animated text (default: "text-indigo-600")
+@example:
+  {{ partial "sections/hero/split_with_image.html" (dict 
+      "logo" "/images/logo.svg"
+      "announcement" (dict 
+          "enabled" true 
+          "text" "Just launched!" 
+          "linkText" "Read the announcement" 
+          "linkUrl" "/blog/announcement"
+      )
+      "heading" "Powerful analytics for your business"
+      "description" "Get insights from your data with our powerful analytics platform. Make better decisions and grow your business."
+      "cta" (dict 
+          "primary" (dict "text" "Get started" "url" "/signup") 
+          "secondary" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "/features")
+      )
+      "tags" (slice "Analytics" "Data" "Business")
+      "categories" (slice "Product")
+      "image" (dict "url" "/images/hero.jpg" "alt" "Dashboard analytics screenshot")
+      "typewriter" (dict
+          "enabled" true
+          "words" 2
+          "speed" 150
+          "deleteSpeed" 75
+          "pause" 3000
+          "color" "text-blue-600"
+      )
+  ) }}
+*/}}
+
+{{ $imageClass := .imageClass | default "w-full object-cover h-full max-h-full" }}
+{{ $imageSrc := "" }}
+{{ $imageAlt := .heading | default .Title }}
+{{ if .image }}
+  {{ if reflect.IsMap .image }}
+    {{ $imageSrc = .image.url }}
+    {{ $imageAlt = .image.alt | default $imageAlt }}
+  {{ else }}
+    {{ $imageSrc = .image }}
+  {{ end }}
+{{ else }}
+  {{ $imageSrc = "https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2102&q=80" }}
+{{ end }}
+
+  <div class="relative bg-white">
+    <div class="wrapper py-24">
+      <div class="lg:grid lg:grid-cols-12">
+        <div class="pt-10 lg:col-span-7 xl:col-span-6">
+          {{ partial "sections/hero/split_left_side_helper.html" .}}
+        </div>
+        <div class="relative lg:col-span-5 lg:-mr-8 xl:col-span-6 xl:mr-0 h-full flex items-center justify-center overflow-hidden">
+            {{ partial "components/media/lazyimg.html" (dict
+              "src" $imageSrc
+              "alt" $imageAlt
+              "class" "w-full object-contain h-auto max-h-[600px]"
+              "maxWidth" 1024
+            ) }}
+        </div>
+      </div>
+  </div>
+</div>
+

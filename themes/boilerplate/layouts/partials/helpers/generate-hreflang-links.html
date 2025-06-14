@@ -1,0 +1,187 @@
+{{/*
+@helper: Generate Hreflang Alternate Links
+@description: Generates all hreflang alternate link tags for SEO, including existing translations and constructed URLs for missing translations
+@params:
+  .currentPage (object): The current page object
+  .defaultLang (string): The default language code (optional, defaults to "en")
+@returns: HTML string with all hreflang link tags
+@example:
+  {{ partial "helpers/generate-hreflang-links.html" (dict "currentPage" . "defaultLang" "en") | safeHTML }}
+*/}}
+
+{{ $currentPage := .currentPage }}
+{{ $defaultLang := .defaultLang | default "en" }}
+{{ $links := slice }}
+{{ $filePath := "" }}
+{{ if $currentPage.File }}
+  {{ $filePath = $currentPage.File.Path }}
+{{ end }}
+
+{{ $useAllLanguagesData := isset site.Data "all_languages" }}
+{{ $pagePath := strings.TrimPrefix (print "/" $currentPage.Language.Lang "/") $currentPage.RelPermalink }}
+
+<!-- Check if current page has a meaningful path (not just root) -->
+{{ $currentPageHasPath := and (ne $pagePath "") (ne $pagePath "/") }}
+
+{{ if $useAllLanguagesData }}
+  <!-- Use unified language data when available -->
+  {{ with site.Data }}
+    {{ range $code, $langData := .all_languages.languages }}
+      <!-- Get language URL -->
+      {{ $href := partial "helpers/get-language-url.html" (dict 
+          "code" $code 
+          "langData" $langData 
+          "currentPage" $currentPage 
+          "filePath" $filePath
+      ) }}
+
+      <!-- Check if alternate URL has path when canonical has path -->
+      {{ $shouldIncludeLink := true }}
+      {{ if $currentPageHasPath }}
+        <!-- Extract path from alternate URL -->
+        {{ $baseURL := strings.TrimSuffix "/" $langData.baseURL }}
+        {{ $alternatePath := strings.TrimPrefix $baseURL $href }}
+        {{ $alternatePath = strings.TrimPrefix "/" $alternatePath }}
+        
+        <!-- If canonical has path but alternate doesn't, skip this link -->
+        {{ if or (eq $alternatePath "") (eq $alternatePath "/") }}
+          {{ $shouldIncludeLink = false }}
+        {{ end }}
+      {{ end }}
+
+      {{ if $shouldIncludeLink }}
+        <!-- Get hreflang attribute -->
+        {{ $hreflang := $langData.params.bcp47Lang | default $code }}
+        
+        <!-- Create hreflang link -->
+        {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang (lower $href) }}
+        {{ $links = $links | append $link }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ else }}
+  <!-- Fallback to existing translations approach -->
+  
+  <!-- Add links for existing translations -->
+  {{ range $currentPage.Translations }}
+    {{ $hreflang := .Language.Params.bcp47Lang | default .Language.Lang }}
+    {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang (lower .Permalink) }}
+    {{ $links = $links | append $link }}
+  {{ end }}
+
+  <!-- Add link for current page -->
+  {{ $currentHreflang := $currentPage.Language.Params.bcp47Lang | default $currentPage.Language.Lang }}
+  {{ $currentLink := printf `<link rel="alternate" hreflang="%s" href="%s">` $currentHreflang (lower $currentPage.Permalink) }}
+  {{ $links = $links | append $currentLink }}
+
+  <!-- Add links for languages without translations (construct URLs) -->
+  {{ range site.Home.AllTranslations }}
+      {{ $langCode := .Language.Lang }}
+      {{ $hasTranslation := false }}
+      
+      <!-- Check if this language has a translation -->
+      {{ range $currentPage.Translations }}
+          {{ if eq .Language.Lang $langCode }}
+              {{ $hasTranslation = true }}
+          {{ end }}
+      {{ end }}
+      
+      <!-- If no translation exists and it's not the current page language -->
+      {{ if and (not $hasTranslation) (ne $langCode $currentPage.Language.Lang) }}
+          {{ $langBaseURL := .Permalink }}
+          {{ $langBaseWithoutSlash := strings.TrimSuffix "/" $langBaseURL }}
+          {{ $langURL := print $langBaseWithoutSlash "/" $pagePath }}
+          
+          <!-- Check if we should include this link -->
+          {{ $shouldIncludeLink := true }}
+          {{ if $currentPageHasPath }}
+            <!-- If canonical has path, only include if we successfully constructed the path -->
+            {{ if or (eq $pagePath "") (eq $pagePath "/") }}
+              {{ $shouldIncludeLink = false }}
+            {{ end }}
+          {{ end }}
+          
+          {{ if $shouldIncludeLink }}
+            {{ $hreflang := .Language.Params.bcp47Lang | default .Language.Lang }}
+            {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang (lower $langURL)  }}
+            {{ $links = $links | append $link }}
+          {{ end }}
+      {{ end }}
+  {{ end }}
+{{ end }}
+
+<!-- Generate x-default link -->
+{{ $xDefaultURL := $currentPage.Permalink }}
+{{ $found := false }}
+
+{{ if $useAllLanguagesData }}
+  <!-- Use all_languages data to find default language -->
+  {{ with site.Data }}
+    {{ $defaultLangData := index .all_languages.languages $defaultLang }}
+    {{ if $defaultLangData }}
+      {{ $xDefaultURL = partial "helpers/get-language-url.html" (dict 
+          "code" $defaultLang 
+          "langData" $defaultLangData 
+          "currentPage" $currentPage 
+          "filePath" $filePath
+      ) }}
+      
+      <!-- Check if x-default URL should be included -->
+      {{ if $currentPageHasPath }}
+        {{ $baseURL := strings.TrimSuffix "/" $defaultLangData.baseURL }}
+        {{ $xDefaultPath := strings.TrimPrefix $baseURL $xDefaultURL }}
+        {{ $xDefaultPath = strings.TrimPrefix "/" $xDefaultPath }}
+        
+        <!-- If canonical has path but x-default doesn't, use current page URL -->
+        {{ if or (eq $xDefaultPath "") (eq $xDefaultPath "/") }}
+          {{ $xDefaultURL = $currentPage.Permalink }}
+        {{ else }}
+          {{ $found = true }}
+        {{ end }}
+      {{ else }}
+        {{ $found = true }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ else }}
+  <!-- Fallback to existing translations approach -->
+  
+  <!-- Look for default language translation -->
+  {{ range $currentPage.Translations }}
+      {{ if eq .Language.Lang $defaultLang }}
+          {{ $xDefaultURL = .Permalink }}
+          {{ $found = true }}
+      {{ end }}
+  {{ end }}
+
+  <!-- If no default language translation and current page isn't default language, construct URL -->
+  {{ if and (not $found) (ne $currentPage.Language.Lang $defaultLang) }}
+      {{ range site.Home.AllTranslations }}
+          {{ if eq .Language.Lang $defaultLang }}
+              {{ $defaultBaseURL := .Permalink }}
+              {{ $defaultBaseWithoutSlash := strings.TrimSuffix "/" $defaultBaseURL }}
+              {{ $constructedXDefaultURL := print $defaultBaseWithoutSlash "/" $pagePath }}
+              
+              <!-- Check if we should use the constructed URL -->
+              {{ if $currentPageHasPath }}
+                <!-- Only use constructed URL if we have a meaningful path -->
+                {{ if and (ne $pagePath "") (ne $pagePath "/") }}
+                  {{ $xDefaultURL = $constructedXDefaultURL }}
+                  {{ $found = true }}
+                {{ end }}
+              {{ else }}
+                {{ $xDefaultURL = $constructedXDefaultURL }}
+                {{ $found = true }}
+              {{ end }}
+          {{ end }}
+      {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $xDefaultLink := printf `<link rel="alternate" hreflang="x-default" href="%s">` (lower $xDefaultURL) }}
+{{ $links = $links | append $xDefaultLink }}
+
+<!-- Output all links -->
+{{ range $links }}
+{{ . | safeHTML}}
+{{ end }}

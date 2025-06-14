@@ -1,0 +1,238 @@
+{{/*
+@component: Items With Featured Post on Dark
+@description: Displays blog posts with one featured post prominently displayed on the left and a list of regular posts on the right, on a dark background with decorative elements. Ideal for blog landing pages or news sections.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Section heading text (optional, default: "")
+  - headingColor: Heading text color (optional, default: "text-white")
+  - description: Section description text (optional, default: "")
+  - descriptionColor: Description text color (optional, default: "text-gray-300")
+  - featuredPost: Object containing featured post data (optional), with:
+    - date: ISO date for datetime attribute (optional)
+    - dateDisplay: Formatted date string (optional)
+    - title: Post title (required)
+    - titleId: ID for the title element for accessibility (optional)
+    - description: Post description (optional)
+    - link: URL for the "Continue reading" link (optional)
+    - linkText: Text for the link (optional, default: "Continue reading")
+    - authorImage: URL to the author's image (optional)
+    - authorName: Author's name (optional)
+    - authorLink: URL for the author (optional)
+  - featuredDateColor: Featured post date color (optional, default: "text-gray-400")
+  - featuredTitleColor: Featured post title color (optional, default: "text-white")
+  - featuredDescriptionColor: Featured post description color (optional, default: "text-gray-300")
+  - featuredLinkColor: Featured post link color (optional, default: "text-indigo-400")
+  - featuredAuthorColor: Featured post author name color (optional, default: "text-white")
+  - featuredAuthorImageBg: Featured post author image background (optional, default: "bg-gray-800")
+  - featuredBorderColor: Featured post border color (optional, default: "border-gray-700")
+  - items: Array of regular post objects (optional), each with:
+    - date: ISO date for datetime attribute (optional)
+    - dateDisplay: Formatted date string (optional)
+    - title: Post title (required)
+    - titleLink: URL for the post (required)
+    - description: Post description (optional)
+    - authorImage: URL to the author's image (optional)
+    - authorName: Author's name (optional)
+    - authorLink: URL for the author (optional)
+  - itemDateColor: Regular post date color (optional, default: "text-gray-400")
+  - itemTitleColor: Regular post title color (optional, default: "text-white")
+  - itemTitleHoverColor: Regular post title hover color (optional, default: "group-hover:text-gray-400")
+  - itemDescriptionColor: Regular post description color (optional, default: "text-gray-400")
+  - itemAuthorColor: Regular post author name color (optional, default: "text-white")
+  - itemAuthorImageBg: Regular post author image background (optional, default: "bg-gray-800")
+  - itemBorderColor: Regular post section border color (optional, default: "border-gray-700")
+  - itemDividerColor: Regular post divider color (optional, default: "divide-gray-700")
+@example:
+  {{ partial "components/items/with_featured_post_on_dark.html" (dict 
+      "heading" "Latest News"
+      "description" "Stay up to date with our most recent announcements and articles."
+      "featuredPost" (dict 
+          "date" "2025-04-22"
+          "dateDisplay" "Apr 22, 2025"
+          "title" "Announcing our Series B funding of $75 million"
+          "titleId" "featured-announcement"
+          "description" "This new round of funding will help us accelerate product development and expand our global presence."
+          "link" "/blog/series-b-funding"
+          "linkText" "Read the full announcement"
+          "authorName" "Emma Johnson"
+          "authorImage" "/images/team/emma.jpg"
+          "authorLink" "/team/emma"
+      )
+      "items" (slice 
+          (dict 
+              "date" "2025-04-15"
+              "dateDisplay" "Apr 15, 2025"
+              "title" "New dashboard features released"
+              "titleLink" "/blog/dashboard-update"
+              "description" "We've released major improvements to our analytics dashboard, offering better insights and faster performance."
+              "authorName" "Marcus Chen"
+              "authorImage" "/images/team/marcus.jpg"
+              "authorLink" "/team/marcus"
+          )
+      )
+  ) }}
+@note: This is the dark mode variant of the Items With Featured Post component. It includes decorative background patterns and gradient effects that work well on dark backgrounds, providing a visually appealing way to highlight important posts while displaying a list of secondary content.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $description := .description | default "" }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-300" }}
+
+{{/* Featured post */}}
+{{ $featuredPost := .featuredPost | default (dict 
+  "date" "2020-03-16"
+  "dateDisplay" "Mar 16, 2020"
+  "title" "We're incredibly proud to announce we have secured $75m in Series B"
+  "titleId" "featured-post"
+  "description" "Libero neque aenean tincidunt nec consequat tempor. Viverra odio id velit adipiscing id. Nisi vestibulum orci eget bibendum dictum. Velit viverra posuere vulputate volutpat nunc. Nunc netus sit faucibus."
+  "link" "#"
+  "linkText" "Continue reading"
+  "authorImage" "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  "authorName" "Michael Foster"
+  "authorLink" "#"
+) }}
+
+{{/* Regular blog posts */}}
+{{ $items := .items | default (slice 
+  (dict 
+    "date" "2020-03-10"
+    "dateDisplay" "Mar 10, 2020"
+    "title" "Boost your conversion rate"
+    "titleLink" "#"
+    "description" "Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel iusto corrupti dicta laboris incididunt."
+    "authorImage" "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    "authorName" "Lindsay Walton"
+    "authorLink" "#"
+  )
+  (dict 
+    "date" "2020-03-08"
+    "dateDisplay" "Mar 8, 2020"
+    "title" "How to use search engine optimization to drive sales"
+    "titleLink" "#"
+    "description" "Optio cum necessitatibus dolor voluptatum provident commodi et. Qui aperiam fugiat nemo cumque. Sed exercitationem placeat consectetur nulla deserunt vel iusto corrupti dicta laboris incididunt."
+    "authorImage" "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    "authorName" "Courtney Henry"
+    "authorLink" "#"
+  )
+  (dict 
+    "date" "2020-03-02"
+    "dateDisplay" "Mar 2, 2020"
+    "title" "Improve your customer experience"
+    "titleLink" "#"
+    "description" "Cupiditate maiores ullam eveniet adipisci in doloribus nulla minus. Voluptas iusto libero adipisci rem et corporis. Sed exercitationem placeat consectetur nulla deserunt vel iusto corrupti dicta laboris incididunt."
+    "authorImage" "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+    "authorName" "Tom Cook"
+    "authorLink" "#"
+  )
+) }}
+
+{{/* Styling */}}
+{{ $featuredDateColor := .featuredDateColor | default "text-gray-400" }}
+{{ $featuredTitleColor := .featuredTitleColor | default "text-white" }}
+{{ $featuredDescriptionColor := .featuredDescriptionColor | default "text-gray-300" }}
+{{ $featuredLinkColor := .featuredLinkColor | default "text-indigo-400" }}
+{{ $featuredAuthorColor := .featuredAuthorColor | default "text-white" }}
+{{ $featuredAuthorImageBg := .featuredAuthorImageBg | default "bg-gray-800" }}
+{{ $featuredBorderColor := .featuredBorderColor | default "border-gray-700" }}
+
+{{ $itemDateColor := .itemDateColor | default "text-gray-400" }}
+{{ $itemTitleColor := .itemTitleColor | default "text-white" }}
+{{ $itemTitleHoverColor := .itemTitleHoverColor | default "group-hover:text-gray-400" }}
+{{ $itemDescriptionColor := .itemDescriptionColor | default "text-gray-400" }}
+{{ $itemAuthorColor := .itemAuthorColor | default "text-white" }}
+{{ $itemAuthorImageBg := .itemAuthorImageBg | default "bg-gray-800" }}
+{{ $itemBorderColor := .itemBorderColor | default "border-gray-700" }}
+{{ $itemDividerColor := .itemDividerColor | default "divide-gray-700" }}
+
+<div class="relative isolate overflow-hidden {{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <svg class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" aria-hidden="true">
+    <defs>
+      <pattern id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+        <path d="M.5 200V.5H200" fill="none" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" stroke-width="0" fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+  </svg>
+  
+  <div class="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]" aria-hidden="true">
+    <div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20" style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"></div>
+  </div>
+
+  {{ if or $heading $description }}
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0">
+      {{ if $heading }}<h2 class="text-4xl font-semibold tracking-tight {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>{{ end }}
+      {{ if $description }}<p class="mt-2 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>{{ end }}
+    </div>
+  </div>
+  {{ end }}
+  
+  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-12 px-6 sm:gap-y-16 lg:grid-cols-2 lg:px-8 {{ if or $heading $description }}mt-10{{ end }}">
+    <article class="mx-auto w-full max-w-2xl lg:mx-0 lg:max-w-lg">
+      {{ if $featuredPost.date }}<time datetime="{{ $featuredPost.date }}" class="block text-sm/6 {{ $featuredDateColor }}">{{ $featuredPost.dateDisplay }}</time>{{ end }}
+      <h2 {{ if $featuredPost.titleId }}id="{{ $featuredPost.titleId }}"{{ end }} class="mt-4 text-3xl font-semibold tracking-tight text-pretty {{ $featuredTitleColor }} sm:text-4xl">{{ $featuredPost.title }}</h2>
+      <p class="mt-4 text-lg/8 {{ $featuredDescriptionColor }}">{{ $featuredPost.description }}</p>
+      <div class="mt-4 flex flex-col justify-between gap-6 sm:mt-8 sm:flex-row-reverse sm:gap-8 lg:mt-4 lg:flex-col">
+        {{ if $featuredPost.link }}
+        <div class="flex">
+          <a href="{{ $featuredPost.link }}" class="text-sm/6 font-semibold {{ $featuredLinkColor }}" {{ if $featuredPost.titleId }}aria-describedby="{{ $featuredPost.titleId }}"{{ end }}>{{ $featuredPost.linkText | default "Continue reading" }} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        {{ end }}
+        {{ if $featuredPost.authorName }}
+        <div class="flex lg:border-t lg:{{ $featuredBorderColor }} lg:pt-8">
+          <a href="{{ $featuredPost.authorLink }}" class="flex gap-x-2.5 text-sm/6 font-semibold {{ $featuredAuthorColor }}">
+            {{ if $featuredPost.authorImage }}
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" $featuredPost.authorImage 
+                "alt" $featuredPost.authorName
+                "class" "size-6 flex-none rounded-full {{ $featuredAuthorImageBg }}"
+              ) }}
+            {{ end }}
+            {{ $featuredPost.authorName }}
+          </a>
+        </div>
+        {{ end }}
+      </div>
+    </article>
+    <div class="mx-auto w-full max-w-2xl border-t {{ $itemBorderColor }} pt-12 sm:pt-16 lg:mx-0 lg:max-w-none lg:border-t-0 lg:pt-0">
+      <div class="-my-12 divide-y {{ $itemDividerColor }}">
+        {{ range $items }}
+        <article class="py-12">
+          <div class="group relative max-w-xl">
+            {{ if .date }}<time datetime="{{ .date }}" class="block text-sm/6 {{ $itemDateColor }}">{{ .dateDisplay }}</time>{{ end }}
+            <h2 class="mt-2 text-lg font-semibold {{ $itemTitleColor }} {{ $itemTitleHoverColor }}">
+              <a href="{{ .titleLink }}">
+                <span class="absolute inset-0"></span>
+                {{ .title }}
+              </a>
+            </h2>
+            <p class="mt-4 text-sm/6 {{ $itemDescriptionColor }}">{{ .description }}</p>
+          </div>
+          {{ if .authorName }}
+          <div class="mt-4 flex">
+            <a href="{{ .authorLink }}" class="relative flex gap-x-2.5 text-sm/6 font-semibold {{ $itemAuthorColor }}">
+              {{ if .authorImage }}
+                {{ partial "components/media/lazyimg.html" (dict 
+                  "src" .authorImage 
+                  "alt" .authorName
+                  "class" "size-6 flex-none rounded-full {{ $itemAuthorImageBg }}"
+                ) }}
+              {{ end }}
+              {{ .authorName }}
+            </a>
+          </div>
+          {{ end }}
+        </article>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>

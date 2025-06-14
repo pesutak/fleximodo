@@ -1,0 +1,107 @@
+{{/*
+@section: Stats with Description
+@description: A statistics section with heading, primary and secondary descriptions, and a column of key stats with value and label pairs.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-32")
+  - showHeading: Whether to display the heading (optional, default: true)
+  - heading: Main section heading (optional, default: "Our mission")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - mainDescription: Primary description text (optional, default: "Aliquet nec orci mattis amet...")
+  - mainDescriptionColor: Primary description color class (optional, default: "text-gray-600")
+  - secondaryDescription: Secondary description text (optional, default: "Faucibus commodo massa rhoncus...")
+  - secondaryDescriptionColor: Secondary description color class (optional, default: "text-gray-700")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: Statistic value (can include units)
+    - label: Description of what the statistic represents
+  - valueColor: Color class for statistic values (optional, default: "text-gray-900")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-600")
+@example:
+  {{ partial "sections/stats/with_description.html" (dict 
+      "heading" "Our impact" 
+      "mainDescription" "Since our founding, we've been dedicated to creating positive change in our industry and for our customers."
+      "secondaryDescription" "Our team works tirelessly to improve our platform, making it more accessible, powerful, and useful for users around the globe. These numbers reflect our commitment to excellence and growth."
+      "stats" (slice
+          (dict 
+              "value" "2.5M+" 
+              "label" "Active users worldwide"
+          )
+          (dict 
+              "value" "98%" 
+              "label" "Customer satisfaction rating"
+          )
+          (dict 
+              "value" "24/7" 
+              "label" "Support availability"
+          )
+      )
+      "bgColor" "bg-gray-50"
+  ) }}
+@note: This section presents statistics in a visually impactful way alongside descriptive text that provides context for the numbers. On desktop layouts, the descriptions appear on the left with the statistics column on the right.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-32" }}
+
+{{/* Heading */}}
+{{ $showHeading := .showHeading | default true }}
+{{ $heading := .heading | default "Our mission" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+
+{{/* Description */}}
+{{ $mainDescription := .mainDescription | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}
+{{ $mainDescriptionColor := .mainDescriptionColor | default "text-gray-600" }}
+{{ $secondaryDescription := .secondaryDescription | default "Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id." }}
+{{ $secondaryDescriptionColor := .secondaryDescriptionColor | default "text-gray-700" }}
+
+{{/* Stats */}}
+{{ $stats := .stats | default slice }}
+
+{{/* Default stats if none provided */}}
+{{ if eq (len $stats) 0 }}
+  {{ $stats = slice 
+    (dict 
+      "value" "44 million"
+      "label" "Transactions every 24 hours"
+    )
+    (dict 
+      "value" "$119 trillion"
+      "label" "Assets under holding"
+    )
+    (dict 
+      "value" "46,000"
+      "label" "New users annually"
+    )
+  }}
+{{ end }}
+
+{{/* Text colors */}}
+{{ $valueColor := .valueColor | default "text-gray-900" }}
+{{ $labelColor := .labelColor | default "text-gray-600" }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+      {{ if $showHeading }}
+      <h2 class="text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+      {{ end }}
+      <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
+        <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
+          <p class="text-xl/8 {{ $mainDescriptionColor }}">{{ $mainDescription }}</p>
+          <p class="mt-10 max-w-xl text-base/7 {{ $secondaryDescriptionColor }}">{{ $secondaryDescription }}</p>
+        </div>
+        <div class="lg:flex lg:flex-auto lg:justify-center">
+          <dl class="w-64 space-y-8 xl:w-80">
+            {{ range $stat := $stats }}
+            <div class="flex flex-col-reverse gap-y-4">
+              <dt class="text-base/7 {{ $labelColor }}">{{ $stat.label }}</dt>
+              <dd class="text-5xl font-semibold tracking-tight {{ $valueColor }}">{{ $stat.value }}</dd>
+            </div>
+            {{ end }}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

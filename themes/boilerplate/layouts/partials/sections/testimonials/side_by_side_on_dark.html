@@ -1,0 +1,146 @@
+{{/*
+@section: Side-by-Side Testimonials on Dark Background
+@description: A dual testimonial layout on a dark background featuring two testimonials side by side, each with a company logo, quote, and author information, creating a balanced and professional appearance.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the section (optional, default: "py-24 sm:py-32")
+  - borderColor: Color class for the dividing border (optional, default: "border-gray-700")
+  - firstLogo: URL for the first company logo (optional, default: Tailwind asset)
+  - firstLogoAlt: Alt text for the first logo (optional, default: "")
+  - firstLogoHeight: Height class for the first logo (optional, default: "h-12")
+  - firstQuote: The first testimonial text (optional, default: Lorem ipsum text)
+  - firstQuoteColor: Color class for the first quote (optional, default: "text-white")
+  - firstPersonImage: URL for the first person's avatar (optional, default: Unsplash photo)
+  - firstPersonImageAlt: Alt text for the first person image (optional, default: "")
+  - firstPersonImageBg: Background color class for the first person image (optional, default: "bg-gray-800")
+  - firstPersonName: Name of the first testimonial author (optional, default: "Judith Black")
+  - firstPersonNameColor: Color class for the first person name (optional, default: "text-white")
+  - firstPersonRole: Role/position of the first testimonial author (optional, default: "CEO of Tuple")
+  - firstPersonRoleColor: Color class for the first person role (optional, default: "text-gray-400")
+  - secondLogo: URL for the second company logo (optional, default: Tailwind asset)
+  - secondLogoAlt: Alt text for the second logo (optional, default: "")
+  - secondLogoHeight: Height class for the second logo (optional, default: "h-12")
+  - secondQuote: The second testimonial text (optional, default: Lorem ipsum text)
+  - secondQuoteColor: Color class for the second quote (optional, default: "text-white")
+  - secondPersonImage: URL for the second person's avatar (optional, default: Unsplash photo)
+  - secondPersonImageAlt: Alt text for the second person image (optional, default: "")
+  - secondPersonImageBg: Background color class for the second person image (optional, default: "bg-gray-800")
+  - secondPersonName: Name of the second testimonial author (optional, default: "Joseph Rodriguez")
+  - secondPersonNameColor: Color class for the second person name (optional, default: "text-white")
+  - secondPersonRole: Role/position of the second testimonial author (optional, default: "CEO of Reform")
+  - secondPersonRoleColor: Color class for the second person role (optional, default: "text-gray-400")
+@example:
+  {{ partial "sections/testimonials/side_by_side_on_dark.html" (dict 
+      "firstLogo" "/images/logos/acme-corp.svg"
+      "firstLogoAlt" "Acme Corporation logo"
+      "firstQuote" "This platform has streamlined our entire workflow. What used to take days now happens in minutes. The ROI has been incredible, and our team couldn't be happier with the results."
+      "firstPersonImage" "/images/testimonials/sarah-jenkins.jpg"
+      "firstPersonName" "Sarah Jenkins"
+      "firstPersonRole" "CTO, Acme Corporation"
+      "secondLogo" "/images/logos/globex.svg"
+      "secondLogoAlt" "Globex logo"
+      "secondQuote" "After evaluating several solutions, this was the clear winner. The onboarding process was smooth, and the support team has been incredibly responsive to our needs."
+      "secondPersonImage" "/images/testimonials/michael-chen.jpg"
+      "secondPersonName" "Michael Chen"
+      "secondPersonRole" "VP of Engineering, Globex"
+  ) }}
+@note: This component presents two testimonials with equal visual weight, making it ideal for showcasing endorsements from complementary or similar-level clients. The dark theme with atmospheric background creates a premium feel suitable for high-end products or services.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+{{ $borderColor := .borderColor | default "border-gray-700" }}
+
+{{/* First testimonial */}}
+{{ $firstLogo := .firstLogo | default "https://tailwindcss.com/plus-assets/img/logos/tuple-logo-gray-900.svg" }}
+{{ $firstLogoAlt := .firstLogoAlt | default "" }}
+{{ $firstLogoHeight := .firstLogoHeight | default "h-12" }}
+{{ $firstQuote := .firstQuote | default "Amet amet eget scelerisque tellus sit neque faucibus non eleifend. Integer eu praesent at a. Ornare arcu gravida natoque erat et cursus tortor consequat at. Vulputate gravida sociis enim nullam ultricies habitant malesuada lorem ac. Tincidunt urna dui pellentesque sagittis." }}
+{{ $firstQuoteColor := .firstQuoteColor | default "text-white" }}
+{{ $firstPersonImage := .firstPersonImage | default "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" }}
+{{ $firstPersonImageAlt := .firstPersonImageAlt | default "" }}
+{{ $firstPersonImageBg := .firstPersonImageBg | default "bg-gray-800" }}
+{{ $firstPersonName := .firstPersonName | default "Judith Black" }}
+{{ $firstPersonNameColor := .firstPersonNameColor | default "text-white" }}
+{{ $firstPersonRole := .firstPersonRole | default "CEO of Tuple" }}
+{{ $firstPersonRoleColor := .firstPersonRoleColor | default "text-gray-400" }}
+
+{{/* Second testimonial */}}
+{{ $secondLogo := .secondLogo | default "https://tailwindcss.com/plus-assets/img/logos/reform-logo-gray-900.svg" }}
+{{ $secondLogoAlt := .secondLogoAlt | default "" }}
+{{ $secondLogoHeight := .secondLogoHeight | default "h-12" }}
+{{ $secondQuote := .secondQuote | default "Excepteur veniam labore ullamco eiusmod. Pariatur consequat proident duis dolore nulla veniam reprehenderit nisi officia voluptate incididunt exercitation exercitation elit. Nostrud veniam sint dolor nisi ullamco." }}
+{{ $secondQuoteColor := .secondQuoteColor | default "text-white" }}
+{{ $secondPersonImage := .secondPersonImage | default "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" }}
+{{ $secondPersonImageAlt := .secondPersonImageAlt | default "" }}
+{{ $secondPersonImageBg := .secondPersonImageBg | default "bg-gray-800" }}
+{{ $secondPersonName := .secondPersonName | default "Joseph Rodriguez" }}
+{{ $secondPersonNameColor := .secondPersonNameColor | default "text-white" }}
+{{ $secondPersonRole := .secondPersonRole | default "CEO of Reform" }}
+{{ $secondPersonRoleColor := .secondPersonRoleColor | default "text-gray-400" }}
+
+<section class="{{ $bgColor }} {{ $padding }}">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[60%] w-[90%] rounded-full bg-indigo-500 opacity-10 blur-[100px]"></div>
+  
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto grid max-w-2xl grid-cols-1 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+      <div class="flex flex-col pb-10 sm:pb-16 lg:pr-8 lg:pb-0 xl:pr-20">
+        {{ if $firstLogo }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $firstLogo 
+            "alt" $firstLogoAlt
+            "class" "{{ $firstLogoHeight }} self-start invert"
+          ) }}
+        {{ end }}
+        <figure class="mt-10 flex flex-auto flex-col justify-between">
+          <blockquote class="text-lg/8 {{ $firstQuoteColor }}">
+            <p>"{{ $firstQuote }}"</p>
+          </blockquote>
+          <figcaption class="mt-10 flex items-center gap-x-6">
+            {{ if $firstPersonImage }}
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" $firstPersonImage 
+                "alt" $firstPersonImageAlt
+                "class" "size-14 rounded-full {{ $firstPersonImageBg }}"
+              ) }}
+            {{ end }}
+            <div class="text-base">
+              <div class="font-semibold {{ $firstPersonNameColor }}">{{ $firstPersonName }}</div>
+              <div class="mt-1 {{ $firstPersonRoleColor }}">{{ $firstPersonRole }}</div>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="flex flex-col border-t border-l-0 {{ $borderColor }} pt-10 sm:pt-16 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8 xl:pl-20">
+        {{ if $secondLogo }}
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" $secondLogo 
+            "alt" $secondLogoAlt
+            "class" "{{ $secondLogoHeight }} self-start invert"
+          ) }}
+        {{ end }}
+        <figure class="mt-10 flex flex-auto flex-col justify-between">
+          <blockquote class="text-lg/8 {{ $secondQuoteColor }}">
+            <p>"{{ $secondQuote }}"</p>
+          </blockquote>
+          <figcaption class="mt-10 flex items-center gap-x-6">
+            {{ if $secondPersonImage }}
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" $secondPersonImage 
+                "alt" $secondPersonImageAlt
+                "class" "size-14 rounded-full {{ $secondPersonImageBg }}"
+              ) }}
+            {{ end }}
+            <div class="text-base">
+              <div class="font-semibold {{ $secondPersonNameColor }}">{{ $secondPersonName }}</div>
+              <div class="mt-1 {{ $secondPersonRoleColor }}">{{ $secondPersonRole }}</div>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>

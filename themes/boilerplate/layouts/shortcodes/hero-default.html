@@ -1,0 +1,100 @@
+{{/* Hero Default Shortcode */}}
+{{/*
+Usage:
+{{< hero-default
+  heading="Page Title"
+  description="A short description of the page."
+  eyebrow="Optional Eyebrow"
+  image="path/to/image.jpg"
+  imageAlt="Alt text for image"
+  youtubeVideoID="youtube_video_id"
+  youtubeTitle="Title for YouTube Video"
+  workspaceId="your_workspace_id"
+  chatbotId="your_chatbot_id"
+  ctaPrimaryText="Primary CTA"
+  ctaPrimaryURL="/primary-link"
+  ctaSecondaryText="Secondary CTA"
+  ctaSecondaryURL="/secondary-link"
+  "typewriterEnabled"="true"
+  "typewriterWords"="2"
+  "typewriterSpeed"="120"
+  "typewriterDeleteSpeed"="60"
+  "typewriterPause"="2500"
+  "typewriterColor"="text-blue-600"
+>}}
+
+Example from _index.md:
+{{< hero-default
+  heading="WordPress SEO Plugin"
+  description="Automate link building, monitor web vitals, improve technical SEO with easy to use WordPress plugin"
+  primaryCTAText="Install Now"
+  primaryCTAUrl="https://calendly.com/liveagentsession/flowhunt-chatbot-demo"
+  secondaryCTAText="Try it Now"
+  secondaryCTAUrl="https://app.flowhunt.io/sign-in"
+  image="https://www.urlslab.com/wp/urlslab-download/d9da4e786702c2da08cfb98298e355c4/homepage-hero.png.webp"
+  imageAlt="UrlsLab Dashboard"
+  typewriterEnabled="true"
+>}}
+*/}}
+
+{{ $page := .Page }}
+
+{{/* Get parameters from shortcode, with fallbacks to page front matter or defaults */}}
+{{ $heading := .Get "heading" | default $page.Title }}
+{{ $description := .Get "description" | default $page.Params.description | default $page.Params.shortDescription }}
+{{ $eyebrow := .Get "eyebrow" | default $page.Params.eyebrow }}
+
+{{/* Image handling: shortcode 'image' or 'imageSrc' takes precedence */}}
+{{ $image := .Get "image" | default (.Get "imageSrc") | default $page.Params.image }}
+{{ $imageAlt := .Get "imageAlt" | default $page.Params.imageAlt | default $heading }} {{/* Default alt to heading if not provided */}}
+
+{{ $youtubeVideoID := .Get "youtubeVideoID" | default $page.Params.youtubeVideoID }}
+{{ $youtubeTitle := .Get "youtubeTitle" | default $page.Params.youtubeTitle }}
+
+{{ $workspaceId := .Get "workspaceId" | default $page.Params.workspaceId }}
+{{ $chatbotId := .Get "chatbotId" | default $page.Params.chatbotId }}
+
+{{ $ctaPrimaryText := .Get "ctaPrimaryText" | default $page.Params.ctaPrimaryText }}
+{{ $ctaPrimaryURL := .Get "ctaPrimaryURL" | default $page.Params.ctaPrimaryURL }}
+{{ $ctaSecondaryText := .Get "ctaSecondaryText" | default $page.Params.ctaSecondaryText }}
+{{ $ctaSecondaryURL := .Get "ctaSecondaryURL" | default $page.Params.ctaSecondaryURL }}
+
+{{/* Typewriter parameters */}}
+{{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
+{{ $typewriterWords := .Get "typewriterWords" | default 1 }}
+{{ $typewriterSpeed := .Get "typewriterSpeed" | default 100 }}
+{{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
+{{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
+{{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
+{{ $typewriterWordAlternatives := .Get "typewriterWordAlternatives" | default "" }} {{/* Comma-separated words to alternate with */}}
+
+
+{{ $typewriter := dict
+"enabled" (eq $typewriterEnabled "true")
+"words" $typewriterWords
+"speed" $typewriterSpeed
+"deleteSpeed" $typewriterDeleteSpeed
+"pause" $typewriterPause
+"color" $typewriterColor
+"wordAlternatives" $typewriterWordAlternatives
+}}
+
+{{ $partialParams := dict
+  "title" $heading
+  "shortDescription" $description
+  "description" $description
+  "eyebrow" $eyebrow
+  "image" $image
+  "imageAlt" $imageAlt
+  "youtubeVideoID" $youtubeVideoID
+  "youtubeTitle" $youtubeTitle
+  "workspaceId" $workspaceId
+  "chatbotId" $chatbotId
+  "ctaPrimaryText" $ctaPrimaryText
+  "ctaPrimaryURL" $ctaPrimaryURL
+  "ctaSecondaryText" $ctaSecondaryText
+  "ctaSecondaryURL" $ctaSecondaryURL
+  "typewriter" $typewriter
+}}
+
+{{ partial "hero_default.html" (dict "Params" $partialParams "Title" $heading "Page" $page) }}

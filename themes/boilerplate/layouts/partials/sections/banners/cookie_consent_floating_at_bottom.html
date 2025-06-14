@@ -1,0 +1,114 @@
+{{/*
+@section: Cookie Consent Floating Banner
+@description: A comprehensive cookie consent banner that floats at the bottom of the viewport with options to accept all cookies, accept only necessary cookies, or open cookie settings.
+@params:
+  - title: Banner title (optional, default: translated value from i18n "cookie_consent_title")
+  - message: Main message text about cookie usage (optional, default: translated value from i18n "cookie_consent_message")
+  - acceptAllText: Text for the accept all button (optional, default: translated value from i18n "cookie_consent_accept_all")
+  - acceptNecessaryText: Text for accepting only necessary cookies button (optional, default: translated value from i18n "cookie_consent_accept_necessary")
+  - settingsText: Text for the cookie settings button (optional, default: translated value from i18n "cookie_consent_settings")
+  - backgroundColor: Background color class (optional, default: "bg-gray-900")
+  - textColor: Text color class (optional, default: "text-white")
+  - acceptAllButtonClass: CSS classes for the accept all button (optional, default: "bg-indigo-600 hover:bg-indigo-500 text-white")
+  - acceptNecessaryButtonClass: CSS classes for the accept necessary button (optional, default: "bg-gray-200 hover:bg-gray-300 text-gray-900")
+  - settingsButtonClass: CSS classes for the settings button (optional, default: "text-white underline")
+@example:
+  {{ partial "sections/banners/cookie_consent_floating_at_bottom.html" (dict 
+      "title" "Privacy Notice"
+      "message" "We use cookies to improve your browsing experience and analyze site traffic."
+      "acceptAllText" "Accept All Cookies"
+      "acceptNecessaryText" "Essential Only"
+      "settingsText" "Customize"
+      "backgroundColor" "bg-blue-800"
+      "textColor" "text-gray-100"
+      "acceptAllButtonClass" "bg-blue-500 hover:bg-blue-600 text-white"
+  ) }}
+@note: This banner includes a settings modal that allows users to choose which types of cookies they want to accept. It uses JavaScript to handle user interactions and cookie preferences. The banner and settings modal content is automatically translated if i18n translations are available.
+*/}}
+
+
+
+{{- $title := .title | default (i18n "cookie_consent_title") -}}
+{{- $message := .message | default (i18n "cookie_consent_message") -}}
+{{- $acceptAllText := .acceptAllText | default (i18n "cookie_consent_accept_all") -}}
+{{- $acceptNecessaryText := .acceptNecessaryText | default (i18n "cookie_consent_accept_necessary") -}}
+{{- $settingsText := .settingsText | default (i18n "cookie_consent_settings") -}}
+{{- $backgroundColor := .backgroundColor | default "bg-gray-900" -}}
+{{- $textColor := .textColor | default "text-white" -}}
+{{- $acceptAllButtonClass := .acceptAllButtonClass | default "bg-indigo-600 hover:bg-indigo-500 text-white" -}}
+{{- $acceptNecessaryButtonClass := .acceptNecessaryButtonClass | default "bg-gray-200 hover:bg-gray-300 text-gray-900" -}}
+{{- $settingsButtonClass := .settingsButtonClass | default "text-white underline" -}}
+{{- $bannerId := "cookie-consent-banner" -}}
+
+<!-- Cookie Consent Banner with inline styles to ensure visibility -->
+<div id="{{ $bannerId }}" data-cookie-consent-banner style="display: block !important; visibility: visible !important; opacity: 1 !important; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;" class="pointer-events-none fixed inset-x-0 bottom-0 sm:px-6 sm:pb-5 lg:px-8 z-50">
+  <div class="pointer-events-auto flex flex-col sm:flex-row items-center justify-between gap-x-6 {{ $backgroundColor }} px-6 py-4 sm:rounded-xl sm:py-3 sm:pl-4">
+    <div class="flex-1">
+      <p class="text-sm/6 {{ $textColor }} mb-3 sm:mb-0">
+        <strong class="font-semibold">{{ $title }}</strong><svg viewBox="0 0 2 2" class="mx-2 inline size-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg>{{ $message }}
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2 items-center">
+      <button type="button" class="px-3 py-1.5 text-sm font-semibold rounded-md {{ $acceptAllButtonClass }}" data-cookie-consent="accept-all">
+        {{ $acceptAllText }}
+      </button>
+      <button type="button" class="px-3 py-1.5 text-sm font-semibold rounded-md {{ $acceptNecessaryButtonClass }}" data-cookie-consent="accept-necessary">
+        {{ $acceptNecessaryText }}
+      </button>
+      <button type="button" class="px-3 py-1.5 text-sm {{ $settingsButtonClass }}" data-cookie-consent="settings">
+        {{ $settingsText }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Settings Modal (hidden by default) -->
+<div id="cookie-settings-modal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black bg-opacity-50" data-cookie-settings-close></div>
+  <div class="relative mx-auto max-w-xl p-4 sm:p-6 bg-white rounded-lg shadow-xl mt-20">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold">{{ i18n "cookie_settings_title" }}</h2>
+      <button type="button" class="text-gray-400 hover:text-gray-500" data-cookie-settings-close>
+        <span class="sr-only">{{ i18n "cookie_settings_close" }}</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    
+    <div class="space-y-4">
+      <div class="border-b pb-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-medium">{{ i18n "cookie_settings_necessary_title" }}</h3>
+            <p class="text-sm text-gray-500">{{ i18n "cookie_settings_necessary_description" }}</p>
+          </div>
+          <div class="ml-3 flex h-5 items-center">
+            <input id="necessary-cookies" name="necessary-cookies" type="checkbox" checked disabled class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-b pb-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-medium">{{ i18n "cookie_settings_analytics_title" }}</h3>
+            <p class="text-sm text-gray-500">{{ i18n "cookie_settings_analytics_description" }}</p>
+          </div>
+          <div class="ml-3 flex h-5 items-center">
+            <input id="analytics-cookies" name="analytics-cookies" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-6 flex justify-end gap-x-3">
+      <button type="button" class="px-3 py-2 text-sm font-semibold rounded-md bg-white text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" data-cookie-settings-close>
+        {{ i18n "cookie_settings_cancel" }}
+      </button>
+      <button type="button" class="px-3 py-2 text-sm font-semibold rounded-md bg-indigo-600 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" data-cookie-settings-save>
+        {{ i18n "cookie_settings_save" }}
+      </button>
+    </div>
+  </div>
+</div>

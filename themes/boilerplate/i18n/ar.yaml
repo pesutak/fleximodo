@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "الأسئلة الشائعة"
+language_selector_title: "اللغات المتاحة"
+glossary_subtitle: "قائمة شاملة بالمصطلحات والتعريفات"
+glossary_title: "المصطلحات"
+home_title: "الرئيسية"
+
+# Glossary translations
+glossary_eyebrow: "المصطلحات"
+
+# Category page translations
+categories_title: "الفئات"
+categories_browse_all: "تصفح جميع المحتويات حسب الفئة"
+category_eyebrow: "الفئة"
+category_browse_content: "تصفح جميع المحتويات في فئة %s"
+category_no_content_found: "لم يتم العثور على محتوى في هذه الفئة"
+category_try_browsing: "حاول تصفح فئات أخرى أو البحث عن محتوى"
+category_other_categories: "فئات أخرى"
+
+# CTA translations
+cta_default_heading: "وسّع معرفتك من خلال مواردنا"
+cta_default_description: "استكشف مكتبتنا الشاملة من المقالات والأدلة والبرامج التعليمية لتعميق فهمك للمفاهيم الرئيسية والبقاء على اطلاع بأحدث التطورات."
+cta_default_primary_text: "تصفح الموارد"
+cta_default_secondary_text: "تواصل مع خبرائنا"
+
+# Content type translations
+content_article_singular: "مقال"
+content_article_plural: "مقالات"
+
+# Tags page translations
+tags_title: "العلامات"
+tags_browse_all: "تصفح جميع المحتويات حسب الموضوع"
+tag_eyebrow: "علامة"
+tag_browse_content: "تصفح جميع المحتويات المعلّمة بـ %s"
+tag_no_content_found: "لم يتم العثور على محتوى بهذه العلامة"
+tag_try_browsing: "جرب تصفح العلامات الأخرى أو البحث عن محتوى"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "السابق"
+tag_pagination_next: "التالي"
+tag_other_tags: "علامات أخرى"
+
+# Cookie consent translations
+cookie_consent_title: "الموافقة على ملفات تعريف الارتباط"
+cookie_consent_message: "نستخدم ملفات تعريف الارتباط لتعزيز تجربة التصفح وتحليل حركة المرور لدينا."
+cookie_consent_accept_all: "قبول الكل"
+cookie_consent_accept_necessary: "قبول الضروري فقط"
+cookie_consent_settings: "إعدادات ملفات تعريف الارتباط"
+cookie_settings_title: "إعدادات ملفات تعريف الارتباط"
+cookie_settings_close: "إغلاق"
+cookie_settings_necessary_title: "ملفات تعريف الارتباط الضرورية"
+cookie_settings_necessary_description: "تلك الملفات ضرورية لعمل الموقع ولا يمكن تعطيلها."
+cookie_settings_analytics_title: "ملفات تعريف الارتباط التحليلية"
+cookie_settings_analytics_description: "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع موقعنا."
+cookie_settings_cancel: "إلغاء"
+cookie_settings_save: "حفظ التفضيلات"
+
+# Pagination translations
+pagination_previous: "السابق"
+pagination_next: "التالي"
+pagination_showing: "عرض"
+pagination_to: "إلى"
+pagination_of: "من"
+pagination_results: "النتائج"
+pagination_browse_all: "تصفح جميع المحتويات في"
+
+# FAQ translations
+faq_heading: "الأسئلة الشائعة"
+faq_description: "ابحث عن إجابات للأسئلة الشائعة حول هذا الموضوع."
+
+no_terms_available: "لا توجد مصطلحات متاحة"
+pricing_monthly_label: "شهريًا"
+pricing_yearly_label: "سنويًا"
+wantMore: "هل تريد المزيد؟"
+learnMore: "اعرف المزيد"
+pricing_tagline: "التسعير"
+pricing_title: "تسعير ينمو معك"
+pricing_description: "اختر خطة بأسعار معقولة مليئة بأفضل الميزات لجذب جمهورك وإنشاء ولاء العملاء وزيادة المبيعات."
+pricing_comparison_title: "مقارنة الخطط"
+pricing_comparison_description: "تحقق من مقارنات خططنا واختر الأفضل لك"
+read_more_post: "اقرأ المزيد"
+no_posts_found: "لم يتم العثور على منشورات"
+minutes_read: "دقيقة قراءة"
+get_started: "ابدأ"
+courses.session: "جلسة"
+courses.you_will_learn: "ستتعلم:"
+courses.or: "أو"

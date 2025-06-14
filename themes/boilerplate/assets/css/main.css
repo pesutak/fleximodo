@@ -1,0 +1,86 @@
+@import "fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import custom component styles */
+@import 'typewriter.css';
+
+/* Custom styles can be added below */
+@layer components {
+  /* 🎨 SECTION BACKGROUNDS */
+  .section-bg-light {
+    @apply bg-white;
+    /* Light background, typically for white or neutral sections */
+  }
+
+  .section-bg-dark {
+    @apply bg-gray-900;
+    /* Dark background, used for contrast or "dark mode" sections */
+  }
+
+  /* 📝 TEXT STYLES */
+  .text-heading {
+    @apply text-gray-900 dark:text-white;
+    /* Main heading text – black in light mode, white in dark mode */
+  }
+
+  .text-body {
+    @apply text-gray-600 dark:text-gray-300;
+    /* Body text – medium gray in light mode, light gray in dark mode */
+  }
+
+  .text-muted {
+    @apply text-gray-500 dark:text-gray-400;
+    /* Subtle/secondary text – slightly muted for less emphasis */
+  }
+
+   /* 🔘 BUTTONS */
+
+  /* Common button transition */
+  .btn-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Primary button on light backgrounds – white text, primary background */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-md text-white bg-primary hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary btn-transition;
+  }
+
+  /* Primary button on dark backgrounds – slightly lighter background for contrast */
+  .btn-primary-dark {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-md text-white bg-primary-500 hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 btn-transition;
+  }
+
+  /* Secondary button – no background, just primary-colored text on light background */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold border rounded-lg bg-white border-gray-300 text-gray-900 hover:bg-gray-100 btn-transition;
+  }
+
+  /* Secondary button for dark backgrounds – uses lighter primary text for visibility */
+  .btn-secondary-dark {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white border-0 bg-white/10 hover:bg-white/20 btn-transition;
+  }
+
+  /* Minimal text button – typically inline or tertiary CTA on light background */
+  .btn-text {
+    @apply text-sm font-semibold text-gray-900 hover:text-gray-800 btn-transition;
+  }
+  /* Minimal text button for dark backgrounds */
+  .btn-text-dark {
+    @apply text-sm font-semibold text-white hover:text-primary-500 btn-transition;
+  }
+  
+  .wrapper {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /* Custom utility classes */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Light text shadow for subtle depth */
+  }
+}

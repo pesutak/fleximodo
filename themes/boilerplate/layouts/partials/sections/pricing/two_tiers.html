@@ -1,0 +1,215 @@
+{{/*
+@section: Two-Tier Pricing
+@description: A clean pricing section displaying two pricing tiers side by side with a subtle gradient background, ideal for simple pricing structures with a primary and secondary option.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Choose the right plan for you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - backgroundColor: Background color class (optional, default: "white")
+  - gradientStartColor: Starting color for the background gradient (optional, default: "#ff80b5")
+  - gradientEndColor: Ending color for the background gradient (optional, default: "#9089fc")
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - price: Price amount with currency symbol
+    - interval: Billing frequency (e.g., "/month")
+    - description: Short description of the tier
+    - features: Array of features included in this tier
+    - cta: Object with text and url for the call-to-action button
+    - primary: Boolean to indicate if this is the primary tier
+    - nameColor: Color class for the tier name
+    - priceColor: Color class for the price
+    - descriptionColor: Color class for the description
+    - featureColor: Color class for the feature text
+    - checkColor: Color class for the checkmark icons
+    - ctaColor: Color class for the CTA button text
+    - ctaBgColor: Color class for the CTA button background (for primary tier)
+    - ctaHoverBgColor: Color class for the CTA button hover background (for primary tier)
+    - ctaRingColor: Color class for the CTA button ring (for secondary tier)
+    - ctaHoverRingColor: Color class for the CTA button hover ring (for secondary tier)
+    - backgroundColor: Background color class for the tier
+    - borderColor: Border color class for the tier
+  - checkIcon: SVG path for the checkmark icon (optional, has default)
+@example:
+  {{ partial "sections/pricing/two_tiers.html" (dict 
+      "tagline" "Simple Pricing" 
+      "heading" "Choose the plan that fits your needs"
+      "description" "No hidden fees, no credit card required. Start your 14-day free trial today."
+      "tiers" (slice
+          (dict
+              "name" "Basic"
+              "id" "tier-basic"
+              "price" "$15"
+              "interval" "/month"
+              "description" "All the essentials for individuals and small projects."
+              "features" (slice
+                  "5 projects"
+                  "10GB storage"
+                  "Basic analytics"
+                  "Email support"
+                  "24-hour response time"
+              )
+              "cta" (dict
+                  "text" "Start free trial"
+                  "url" "/signup/basic"
+              )
+              "primary" true
+              "nameColor" "blue-600"
+              "ctaBgColor" "blue-600"
+              "ctaHoverBgColor" "blue-500"
+          )
+          (dict
+              "name" "Pro"
+              "id" "tier-pro"
+              "price" "$49"
+              "interval" "/month"
+              "description" "Advanced features for growing teams and businesses."
+              "features" (slice
+                  "Unlimited projects"
+                  "100GB storage"
+                  "Advanced analytics"
+                  "Priority support"
+                  "Same-day response time"
+              )
+              "cta" (dict
+                  "text" "Contact sales"
+                  "url" "/contact/sales"
+              )
+              "primary" false
+              "nameColor" "blue-600"
+              "ctaColor" "blue-600"
+          )
+      )
+      "gradientStartColor" "#3b82f6"
+      "gradientEndColor" "#8b5cf6"
+  ) }}
+@note: This component features a responsive design that adapts to different screen sizes. On mobile, the tiers stack vertically, while on desktop they display side-by-side with a primary tier that stands out with enhanced styling and a filled button.
+*/}}
+
+{{ $tagline := .tagline | default "Pricing" }}
+{{ $heading := .heading | default "Choose the right plan for you" }}
+{{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
+{{ $taglineColor := .taglineColor | default "indigo-600" }}
+{{ $backgroundColor := .backgroundColor | default "white" }}
+{{ $gradientStartColor := .gradientStartColor | default "#ff80b5" }}
+{{ $gradientEndColor := .gradientEndColor | default "#9089fc" }}
+
+{{ $tiers := .tiers | default (slice
+  (dict
+    "name" "Personal"
+    "id" "tier-personal"
+    "price" "$29"
+    "interval" "/month"
+    "description" "The perfect plan if you're just getting started with our product."
+    "features" (slice
+      "25 products"
+      "Up to 10,000 subscribers"
+      "Audience segmentation"
+      "Advanced analytics"
+      "Email support"
+      "Marketing automations"
+    )
+    "cta" (dict
+      "text" "Get started today"
+      "url" "#"
+    )
+    "primary" true
+    "nameColor" "indigo-600"
+    "priceColor" "gray-900"
+    "descriptionColor" "gray-600"
+    "featureColor" "gray-600"
+    "checkColor" "indigo-600"
+    "ctaColor" "white"
+    "ctaBgColor" "indigo-600"
+    "ctaHoverBgColor" "indigo-500"
+    "backgroundColor" "white"
+    "borderColor" "gray-900/10"
+  )
+  (dict
+    "name" "Team"
+    "id" "tier-team"
+    "price" "$99"
+    "interval" "/month"
+    "description" "A plan that scales with your rapidly growing business."
+    "features" (slice
+      "Priority support"
+      "Single sign-on"
+      "Enterprise integrations"
+      "Custom reporting tools"
+    )
+    "cta" (dict
+      "text" "Get started today"
+      "url" "#"
+    )
+    "primary" false
+    "nameColor" "indigo-600"
+    "priceColor" "gray-900"
+    "descriptionColor" "gray-600"
+    "featureColor" "gray-600"
+    "checkColor" "indigo-600"
+    "ctaColor" "indigo-600"
+    "ctaRingColor" "indigo-200"
+    "ctaHoverRingColor" "indigo-300"
+    "backgroundColor" "white/60"
+    "borderColor" "gray-900/10"
+  )
+) }}
+
+{{ $checkIcon := .checkIcon | default "check" }}
+
+<div class="relative isolate bg-{{ $backgroundColor }} px-6 py-24 sm:py-32 lg:px-8">
+  <div class="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl" aria-hidden="true">
+    <div class="mx-auto aspect-1155/678 w-[72.1875rem] bg-linear-to-tr from-[{{ $gradientStartColor }}] to-[{{ $gradientEndColor }}] opacity-30" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="mx-auto max-w-4xl text-center">
+    <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+    <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-6xl">{{ $heading }}</p>
+  </div>
+  <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-gray-600 sm:text-xl/8">{{ $description }}</p>
+  <div class="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
+    {{ range $index, $tier := $tiers }}
+      {{ if $tier.primary }}
+        <div class="relative rounded-3xl bg-{{ $tier.backgroundColor }} p-8 ring-1 shadow-2xl ring-{{ $tier.borderColor }} sm:p-10">
+          <h3 id="{{ $tier.id }}" class="text-base/7 font-semibold text-{{ $tier.nameColor }}">{{ $tier.name }}</h3>
+          <p class="mt-4 flex items-baseline gap-x-2">
+            <span class="text-5xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.price }}</span>
+            <span class="text-base text-gray-500">{{ $tier.interval }}</span>
+          </p>
+          <p class="mt-6 text-base/7 text-{{ $tier.descriptionColor }}">{{ $tier.description }}</p>
+          <ul role="list" class="mt-8 space-y-3 text-sm/6 text-{{ $tier.featureColor }} sm:mt-10">
+            {{ range $feature := $tier.features }}
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-{{ $tier.checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                {{ $checkIcon | safeHTML }}
+              </svg>
+              {{ $feature }}
+            </li>
+            {{ end }}
+          </ul>
+          <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md bg-{{ $tier.ctaBgColor }} px-3.5 py-2.5 text-center text-sm font-semibold text-{{ $tier.ctaColor }} shadow-sm hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaBgColor }} sm:mt-10">{{ $tier.cta.text }}</a>
+        </div>
+      {{ else }}
+        <div class="rounded-3xl bg-{{ $tier.backgroundColor }} p-8 ring-1 ring-{{ $tier.borderColor }} sm:mx-8 sm:rounded-t-none sm:p-10 lg:mx-0 lg:rounded-tr-3xl lg:rounded-bl-none">
+          <h3 id="{{ $tier.id }}" class="text-base/7 font-semibold text-{{ $tier.nameColor }}">{{ $tier.name }}</h3>
+          <p class="mt-4 flex items-baseline gap-x-2">
+            <span class="text-5xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.price }}</span>
+            <span class="text-base text-gray-500">{{ $tier.interval }}</span>
+          </p>
+          <p class="mt-6 text-base/7 text-{{ $tier.descriptionColor }}">{{ $tier.description }}</p>
+          <ul role="list" class="mt-8 space-y-3 text-sm/6 text-{{ $tier.featureColor }} sm:mt-10">
+            {{ range $feature := $tier.features }}
+            <li class="flex gap-x-3">
+              <svg class="h-6 w-5 flex-none text-{{ $tier.checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                {{ $checkIcon | safeHTML }}
+              </svg>
+              {{ $feature }}
+            </li>
+            {{ end }}
+          </ul>
+          <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaRingColor }} ring-inset hover:ring-{{ $tier.ctaHoverRingColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaColor }} sm:mt-10">{{ $tier.cta.text }}</a>
+        </div>
+      {{ end }}
+    {{ end }}
+  </div>
+</div>

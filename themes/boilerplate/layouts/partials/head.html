@@ -1,0 +1,16 @@
+<meta name="referrer" content="no-referrer">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+{{ if .Params.private }}
+<meta name="robots" content="noindex, nofollow">
+{{ end }}
+
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+{{ with .Permalink }}<link rel="canonical" href="{{ . }}">{{ end }}
+
+<!-- Generate hreflang alternate links -->
+{{ partial "helpers/generate-hreflang-links.html" (dict "currentPage" . "defaultLang" "en") | safeHTML }}
+{{ partial "social-meta.html" . | safeHTML }}
+{{ partialCached "head/variables.html" . }}
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}

@@ -1,0 +1,116 @@
+{{/*
+@section: Team with Small Images
+@description: A team section displaying members in a grid layout with small circular avatar images, names, and roles.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Main section heading (optional, default: "Meet our leadership")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-600")
+  - nameColor: Team member name color class (optional, default: "text-gray-900")
+  - roleColor: Team member role color class (optional, default: "text-indigo-600")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Member name
+    - role: Member role or position
+    - image: URL to member's avatar image
+@example:
+  {{ partial "sections/team/with_small_images.html" (dict 
+      "heading" "Our Team" 
+      "description" "Meet the talented individuals who make our company successful."
+      "teamMembers" (slice 
+          (dict 
+              "name" "Jane Smith" 
+              "role" "CEO & Founder"
+              "image" "/images/team/jane-smith.jpg"
+          )
+          (dict 
+              "name" "John Doe" 
+              "role" "CTO"
+              "image" "/images/team/john-doe.jpg"
+          )
+          (dict 
+              "name" "Sarah Johnson" 
+              "role" "Head of Marketing"
+              "image" "/images/team/sarah-johnson.jpg"
+          )
+      )
+      "bgColor" "bg-gray-50"
+      "roleColor" "text-blue-600"
+  ) }}
+@note: This section displays team members in a responsive grid that adapts to different screen sizes.
+*/}}
+
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Meet our leadership" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description | default "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-600" }}
+
+{{/* Team members */}}
+{{ $nameColor := .nameColor | default "text-gray-900" }}
+{{ $roleColor := .roleColor | default "text-indigo-600" }}
+{{ $teamMembers := .teamMembers | default (slice 
+  (dict 
+    "name" "Leslie Alexander" 
+    "role" "Co-Founder / CEO"
+    "image" "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  )
+  (dict 
+    "name" "Michael Foster" 
+    "role" "Co-Founder / CTO"
+    "image" "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  )
+  (dict 
+    "name" "Dries Vincent" 
+    "role" "Business Relations"
+    "image" "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  )
+  (dict 
+    "name" "Lindsay Walton" 
+    "role" "Front-end Developer"
+    "image" "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  )
+  (dict 
+    "name" "Courtney Henry" 
+    "role" "Designer"
+    "image" "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  )
+  (dict 
+    "name" "Tom Cook" 
+    "role" "Director of Product"
+    "image" "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  )
+) }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto grid max-w-7xl gap-20 px-6 lg:px-8 xl:grid-cols-3">
+    <div class="max-w-xl">
+      <h2 class="text-3xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-4xl">{{ $heading }}</h2>
+      <p class="mt-6 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+    </div>
+    <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+      {{ range $teamMembers }}
+      <li>
+        <div class="flex items-center gap-x-6">
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" .image 
+            "alt" .name 
+            "class" "size-16 rounded-full" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
+          <div>
+            <h3 class="text-base/7 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
+            <p class="text-sm/6 font-semibold {{ $roleColor }}">{{ .role }}</p>
+          </div>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>

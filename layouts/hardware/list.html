@@ -1,0 +1,24 @@
+{{ define "main" }}
+
+{{ partial "breadcrumbs_default.html" . }}
+
+<div
+    class="prose prose-lg prose-indigo prose-headings:font-semibold prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl mx-auto max-w-7xl py-12 sm:px-4 sm:py-16 lg:px-6 lg:py-20">
+    {{ .Content }}
+</div>
+
+<div class="mx-auto max-w-7xl py-12 sm:px-4 sm:py-16 lg:px-6 lg:py-20">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {{ range .Pages }}
+        <a href="{{ .Permalink }}">
+            <div class="flex flex-col gap-2">
+                <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-full h-48 object-cover">
+                <h3 class="text-lg font-semibold">{{ .Title }}</h3>
+                <p class="text-sm text-gray-500">{{ .Params.desc }}</p>
+            </div>
+        </a>
+        {{ end }}
+    </div>
+</div>
+
+{{ end }}

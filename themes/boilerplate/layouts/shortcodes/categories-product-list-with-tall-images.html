@@ -1,0 +1,83 @@
+{{/* 
+  Categories shortcode with product list with tall images
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Products", sr-only by default)
+  
+  Inner Content (optional JSON array):
+  - Array of product objects with the following structure:
+    - title: Product title
+    - variant: Product variant text (e.g., "3 sizes available")
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - price: Product price
+  
+  Example usage with custom products:
+  {{< categories-product-list-with-tall-images heading="Featured Items" >}}
+    [
+      {
+        "title": "Pro Trail Camera",
+        "variant": "Black",
+        "url": "/products/pro-trail-camera",
+        "imageUrl": "/images/products/pro-trail-camera.jpg",
+        "imageAlt": "Pro trail camera with night vision and motion detection",
+        "price": "$129"
+      },
+      {
+        "title": "Solar Panel Kit",
+        "variant": "10W/20W available",
+        "url": "/products/solar-panel-kit",
+        "imageUrl": "/images/products/solar-panel-kit.jpg",
+        "imageAlt": "Solar panel charging kit for outdoor cameras",
+        "price": "$45"
+      }
+    ]
+  {{< /categories-product-list-with-tall-images >}}
+  
+  If no inner content is provided, default products will be used.
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Products" }}
+
+{{ $defaultProducts := slice 
+  (dict 
+    "title" "Focus Paper Refill"
+    "variant" "3 sizes available"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-01-image-card-01.jpg"
+    "imageAlt" "Person using a pen to cross a task off a productivity paper card."
+    "price" "$13"
+  )
+  (dict 
+    "title" "Focus Card Holder"
+    "variant" "Walnut"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-01-image-card-02.jpg"
+    "imageAlt" "Paper card sitting upright in walnut card holder on desk."
+    "price" "$64"
+  )
+  (dict 
+    "title" "Focus Carry Case"
+    "variant" "Heather Gray"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-01-image-card-03.jpg"
+    "imageAlt" "Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop."
+    "price" "$32"
+  )
+}}
+
+{{ $products := $defaultProducts }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $products = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ partial "categories/product_list_with_tall_images.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "products" $products
+) }}

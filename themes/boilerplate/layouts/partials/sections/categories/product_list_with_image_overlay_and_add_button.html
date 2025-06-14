@@ -1,0 +1,129 @@
+{{/*
+@section: Product List with Image Overlay and Add Button
+@description: A grid layout of products with overlaid "Add to bag" buttons that appear on hover, ideal for quick-purchase product listings.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - heading: Main section heading (optional, default: "Customers also purchased")
+  - viewAllText: Text for the "View all" link (optional, default: "View all")
+  - viewAllUrl: URL for the "View all" link (optional, default: "#")
+  - addToCartText: Text for the add to cart button (optional, default: "Add to bag")
+  - products: Array of product objects (optional, includes defaults)
+    - title: Product title
+    - category: Product category
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - price: Product price
+    - color: Product color description
+@example:
+  {{ partial "sections/categories/product_list_with_image_overlay_and_add_button.html" (dict 
+      "backgroundColor" "bg-gray-50"
+      "heading" "Popular Products" 
+      "viewAllText" "Browse all products"
+      "viewAllUrl" "/products"
+      "addToCartText" "Add to cart"
+      "products" (slice
+          (dict 
+              "title" "Designer Desk Lamp" 
+              "category" "Home Office"
+              "url" "/products/desk-lamp"
+              "imageUrl" "/images/products/desk-lamp.jpg"
+              "imageAlt" "Adjustable designer desk lamp with brushed steel finish."
+              "price" "$89"
+              "color" "Brushed Steel"
+          )
+          (dict 
+              "title" "Leather Portfolio" 
+              "category" "Accessories"
+              "url" "/products/portfolio"
+              "imageUrl" "/images/products/portfolio.jpg"
+              "imageAlt" "Premium leather portfolio with document organizer."
+              "price" "$129"
+              "color" "Brown"
+          )
+          (dict 
+              "title" "Smart Thermostat" 
+              "category" "Electronics"
+              "url" "/products/thermostat"
+              "imageUrl" "/images/products/thermostat.jpg"
+              "imageAlt" "Programmable smart thermostat with touchscreen display."
+              "price" "$199"
+              "color" "White"
+          )
+      )
+  ) }}
+@note: This component is designed for quick shopping experiences where users can easily add products to their cart directly from the listing page. The "Add to bag" button appears on hover, providing a clean interface that doesn't overwhelm users with information.
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Customers also purchased" }}
+{{ $viewAllText := .viewAllText | default "View all" }}
+{{ $viewAllUrl := .viewAllUrl | default "#" }}
+{{ $addToCartText := .addToCartText | default "Add to bag" }}
+
+{{ $products := .products | default (slice 
+  (dict 
+    "title" "Nomad Tumbler"
+    "category" "Accessories"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-related-product-01.jpg"
+    "imageAlt" "Olive drab green insulated bottle with flared screw lid and flat top."
+    "price" "$35"
+    "color" "White"
+  )
+  (dict 
+    "title" "Focus Paper Refill"
+    "category" "Stationery"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-related-product-02.jpg"
+    "imageAlt" "Stack of three refill paper pads with gray and white focus paper."
+    "price" "$15"
+    "color" "Gray"
+  )
+  (dict 
+    "title" "Machined Mechanical Pencil"
+    "category" "Stationery"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-related-product-03.jpg"
+    "imageAlt" "Black machined steel mechanical pencil with brass tip and eraser end."
+    "price" "$35"
+    "color" "Black"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div class="flex items-center justify-between">
+      <h2 class="text-xl font-bold text-gray-900">{{ $heading }}</h2>
+      <a href="{{ $viewAllUrl }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">{{ $viewAllText }}</a>
+    </div>
+
+    <div class="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+      {{ range $products }}
+      <div>
+        <div class="relative">
+          <div class="aspect-w-4 aspect-h-3 overflow-hidden rounded-lg bg-gray-100">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" .imageUrl 
+              "alt" .imageAlt
+              "class" "size-full object-cover object-center group-hover:opacity-75"
+              "maxWidth" 400
+            ) }}
+          </div>
+          <div class="relative mt-4">
+            <h3 class="text-sm font-medium text-gray-900">{{ .title }}</h3>
+            <p class="mt-1 text-sm text-gray-500">{{ .category }}</p>
+          </div>
+          <div class="absolute inset-x-0 top-0 flex h-72 items-end justify-end overflow-hidden rounded-lg p-4">
+            <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-black opacity-50"></div>
+            <p class="relative text-lg font-semibold text-white">{{ .price }}</p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <a href="{{ .url }}" class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">{{ $addToCartText }}<span class="sr-only">, {{ .title }}</span></a>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

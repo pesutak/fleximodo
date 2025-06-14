@@ -1,0 +1,86 @@
+# English translations
+frequently_asked_questions: "Questions Fréquemment Posées"
+language_selector_title: "Langues Disponibles"
+glossary_subtitle: "Une liste complète de termes et définitions"
+glossary_title: "Glossaire"
+home_title: "Accueil"
+
+# Glossary translations
+glossary_eyebrow: "Glossaire"
+
+# Category page translations
+categories_title: "Catégories"
+categories_browse_all: "Parcourir tout le contenu par catégorie"
+category_eyebrow: "Catégorie"
+category_browse_content: "Parcourir tout le contenu dans la catégorie %s"
+category_no_content_found: "Aucun contenu trouvé dans cette catégorie"
+category_try_browsing: "Essayez de parcourir d'autres catégories ou de rechercher du contenu"
+category_other_categories: "Autres Catégories"
+
+# CTA translations
+cta_default_heading: "Élargissez vos connaissances avec nos ressources"
+cta_default_description: "Explorez notre bibliothèque complète d'articles, de guides et de tutoriels pour approfondir votre compréhension des concepts clés et rester à jour avec les derniers développements."
+cta_default_primary_text: "Parcourir les ressources"
+cta_default_secondary_text: "Contacter nos experts"
+
+# Content type translations
+content_article_singular: "article"
+content_article_plural: "articles"
+
+# Tags page translations
+tags_title: "Étiquettes"
+tags_browse_all: "Parcourir tout le contenu par sujet"
+tag_eyebrow: "Étiquette"
+tag_browse_content: "Parcourir tout le contenu étiqueté avec %s"
+tag_no_content_found: "Aucun contenu trouvé avec cette étiquette"
+tag_try_browsing: "Essayez de parcourir d'autres étiquettes ou de rechercher du contenu"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Précédent"
+tag_pagination_next: "Suivant"
+tag_other_tags: "Autres Étiquettes"
+
+# Cookie consent translations
+cookie_consent_title: "Consentement aux Cookies"
+cookie_consent_message: "Nous utilisons des cookies pour améliorer votre expérience de navigation et analyser notre trafic."
+cookie_consent_accept_all: "Tout Accepter"
+cookie_consent_accept_necessary: "Accepter Uniquement les Nécessaires"
+cookie_consent_settings: "Paramètres des Cookies"
+cookie_settings_title: "Paramètres des Cookies"
+cookie_settings_close: "Fermer"
+cookie_settings_necessary_title: "Cookies Nécessaires"
+cookie_settings_necessary_description: "Ces cookies sont nécessaires pour le fonctionnement du site web et ne peuvent pas être désactivés."
+cookie_settings_analytics_title: "Cookies d'Analyse"
+cookie_settings_analytics_description: "Ces cookies nous aident à comprendre comment les visiteurs interagissent avec notre site web."
+cookie_settings_cancel: "Annuler"
+cookie_settings_save: "Enregistrer les Préférences"
+
+# Pagination translations
+pagination_previous: "Précédent"
+pagination_next: "Suivant"
+pagination_showing: "Affichage"
+pagination_to: "à"
+pagination_of: "de"
+pagination_results: "résultats"
+pagination_browse_all: "Parcourir tout le contenu dans"
+
+# FAQ translations
+faq_heading: "Questions fréquemment posées"
+faq_description: "Trouvez des réponses aux questions courantes sur ce sujet."
+
+no_terms_available: "Aucun terme disponible"
+pricing_monthly_label: "Mensuel"
+pricing_yearly_label: "Annuel"
+wantMore: "Vous en voulez plus ?"
+learnMore: "En savoir plus"
+pricing_tagline: "Tarification"
+pricing_title: "Une tarification qui évolue avec vous"
+pricing_description: "Choisissez un forfait abordable comprenant les meilleures fonctionnalités pour engager votre audience, créer la fidélité des clients et stimuler les ventes."
+pricing_comparison_title: "Comparer les forfaits"
+pricing_comparison_description: "Consultez nos comparaisons de forfaits et sélectionnez celui qui vous convient le mieux"
+read_more_post: "Lire la suite"
+no_posts_found: "Aucun article trouvé"
+minutes_read: "min de lecture"
+get_started: "Commencer"
+courses.session: "Séance"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"

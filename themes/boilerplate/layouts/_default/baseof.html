@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<head>
+  {{ partial "head.html" . }}
+  
+  <!-- Google Analytics with Consent Mode -->
+  {{ partialCached "utils/analytics/google-analytics-consent.html" . }}
+
+  <!-- Cookie Consent JS -->
+  {{ $cookieConsent := resources.Get "js/cookie-consent.js" | resources.Minify | resources.Fingerprint }}
+  <script src="{{ $cookieConsent.RelPermalink }}" defer></script>
+</head>
+<body class="antialiased bg-white">
+<!-- Initialize linkbuilding tracking for all pages -->
+{{ .Scratch.Set "processedLinks" slice }}
+  
+{{ partialCached "header.html" . }}
+<main class="w-full">
+  {{ block "main" . }}{{ end }}
+</main>
+ 
+{{ partial "footer.html" . }}
+  
+<!-- Cookie Consent Banner -->
+{{ partialCached "sections/banners/cookie_consent_floating_at_bottom" (dict 
+  "title" "Cookie Consent"
+  "message" "We use cookies to enhance your browsing experience and analyze our traffic."
+  "acceptAllText" "Accept All"
+  "acceptNecessaryText" "Necessary Only"
+  "settingsText" "Settings"
+) }}
+</body>
+</html>
